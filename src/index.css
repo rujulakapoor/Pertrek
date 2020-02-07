@@ -1,3 +1,7 @@
+.planner .container {
+  background-color: aquamarine;
+}
+
 #container {
   width: 100%;
   height: 900px;

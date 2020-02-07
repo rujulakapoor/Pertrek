@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import fire from './config/fire'
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
@@ -48,12 +54,17 @@ class Home extends Component {
            <h3>P E R T R E K</h3>
            <h2>YOUR PERFECT VACATION STARTS HERE</h2>
            <div class="dropdown">
-          <button class="dropbtn">Select A Destination</button>
-          <div class="dropdown-content">
-          <a href="#">Orlando</a>
-          <a href="#">Chicago</a>
-          <a href="#">Cincinnati</a>
-        </div>
+            <button class="dropbtn">Select A Destination</button>
+            <div class="dropdown-content">
+            <a href="#">Orlando</a>
+            <Link to='/planner'>Chicago</Link>
+            <a href="#">Cincinnati</a>
+
+            </div>
+
+            <Link to='/planner'>
+              <button className = "btn btn-lg btn-primary">Plan</button>
+            </Link>
         </div>
           </div>
           </body>
