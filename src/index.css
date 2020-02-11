@@ -113,6 +113,7 @@ p {
 }
 #left {
   text-align: right;
+  padding: 5px;
 }
 .login h6 {
   display: block;
