@@ -23,6 +23,21 @@ p {
   font-family: 'Quicksand', sans-serif;
 }
 
+/* NAV BAR */
+.nav-bar {
+  text-decoration: none;
+}
+
+.nav-bar h4 {
+  color: rgb(15, 15, 15);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-bar h5 {
+  color: rgb(39, 39, 39);
+}
+
 /* HOME */
 .home h3 {
   display: block;

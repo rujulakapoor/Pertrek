@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 
 class Navigation extends React.Component {
     render() {
       return (
         <Navbar bg="light" expand="lg" className="nav-bar">
-            <Navbar.Brand href="#home">Pertrek</Navbar.Brand>
+            <Navbar.Brand><Link to="/" style={{ textDecoration: 'none' }}><h4>Pertrek</h4></Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-                <Nav.Link href=".">Home</Nav.Link>
-                <Nav.Link href="./planner">Planner</Nav.Link>
+            <Nav.Link href="."><h5>Home</h5></Nav.Link>
+            <Nav.Link href="."><h5>Link</h5></Nav.Link>
             </Nav>
             <Form inline>
                 <NavDropdown title="Hello, ______" id="basic-nav-dropdown" className="dropdown">
