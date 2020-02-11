@@ -11,6 +11,7 @@ render() {
   const {values, handleChange} = this.props;
 
   return(
+<div id="form">
     <Form>
       <FormGroup>
         <FormLabel> Vacation Title </FormLabel>
@@ -42,7 +43,7 @@ render() {
       </Button>
     </Form>
 
-
+</div>
 
   );
 
