@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Button, Form, FormControl, FormLabel, FormGroup} from 'react-bootstrap'
 export class FormItineraryDetails extends Component {
 
   continue = e => {
@@ -8,23 +8,41 @@ export class FormItineraryDetails extends Component {
   }
 
 render() {
-  const {values} = this.props;
+  const {values, handleChange} = this.props;
 
   return(
-    <form>
-        <label>Vacation Title  <br/>
-        <input type="text" name="title" />
-        </label>
-        <label>Vacation Start Date  <br/>
-        <input type="date" name="startdate" />
-        </label>
-        <label>Vacation End Date  <br/>
-        <input type="date" name="enddate" />
-        </label>
-        <label>Budget  <br/>
-        <input type="double" name="startdate" />
-        </label>
-    </form>
+    <Form>
+      <FormGroup>
+        <FormLabel> Vacation Title </FormLabel>
+        <FormControl type="text" onChange={handleChange('title')}
+        defaultValue={values.title} />
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Start Date </FormLabel>
+        <FormControl type="date"onChange={handleChange('startdate')}
+        defaultValue={values.startdate}/>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel> End Date</FormLabel>
+        <FormControl type="date"onChange={handleChange('enddate')}
+        defaultValue={values.enddate}/>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel> Budget </FormLabel>
+        <FormControl type="double" onChange={handleChange('budget')}
+        defaultValue={values.budget}/>
+      </FormGroup>
+      <FormGroup>
+        <FormLabel>Notes </FormLabel>
+        <FormControl type="text"onChange={handleChange('notes')}
+        defaultValue={values.notes}/>
+      </FormGroup>
+      <Button variant="primary" type="submit" onClick={this.continue}>
+      Submit
+      </Button>
+    </Form>
+
+
 
   );
 
