@@ -67,7 +67,7 @@ class Login extends Component {
     return (
         
         <div className="App">
-
+        <div className="login">
           <section id="container">
         <div id="one"></div>
         <div id="two">
@@ -109,6 +109,7 @@ class Login extends Component {
             
         </div>
         </section>
+        </div>
         </div>
 
         
