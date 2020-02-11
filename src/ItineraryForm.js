@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import FormItineraryDetails from './FormItineraryDetails'
+import GenerateItinerary from './GenerateItinerary'
 class ItineraryForm extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +48,13 @@ render() {
       />
     );
     case 2:
-      return <h2> submit </h2>
+      return(<GenerateItinerary
+        nextStep={this.nextStep}
+        handleChange={this.handleChange}
+        values={values}
+        />
+      );
+
     case 3:
       return <h2> Confirm </h2>
     case 4:
