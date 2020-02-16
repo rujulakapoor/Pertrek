@@ -3,10 +3,6 @@ import { Card, Button } from 'react-bootstrap';
 import kerm from './img/kermit.jpg';
 import fire from './config/fire';
 import Firebase from 'firebase';
-import { FirestoreCollection, FirestoreDocument } from 'react-firestore';
-
-import FirebaseDatabaseNode from 'react-firestore';
-
 
 class Planner extends Component {
   constructor(props) {
@@ -47,6 +43,7 @@ class Planner extends Component {
   render() {
     const { attractions } = this.state;
     return(
+
       <div className="planner">
         <div className="row">
           <div className='col-xl-12'>
@@ -60,7 +57,7 @@ class Planner extends Component {
             .map(attraction => 
               <Card key={attraction.uid} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
                 <Card.Header as="h5">{ attraction.name }</Card.Header>
-                <Card.Img variant="top" src={kerm} />
+                <Card.Img variant="top" src={ attraction.image } />
 
                 <Card.Body>
                   <Card.Text as="h4">
@@ -90,7 +87,8 @@ class Planner extends Component {
         </div>
         
         {/* ^^^^^^^ */}
-
+        
+        <hr/>
         <div className='row'>
           <div className='col-xl-12'>
             <h1>Add attraction</h1>
@@ -121,6 +119,10 @@ class Planner extends Component {
                   <label>Popularity</label>
                   <input type="text" ref='popularity' className="form-control" placeholder="Popularity" />
                 </div>
+                <div className="form-group col-md-6">
+                  <label>Image url</label>
+                  <input type="text" ref='image' className="form-control" placeholder="Image" />
+                </div>
               </div>
               <button type="submit" className="btn btn-primary">Save</button>
             </form>
@@ -138,9 +140,10 @@ class Planner extends Component {
     let description = this.refs.description.value;
     let duration = this.refs.duration.value;
     let popularity = this.refs.popularity.value;
+    let image = this.refs.image.value;
     let uid = this.refs.uid.value;
   
-    if (uid && name && address && cost && description && duration && popularity){
+    if (uid && name && address && cost && description && duration && popularity && image){
       const { attractions } = this.state;
       const devIndex = attractions.findIndex(data => {
         return data.uid === uid 
@@ -151,12 +154,13 @@ class Planner extends Component {
       attractions[devIndex].description = description;
       attractions[devIndex].duration = duration;
       attractions[devIndex].popularity = popularity;
+      attractions[devIndex].image = image;
       this.setState({ attractions });
     }
-    else if (name && address && cost && description && duration && popularity ) {
+    else if (name && address && cost && description && duration && popularity && image) {
       const uid = new Date().getTime().toString();
       const { attractions } = this.state;
-      attractions.push({ uid, name, address, cost, description, duration, popularity })
+      attractions.push({ uid, name, address, cost, description, duration, popularity, image })
       this.setState({ attractions });
     }
   
@@ -166,6 +170,7 @@ class Planner extends Component {
     this.refs.description.value = '';
     this.refs.duration.value = '';
     this.refs.popularity.value = '';
+    this.refs.image.value = '';
     this.refs.uid.value = '';
   }
   
@@ -185,6 +190,7 @@ class Planner extends Component {
     this.refs.description.value = attraction.description;
     this.refs.duration.value = attraction.duration;
     this.refs.popularity.value = attraction.popularity;
+    this.refs.image.value = attraction.image;
   }
 
     
