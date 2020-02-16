@@ -4,7 +4,8 @@ import fire from './config/fire';
 import Home from './Home';
 import Login from './Login';
 import Main from './Main';
-import Navigation from './Navigation'
+import Navigation from './Navigation';
+import { FirestoreProvider } from "react-firestore";
 
 class App extends Component {
   constructor(props) {
@@ -38,8 +39,10 @@ class App extends Component {
      <div>
        {this.state.user ? (
          <React.Fragment>
-          <Navigation value={this.logout}/>
-          <Main/>
+            <FirestoreProvider firebase={fire}>
+              <Navigation value={this.logout}/>
+              <Main/>
+            </FirestoreProvider>
          </React.Fragment>
         ) : (
           <Login/>
