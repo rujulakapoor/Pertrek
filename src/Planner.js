@@ -47,10 +47,10 @@ class Planner extends Component {
   render() {
     const { attractions } = this.state;
     return(
-      <div className="container">
+      <div className="planner">
         <div className="row">
           <div className='col-xl-12'>
-            <h1>Firebase Development Team</h1>
+            <h1>Attractions</h1>
           </div>
         </div>
         <div className='row'>
@@ -58,13 +58,32 @@ class Planner extends Component {
           { 
             attractions
             .map(attraction => 
-              <div key={attraction.uid} className="card float-left" style={{width: '18rem', marginRight: '1rem'}}>
-                <div className="card-body">
-                  <h5 className="card-title">{ attraction.name }</h5>
-                  <p className="card-text">{ attraction.description }</p>
+              <Card key={attraction.uid} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
+                <Card.Header as="h5">{ attraction.name }</Card.Header>
+                <Card.Img variant="top" src={kerm} />
 
-                </div>
-              </div>
+                <Card.Body>
+                  <Card.Text as="h4">
+                    Cost: ${ attraction.cost }
+                  </Card.Text>
+                  <Card.Text as="h4">
+                    Estimated duration: { attraction.duration } hours
+                  </Card.Text>
+                  <Card.Text as="h4">
+                    { attraction.popularity } reviews
+                  </Card.Text>
+                  <Card.Text as="p">
+                    { attraction.description }
+                  </Card.Text>
+                  <Button variant="secondary">Add</Button>
+                </Card.Body>
+
+                <Card.Footer as="h3">
+                  { attraction.address }
+                </Card.Footer>
+
+              </Card>
+
               )
           } 
           </div>
@@ -74,7 +93,7 @@ class Planner extends Component {
 
         <div className='row'>
           <div className='col-xl-12'>
-            <h1>Add new team member here</h1>
+            <h1>Add attraction</h1>
             <form onSubmit={ this.handleSubmit }>
               <div className="form-row">
                 <input type='hidden' ref='uid' />
