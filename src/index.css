@@ -87,7 +87,7 @@ p {
 #container {
   width: 100%;
   height: 900px;
-  background: rgb(255, 255, 255);
+  background: white;
   margin: auto;
   padding: 10px;
 }
@@ -113,31 +113,63 @@ p {
 }
 #accountone {
   width: 30%;
-  height: 700px;
+  height: 900px;
   background: white;
   float: left;
 }
 
 #accounttwo {
   margin-left: 15%;
-  height: 700px;
+  height: 900px;
   background: #c7d0d8;
   text-align: center;
   
 }
+#icon{
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 0%;
+}
+#move{
+  text-align: center;
+
+}
+
 #left {
   text-align: right;
   padding: 5px;
 }
+.Account h1{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 25px;
+  text-align: center;
+  padding-top: 20px;
+
+}
 .Account h2{
-  display: block;
-  font-size: 52px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  padding: 10px;
-  text-align: left;
-  color: black;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 25px;
+  text-align: center;
   
+}
+.Account h3{
+  display: block;
+  font-size: 25px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  margin-top: 8%;
+  margin-bottom: 0%;
+  
+}
+
+.fa, .fa-home, .fa-plus-circle, .fa-cog {
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  color: black;
+  text-decoration: none;
 }
 
 .Login h6{
