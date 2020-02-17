@@ -111,10 +111,35 @@ p {
   background: #c7d0d8;
   text-align: center;
 }
+#accountone {
+  width: 30%;
+  height: 700px;
+  background: white;
+  float: left;
+}
+
+#accounttwo {
+  margin-left: 15%;
+  height: 700px;
+  background: #c7d0d8;
+  text-align: center;
+  
+}
 #left {
   text-align: right;
   padding: 5px;
 }
+.Account h2{
+  display: block;
+  font-size: 52px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  padding: 10px;
+  text-align: left;
+  color: black;
+  
+}
+
 .Login h6{
   display: block;
   font-size: 52px;
@@ -318,6 +343,55 @@ p {
 }
 
 .popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+
+
+
+.overlay2 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: visible;
+  opacity: 1;
+}
+.overlay2:target {
+  visibility: hidden;
+  opacity: 0;
+  display:none
+}
+.popup2 {
+  margin: 70px auto;
+  padding: 60px;
+  background: #fff;
+  border-radius: 20px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+.popup2 h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup2 .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup2 .content {
   max-height: 30%;
   overflow: auto;
 }

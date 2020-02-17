@@ -32,15 +32,41 @@ class Login extends Component {
   }
 
   signup(e){
+   
+   var count=0;
+   var result2=0;
+   var special=0;
+   for (var i = 0; i < this.state.password2.length; i++) {
+    if(this.state.password2.charAt(i)== this.state.password2.charAt(i).toUpperCase()){
+        result2++;
+    }
+    if(this.state.password2.charAt(i)=="!" || this.state.password2.charAt(i)=="$" || this.state.password2.charAt(i)=="#" ){
+        special++;
+    }
+   }
+    //alert(special);
+    var flag=1;
+    var result = this.state.password2.localeCompare(this.state.password22);
     
 
+    if(this.state.password2.length>=6 && result==0 && this.state.password22.length>=6 && result2>0 && special>0){
+      flag=0;
+    }
+
+
+
+    if(flag!=1){
     e.preventDefault();
-    fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then((u)=>{
+    fire.auth().createUserWithEmailAndPassword(this.state.email2, this.state.password2).then((u)=>{
     }).then((u)=>{console.log(u)})
     .catch((error) => {
         console.log(error);
-        alert("Account not created");
+        alert("This Account Already Exists");
       })
+    }
+    else{
+      alert("Your Password if weak");
+    } 
   }
   forget(e){
     e.preventDefault();
@@ -83,7 +109,7 @@ class Login extends Component {
             <a  class="button" href="#">Dont't Have An Account Sign Up</a>
             </div> 
             <div>
-            <button id="ForgotIn"type="submit" onClick={this.forget} class="btn btn-primary">Forgot Password</button>  
+            <a  class="button" href="#">Forgot Password</a>
             </div>
 
 
@@ -92,16 +118,21 @@ class Login extends Component {
     		    <h5>Create an Account</h5>
     		    <a class="close" href="#popup1">×</a>
     		    <div class="content">
-            <input value={this.state.email} onChange={this.handleChange} type="email" name="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
+            <input value={this.state.email2} onChange={this.handleChange} type="email" name="email2"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
             <div>
-            <input value={this.state.password} onChange={this.handleChange} type="password" name="password"  id="exampleInputEmail1" placeholder="Password" />
+            <input value={this.state.password2} onChange={this.handleChange} type="password" name="password2"  id="exampleInputEmail1" placeholder="Password" />
+            </div>
+            <div>
+            <input value={this.state.password22} onChange={this.handleChange} type="password" name="password22"  id="exampleInputEmail1" placeholder="Renter Password" />
             </div>
             <div>
             <button id="Submit"type="submit" onClick={this.signup} class="btn btn-primary">SignUp</button>
             </div>
     		    </div>
     	      </div>
-            </div>    
+            </div> 
+
+                 
     </div>
     </section>
     </div>
