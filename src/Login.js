@@ -66,51 +66,45 @@ class Login extends Component {
     
     return (
         
-        <div className="App">
-        <div className="login">
-          <section id="container">
-        <div id="one"></div>
-        <div id="two">
-            
-            <h6>Log In</h6>
-            <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
-            <div class="form-group">
-            <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputEmail1" placeholder="Password" />
+    <div className="Login">
+    <section id="container">
+    <div id="one">
+    </div>
+    <div id="two">
+    <h6>Log In</h6>
+            <input value={this.state.email} onChange={this.handleChange} type="email" name="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
+            <div>
+            <input value={this.state.password} onChange={this.handleChange} type="password" name="password"  id="exampleInputEmail1" placeholder="Password" />
             </div>
-            <div class="form-group">
+            <div>
             <button id="LogIn"type="submit" onClick={this.login} class="btn btn-primary">Login</button>
             </div>
-   
-        <div class="box">
-         <a  class="button" href="#">Dont't Have An Account Sign Up</a>
-         </div> 
-        <div id="popup1" class="overlay">
-    	<div class="popup" >
-    		<h2>Create an Account</h2>
-    		<a class="close" href="#popup1">×</a>
-    		<div class="content">
-            <input value={this.state.email} onChange={this.handleChange} type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
-            <div class="form-group">
-            <input value={this.state.password} onChange={this.handleChange} type="password" name="password" class="form-control" id="exampleInputEmail1" placeholder="Password" />
+            <div class="box">
+            <a  class="button" href="#">Dont't Have An Account Sign Up</a>
+            </div> 
+            <div>
+            <button id="ForgotIn"type="submit" onClick={this.forget} class="btn btn-primary">Forgot Password</button>  
             </div>
-            <div class="form-group">  
-            <button id="LogIn"type="submit" onClick={this.signup} class="btn btn-primary">Subit</button>
-            </div>
-    		</div>
-    	</div>
-        </div>    
-      
 
 
-
-            <div class="form-group">
-            <button id="Forgot" onClick={this.forget} className="btn btn-success">Forgot Password</button>
+            <div id="popup1" class="overlay">
+    	      <div class="popup" >
+    		    <h5>Create an Account</h5>
+    		    <a class="close" href="#popup1">×</a>
+    		    <div class="content">
+            <input value={this.state.email} onChange={this.handleChange} type="email" name="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
+            <div>
+            <input value={this.state.password} onChange={this.handleChange} type="password" name="password"  id="exampleInputEmail1" placeholder="Password" />
             </div>
-            
-        </div>
-        </section>
-        </div>
-        </div>
+            <div>
+            <button id="Submit"type="submit" onClick={this.signup} class="btn btn-primary">SignUp</button>
+            </div>
+    		    </div>
+    	      </div>
+            </div>    
+    </div>
+    </section>
+    </div>
 
         
       );

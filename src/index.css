@@ -115,23 +115,23 @@ p {
   text-align: right;
   padding: 5px;
 }
-.login h6 {
+.Login h6{
   display: block;
   font-size: 52px;
   font-family: 'Palanquin Dark', sans-serif;
   font-weight: bold;
-  margin-bottom: 1%;
+  margin-bottom: 2%;
+  margin-top: 12%;
 }
-.login h5 {
-  margin-top: 0;
+.Login h5 {
   display: block;
-  font-family: 'Quicksand', sans-serif;
-  font-size: 8px;
-  text-align: left;
+  font-size: 42px;
+  font-family: 'Palanquin Dark', sans-serif;
   font-weight: bold;
-  display: inline-block;
+  margin-bottom: 5%;
+  margin-top: 12%;
 }
-.login h4 {
+.Login h4 {
   margin-top: 0;
   display: block;
   font-family: 'Quicksand', sans-serif;
@@ -139,7 +139,7 @@ p {
   text-align: left;
   display: inline-block;
 }
-.login h3 {
+.Login h3 {
   display: block;
   font-size: 120px;
   font-family: 'Palanquin Dark', sans-serif;
@@ -147,7 +147,7 @@ p {
   margin-bottom: 0px;
   text-align: center;
 }
-.login h2 {
+.Login h2 {
   display: block;
   font-size: 48px;
   font-family: 'Montserrat', sans-serif;
@@ -174,12 +174,31 @@ p {
   height: 30px;
   margin-bottom: 1%;
 }
-#Forgot
+#Submit
+{
+  font-family: 'Quicksand', sans-serif;
+  background: #c7d0d8;
+  border: 0;
+  color: white;
+  width: 80px;
+  height: 30px;
+  margin-bottom: 1%;
+  margin-top: 5%;
+}
+#ForgotIn
 {
   font-family: 'Quicksand', sans-serif;
   background: transparent;
   border: 0;
   font-size: 11px;
+  color: black;
+}
+#Forgot
+{
+  font-family: 'Quicksand', sans-serif;
+  background: transparent;
+  border: 0;
+  font-size: 12px;
 }
 #SignUp{
   font-family: 'Quicksand', sans-serif;
