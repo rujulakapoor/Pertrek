@@ -115,6 +115,9 @@ p {
   text-align: right;
   padding: 5px;
 }
+#form {
+  padding: 5%;
+}
 .login h6 {
   display: block;
   font-size: 52px;
@@ -156,7 +159,7 @@ p {
 }
 #exampleInputEmail1
 {
-  border-width: 0; 
+  border-width: 0;
   box-shadow: none;
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
@@ -254,7 +257,7 @@ p {
   font-size: 11px;
   text-decoration: none;
   color:black;
-  
+
 }
 
 .overlay {

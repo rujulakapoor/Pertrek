@@ -21,6 +21,12 @@ class Navigation extends React.Component {
                 <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link>
             </Nav>
             <Form inline>
+                <div id="left"> <Button variant="secondary">
+                  <Nav>
+                    <Nav.Link href="./itform"><h5>New Itinerary</h5></Nav.Link>
+                  </Nav>
+                </Button>
+                </div>
                 <NavDropdown title="Hello, ______" id="basic-nav-dropdown" className="dropdown">
                   <NavDropdown.Item href="./account" >Account Details</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
@@ -30,7 +36,7 @@ class Navigation extends React.Component {
                 </NavDropdown>
                 <div id="left"><Button variant="secondary" onClick={this.onNavigateHome}>Log in</Button></div>
                 <div id="left"><Button variant="dark" onClick={this.props.value}>Log out</Button></div>
-                
+
             </Form>
             </Navbar.Collapse>
          </Navbar>
