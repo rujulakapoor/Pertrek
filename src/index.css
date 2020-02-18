@@ -163,8 +163,30 @@ p {
   margin-bottom: 0%;
   
 }
+#five {
+  text-align: center;
+}
+.Forgot h1{
+  display: block;
+  font-size: 40px;
+  font-family: 'Palanquin Dark', sans-serif;
+  text-align: center;
+  color: #777a7c;
+  margin-top: 8%;
+  margin-bottom: 2%;
+}
+.Forgot h2{
+  display: block;
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  margin-bottom: 2%;
 
-.fa, .fa-home, .fa-plus-circle, .fa-cog {
+}
+
+.fa, .fa-home, .fa-plus-circle, .fa-cog,.fa-key {
   padding-right: 20px;
   padding-left: 20px;
   padding-bottom: 10px;
@@ -221,6 +243,15 @@ p {
   margin-bottom: 1%;
 
 }
+#exampleInputEmail12
+{
+  border-width: 0; 
+  box-shadow: none;
+  font-family: 'Quicksand', sans-serif;
+  border-bottom: 3px solid #c7d0d8;
+  font-size: 25px;
+
+}
 #LogIn
 {
   font-family: 'Quicksand', sans-serif;
@@ -241,6 +272,16 @@ p {
   height: 30px;
   margin-bottom: 1%;
   margin-top: 5%;
+}
+#Submit2
+{
+  font-family: 'Quicksand', sans-serif;
+  background: #c7d0d8;
+  border: 0;
+  color: white;
+  width: 270px;
+  height: 30px;
+  margin-top: 1%;
 }
 #ForgotIn
 {

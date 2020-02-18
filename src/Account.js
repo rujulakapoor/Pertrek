@@ -46,7 +46,12 @@ class Account extends Component {
 
         <div>  
         <i class="fas fa-cog fa-2x"></i>
-        <Link to='/' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
+        <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
+        </div>
+
+        <div>  
+        <i class="fas fa-key fa-2x"></i>
+        <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
         </div>
         
 

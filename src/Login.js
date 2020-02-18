@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import fire from './config/fire';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import ReactDOM from "react-dom";
 import Popup from "reactjs-popup";
 import Content from './Content';
@@ -11,8 +16,8 @@ class Login extends Component {
     super(props);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-    this.forget = this.forget.bind(this);
-    this.forget2 = this.forget2.bind(this);
+    //this.forget = this.forget.bind(this);
+    //this.forget2 = this.forget2.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
     this.state = {
@@ -68,6 +73,7 @@ class Login extends Component {
       alert("Your Password if weak");
     } 
   }
+  /*
   forget(e){
     e.preventDefault();
     fire.auth().sendPasswordResetEmail(this.state.email).then((u)=>{
@@ -80,7 +86,7 @@ class Login extends Component {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
   }
-  
+  */
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -109,7 +115,7 @@ class Login extends Component {
             <a  class="button" href="#">Dont't Have An Account Sign Up</a>
             </div> 
             <div>
-            <a  class="button" href="#">Forgot Password</a>
+            <Link to='/forgot' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12" >Forgot Passowrd</span></Link>
             </div>
 
 
