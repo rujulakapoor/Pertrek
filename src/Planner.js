@@ -9,7 +9,7 @@ class Planner extends Component {
     super(props);
       
     this.state = {
-      attractions: []
+      attractions: [] //COLLECTION NAME
     }
   }
   onNavigateHome(){
@@ -33,18 +33,18 @@ class Planner extends Component {
   }
   
   componentDidUpdate(prevProps, prevState) {
-    // check on previous state
-    // only write when it's different with the new state
     if (prevState !== this.state) {
       this.writeUserData();
     }
   }
 
   render() {
-    const { attractions } = this.state;
+    const { attractions } = this.state; //COLLECTION NAME
+    const { data } = this.props.location;
     return(
 
       <div className="planner">
+        <p>data = { data }</p>
         <div className="row">
           <div className='col-xl-12'>
             <h1>Attractions</h1>
@@ -53,7 +53,7 @@ class Planner extends Component {
         <div className='row'>
           <div className='col-xl-12'>
           { 
-            attractions
+            attractions //COLLECTION NAME
             .map(attraction => 
               <Card key={attraction.uid} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
                 <Card.Header as="h5">{ attraction.name }</Card.Header>

@@ -39,10 +39,8 @@ class App extends Component {
      <div>
        {this.state.user ? (
          <React.Fragment>
-            <FirestoreProvider firebase={fire}>
-              <Navigation value={this.logout}/>
-              <Main/>
-            </FirestoreProvider>
+            <Navigation value={this.logout}/>
+            <Main/>
          </React.Fragment>
         ) : (
           <Login/>
