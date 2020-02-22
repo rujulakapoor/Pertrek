@@ -39,8 +39,10 @@ class Home extends Component {
                 <div class="dropdown-content">
                   <a href="#">Orlando</a>
                   <Link to={{
-                    pathname: "/planner",
-                    data: "attractions"
+                    pathname: "/planner/attractions",
+                    state: {
+                      dbName: true
+                    }
                   }}>
                     Chicago
                   </Link>

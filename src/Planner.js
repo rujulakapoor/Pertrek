@@ -7,29 +7,50 @@ import Firebase from 'firebase';
 class Planner extends Component {
   constructor(props) {
     super(props);
+    // console.log("URL = " + window.location.href);
+    // var url = window.location.href;
+    // var dbName = url.substring(url.lastIndexOf("/")+1, url.length);
+    // dbName = "attractions"
+    // console.log("dbname = " + dbName);
       
     this.state = {
       attractions: [] //COLLECTION NAME
     }
+    
   }
   onNavigateHome(){
     this.props.history.push('/Login');
   }
   writeUserData = () => {
     Firebase.database().ref('/').set(this.state);
+    //console.log(this.props.location.state.name);
     console.log('DATA SAVED');
   }
-  
   getUserData = () => {
     let ref = Firebase.database().ref('/');
-    ref.on('value', snapshot => {
-      const state = snapshot.val();
-      this.setState(state);
+    ref.child()
+      .orderByChild("name")
+      .equalTo("museum")
+      .on('value', snapshot => {
+        const state = snapshot.val();
+        this.setState(state);
     });
     console.log('DATA RETRIEVED');
+
+    // ref.orderByChild('name')
+    //   .once('value', function (snapshot) {
+
+    //   snapshot.forEach(function (childSnapshot) {
+
+    //       var value = childSnapshot.val();
+    //       console.log("name is : " + value.name);
+    //   });
+    // });
   }
   componentDidMount() {
     this.getUserData();
+
+    //const { dbName } = this.props.location.state;
   }
   
   componentDidUpdate(prevProps, prevState) {
@@ -52,7 +73,8 @@ class Planner extends Component {
         </div>
         <div className='row'>
           <div className='col-xl-12'>
-          { 
+          {  
+
             attractions //COLLECTION NAME
             .map(attraction => 
               <Card key={attraction.uid} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
