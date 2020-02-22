@@ -18,7 +18,7 @@ class Navigation extends React.Component {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                 </NavDropdown>
-                <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link>
+                {/* <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link> */}
             </Nav>
             <Form inline>
                 <NavDropdown title="Hello, ______" id="basic-nav-dropdown" className="dropdown">

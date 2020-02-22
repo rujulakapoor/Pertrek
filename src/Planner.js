@@ -7,15 +7,16 @@ import Firebase from 'firebase';
 class Planner extends Component {
   constructor(props) {
     super(props);
-    // console.log("URL = " + window.location.href);
-    // var url = window.location.href;
-    // var dbName = url.substring(url.lastIndexOf("/")+1, url.length);
-    // dbName = "attractions"
-    // console.log("dbname = " + dbName);
+    console.log("URL = " + window.location.href);
+    var url = window.location.href;
+    var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
+    //cityName = "attractions"
+    console.log("cityName = " + cityName);
     var attractionList;
       
     this.state = {
-      attractions: [] //COLLECTION NAME
+      attractions: [], //COLLECTION NAME
+      citySelect: cityName
     }
     
   }
@@ -74,13 +75,13 @@ class Planner extends Component {
     }, []);
   }
   removeAttractions(arr, str) {
-    console.log("array length = " + arr.length);
+    //console.log("array length = " + arr.length);
     if(arr.length != 0) {
       for(let i = 0; i < arr.length; i++) {
-        console.log("i = " + i + " ending at " + arr.length);
-        console.log("comparing " + arr[i].name);
+        //console.log("i = " + i + " ending at " + arr.length);
+        //console.log("comparing " + arr[i].name);
         if(arr[i].city !== str) { //DOES NOT EQUAL
-          console.log("removing " + arr[i].city);
+          //console.log("removing " + arr[i].city);
 
           arr.splice(i, 1);
           i--;
@@ -116,7 +117,7 @@ class Planner extends Component {
               console.log("state length = " + this.state.attractions.length)
             }
             {
-              this.removeAttractions(this.state.attractions, "Chicago,IL")
+              this.removeAttractions(this.state.attractions, this.state.citySelect)
             }
           {  
 
