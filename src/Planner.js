@@ -7,7 +7,7 @@ import Firebase from 'firebase';
 class Planner extends Component {
   constructor(props) {
     super(props);
-    console.log("URL = " + window.location.href);
+    //console.log("URL = " + window.location.href);
     var url = window.location.href;
     var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
     //cityName = "attractions"
@@ -25,16 +25,9 @@ class Planner extends Component {
   }
   writeUserData = () => {
     Firebase.database().ref('/').set(this.state);
-    //console.log(this.props.location.state.name);
     console.log('DATA SAVED');
   }
   getUserData = () => {
-    // let ref = Firebase.database().ref('/');
-    // ref.on('value', snapshot => {
-    //   const state = snapshot.val();
-    //   this.setState(state);
-    // });
-    // console.log('DATA RETRIEVED');
 
     var ref = Firebase.database().ref('/');
     ref
@@ -44,13 +37,10 @@ class Planner extends Component {
       .on('value', snapshot => {
         const state = snapshot.val();
         this.setState(state);
-        //this.state.attractions.push(state);
-        console.log("found something");
     });
+
     console.log('DATA RETRIEVED');
-    
-    
-    
+        
   }
   componentDidMount() {
     this.getUserData();
@@ -101,11 +91,9 @@ class Planner extends Component {
 
   render() {
     const { attractions } = this.state; //COLLECTION NAME
-    const { data } = this.props.location;
     return(
 
       <div className="planner">
-        <p>data = { data }</p>
         <div className="row">
           <div className='col-xl-12'>
             <h1>Attractions</h1>
