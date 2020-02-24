@@ -4,6 +4,7 @@ import Home from './Home'
 import Planner from './Planner'
 import Account from './Account'
 import Yelp from './anotherYelpTest'
+import YelpAgain from './yelptestagain'
 
 const Main = () => (
     <main>
@@ -12,6 +13,7 @@ const Main = () => (
             <Route path='/planner' component={Planner}/>
             <Route path='/account' component={Account}/>
             <Route path='/yelp' component={Yelp}/>
+            <Route path='/fuck' component={YelpAgain}/>
         </Switch>
     </main>
 )
