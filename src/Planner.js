@@ -12,10 +12,14 @@ class Planner extends Component {
     var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
     //cityName = "attractions"
     console.log("cityName = " + cityName);
-    var attractionList;
-      
+    var f = {address:"hol up", city:"hol up", cost:"hol up", description:"hol up", duration:"hol up", image:"hol up", name:"hol up",popularity:"hol up",uid:"1582389361380"};
+    var arr = [];
+    arr.push(f);
+
+
     this.state = {
       attractions: [], //COLLECTION NAME
+      attractionList: arr,
       citySelect: cityName
     }
     
@@ -36,6 +40,7 @@ class Planner extends Component {
       //.equalTo("a")
       .on('value', snapshot => {
         const state = snapshot.val();
+        console.log("state key = " + snapshot.key);
         this.setState(state);
     });
 
@@ -65,11 +70,15 @@ class Planner extends Component {
     }, []);
   }
   removeAttractions(arr, str) {
-    //console.log("array length = " + arr.length);
+    console.log("array length = " + arr.length);
+    console.log("attractions state = " + this.state.attractions);
+    for(var prop in this.state.attractions){
+      console.log("life sucks " + this.state.attractions[prop].address);
+    }
     if(arr.length != 0) {
       for(let i = 0; i < arr.length; i++) {
         //console.log("i = " + i + " ending at " + arr.length);
-        //console.log("comparing " + arr[i].name);
+        console.log("comparing " + arr[i].name);
         if(arr[i].city !== str) { //DOES NOT EQUAL
           //console.log("removing " + arr[i].city);
 
@@ -80,6 +89,19 @@ class Planner extends Component {
     }
     
     
+  }
+  addAttractions(arr) {
+    console.log("ADDING ATTRACTION");
+    for(var a in this.state.attractions){
+      var obj = this.state.attractions[a];
+      var attraction = {address:obj.address, city:obj.city, cost:obj.cost, description:obj.description, duration:obj.duration, image:obj.image, name:obj.name,popularity:obj.popularity, uid:obj.uid};
+      //console.log("life sucks " + this.state.attractions[a].address);
+      this.state.attractionList.push(attraction);
+    }
+
+    for(var i = 0; i < this.state.attractionList.length; i++) {
+      console.log("attraction " + i + " name = " + this.state.attractionList[i].name);
+    }
   }
   
   // componentDidUpdate(prevProps, prevState) {
@@ -105,7 +127,8 @@ class Planner extends Component {
               console.log("state length = " + this.state.attractions.length)
             }
             {
-              this.removeAttractions(this.state.attractions, this.state.citySelect)
+              //this.removeAttractions(this.state.attractions, this.state.citySelect)
+              //this.addAttractions(this.state.attractions)
             }
           {  
 
