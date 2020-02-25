@@ -20,6 +20,7 @@ class scheduler extends Component {
 		this.state = {
 			restaurants: [],
 			freeAttractions: [],
+			usedAttractions: [],
 			attractions: [],
 			citySelect: cityName
 		}
@@ -44,6 +45,7 @@ class scheduler extends Component {
 
 		const axios = require('axios');
 
+		//GET RESTAURANTS
 		axios.get(yelp_search_url, {
 			headers: {
 					Authorization: token
@@ -65,11 +67,20 @@ class scheduler extends Component {
 				for(var a in response.data.businesses){
 					var obj = response.data.businesses[a];
 					var address = obj.location.address1 + "," + obj.location.city + "," + obj.location.zip_code;
-					var description = obj.name + " is a restaurant that offers " + obj.categories[0].title; //TODO: list all categories
-					
+					var description = obj.name + " is a restaurant that offers " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
+					var priceVal = '';
+
+					if(obj.price == undefined) {
+						priceVal = "$";
+					}
+					else {
+						priceVal = obj.price;
+					}
+
+
 					var restaurant = {
 						name: obj.name,
-						price: obj.price,
+						price: priceVal,
 						popularity: obj.rating,
 						image: obj.image_url,
 						address: address,
@@ -96,43 +107,6 @@ class scheduler extends Component {
 				// }
 			}.bind(this));
 
-			//GET FREE ATTRACTIONS
-			axios.get(yelp_search_url, {
-				headers: {
-						Authorization: token
-				},
-				params: {
-						term:'free',
-						location: this.state.citySelect
-				}
-				})
-				.then(function (response) {	
-					for(var a in response.data.businesses){
-						var obj = response.data.businesses[a];
-						var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
-						var description = obj.name + " is categorized as " + obj.categories[0].title; //TODO: list all categories
-						
-						var attraction = {
-							name: obj.name,
-							price: obj.price,
-							popularity: obj.rating,
-							image: obj.image_url,
-							address: address,
-							description: description,
-							id: obj.id
-						}
-	
-						this.setState({ freeAttractions: [...this.state.freeAttractions, attraction] });
-					}
-				}.bind(this))
-				.catch(function (error) {
-					console.log(error);
-				})
-				.then(function() {
-					console.log("done");
-
-				}.bind(this));
-
 			//GET ATTRACTIONS
 			axios.get(yelp_search_url, {
 				headers: {
@@ -146,12 +120,22 @@ class scheduler extends Component {
 				.then(function (response) {	
 					for(var a in response.data.businesses){
 						var obj = response.data.businesses[a];
+						var priceVal = '';
+
+						if(obj.price == undefined) {
+							//free!!
+							priceVal = "free!";
+						}
+						else {
+							priceVal = obj.price;
+						}
+
 						var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
-						var description = obj.name + " is categorized as " + obj.categories[0].title; //TODO: list all categories
+						var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 						
 						var attraction = {
 							name: obj.name,
-							price: obj.price,
+							price: priceVal,
 							popularity: obj.rating,
 							image: obj.image_url,
 							address: address,
@@ -160,6 +144,7 @@ class scheduler extends Component {
 						}
 	
 						this.setState({ attractions: [...this.state.attractions, attraction] });
+						
 					}
 				}.bind(this))
 				.catch(function (error) {
@@ -167,12 +152,63 @@ class scheduler extends Component {
 				})
 				.then(function() {
 					//get rid of free attractions
+					// for(var i in this.state.attractions) {
+					// 	var attID = this.state.attractions[i].id;
 
-					
+					// 	console.log("comparing " + attID )
+					// 	if(this.state.usedAttractions.includes(attID)) {
+					// 		console.log("duplicate!");
+					// 	}
+
+					// 	// this.setState({attractions: this.state.attractions.filter(function(attractions) { 
+					// 	// 	return attractions !== attID
+					// 	// })});
+
+					// }
+
 
 					console.log("done");
 
 				}.bind(this));
+
+			// //GET FREE ATTRACTIONS
+			// axios.get(yelp_search_url, {
+			// 	headers: {
+			// 			Authorization: token
+			// 	},
+			// 	params: {
+			// 			term:'free',
+			// 			location: this.state.citySelect
+			// 	}
+			// 	})
+			// 	.then(function (response) {	
+			// 		for(var a in response.data.businesses){
+			// 			var obj = response.data.businesses[a];
+			// 			var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
+			// 			var description = obj.name + " is categorized as " + obj.categories[0].title; //TODO: list all categories
+						
+			// 			var attraction = {
+			// 				name: obj.name,
+			// 				price: obj.price,
+			// 				popularity: obj.rating,
+			// 				image: obj.image_url,
+			// 				address: address,
+			// 				description: description,
+			// 				id: obj.id
+			// 			}
+	
+			// 			this.setState({ freeAttractions: [...this.state.freeAttractions, attraction] });
+			// 			this.setState({ usedAttractions: [...this.state.usedAttractions, obj.id] });
+			// 		}
+			// 	}.bind(this))
+			// 	.catch(function (error) {
+			// 		console.log(error);
+			// 	})
+			// 	.then(function() {
+					
+			// 	}.bind(this));
+
+			
 
 	}
 	
@@ -197,13 +233,13 @@ class scheduler extends Component {
 
 								<Card.Body>
 									<Card.Text as="h4">
-										Cost: ${ attraction.price }
+										Cost: { attraction.price }
 									</Card.Text>
 									{/* <Card.Text as="h4">
 										Estimated duration: { attraction.duration } hours
 									</Card.Text> */}
 									<Card.Text as="h4">
-										{ attraction.popularity } reviews
+										Popularity: { attraction.popularity }/5
 									</Card.Text>
 									<Card.Text as="p">
 										{ attraction.description }
@@ -222,47 +258,6 @@ class scheduler extends Component {
 					</div>
 				</div>
 
-				<div className="row">
-					<div className='col-xl-12'>
-						<h1>Free Attractions</h1>
-					</div>
-				</div>
-
-				<div className='row'>
-					<div className='col-xl-12'>
-						{  
-						this.state.freeAttractions //COLLECTION NAME
-						.map(attraction => 
-							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
-								<Card.Header as="h5">{ attraction.name }</Card.Header>
-								<Card.Img variant="top" src={ attraction.image } />
-
-								<Card.Body>
-									<Card.Text as="h4">
-										Cost: ${ attraction.price }
-									</Card.Text>
-									{/* <Card.Text as="h4">
-										Estimated duration: { attraction.duration } hours
-									</Card.Text> */}
-									<Card.Text as="h4">
-										{ attraction.popularity } reviews
-									</Card.Text>
-									<Card.Text as="p">
-										{ attraction.description }
-									</Card.Text>
-									<Button variant="secondary">Add</Button>
-								</Card.Body>
-
-								<Card.Footer as="h3">
-									{ attraction.address }
-								</Card.Footer>
-
-							</Card>
-
-							)
-						} 
-					</div>
-				</div>
 
 				<div className="row">
 					<div className='col-xl-12'>
@@ -281,13 +276,13 @@ class scheduler extends Component {
 
 								<Card.Body>
 									<Card.Text as="h4">
-										Cost: ${ attraction.price }
+										Cost: { attraction.price }
 									</Card.Text>
 									{/* <Card.Text as="h4">
 										Estimated duration: { attraction.duration } hours
 									</Card.Text> */}
 									<Card.Text as="h4">
-										{ attraction.popularity } reviews
+										Popularity: { attraction.popularity }/5
 									</Card.Text>
 									<Card.Text as="p">
 										{ attraction.description }
