@@ -38,7 +38,7 @@ class Home extends Component {
                 <button class="dropbtn">Select A Destination</button>
                 <div class="dropdown-content">
                   <Link to={{
-                      pathname: "/planner/Seattle,WA",
+                      pathname: "/scheduler/Seattle,WA",
                       state: {
                         dbName: true
                       }
@@ -46,7 +46,7 @@ class Home extends Component {
                       Seattle
                     </Link>
                   <Link to={{
-                    pathname: "/planner/Chicago,IL",
+                    pathname: "/scheduler/Chicago,IL",
                     state: {
                       dbName: true
                     }
