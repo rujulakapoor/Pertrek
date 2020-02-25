@@ -74,7 +74,7 @@ class Home extends Component {
 
               <Form onSubmit={this.handleSubmit}>
                 <label>
-                  <input type="text" value={this.state.value} onChange={this.handleChange} />
+                  <input type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
                 </label>
                 <Link to={{
                       pathname: "/scheduler/" + this.state.value,
