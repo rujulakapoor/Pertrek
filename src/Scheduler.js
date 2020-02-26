@@ -1,9 +1,3 @@
-//search endpoint url
-//GET https://api.yelp.com/v3/businesses/search
-
-//QUERY STRING
-//?term=restaurants%location=92967
-
 import React, { Component } from 'react';
 import { $CombinedState } from 'redux';
 import { Card, Button } from 'react-bootstrap';
@@ -171,45 +165,6 @@ class scheduler extends Component {
 
 				}.bind(this));
 
-			// //GET FREE ATTRACTIONS
-			// axios.get(yelp_search_url, {
-			// 	headers: {
-			// 			Authorization: token
-			// 	},
-			// 	params: {
-			// 			term:'free',
-			// 			location: this.state.citySelect
-			// 	}
-			// 	})
-			// 	.then(function (response) {	
-			// 		for(var a in response.data.businesses){
-			// 			var obj = response.data.businesses[a];
-			// 			var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
-			// 			var description = obj.name + " is categorized as " + obj.categories[0].title; //TODO: list all categories
-						
-			// 			var attraction = {
-			// 				name: obj.name,
-			// 				price: obj.price,
-			// 				popularity: obj.rating,
-			// 				image: obj.image_url,
-			// 				address: address,
-			// 				description: description,
-			// 				id: obj.id
-			// 			}
-	
-			// 			this.setState({ freeAttractions: [...this.state.freeAttractions, attraction] });
-			// 			this.setState({ usedAttractions: [...this.state.usedAttractions, obj.id] });
-			// 		}
-			// 	}.bind(this))
-			// 	.catch(function (error) {
-			// 		console.log(error);
-			// 	})
-			// 	.then(function() {
-					
-			// 	}.bind(this));
-
-			
-
 	}
 	
 
@@ -227,9 +182,9 @@ class scheduler extends Component {
 						{  
 						this.state.restaurants //COLLECTION NAME
 						.map(attraction => 
-							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
+							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '35rem', margin:'15px'}}>
 								<Card.Header as="h5">{ attraction.name }</Card.Header>
-								<Card.Img variant="top" src={ attraction.image } />
+								<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
 								<Card.Body>
 									<Card.Text as="h4">
@@ -270,9 +225,9 @@ class scheduler extends Component {
 						{  
 						this.state.attractions //COLLECTION NAME
 						.map(attraction => 
-							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
+							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '35rem', margin:'15px'}}>
 								<Card.Header as="h5">{ attraction.name }</Card.Header>
-								<Card.Img variant="top" src={ attraction.image } />
+								<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
 								<Card.Body>
 									<Card.Text as="h4">
