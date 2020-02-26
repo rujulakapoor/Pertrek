@@ -83,6 +83,13 @@ p {
   font-weight: bold;
 }
 
+.planner .card-img {
+  width: 100%;
+  height: 10vw;
+  object-fit: cover;
+}
+
+
 /* RUJULA STUFF */
 #container {
   width: 100%;
