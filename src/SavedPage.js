@@ -82,20 +82,31 @@ render(){
   //   console.log("no user");
   //   return null;
   // }
-
-
+let statenow = this
+  fire.auth().onAuthStateChanged( function(user) {
+      if (user) {
+console.log("HERE")
+ statenow.getItineraries();
+}})
 
   console.log("second props");
   console.log(this.state.itineraries);
 
   return(
     <div>
-    <Button onClick={this.getItineraries}> My Itineraries </Button>
      <h1> Saved Itineraries Page </h1>
 
       {Object.entries(this.state.itineraries).map(([key,value]) =>
-         <h1> {value[1].title}</h1>
-        )
+
+        <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
+        <Card.Header as="h4"> <b>{value[1].title}</b> </Card.Header>
+        <Card.Body>
+          <Card.Text as="h5">
+            Location: {value[1].location}
+            </Card.Text>
+          </Card.Body>
+          </Card>
+          )
       }
 
 </div>
