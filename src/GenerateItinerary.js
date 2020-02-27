@@ -156,7 +156,6 @@ if(this.state.alreadysaved == false){
             <th> 10:00pm </th>
             <th> 11:00pm </th>
             </th>
-
              </tr>
              </thead>
 
