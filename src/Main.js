@@ -5,6 +5,7 @@ import Planner from './Planner'
 import Account from './Account'
 import ItineraryForm from './ItineraryForm'
 import Scheduler from './Scheduler'
+import Saved from './SavedPage'
 
 const Main = () => (
     <main>
@@ -14,6 +15,7 @@ const Main = () => (
             <Route path='/account' component={Account}/>
             <Route path='/itform' component={ItineraryForm}/>
             <Route path='/scheduler' component={Scheduler}/>
+            <Route path='/savedpage' component={Saved}/>
         </Switch>
     </main>
 )

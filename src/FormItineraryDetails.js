@@ -19,6 +19,14 @@ render() {
         defaultValue={values.title} />
       </FormGroup>
       <FormGroup>
+        <FormLabel> Location </FormLabel>
+        <FormControl as="select" onChange={handleChange('location')} defaultValue={values.location}>
+          <option> Chicago </option>
+          <option> Orlando </option>
+          <option> Cincinnati </option>
+        </FormControl>
+        </FormGroup>
+      <FormGroup>
         <FormLabel>Start Date </FormLabel>
         <FormControl type="date"onChange={handleChange('startdate')}
         defaultValue={values.startdate}/>

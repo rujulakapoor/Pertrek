@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { $CombinedState } from 'redux';
 import { Card, Button } from 'react-bootstrap';
-
+import axios from 'axios';
 
 class scheduler extends Component {
 	constructor(props) {
@@ -18,7 +18,7 @@ class scheduler extends Component {
 			attractions: [],
 			citySelect: cityName
 		}
-			
+
 	}
 	componentDidMount() {
 		console.log("starting");
@@ -111,7 +111,7 @@ class scheduler extends Component {
 						location: this.state.citySelect
 				}
 				})
-				.then(function (response) {	
+				.then(function (response) {
 					for(var a in response.data.businesses){
 						var obj = response.data.businesses[a];
 						var priceVal = '';
@@ -126,7 +126,7 @@ class scheduler extends Component {
 
 						var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
 						var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
-						
+
 						var attraction = {
 							name: obj.name,
 							price: priceVal,
@@ -136,9 +136,9 @@ class scheduler extends Component {
 							description: description,
 							id: obj.id
 						}
-	
+
 						this.setState({ attractions: [...this.state.attractions, attraction] });
-						
+
 					}
 				}.bind(this))
 				.catch(function (error) {
@@ -154,7 +154,7 @@ class scheduler extends Component {
 					// 		console.log("duplicate!");
 					// 	}
 
-					// 	// this.setState({attractions: this.state.attractions.filter(function(attractions) { 
+					// 	// this.setState({attractions: this.state.attractions.filter(function(attractions) {
 					// 	// 	return attractions !== attID
 					// 	// })});
 
@@ -166,7 +166,7 @@ class scheduler extends Component {
 				}.bind(this));
 
 	}
-	
+
 
 	render() {
 		return (
@@ -179,9 +179,9 @@ class scheduler extends Component {
 
 				<div className='row'>
 					<div className='col-xl-12'>
-						{  
+						{
 						this.state.restaurants //COLLECTION NAME
-						.map(attraction => 
+						.map(attraction =>
 							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '35rem', margin:'15px'}}>
 								<Card.Header as="h5">{ attraction.name }</Card.Header>
 								<Card.Img variant="top" src={ attraction.image } className="card-img"/>
@@ -209,7 +209,7 @@ class scheduler extends Component {
 							</Card>
 
 							)
-						} 
+						}
 					</div>
 				</div>
 
@@ -222,9 +222,9 @@ class scheduler extends Component {
 
 				<div className='row'>
 					<div className='col-xl-12'>
-						{  
+						{
 						this.state.attractions //COLLECTION NAME
-						.map(attraction => 
+						.map(attraction =>
 							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '35rem', margin:'15px'}}>
 								<Card.Header as="h5">{ attraction.name }</Card.Header>
 								<Card.Img variant="top" src={ attraction.image } className="card-img"/>
@@ -252,10 +252,10 @@ class scheduler extends Component {
 							</Card>
 
 							)
-						} 
+						}
 					</div>
 				</div>
-				
+
 			</div>
 		);
 	}

@@ -11,6 +11,7 @@ class Navigation extends React.Component {
             <Nav className="mr-auto">
                 <Nav.Link href="."><h5>Home</h5></Nav.Link>
                 <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link>
+                <Nav.Link href="./savedpage"><h5>My Itineraries </h5> </Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown" className="dropdown">
                 <NavDropdown.Item href="#action/3.1" >Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
