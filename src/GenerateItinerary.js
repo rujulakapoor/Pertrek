@@ -7,9 +7,9 @@ export class GenerateItinerary extends Component {
 constructor(props){
   super(props);
   this.save= this.save.bind(this);
-  this.returnRows=this.returnRows.bind(this)
   this.state = {
-    days: []
+    days: [],
+    alreadysaved: false
   }
 }
 
@@ -43,7 +43,7 @@ componentWillMount() {
   };
 
     save() {
-
+if(this.state.alreadysaved == false){
       const user = fire.auth().currentUser.uid
       console.log(user);
       const db = fire.database().ref('itineraries/' + user);
@@ -63,19 +63,18 @@ componentWillMount() {
        });
        console.log("save completed?" + item);
        console.log(item);
+       this.setState({
+         alreadysaved: true
+       })
+    }
+    else {
+      console.log("Already saved")
+
     }
 
-
-returnRows = () =>
-{
-  let row = [];
-  console.log("HERE BEFORE")
-  console.log(this.state.days.length);
-  for(let i = 0 ; i < this.state.days.length; i++) {
-    console.log("HERE")
   }
 
-}
+
 
 
   render() {
@@ -118,14 +117,14 @@ returnRows = () =>
     </Col>
     </Row>
     </Container>
-     <Table striped bordered variant="dark">
+     <Table responsive striped bordered variant="dark" width="400">
           <thead>
             <tr>
             <th width="15%"> </th>
             {
               this.state.days.map((day) =>
 
-            <th>{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</th>)
+            <th width="200">{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</th>)
             }
 
             </tr>
