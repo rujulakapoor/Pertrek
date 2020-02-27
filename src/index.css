@@ -54,6 +54,12 @@ p {
   text-align: center;
 }
 
+.home .searchBar {
+  position: relative;
+  width: 70%;
+  display: inline-block;
+}
+
 /* ITINERARY PLANNER */
 .planner {
   background-color: rgb(255, 255, 255);
@@ -82,6 +88,13 @@ p {
   font-size: medium;
   font-weight: bold;
 }
+
+.planner .card-img {
+  width: 100%;
+  height: 10vw;
+  object-fit: cover;
+}
+
 
 /* RUJULA STUFF */
 #container {
@@ -194,7 +207,7 @@ p {
   text-decoration: none;
 }
 
-.Login h6{
+.Login h6 {
   display: block;
   font-size: 52px;
   font-family: 'Palanquin Dark', sans-serif;
@@ -235,7 +248,7 @@ p {
 }
 #exampleInputEmail1
 {
-  border-width: 0; 
+  border-width: 0;
   box-shadow: none;
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
@@ -371,7 +384,7 @@ p {
   font-size: 11px;
   text-decoration: none;
   color:black;
-  
+
 }
 
 .overlay {
