@@ -4,6 +4,7 @@ import Home from './Home'
 import Planner from './Planner'
 import Account from './Account'
 import ItineraryForm from './ItineraryForm'
+import Scheduler from './Scheduler'
 
 const Main = () => (
     <main>
@@ -12,6 +13,7 @@ const Main = () => (
             <Route path='/planner' component={Planner}/>
             <Route path='/account' component={Account}/>
             <Route path='/itform' component={ItineraryForm}/>
+            <Route path='/scheduler' component={Scheduler}/>
         </Switch>
     </main>
 )
