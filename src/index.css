@@ -54,6 +54,12 @@ p {
   text-align: center;
 }
 
+.home .searchBar {
+  position: relative;
+  width: 70%;
+  display: inline-block;
+}
+
 /* ITINERARY PLANNER */
 .planner {
   background-color: rgb(255, 255, 255);
