@@ -136,6 +136,9 @@ render(){
   //   console.log("no user");
   //   return null;
   // }
+
+  const {startdate, enddate, location, title, budget, notes} = this.state;
+  const values = {startdate, enddate, title, budget, location, notes}
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
@@ -177,7 +180,8 @@ console.log("HERE")
     case 2:
       return(
         <GenerateItinerary
-        values={[this.state.startdate, this.state.enddate, this.state.title, this.state.budget, this.state.location, this.state.notes]}
+
+        values={values}
         />
       );
   }
