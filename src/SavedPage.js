@@ -58,6 +58,7 @@ if(this.state.retreived === false ){
   const user = fire.auth().currentUser.uid;
   fire.database().ref('itineraries/' + user
   ).on("value", snapshot=> {
+    if(snapshot.val()) {
     let currentstate = this;
     console.log("snapshot is ")
     console.log(snapshot.val())
@@ -71,8 +72,9 @@ if(this.state.retreived === false ){
       itineraries: [...currentstate.state.itineraries,  thing]
       })
     })
+    }
   })
-  
+
     // console.log(snapshot.val())
     // this.setState( {
     // itineraries: [...this.state.itineraries, snapshot.val()]
@@ -96,13 +98,13 @@ editPlan(itinerary) {
 }
 deletePlan(itinerary){
   //console.log(itinerary)
-  
+
   const itineraries = this.state.itineraries.filter(i => i[0] !== itinerary[0])
   this.setState({itineraries})
   console.log("ASD")
   console.log(this.state.itineraries)
   console.log("ASD")
-  
+
   //this.getItineraries()
   const user = fire.auth().currentUser.uid;
   fire.database().ref('itineraries/' + user).child(itinerary[0]).remove();
@@ -122,7 +124,7 @@ deletePlan(itinerary){
       })
     })
   })*/
-  
+
 }
 
 
@@ -143,13 +145,13 @@ console.log("HERE")
   console.log(this.state.itineraries);
 
   switch(this.state.step) {
-    case 1: 
+    case 1:
       return(
         <div>
         <h1> Saved Itineraries Page </h1>
-    
+
           {Object.entries(this.state.itineraries).map(([key,value]) =>
-    
+
             <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
             <Card.Header as="h4"> <b>{value[1].title}</b> </Card.Header>
             <Card.Body>
@@ -167,17 +169,17 @@ console.log("HERE")
               </Card>
               )
           }
-    
+
         </div>
       );
-    case 2: 
+    case 2:
       return(
         <GenerateItinerary
         values={[this.state.startdate, this.state.enddate, this.state.title, this.state.budget, this.state.location, this.state.notes]}
         />
       );
   }
-  
+
 
 }
 }
