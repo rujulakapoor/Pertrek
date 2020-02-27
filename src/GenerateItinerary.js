@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Button, Table, Accordion,Card, Container, Row, Col } from 'react-bootstrap'
-
+import {FiEdit2} from 'react-icons/fi'
 import fire from "./config/fire";
 export class GenerateItinerary extends Component {
 
@@ -92,12 +92,18 @@ if(this.state.alreadysaved == false){
     <Row>
     <Col>
     <h2> {values.location} Trip</h2>
+    <Button variant="light">
+     <FiEdit2 />
+     </Button>
     </Col>
     <Col>
 
      </Col>
      <Col>
      <h2> Budget: ${values.budget}</h2>
+     <Button variant="light">
+      <FiEdit2 />
+      </Button>
 </Col>
     </Row>
     <Row>
@@ -107,11 +113,14 @@ if(this.state.alreadysaved == false){
     <Accordion defaultActiveKey="1">
      <Card>
        <Accordion.Toggle as={Card.Header} eventKey="0">
-       Notes
+       Notes <Button variant="light">
+         <FiEdit2 />
+         </Button>
        </Accordion.Toggle>
        <Accordion.Collapse eventKey="0">
          <Card.Body>{values.notes}</Card.Body>
        </Accordion.Collapse>
+
      </Card>
     </Accordion>
     </Col>
@@ -120,64 +129,45 @@ if(this.state.alreadysaved == false){
      <Table responsive striped bordered variant="dark" width="400">
           <thead>
             <tr>
-            <th width="15%"> </th>
-            {
-              this.state.days.map((day) =>
+            <th width="15%">
+              <th> 8:00am </th>
 
-            <th width="200">{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</th>)
-            }
+              <th> 9:00am </th>
 
-            </tr>
-          </thead>
+            <th> 10:00am </th>
+
+            <th> 11:00am </th>
+
+            <th> 12:00pm </th>
+
+            <th> 1:00pm </th>
+            <th> 2:00pm </th>
+            <th> 3:00pm </th>
+            <th> 4:00pm </th>
+            <th> 5:00pm </th>
+            <th> 6:00pm </th>
+
+              <th> 7:00pm </th>
+
+            <th> 8:00pm </th>
+
+            <th> 9:00pm </th>
+
+            <th> 10:00pm </th>
+            <th> 11:00pm </th>
+            </th>
+
+             </tr>
+             </thead>
+
           <tbody>
-          <tr>
-            <td> 8:00am </td>
-          </tr>
-          <tr>
-            <td> 9:00am </td>
-          </tr>
-          <tr>
-            <td> 10:00am </td>
-          </tr>
-          <tr>
-            <td> 11:00am </td>
-          </tr>
-          <tr>
-            <td> 12:00pm </td>
-          </tr>
-          <tr>
-            <td> 1:00pm </td>
-          </tr>
-          <tr>
-            <td> 2:00pm </td>
-          </tr>
-          <tr>
-            <td> 3:00pm </td>
-          </tr>
-          <tr>
-            <td> 4:00pm </td>
-          </tr>
-          <tr>
-            <td> 5:00pm </td>
-          </tr>
-          <tr>
-            <td> 6:00pm </td>
-          </tr>
-          <tr>
-            <td> 7:00pm </td>
-          </tr>
-          <tr>
-            <td> 8:00pm </td>
-          </tr>
-          <tr>
-            <td> 9:00pm </td>
-          </tr>
-          <tr>
-            <td> 10:00pm </td>
-          </tr>
-          <tr>
-            <td> 11:00pm </td>
-          </tr>
+
+          {
+            this.state.days.map((day) =>
+
+          <tr width="200">{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</tr>)
+          }
+
       </tbody>
      </Table>
      <h2> Suggested Attractions </h2>
