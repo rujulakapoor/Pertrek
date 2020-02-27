@@ -37,7 +37,8 @@ handleChange = input => e => {
 render() {
   const {step } = this.state;
   const {startdate, enddate, title, budget, multiday, location, notes} = this.state;
-  const values = {startdate, enddate, title, budget, multiday, location, notes}
+  let itkey = null
+  const values = {startdate, enddate, title, budget, multiday, location, notes, itkey}
   switch(step) {
     case 1 :
     return(

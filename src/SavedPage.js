@@ -20,6 +20,7 @@ class SavedPage extends Component {
       multiday: '',
       location: '',
       notes: '',
+      itkey: '',
       step: 1,
     }
     this.getItineraries = this.getItineraries.bind(this);
@@ -92,12 +93,13 @@ editPlan(itinerary) {
     budget: itinerary[1].budget,
     location: itinerary[1].location,
     notes: itinerary[1].notes,
+    itkey: itinerary[0],
     step: 2
+
   })
 
 }
 deletePlan(itinerary){
-
 
   const user = fire.auth().currentUser.uid;
   fire.database().ref('itineraries/' + user).child(itinerary[0]).remove();
@@ -137,8 +139,8 @@ render(){
   //   return null;
   // }
 
-  const {startdate, enddate, location, title, budget, notes} = this.state;
-  const values = {startdate, enddate, title, budget, location, notes}
+  const {startdate, enddate, location, title, budget, notes, itkey} = this.state;
+  const values = {startdate, enddate, title, budget, location, notes, itkey}
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {

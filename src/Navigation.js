@@ -11,7 +11,7 @@ class Navigation extends React.Component {
     this.state = {
       name: "",
       password: "",
-    }    
+    }
   }
   componentDidMount() {
     fire.auth().onAuthStateChanged(function(user) {
@@ -39,7 +39,7 @@ class Navigation extends React.Component {
                        // this value to authenticate with your backend server, if
                        // you have one. Use User.getToken() instead.
     }
-    
+
   }
     render() {
       return (
