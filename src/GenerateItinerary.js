@@ -16,16 +16,25 @@ constructor(props){
 
     save() {
 
-      const db = fire.firestore();
-      const itineraryref = db.collection('itineraries').add({
-         notes: this.props.values.notes,
-         title: this.props.values.title
+      const user = fire.auth().currentUser.uid
+      console.log(user);
+      const db = fire.database().ref('itineraries/' + user);
+      const item = {
+        notes: this.props.values.notes,
+        title: this.props.values.title,
+        location: this.props.values.location,
+        startdate: this.props.values.startdate,
+        enddate: this.props.values.enddate,
+        budget: this.props.values.budget
+      }
 
-       }).then(ref => {
+
+        db.push(item
+        ).then(ref => {
          console.log('Added document with ID: ', ref.id);
        });
-       console.log("save completed?" + itineraryref);
-       console.log(itineraryref);
+       console.log("save completed?" + item);
+       console.log(item);
     }
 
 
