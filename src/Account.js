@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import fire from './config/fire'
+import { Button, Form, Col, InputGroup } from 'react-bootstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component, useState } from 'react';
 import fire from './config/fire'
@@ -156,7 +156,7 @@ class Account extends Component {
         <h3>Welcome</h3> 
         </div>
         <div>  
-        <h2>Name From Database</h2> 
+        <h2>Email: {this.getEmail()}</h2>
         </div>
         
         <div>  
@@ -179,19 +179,17 @@ class Account extends Component {
         <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
         </div>
         </div>
-        <div id="accounttwo"> 
+        <div align="center" id="accounttwo"> 
         <div id="move">  
-        <h1>Active Itinerary</h1> 
         <h2 align="center">Account Details</h2>
             
-            <div className="container col-md-4">
               <h3 align="center">Current Info</h3>
               <p>Name: {this.getName()}</p>
               <p>Family Size: {this.getFamilySize()}</p>
               <p>Email: {this.getEmail()}</p>
-            </div>
+         
 
-            <div className="container col-md-4">
+              <div align="center">
               <h3 align="center">Update Info</h3>
               <Form noValidate className="needs-validation" onSubmit={this.updateInfo}>
               <Form.Row>
@@ -240,6 +238,7 @@ class Account extends Component {
                 />
               </Form.Group>
               <Button type="submit">Submit form</Button>
+              
             </Form>
             </div>
           </div>
