@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
-import kerm from './img/kermit.jpg';
 import fire from './config/fire';
 import Firebase from 'firebase';
 
@@ -104,12 +103,12 @@ class Planner extends Component {
     }
   }
   
-  // componentDidUpdate(prevProps, prevState) {
-  //   console.log("update");
-  //   if (prevState !== this.state) {
-  //     this.writeUserData();
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    console.log("update");
+    if (prevState !== this.state) {
+      this.writeUserData();
+    }
+  }
 
   render() {
     const { attractions } = this.state; //COLLECTION NAME

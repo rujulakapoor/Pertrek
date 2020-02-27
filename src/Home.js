@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import fire from './config/fire'
-//import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from './Navigation'
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 
 class Home extends Component {
@@ -72,28 +68,22 @@ class Home extends Component {
               </div>        */}
 
 
-              <Form onSubmit={this.handleSubmit}>
-                <label>
+              <Form onSubmit={this.handleSubmit} className="searchBar">
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
+                  <Form.Text className="text-muted">
+                    Enter a city, address, or zipcode
+                  </Form.Text>
+                </Form.Group>
+                {/* <label>
                   <input type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
-                </label>
+                </label> */}
                 <Link to={{
                       pathname: "/scheduler/" + this.state.value,
-                    }}><input type="submit" value="Submit" /></Link>
+                    }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
+                </Link>
                 
               </Form>
-
-              {/* <Form>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
-
-                </Form.Group>
-
-                <Link to={{
-                      pathname: "/scheduler/" + this.state.value,
-                    }}><input type="submit" value="Submit" /></Link>
-
-              </Form> */}
 
             </div>
 
