@@ -97,18 +97,19 @@ editPlan(itinerary) {
 
 }
 deletePlan(itinerary){
-  //console.log(itinerary)
 
-  const itineraries = this.state.itineraries.filter(i => i[0] !== itinerary[0])
-  this.setState({itineraries})
-  console.log("ASD")
-  console.log(this.state.itineraries)
-  console.log("ASD")
 
-  //this.getItineraries()
   const user = fire.auth().currentUser.uid;
   fire.database().ref('itineraries/' + user).child(itinerary[0]).remove();
-  /*fire.database().ref('itineraries/' + user
+
+   this.setState({
+  itineraries: [],
+  retreived: false
+  })
+  this.getItineraries();
+
+
+     /*fire.database().ref('itineraries/' + user
   ).on("value", snapshot=> {
     let currentstate = this;
     console.log("snapshot is ")
@@ -123,7 +124,8 @@ deletePlan(itinerary){
       itineraries: [...currentstate.state.itineraries,  thing]
       })
     })
-  })*/
+  })
+  */
 
 }
 
