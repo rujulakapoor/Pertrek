@@ -3,9 +3,11 @@ import './App.css';
 import fire from './config/fire';
 import Home from './Home';
 import Login from './Login';
+import Forgot from './Forgot';
 import Main from './Main';
 import Navigation from './Navigation';
 import { FirestoreProvider } from "react-firestore";
+
 
 class App extends Component {
   constructor(props) {
