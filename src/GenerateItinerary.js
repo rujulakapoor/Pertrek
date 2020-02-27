@@ -7,6 +7,34 @@ export class GenerateItinerary extends Component {
 constructor(props){
   super(props);
   this.save= this.save.bind(this);
+  this.state = {
+    days: [],
+    alreadysaved: false
+  }
+}
+
+componentWillMount() {
+  console.log(this.props.values.enddate)
+  const end=new Date(this.props.values.enddate);
+  end.setDate(end.getDate() + 1)
+  const start = new Date(this.props.values.startdate);
+  start.setDate(start.getDate() + 1);
+
+
+  console.log(this.props.values.startdate);
+  console.log(start)
+  console.log(end)
+  console.log("is enddate");
+  let len = 1
+  for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
+  {
+    this.state.days.push(new Date(d));
+    console.log(this.state.days)
+    if(len++ > 30) {
+      break
+    }
+  }
+
 }
 
   continue = e => {
@@ -15,7 +43,7 @@ constructor(props){
   };
 
     save() {
-
+if(this.state.alreadysaved == false){
       const user = fire.auth().currentUser.uid
       console.log(user);
       const db = fire.database().ref('itineraries/' + user);
@@ -35,11 +63,26 @@ constructor(props){
        });
        console.log("save completed?" + item);
        console.log(item);
+       this.setState({
+         alreadysaved: true
+       })
     }
+    else {
+      console.log("Already saved")
+
+    }
+
+  }
+
+
 
 
   render() {
+
+
     const {values, handleChange} = this.props;
+    console.log(this.state.days);
+
    return(
   <div id="form">
     <h2> {values.title} </h2>
@@ -74,14 +117,16 @@ constructor(props){
     </Col>
     </Row>
     </Container>
-     <Table striped bordered variant="dark">
-
+     <Table responsive striped bordered variant="dark" width="400">
           <thead>
             <tr>
             <th width="15%"> </th>
-              <th> {values.startdate} </th>
-              <th>  </th>
-              <th> {values.enddate} </th>
+            {
+              this.state.days.map((day) =>
+
+            <th width="200">{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</th>)
+            }
+
             </tr>
           </thead>
           <tbody>
