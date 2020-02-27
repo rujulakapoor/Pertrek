@@ -16,7 +16,7 @@ class Login extends Component {
     super(props);
     this.login = this.login.bind(this);
     this.signup = this.signup.bind(this);
-    //this.forget = this.forget.bind(this);
+    this.forget = this.forget.bind(this);
     //this.forget2 = this.forget2.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
@@ -73,15 +73,17 @@ class Login extends Component {
       alert("Your Password if weak");
     } 
   }
-  /*
+  
   forget(e){
     e.preventDefault();
-    fire.auth().sendPasswordResetEmail(this.state.email).then((u)=>{
+    alert("here");
+    fire.auth().sendPasswordResetEmail(this.state.email3).then((u)=>{
     }).catch((error) => {
         console.log(error);
         alert("Fuck");
       });
   }
+  /*
   forget2(e){
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
@@ -116,6 +118,10 @@ class Login extends Component {
             </div> 
             <div>
             <Link to='/forgot' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12" >Forgot Passowrd</span></Link>
+            <div>
+            <input value={this.state.email3} onChange={this.handleChange} type="email" name="email3"  id="exampleInputEmail13" aria-describedby="emailHelp" placeholder="Email Adress" />
+            </div>
+            <button id="LogIn"type="submit" onClick={this.forget} class="btn btn-primary">Recover Password</button>
             </div>
 
 
