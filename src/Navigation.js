@@ -10,7 +10,7 @@ class Navigation extends React.Component {
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
                 <Nav.Link href="."><h5>Home</h5></Nav.Link>
-                <Nav.Link href="."><h5>Link</h5></Nav.Link>
+                <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown" className="dropdown">
                 <NavDropdown.Item href="#action/3.1" >Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
@@ -21,12 +21,15 @@ class Navigation extends React.Component {
                 {/* <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link> */}
             </Nav>
             <Form inline>
-                <div id="left"> <Button variant="secondary">
+                {/* <div id="left"> <Button variant="secondary">
                   <Nav>
                     <Nav.Link href="./itform"><h5>New Itinerary</h5></Nav.Link>
                   </Nav>
                 </Button>
-                </div>
+                </div> */}
+
+                <div id="left"><Button variant="secondary" href='./itform'>New Itinerary</Button></div>
+
                 <NavDropdown title="Hello, ______" id="basic-nav-dropdown" className="dropdown">
                   <NavDropdown.Item href="./account" >Account Details</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
@@ -34,6 +37,7 @@ class Navigation extends React.Component {
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4" onClick={this.props.value}>Sign Out</NavDropdown.Item>
                 </NavDropdown>
+
                 <div id="left"><Button variant="secondary" onClick={this.onNavigateHome}>Log in</Button></div>
                 <div id="left"><Button variant="dark" onClick={this.props.value}>Log out</Button></div>
 

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 import fire from './config/fire'
-//import 'bootstrap/dist/css/bootstrap.min.css';
-import Navigation from './Navigation'
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 
 class Home extends Component {
