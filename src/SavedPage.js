@@ -15,6 +15,8 @@ class SavedPage extends Component {
       user: ""
     }
     this.getItineraries = this.getItineraries.bind(this);
+    this.deletePlan = this.deletePlan.bind(this);
+    this.editPlan = this.editPlan.bind(this);
   }
 // //
 // // async componentWillMount() {
@@ -67,13 +69,18 @@ if(this.state.retreived === false ){
     // itineraries: [...this.state.itineraries, snapshot.val()]
   //0})
 
-  console.log('DONE GETTING ITINERARIES');
-  console.log(this.state.itineraries);
   this.state.retreived=true;
   }
 }
 
+editPlan(itinerary) {
 
+
+
+}
+deletePlan(itinerary){
+
+}
 
 
 
@@ -104,12 +111,19 @@ console.log("HERE")
           <Card.Text as="h5">
             Location: {value[1].location}
             </Card.Text>
+            <Card.Text as="h7">
+            Notes: {value[1].notes}
+            </Card.Text>
+            <Card.Text> </Card.Text>
+            <Button variant="primary">Edit </Button>
+            <Card.Text> </Card.Text>
+            <Button variant="primary">Delete</Button>
           </Card.Body>
           </Card>
           )
       }
 
-</div>
+    </div>
    );
 
 }
