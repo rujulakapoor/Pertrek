@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button, Table, Accordion,Card, Container, Row, Col } from 'react-bootstrap'
 
 import fire from "./config/fire";
-
+import GenerateItinerary from './GenerateItinerary'
 
 class SavedPage extends Component {
 
@@ -12,7 +12,15 @@ class SavedPage extends Component {
     this.state = {
       itineraries: [],
       retreived: false,
-      user: ""
+      user: "",
+      startdate: '',
+      enddate: '',
+      title: '',
+      budget: '',
+      multiday: '',
+      location: '',
+      notes: '',
+      step: 1,
     }
     this.getItineraries = this.getItineraries.bind(this);
     this.deletePlan = this.deletePlan.bind(this);
@@ -75,7 +83,16 @@ if(this.state.retreived === false ){
 }
 
 editPlan(itinerary) {
-  alert("edit")
+  this.setState({
+    startdate: itinerary[1].startdate,
+    enddate: itinerary[1].enddate,
+    title: itinerary[1].title,
+    budget: itinerary[1].budget,
+    location: itinerary[1].location,
+    notes: itinerary[1].notes,
+    step: 2
+  })
+
 }
 deletePlan(itinerary){
   //console.log(itinerary)
@@ -125,32 +142,42 @@ console.log("HERE")
   console.log("second props");
   console.log(this.state.itineraries);
 
-  return(
-    <div>
-     <h1> Saved Itineraries Page </h1>
-
-      {Object.entries(this.state.itineraries).map(([key,value]) =>
-
-        <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
-        <Card.Header as="h4"> <b>{value[1].title}</b> </Card.Header>
-        <Card.Body>
-          <Card.Text as="h5">
-            Location: {value[1].location}
-            </Card.Text>
-            <Card.Text as="h7">
-            Notes: {value[1].notes}
-            </Card.Text>
-            <Card.Text> </Card.Text>
-            <Button variant="primary" onClick={this.editPlan.bind(this)}>Edit </Button>
-            <Card.Text> </Card.Text>
-            <Button variant="primary" onClick={this.deletePlan.bind(this, this.state.itineraries[key])}>Delete</Button>
-          </Card.Body>
-          </Card>
-          )
-      }
-
-    </div>
-   );
+  switch(this.state.step) {
+    case 1: 
+      return(
+        <div>
+        <h1> Saved Itineraries Page </h1>
+    
+          {Object.entries(this.state.itineraries).map(([key,value]) =>
+    
+            <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
+            <Card.Header as="h4"> <b>{value[1].title}</b> </Card.Header>
+            <Card.Body>
+              <Card.Text as="h5">
+                Location: {value[1].location}
+                </Card.Text>
+                <Card.Text as="h7">
+                Notes: {value[1].notes}
+                </Card.Text>
+                <Card.Text> </Card.Text>
+                <Button variant="primary" onClick={this.editPlan.bind(this, this.state.itineraries[key])}>Edit </Button>
+                <Card.Text> </Card.Text>
+                <Button variant="primary" onClick={this.deletePlan.bind(this, this.state.itineraries[key])}>Delete</Button>
+              </Card.Body>
+              </Card>
+              )
+          }
+    
+        </div>
+      );
+    case 2: 
+      return(
+        <GenerateItinerary
+        values={[this.state.startdate, this.state.enddate, this.state.title, this.state.budget, this.state.location, this.state.notes]}
+        />
+      );
+  }
+  
 
 }
 }
