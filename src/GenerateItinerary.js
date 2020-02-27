@@ -1,12 +1,33 @@
 import React, { Component } from 'react';
 import {Button, Table, Accordion,Card, Container, Row, Col } from 'react-bootstrap'
 
+import fire from "./config/fire";
 export class GenerateItinerary extends Component {
+
+constructor(props){
+  super(props);
+  this.save= this.save.bind(this);
+}
 
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
-  }
+  };
+
+    save() {
+
+      const db = fire.firestore();
+      const itineraryref = db.collection('itineraries').add({
+         notes: this.props.values.notes,
+         title: this.props.values.title
+
+       }).then(ref => {
+         console.log('Added document with ID: ', ref.id);
+       });
+       console.log("save completed?" + itineraryref);
+       console.log(itineraryref);
+    }
+
 
   render() {
     const {values, handleChange} = this.props;
@@ -18,6 +39,7 @@ export class GenerateItinerary extends Component {
     <Container>
     <Row>
     <Col>
+    <h2> {values.location} Trip</h2>
     </Col>
     <Col>
 
@@ -104,7 +126,10 @@ export class GenerateItinerary extends Component {
           </tr>
       </tbody>
      </Table>
+     <h2> Suggested Attractions </h2>
+     <Button onClick={this.save}> Save </Button>
      </div>
+
 
    );
 

@@ -20,7 +20,7 @@ render() {
       </FormGroup>
       <FormGroup>
         <FormLabel> Location </FormLabel>
-        <FormControl as="select">
+        <FormControl as="select" onChange={handleChange('location')} defaultValue={values.location}>
           <option> Chicago </option>
           <option> Orlando </option>
           <option> Cincinnati </option>
