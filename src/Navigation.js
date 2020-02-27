@@ -1,8 +1,46 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import fire from './config/fire'
+
+var user = fire.auth().currentUser;
 
 class Navigation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+      password: "",
+    }    
+  }
+  componentDidMount() {
+    fire.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          console.log('This is the user: ', user)
+          this.setState({
+            name: user.email
+          });
+      } else {
+          // No user is signed in.
+          console.log('There is no logged in user');
+      }
+    });
+  }
+  getInfo = (e) => {
+    var user = fire.auth().currentUser;
+    var name, email, photoUrl, uid, emailVerified;
+
+    if (user != null) {
+      this.state.name = user.displayName;
+      email = user.email;
+      photoUrl = user.photoURL;
+      emailVerified = user.emailVerified;
+      uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                       // this value to authenticate with your backend server, if
+                       // you have one. Use User.getToken() instead.
+    }
+    
+  }
     render() {
       return (
         <Navbar bg="light" expand="lg" className="nav-bar">

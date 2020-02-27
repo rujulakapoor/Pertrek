@@ -64,6 +64,7 @@ if(this.state.retreived === false ){
       })
     })
   })
+  
     // console.log(snapshot.val())
     // this.setState( {
     // itineraries: [...this.state.itineraries, snapshot.val()]
@@ -74,12 +75,37 @@ if(this.state.retreived === false ){
 }
 
 editPlan(itinerary) {
-
-
-
+  alert("edit")
 }
 deletePlan(itinerary){
+  //console.log(itinerary)
+  
+  const itineraries = this.state.itineraries.filter(i => i[0] !== itinerary[0])
+  this.setState({itineraries})
+  console.log("ASD")
+  console.log(this.state.itineraries)
+  console.log("ASD")
+  
+  //this.getItineraries()
+  const user = fire.auth().currentUser.uid;
+  fire.database().ref('itineraries/' + user).child(itinerary[0]).remove();
+  /*fire.database().ref('itineraries/' + user
+  ).on("value", snapshot=> {
+    let currentstate = this;
+    console.log("snapshot is ")
+    console.log(snapshot.val())
 
+    const values = snapshot.val();
+    console.log(values);
+
+    Object.entries(values).map((thing) => {
+    console.log("key val is " + thing ) ;
+    currentstate.setState( {
+      itineraries: [...currentstate.state.itineraries,  thing]
+      })
+    })
+  })*/
+  
 }
 
 
@@ -115,9 +141,9 @@ console.log("HERE")
             Notes: {value[1].notes}
             </Card.Text>
             <Card.Text> </Card.Text>
-            <Button variant="primary">Edit </Button>
+            <Button variant="primary" onClick={this.editPlan.bind(this)}>Edit </Button>
             <Card.Text> </Card.Text>
-            <Button variant="primary">Delete</Button>
+            <Button variant="primary" onClick={this.deletePlan.bind(this, this.state.itineraries[key])}>Delete</Button>
           </Card.Body>
           </Card>
           )

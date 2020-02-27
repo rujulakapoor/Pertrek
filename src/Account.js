@@ -58,6 +58,84 @@ class Account extends Component {
           alert("CARL WHEEZER");
         });
     }
+    updateInfo = (e) => {
+      var user = fire.auth().currentUser;
+      var name, email, photoUrl, uid, emailVerified;
+
+      user.updateProfile({
+        displayName: this.state.email,
+        photoURL: "https://example.com/jane-q-user/profile.jpg",
+        tenantId: this.state.password,
+        email: this.newEmail
+      }).then(function() {
+        alert("Update Successful!")
+      }).catch(function(error) {
+        alert(error)
+      });
+      alert("Update Successful!");
+      if (user != null) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                        // this value to authenticate with your backend server, if
+                        // you have one. Use User.getToken() instead.
+      }
+      fire.analytics().setUserProperties({party_size: '69'});
+      name = user.displayName;
+      alert(name);
+    }
+    getName = (e) => {
+      var user = fire.auth().currentUser;
+      var name, email, photoUrl, uid, emailVerified;
+
+      if (user != null) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                        // this value to authenticate with your backend server, if
+                        // you have one. Use User.getToken() instead.
+      }
+
+      return name;
+    }
+    getFamilySize = (e) => {
+      var user = fire.auth().currentUser;
+      var name, email, photoUrl, uid, emailVerified, familySize;
+
+      if (user != null) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                        // this value to authenticate with your backend server, if
+                        // you have one. Use User.getToken() instead.
+        familySize = user.tenantId;
+      }
+
+      return familySize;
+    }
+    getEmail = (e) => {
+      var user = fire.auth().currentUser;
+      var name, email, photoUrl, uid, emailVerified;
+
+      if (user != null) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                        // this value to authenticate with your backend server, if
+                        // you have one. Use User.getToken() instead.
+      }
+
+      return email;
+    }
+    
 
     render() {
       return (
@@ -65,12 +143,21 @@ class Account extends Component {
 
           <div className="container">
 
-            <h2>Account Details</h2>
+            <h2 align="center">Account Details</h2>
+            
             <div className="container col-md-4">
-              <Form noValidate className="needs-validation" onSubmit={this.changeEmail}>
+              <h3 align="center">Current Info</h3>
+              <p>Name: {this.getName()}</p>
+              <p>Family Size: {this.getFamilySize()}</p>
+              <p>Email: {this.getEmail()}</p>
+            </div>
+
+            <div className="container col-md-4">
+              <h3 align="center">Update Info</h3>
+              <Form noValidate className="needs-validation" onSubmit={this.updateInfo}>
               <Form.Row>
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
-                  <Form.Label>Current Email</Form.Label>
+                  <Form.Label>Name</Form.Label>
                   <Form.Control
                     required
                     type="text"
@@ -80,7 +167,7 @@ class Account extends Component {
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="validationCustom02">
-                  <Form.Label>Password</Form.Label>
+                  <Form.Label>Family Size</Form.Label>
                   <Form.Control
                     required
                     type="text"
@@ -89,35 +176,8 @@ class Account extends Component {
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                  <Form.Label>doesntdosht</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Control
-                      type="text"
-                      placeholder="Username"
-                      aria-describedby="inputGroupPrepend"
-                      required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Please choose a username.
-                    </Form.Control.Feedback>
-                  </InputGroup>
-                </Form.Group>
               </Form.Row>
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="validationCustom03">
-                  <Form.Label>New Email</Form.Label>
-                  <Form.Control 
-                  type="text" placeholder="New Email" required 
-                  onChange={this.newEmailHandler}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid city.
-                  </Form.Control.Feedback>
-                </Form.Group>
                 <Form.Group as={Col} md="3" controlId="validationCustom04">
                   <Form.Label>State</Form.Label>
                   <Form.Control type="text" placeholder="State" required />
