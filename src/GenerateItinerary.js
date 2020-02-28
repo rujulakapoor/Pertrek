@@ -5,6 +5,7 @@ import {FiEdit2, FiSave} from 'react-icons/fi'
 import {FaCheck} from 'react-icons/fa'
 import fire from "./config/fire";
 import Timetable from './Timetable'
+import PreviewAttractions from './PreviewAttractions'
 export class GenerateItinerary extends Component {
 
 constructor(props){
@@ -511,8 +512,7 @@ renderCheck(){
 
 
      <h2> Suggested Attractions </h2>
-     <Button onClick={this.handleSavedEdits()}>Save</Button>
-     {this.renderCheck()}
+     <PreviewAttractions / >
      </div>
 
 
