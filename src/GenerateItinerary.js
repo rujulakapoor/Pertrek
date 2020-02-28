@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import {Button, Table, Accordion,Card, Container, Row, Col } from 'react-bootstrap'
+import {Button, Jumbotron, Table, Tabs,Tab, TabPane, Accordion,Card, Container, Row, Col,
+Nav, NavItem, NavLink } from 'react-bootstrap'
 import {FiEdit2, FiSave} from 'react-icons/fi'
+import {FaCheck} from 'react-icons/fa'
 import fire from "./config/fire";
+import Timetable from './Timetable'
 export class GenerateItinerary extends Component {
 
 constructor(props){
@@ -44,6 +47,9 @@ handleChange = input => e => {
   this.setState({[input]: e.target.value})
 
 }
+
+
+
 
 calculateDaysAgain() {
   let currentState = this
@@ -408,31 +414,36 @@ changeTitle() {
 }
 
 
-renderItinerary() {
-  if(this.state.renderAgain) {
 
+
+renderCheck(){
+  if(this.state.alreadysaved) {
+    return(<FaCheck/>);
   }
-
 }
-
   render() {
 
    return(
 
      <div id="form">
 
-
+    <Jumbotron>
+    <h1>
+        {this.titleRender()}
+        {this.titleButtonRender()} </h1>
+    </Jumbotron>
     <Container>
 
-    {this.titleRender()}
-    {this.titleButtonRender()}
-
-
+<Row>
+<Col>
+<Row>
   <h4>  Destination:  </h4>{this.locationRender()}
     {this.locationButtonRender()}
+</Row>
+</Col>
+</Row>
 
-
-<h4>    Budget:</h4>
+<h4>    Budget:$</h4>
      {this.budgetRender()}
      {this.budgetButtonRender()}
 
@@ -446,7 +457,7 @@ renderItinerary() {
     <Accordion defaultActiveKey="1">
      <Card>
 
-       <Accordion.Toggle as={Card.Header} eventKey="0">
+       <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
        Notes
        </Accordion.Toggle>
        <Accordion.Collapse eventKey="0">
@@ -461,53 +472,36 @@ renderItinerary() {
     </Col>
     </Row>
     </Container>
-     <Table responsive striped bordered variant="dark" width="400">
-          <thead>
-            <tr>
-            <th width="15%">
-              <th> 8:00am </th>
 
-              <th> 9:00am </th>
 
-            <th> 10:00am </th>
 
-            <th> 11:00am </th>
 
-            <th> 12:00pm </th>
+    <Tabs  id="uncontrolled-tab-example">
+    {this.state.days.map((day) =>
+{
 
-            <th> 1:00pm </th>
-            <th> 2:00pm </th>
-            <th> 3:00pm </th>
-            <th> 4:00pm </th>
-            <th> 5:00pm </th>
-            <th> 6:00pm </th>
 
-              <th> 7:00pm </th>
 
-            <th> 8:00pm </th>
+  return(
+      <Tab eventKey={day.getDate()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+      <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
+      <Timetable />
+      </Tab>
 
-            <th> 9:00pm </th>
+  )
+}
 
-            <th> 10:00pm </th>
-            <th> 11:00pm </th>
-            </th>
-             </tr>
-             </thead>
 
-          <tbody>
+    )
+  }
 
-          {
+      </Tabs>
 
-            this.state.days.map((day) =>
 
-          <tr width="200">{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</tr>)
-          }
-          {console.log(this.state.days)}
 
-      </tbody>
-     </Table>
      <h2> Suggested Attractions </h2>
-     <Button onClick={this.handleSavedEdits()}> Save</Button>
+     <Button onClick={this.handleSavedEdits()}>Save</Button>
+     {this.renderCheck()}
      </div>
 
 

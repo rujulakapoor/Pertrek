@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Table, Accordion,Card, Container, Row, Col } from 'react-bootstrap'
+import {Button, Table, Jumbotron, Accordion,Card, Container, Row, Col } from 'react-bootstrap'
 
 import fire from "./config/fire";
 import GenerateItinerary from './GenerateItinerary'
@@ -155,7 +155,9 @@ console.log("HERE")
     case 1:
       return(
         <div>
-        <h1> Saved Itineraries Page </h1>
+        <Jumbotron>
+          <h1> My Itineraries </h1>
+        </Jumbotron>
 
           {Object.entries(this.state.itineraries).map(([key,value]) =>
 
