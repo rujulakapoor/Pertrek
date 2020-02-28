@@ -190,7 +190,7 @@ startRender() {
   }
   else {
     let day= new Date(this.state.startdate);
-    return(<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h5>);
+    return(<h5> {this.state.startdate}</h5>);
   }
 
 }
@@ -205,7 +205,7 @@ endRender() {
   else {
 
     let day= new Date(this.state.enddate);
-    return(<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h5>);
+    return(<h5> {this.state.enddate} </h5>);
   }
 
 }
@@ -219,7 +219,7 @@ locationRender() {
 
   }
   else {
-    return(<h4> {this.state.location}</h4>);
+    return(<h5> {this.state.location}</h5>);
   }
 
 }
@@ -229,7 +229,7 @@ budgetRender(e) {
   if (this.state.editbudget) {
     return(<input type="number" placeholder={this.state.budget} onChange={this.handleChange('budget')}/>);
   } else {
-    return(<h1>{this.state.budget}</h1>);
+    return(<h5>${this.state.budget}</h5>);
   }
 
 }
@@ -439,7 +439,7 @@ renderCheck(){
 
 
     <Accordion defaultActiveKey="1">
-     <Card>
+     <Card className="notes">
 
        <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
        Notes
@@ -454,8 +454,12 @@ renderCheck(){
      </Card>
     </Accordion>
 
+
     <Container>
+
+
 <Row>
+<h3> Trip Details </h3>
 </Row>
 <Row>
 <Col>
@@ -467,12 +471,12 @@ renderCheck(){
 
 <Col>
 
-<h4>    Budget:$</h4>
+<h4>    Budget:</h4>
      {this.budgetRender()}
      {this.budgetButtonRender()}
 </Col>
 <Col>
-<h4>Begin Trip: {this.startRender()} {this.startButtonRender()} End Trip: {this.endRender()} {this.endButtonRender()}</h4>
+<h4>Begin Trip: {this.startRender()} {this.startButtonRender()} </h4>
 </Col>
 </Row>
 
@@ -480,13 +484,15 @@ renderCheck(){
     <Col></Col>
     <Col></Col>
     <Col>
-
+<h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
     </Col>
     </Row>
     </Container>
 
 
-
+<Container>
+<Row>
+<Col sm={10}>
 
     <Tabs  id="uncontrolled-tab-example">
     {this.state.days.map((day) =>
@@ -495,7 +501,7 @@ renderCheck(){
 
 
   return(
-      <Tab eventKey={day.getDate()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+      <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
       <Timetable />
       </Tab>
@@ -508,11 +514,16 @@ renderCheck(){
   }
 
       </Tabs>
+      </Col>
+      <Col sm={2}>
 
 
 
-     <h2> Suggested Attractions </h2>
+     <h3> Suggested Attractions </h3>
      <PreviewAttractions / >
+     </Col>
+     </Row>
+     </Container>
      </div>
 
 
