@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
+import kerm from './img/kermit.jpg';
 import fire from './config/fire';
 import Firebase from 'firebase';
-
 class Planner extends Component {
   constructor(props) {
     super(props);
-    //console.log("URL = " + window.location.href);
-    var url = window.location.href;
-    var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
-    //cityName = "attractions"
-    console.log("cityName = " + cityName);
-    var f = {address:"hol up", city:"hol up", cost:"hol up", description:"hol up", duration:"hol up", image:"hol up", name:"hol up",popularity:"hol up",uid:"1582389361380"};
-    var arr = [];
-    arr.push(f);
-
 
     this.state = {
-      attractions: [], //COLLECTION NAME
-      attractionList: arr,
-      citySelect: cityName
+      attractionList: []
     }
-    
   }
   onNavigateHome(){
     this.props.history.push('/Login');
@@ -30,113 +18,47 @@ class Planner extends Component {
     Firebase.database().ref('/').set(this.state);
     console.log('DATA SAVED');
   }
+  
   getUserData = () => {
-
-    var ref = Firebase.database().ref('/');
-    ref
-      //.child('')
-      //.orderByChild("name")
-      //.equalTo("a")
-      .on('value', snapshot => {
-        const state = snapshot.val();
-        console.log("state key = " + snapshot.key);
-        this.setState(state);
+    let ref = Firebase.database().ref('/');
+    ref.on('value', snapshot => {
+      const state = snapshot.val();
+      this.setState(state);
     });
-
     console.log('DATA RETRIEVED');
-        
   }
   componentDidMount() {
     this.getUserData();
-    //this.removeAttractions(this.state.attractions, "Chicago,IL");
-
-    //const { dbName } = this.props.location.state;
   }
-  filterAttractions() {
-    console.log("filtering with array length " + this.state.attractions.length);
-    console.log("attraction name = " + this.state.attractions.name);
 
-    for(let i = 0; i < this.state.attractions.length; i++) {
-      console.log("ass");
-    }
-
-    this.state.attractions.reduce(function(result, element) {
-      console.log("name = " + element.name)
-      if(element.name == "a") {
-        result.push(element);
-      }
-      return result;
-    }, []);
-  }
-  removeAttractions(arr, str) {
-    console.log("array length = " + arr.length);
-    console.log("attractions state = " + this.state.attractions);
-    for(var prop in this.state.attractions){
-      console.log("life sucks " + this.state.attractions[prop].address);
-    }
-    if(arr.length != 0) {
-      for(let i = 0; i < arr.length; i++) {
-        //console.log("i = " + i + " ending at " + arr.length);
-        console.log("comparing " + arr[i].name);
-        if(arr[i].city !== str) { //DOES NOT EQUAL
-          //console.log("removing " + arr[i].city);
-
-          arr.splice(i, 1);
-          i--;
-        }
-      }
-    }
-    
-    
-  }
-  addAttractions(arr) {
-    console.log("ADDING ATTRACTION");
-    for(var a in this.state.attractions){
-      var obj = this.state.attractions[a];
-      var attraction = {address:obj.address, city:obj.city, cost:obj.cost, description:obj.description, duration:obj.duration, image:obj.image, name:obj.name,popularity:obj.popularity, uid:obj.uid};
-      //console.log("life sucks " + this.state.attractions[a].address);
-      this.state.attractionList.push(attraction);
-    }
-
-    for(var i = 0; i < this.state.attractionList.length; i++) {
-      console.log("attraction " + i + " name = " + this.state.attractionList[i].name);
-    }
-  }
-  
   componentDidUpdate(prevProps, prevState) {
-    console.log("update");
+    // check on previous state
+    // only write when it's different with the new state
     if (prevState !== this.state) {
       this.writeUserData();
     }
   }
 
   render() {
-    const { attractions } = this.state; //COLLECTION NAME
+    const { attractionList } = this.state; //COLLECTION NAME
+    const { data } = this.props.location;
     return(
 
       <div className="planner">
+        <p>data = { data }</p>
         <div className="row">
           <div className='col-xl-12'>
-            <h1>Attractions</h1>
+            <h1>attractionList</h1>
           </div>
         </div>
         <div className='row'>
           <div className='col-xl-12'>
-            {
-              console.log("state length = " + this.state.attractions.length)
-            }
-            {
-              //this.removeAttractions(this.state.attractions, this.state.citySelect)
-              //this.addAttractions(this.state.attractions)
-            }
-          {  
-
-            attractions //COLLECTION NAME
+          { 
+            attractionList //COLLECTION NAME
             .map(attraction => 
               <Card key={attraction.uid} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
                 <Card.Header as="h5">{ attraction.name }</Card.Header>
                 <Card.Img variant="top" src={ attraction.image } />
-
                 <Card.Body>
                   <Card.Text as="h4">
                     Cost: ${ attraction.cost }
@@ -152,13 +74,10 @@ class Planner extends Component {
                   </Card.Text>
                   <Button variant="secondary">Add</Button>
                 </Card.Body>
-
                 <Card.Footer as="h3">
                   { attraction.address }
                 </Card.Footer>
-
               </Card>
-
               )
           } 
           </div>
@@ -211,7 +130,6 @@ class Planner extends Component {
   }
   
   handleSubmit = (event) => {
-    console.log("submitting");
     event.preventDefault();
     let name = this.refs.name.value;
     let address = this.refs.address.value;
@@ -223,37 +141,42 @@ class Planner extends Component {
     let uid = this.refs.uid.value;
   
     if (uid && name && address && cost && description && duration && popularity && image){
-      console.log("submit 1");
-      const { attractions } = this.state;
-      const devIndex = attractions.findIndex(data => {
+      const { attractionList } = this.state;
+      const devIndex = attractionList.findIndex(data => {
         return data.uid === uid 
       });
-      attractions[devIndex].name = name;
-      attractions[devIndex].address = address;
-      attractions[devIndex].cost = cost;
-      attractions[devIndex].description = description;
-      attractions[devIndex].duration = duration;
-      attractions[devIndex].popularity = popularity;
-      attractions[devIndex].image = image;
-      this.setState({ attractions });
+      attractionList[devIndex].name = name;
+      attractionList[devIndex].address = address;
+      attractionList[devIndex].cost = cost;
+      attractionList[devIndex].description = description;
+      attractionList[devIndex].duration = duration;
+      attractionList[devIndex].popularity = popularity;
+      attractionList[devIndex].image = image;
+      this.setState({ attractionList });
     }
     else if (name && address && cost && description && duration && popularity && image) {
-      console.log("submit 2");
       const uid = new Date().getTime().toString();
-      const { attractions } = this.state;
-      attractions.push({ uid, name, address, cost, description, duration, popularity, image })
-      this.setState({ attractions });
+      const { attractionList } = this.state;
+      attractionList.push({ uid, name, address, cost, description, duration, popularity, image })
+      this.setState({ attractionList });
     }
   
-    // this.refs.name.value = '';
-    // this.refs.address.value = '';
-    // this.refs.cost.value = '';
-    // this.refs.description.value = '';
-    // this.refs.duration.value = '';
-    // this.refs.popularity.value = '';
-    // this.refs.image.value = '';
-    // this.refs.uid.value = '';
-
+    this.refs.name.value = '';
+    this.refs.address.value = '';
+    this.refs.cost.value = '';
+    this.refs.description.value = '';
+    this.refs.duration.value = '';
+    this.refs.popularity.value = '';
+    this.refs.image.value = '';
+    this.refs.uid.value = '';
+  }
+  
+  removeData = (attraction) => {
+    const { attractionList } = this.state;
+    const newState = attractionList.filter(data => {
+      return data.uid !== attraction.uid;
+    });
+    this.setState({ attractionList: newState });
   }
   
   updateData = (attraction) => {
@@ -266,8 +189,6 @@ class Planner extends Component {
     this.refs.popularity.value = attraction.popularity;
     this.refs.image.value = attraction.image;
   }
-
     
 }
-
 export default Planner;
