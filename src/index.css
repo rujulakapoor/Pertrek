@@ -358,8 +358,20 @@ p {
 .dropdown:hover .dropdown-content {display: block;}
 
 
+.carousel {
+  width:200px;
+  height:150px;
+  margin: auto;
+}
+
+.notes{
+    color: black;
+    border: 13px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
 
 
+}
 
 
 
