@@ -14,6 +14,7 @@ class Navigation extends React.Component {
     }
   }
   componentDidMount() {
+    /*
     fire.auth().onAuthStateChanged(function(user) {
       if (user) {
           console.log('This is the user: ', user)
@@ -25,6 +26,7 @@ class Navigation extends React.Component {
           console.log('There is no logged in user');
       }
     });
+    */
   }
   getInfo = (e) => {
     var user = fire.auth().currentUser;

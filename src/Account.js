@@ -68,6 +68,7 @@ class Account extends Component {
     updateInfo = (e) => {
       var user = fire.auth().currentUser;
       var name, email, photoUrl, uid, emailVerified;
+      var database = fire.database();
 
       user.updateProfile({
         displayName: this.state.email,
@@ -89,9 +90,31 @@ class Account extends Component {
                         // this value to authenticate with your backend server, if
                         // you have one. Use User.getToken() instead.
       }
-      fire.analytics().setUserProperties({party_size: '69'});
-      name = user.displayName;
-      alert(name);
+      /*
+      const db = fire.database().ref('users/' + uid);
+      const item = {
+        party_size: this.state.password
+      }
+
+        db.push(item
+        ).then(ref => {
+         console.log('Added document with ID: ', ref.id);
+         console.log(ref)
+         
+       });
+       */
+      var postData = {
+        party_size: 6,
+        starCount: 0
+      };
+      var newPostKey = fire.database().ref().child('users').push().key;
+      var updates = {};
+      updates['/posts/' + newPostKey] = postData;
+      fire.database().ref().update(updates);
+
+
+
+      //fire.analytics().setUserProperties({party_size: '69'});
     }
     getName = (e) => {
       var user = fire.auth().currentUser;
@@ -193,7 +216,7 @@ class Account extends Component {
               <h3 align="center">Update Info</h3>
               <Form noValidate className="needs-validation" onSubmit={this.updateInfo}>
               <Form.Row>
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Group as={Col} controlId="validationCustom01">
                   <Form.Label>Name</Form.Label>
                   <Form.Control
                     required
@@ -203,7 +226,7 @@ class Account extends Component {
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                <Form.Group as={Col} controlId="validationCustom02">
                   <Form.Label>Family Size</Form.Label>
                   <Form.Control
                     required
@@ -214,29 +237,8 @@ class Account extends Component {
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
-              <Form.Row>
-                <Form.Group as={Col} md="3" controlId="validationCustom04">
-                  <Form.Label>State</Form.Label>
-                  <Form.Control type="text" placeholder="State" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid state.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="3" controlId="validationCustom05">
-                  <Form.Label>Zip</Form.Label>
-                  <Form.Control type="text" placeholder="Zip" required />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid zip.
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-              <Form.Group>
-                <Form.Check
-                  required
-                  label="Confirm!"
-                  feedback="You must agree before submitting."
-                />
-              </Form.Group>
+              
+              
               <Button type="submit">Submit form</Button>
               
             </Form>
