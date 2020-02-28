@@ -75,7 +75,11 @@ console.log("IN CALCULATE AGAIN")
 
 
   })
-//  console.log(this.state.days);
+  console.log(this.state.days);
+  this.setState({
+    alreadysaved:true
+  })
+
 
 }
 
@@ -93,6 +97,7 @@ componentWillMount() {
       break
     }
   }
+  console.log("IN COMPONENT WILL MOUNT")
 }
 
 
@@ -427,6 +432,8 @@ renderCheck(){
 }
   render() {
 
+console.log("Rendering days:")
+console.log(this.state.days)
    return(
 
      <div id="form">
@@ -522,8 +529,18 @@ renderCheck(){
      <h3> Suggested Attractions </h3>
      <PreviewAttractions / >
      </Col>
+
+     </Row>
+<Row>
+<Col>
+     <Button onClick={this.handleSavedEdits()}> Save </Button>
+     </Col>
+     <Col>
+     {this.renderCheck()}
+     </Col>
      </Row>
      </Container>
+
      </div>
 
 
