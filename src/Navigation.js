@@ -3,17 +3,17 @@ import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-boots
 import { Link } from "react-router-dom";
 import fire from './config/fire'
 
-var user = fire.auth().currentUser;
-
 class Navigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
       password: "",
+      email: "Account"
     }
   }
   componentDidMount() {
+    this.getInfo();
     /*
     fire.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -34,7 +34,7 @@ class Navigation extends React.Component {
 
     if (user != null) {
       this.state.name = user.displayName;
-      email = user.email;
+      this.state.email = user.email;
       photoUrl = user.photoURL;
       emailVerified = user.emailVerified;
       uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
@@ -71,7 +71,7 @@ class Navigation extends React.Component {
 
                 <div id="left"><Button variant="secondary" href='./itform'>New Itinerary</Button></div>
 
-                <NavDropdown title="Hello, ______" id="basic-nav-dropdown" className="dropdown">
+                <NavDropdown title={this.state.email} id="basic-nav-dropdown" className="dropdown">
                   <NavDropdown.Item href="./account" >Account Details</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.3" >Something</NavDropdown.Item>

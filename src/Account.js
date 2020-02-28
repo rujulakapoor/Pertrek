@@ -16,7 +16,8 @@ class Account extends Component {
       this.state = {
         email: "",
         password: "",
-        newEmail: ""
+        newEmail: "", 
+        photourl: ""
       }
       this.submitHandler = this.submitHandler.bind(this);
     }
@@ -72,7 +73,7 @@ class Account extends Component {
 
       user.updateProfile({
         displayName: this.state.email,
-        photoURL: "https://example.com/jane-q-user/profile.jpg",
+        photoURL: "https://i.picsum.photos/id/1014/200/300.jpg",
         tenantId: this.state.password,
         email: this.newEmail
       }).then(function() {
@@ -146,7 +147,6 @@ class Account extends Component {
                         // you have one. Use User.getToken() instead.
         familySize = user.tenantId;
       }
-
       return familySize;
     }
     getEmail = (e) => {
@@ -165,6 +165,22 @@ class Account extends Component {
 
       return email;
     }
+    getProfilePic = (e) => {
+      var user = fire.auth().currentUser;
+      var name, email, photoUrl, uid, emailVerified;
+
+      if (user != null) {
+        name = user.displayName;
+        email = user.email;
+        photoUrl = user.photoURL;
+        emailVerified = user.emailVerified;
+        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                        // this value to authenticate with your backend server, if
+                        // you have one. Use User.getToken() instead.
+      }
+
+      return photoUrl;
+    }
     
 
     render() {
@@ -176,10 +192,10 @@ class Account extends Component {
         <div id="icon">  
         <i class="fas fa-user-circle fa-10x"></i>
         
-        <h3>Welcome</h3> 
+        <h3>Welcome,</h3> 
         </div>
         <div>  
-        <h2>Email: {this.getEmail()}</h2>
+        <h2>{this.getName()}!</h2>
         </div>
         
         <div>  
