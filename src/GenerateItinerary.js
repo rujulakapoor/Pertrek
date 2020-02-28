@@ -188,7 +188,8 @@ startRender() {
     return(<input type="date" placeholder={this.state.startdate} onChange={this.handleChange('startdate')}/>)
   }
   else {
-    return(<h1> {this.state.startdate} </h1>);
+    let day= new Date(this.state.startdate);
+    return(<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h5>);
   }
 
 }
@@ -201,7 +202,9 @@ endRender() {
     return(<input type="date" placeholder={this.state.enddate} onChange={this.handleChange('enddate')}/>)
   }
   else {
-    return(<h1> {this.state.enddate} </h1>);
+
+    let day= new Date(this.state.enddate);
+    return(<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h5>);
   }
 
 }
@@ -432,28 +435,8 @@ renderCheck(){
         {this.titleRender()}
         {this.titleButtonRender()} </h1>
     </Jumbotron>
-    <Container>
-
-<Row>
-<Col>
-<Row>
-  <h4>  Destination:  </h4>{this.locationRender()}
-    {this.locationButtonRender()}
-</Row>
-</Col>
-</Row>
-
-<h4>    Budget:$</h4>
-     {this.budgetRender()}
-     {this.budgetButtonRender()}
-
-<h4>Dates: {this.startRender()} {this.startButtonRender()} - {this.endRender()} {this.endButtonRender()}</h4>
 
 
-    <Row>
-    <Col></Col>
-    <Col></Col>
-    <Col>
     <Accordion defaultActiveKey="1">
      <Card>
 
@@ -469,6 +452,34 @@ renderCheck(){
 
      </Card>
     </Accordion>
+
+    <Container>
+<Row>
+</Row>
+<Row>
+<Col>
+<Row>
+  <h4>  Destination:  </h4>{this.locationRender()}
+    {this.locationButtonRender()}
+</Row>
+</Col>
+
+<Col>
+
+<h4>    Budget:$</h4>
+     {this.budgetRender()}
+     {this.budgetButtonRender()}
+</Col>
+<Col>
+<h4>Begin Trip: {this.startRender()} {this.startButtonRender()} End Trip: {this.endRender()} {this.endButtonRender()}</h4>
+</Col>
+</Row>
+
+    <Row>
+    <Col></Col>
+    <Col></Col>
+    <Col>
+
     </Col>
     </Row>
     </Container>
