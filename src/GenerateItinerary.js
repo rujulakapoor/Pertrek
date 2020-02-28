@@ -8,12 +8,15 @@ constructor(props){
   super(props);
   this.save= this.save.bind(this);
   this.changeTitle = this.changeTitle.bind(this)
+  this.calculateDaysAgain = this.calculateDaysAgain.bind(this)
   this.changeNotes= this.changeNotes.bind(this)
-
+  this.changeStart = this.changeStart.bind(this)
+  this.changeEnd = this.changeEnd.bind(this)
   this.changeBudget= this.changeBudget.bind(this)
   this.changeLocation = this.changeLocation.bind(this)
   this.handleChange = this.handleChange.bind(this)
   this.handleSavedEdits =this.handleSavedEdits.bind(this)
+
   this.state = {
 
     enddate: this.props.values.enddate,
@@ -39,6 +42,33 @@ constructor(props){
 
 handleChange = input => e => {
   this.setState({[input]: e.target.value})
+
+}
+
+calculateDaysAgain() {
+  let currentState = this
+console.log("IN CALCULATE AGAIN")
+  const end=new Date(this.state.enddate);
+  end.setDate(end.getDate() + 1);
+  const start = new Date(this.state.startdate);
+  start.setDate(start.getDate() + 1);
+  currentState.setState({
+    days: []
+  }, function() {
+
+
+    let len = 1
+    for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
+    {
+      currentState.state.days.push(new Date(d));
+      if(len++ > 31) {
+        break
+      }
+    }
+
+
+  })
+//  console.log(this.state.days);
 
 }
 
@@ -149,7 +179,7 @@ notesRender() {
 
 startRender() {
   if(this.state.editstart) {
-    return(<input type="text" placeholder={this.state.startdate} onChange={this.handleChange('startdate')}/>)
+    return(<input type="date" placeholder={this.state.startdate} onChange={this.handleChange('startdate')}/>)
   }
   else {
     return(<h1> {this.state.startdate} </h1>);
@@ -157,9 +187,12 @@ startRender() {
 
 }
 
+
+
+
 endRender() {
   if(this.state.editend) {
-    return(<input type="text" placeholder={this.state.enddate} onChange={this.handleChange('enddate')}/>)
+    return(<input type="date" placeholder={this.state.enddate} onChange={this.handleChange('enddate')}/>)
   }
   else {
     return(<h1> {this.state.enddate} </h1>);
@@ -176,7 +209,7 @@ locationRender() {
 
   }
   else {
-    return(<h1> {this.state.location}</h1>);
+    return(<h4> {this.state.location}</h4>);
   }
 
 }
@@ -243,7 +276,9 @@ return(<Button variant="light" onClick={this.changeStart}>
      </Button>
 )
 } else {
-  return(      <Button variant="light" onClick={this.changeStart}>
+
+  return(
+    <Button variant="light" onClick={this.changeStart}>
        <FiEdit2 />
        </Button>
 )
@@ -334,6 +369,8 @@ changeStart() {
       editstart: true
     })
   } else {
+
+      this.calculateDaysAgain()
     this.setState({
       editstart:false,
       alreadysaved:false
@@ -347,6 +384,8 @@ changeEnd() {
       editend: true
     })
   } else {
+    this.calculateDaysAgain()
+
     this.setState({
       editend:false,
       alreadysaved:false
@@ -368,33 +407,38 @@ changeTitle() {
   }
 }
 
+
+renderItinerary() {
+  if(this.state.renderAgain) {
+
+  }
+
+}
+
   render() {
 
    return(
 
-  <div id="form">
+     <div id="form">
+
+
+    <Container>
 
     {this.titleRender()}
     {this.titleButtonRender()}
 
 
-    <Container>
-    <Row>
-    <Col>
-    {this.locationRender()}
+  <h4>  Destination:  </h4>{this.locationRender()}
     {this.locationButtonRender()}
 
 
-
-    </Col>
-    <Col>
-
-     </Col>
-     <Col>
+<h4>    Budget:</h4>
      {this.budgetRender()}
      {this.budgetButtonRender()}
-</Col>
-    </Row>
+
+<h4>Dates: {this.startRender()} {this.startButtonRender()} - {this.endRender()} {this.endButtonRender()}</h4>
+
+
     <Row>
     <Col></Col>
     <Col></Col>
@@ -453,10 +497,12 @@ changeTitle() {
           <tbody>
 
           {
+
             this.state.days.map((day) =>
 
           <tr width="200">{day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</tr>)
           }
+          {console.log(this.state.days)}
 
       </tbody>
      </Table>
