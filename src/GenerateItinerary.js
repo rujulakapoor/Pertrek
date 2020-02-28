@@ -8,6 +8,8 @@ constructor(props){
   super(props);
   this.save= this.save.bind(this);
   this.changeTitle = this.changeTitle.bind(this)
+  this.changeNotes= this.changeNotes.bind(this)
+
   this.changeBudget= this.changeBudget.bind(this)
   this.changeLocation = this.changeLocation.bind(this)
   this.handleChange = this.handleChange.bind(this)
@@ -26,7 +28,10 @@ constructor(props){
     editlocation:false,
     editbudget:false,
     editnotes:false,
+    editstart:false,
+    editend:false,
     itkey: this.props.values.itkey
+
 
   }
 }
@@ -38,7 +43,6 @@ handleChange = input => e => {
 }
 
 componentWillMount() {
-  console.log(this.state.enddate)
   const end=new Date(this.state.enddate);
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
@@ -48,37 +52,36 @@ componentWillMount() {
   for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
   {
     this.state.days.push(new Date(d));
-    console.log(this.state.days)
     if(len++ > 31) {
       break
     }
   }
-
 }
 
 
-  handleSavedEdits() {
+handleSavedEdits() {
     //delete old Itinerary
 
     if(this.state.itkey != null && this.state.alreadysaved === false) {
+      //Delete from firebase
       const user = fire.auth().currentUser.uid;
       fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
 
-    //push to Firebase
-if(this.state.alreadysaved == true) {
-  this.setState({
-    alreadysaved: false
-  })
+      // if(this.state.alreadysaved == true) {
+      //   this.setState({
+      //     alreadysaved: false
+      //   })
+      //
+      // }
 
-}
-
-    //
-    this.save()
+      this.save()
   }
   else {
     this.save()
   }
-  }
+
+}
+
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
@@ -88,7 +91,6 @@ if(this.state.alreadysaved == true) {
       //need to update itkey
       if(this.state.alreadysaved == false){
       const user = fire.auth().currentUser.uid
-      console.log(user);
       const db = fire.database().ref('itineraries/' + user);
       const item = {
         notes: this.state.notes,
@@ -99,10 +101,13 @@ if(this.state.alreadysaved == true) {
         budget: this.state.budget
       }
 
-
         db.push(item
         ).then(ref => {
          console.log('Added document with ID: ', ref.id);
+         console.log(ref)
+         this.setState({
+           itkey: ref.path.pieces_[2]
+         })
        });
        console.log("save completed?" + item);
        console.log(item);
@@ -117,20 +122,12 @@ if(this.state.alreadysaved == true) {
 
   }
 
-//
-// handleFieldChange(e) {
-//
-//
-// }
-//
-//
 
 titleRender() {
-console.log("IN TITLE RENDER")
   if(this.state.edittitle) {
-    console.log("EDITING TITLE ENABLED")
     return(<input type="text" placeholder={this.state.title} onChange={this.handleChange('title')}/>)
-  } else {
+  }
+  else {
     return(<h1> {this.state.title} </h1>);
     console.log("state HERE is " + this.state.title)
   }
@@ -138,12 +135,47 @@ console.log("IN TITLE RENDER")
 }
 
 
+notesRender() {
+  if(this.state.editnotes) {
+    return(<input type="text" placeholder={this.state.notes} onChange={this.handleChange('notes')}/>)
+  }
+  else {
+    return(<h4> {this.state.notes} </h4>);
+  }
+
+}
+
+
+
+startRender() {
+  if(this.state.editstart) {
+    return(<input type="text" placeholder={this.state.startdate} onChange={this.handleChange('startdate')}/>)
+  }
+  else {
+    return(<h1> {this.state.startdate} </h1>);
+  }
+
+}
+
+endRender() {
+  if(this.state.editend) {
+    return(<input type="text" placeholder={this.state.enddate} onChange={this.handleChange('enddate')}/>)
+  }
+  else {
+    return(<h1> {this.state.enddate} </h1>);
+  }
+
+}
+
+
+
 locationRender() {
 
   if(this.state.editlocation) {
     return(<input type="text" placeholder={this.state.location} onChange={this.handleChange('location')}/>)
 
-  } else {
+  }
+  else {
     return(<h1> {this.state.location}</h1>);
   }
 
@@ -160,34 +192,33 @@ budgetRender(e) {
 }
 
 locationButtonRender() {
-if(this.state.editlocation) {
-return(      <Button variant="light" onClick={this.changeLocation}>
-     <FiSave />
-     </Button>
-)
-} else {
+  if(this.state.editlocation) {
   return(      <Button variant="light" onClick={this.changeLocation}>
-       <FiEdit2 />
+       <FiSave />
        </Button>
-)
-}
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeLocation}>
+         <FiEdit2 />
+         </Button>
+  )
+  }
 
 }
-
 
 
 budgetButtonRender() {
 if(this.state.editbudget) {
-return(      <Button variant="light" onClick={this.changeBudget}>
-     <FiSave />
-     </Button>
-)
-} else {
   return(      <Button variant="light" onClick={this.changeBudget}>
-       <FiEdit2 />
+       <FiSave />
        </Button>
-)
-}
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeBudget}>
+         <FiEdit2 />
+         </Button>
+  )
+  }
 
 }
 
@@ -203,6 +234,50 @@ return(<Button variant="light" onClick={this.changeTitle}>
        </Button>
 )
 }
+
+}
+startButtonRender() {
+if(this.state.editstart) {
+return(<Button variant="light" onClick={this.changeStart}>
+     <FiSave />
+     </Button>
+)
+} else {
+  return(      <Button variant="light" onClick={this.changeStart}>
+       <FiEdit2 />
+       </Button>
+)
+}
+
+}
+
+endButtonRender() {
+if(this.state.editend) {
+return(<Button variant="light" onClick={this.changeEnd}>
+     <FiSave />
+     </Button>
+)
+} else {
+  return(      <Button variant="light" onClick={this.changeEnd}>
+       <FiEdit2 />
+       </Button>
+)
+}
+
+}
+
+notesButtonRender() {
+  if(this.state.editnotes) {
+  return(<Button variant="light" onClick={this.changeNotes}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeNotes}>
+         <FiEdit2 />
+         </Button>
+  )
+  }
 
 }
 
@@ -237,8 +312,49 @@ changeBudget() {
 }
 
 
+changeNotes() {
+  if(this.state) {
+  if(this.state.editnotes === false) {
+    this.setState({
+      editnotes: true
+    })
+  } else {
+    this.setState({
+      editnotes:false,
+      alreadysaved:false
+    })
+  }
+  }
+}
+
+
+changeStart() {
+  if(this.state.editstart === false) {
+    this.setState({
+      editstart: true
+    })
+  } else {
+    this.setState({
+      editstart:false,
+      alreadysaved:false
+    })
+  }
+}
+
+changeEnd() {
+  if(this.state.editend === false) {
+    this.setState({
+      editend: true
+    })
+  } else {
+    this.setState({
+      editend:false,
+      alreadysaved:false
+    })
+  }
+}
+
 changeTitle() {
-  console.log("IN CHANGE TITLE")
   if(this.state.edittitle === false) {
     this.setState({
       edittitle: true
@@ -254,16 +370,12 @@ changeTitle() {
 
   render() {
 
-
-    // const { handleChange} = this.props;
-    console.log(this.state.days);
-
    return(
 
   <div id="form">
 
     {this.titleRender()}
-  {this.titleButtonRender()}
+    {this.titleButtonRender()}
 
 
     <Container>
@@ -281,7 +393,6 @@ changeTitle() {
      <Col>
      {this.budgetRender()}
      {this.budgetButtonRender()}
-
 </Col>
     </Row>
     <Row>
@@ -290,13 +401,15 @@ changeTitle() {
     <Col>
     <Accordion defaultActiveKey="1">
      <Card>
+
        <Accordion.Toggle as={Card.Header} eventKey="0">
-       Notes <Button variant="light">
-         <FiEdit2 />
-         </Button>
+       Notes
        </Accordion.Toggle>
        <Accordion.Collapse eventKey="0">
-         <Card.Body>{this.state.notes}</Card.Body>
+         <Card.Body>
+         {this.notesRender()}
+         {this.notesButtonRender()}
+         </Card.Body>
        </Accordion.Collapse>
 
      </Card>
