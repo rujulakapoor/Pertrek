@@ -81,7 +81,13 @@ class Account extends Component {
       }).catch(function(error) {
         alert(error)
       });
-      alert("Update Successful!");
+      alert("123")
+      //let msgRef = fire.database().ref('users/').orderByKey().limitToLast
+      var profileData = {
+        party_size: this.state.password,
+        state: "IN"
+      }
+      alert("45")
       if (user != null) {
         name = user.displayName;
         email = user.email;
@@ -91,29 +97,13 @@ class Account extends Component {
                         // this value to authenticate with your backend server, if
                         // you have one. Use User.getToken() instead.
       }
-      /*
-      const db = fire.database().ref('users/' + uid);
-      const item = {
-        party_size: this.state.password
-      }
-
-        db.push(item
-        ).then(ref => {
-         console.log('Added document with ID: ', ref.id);
-         console.log(ref)
-         
-       });
-       */
-      var postData = {
-        party_size: 6,
-        starCount: 0
-      };
-      var newPostKey = fire.database().ref().child('users').push().key;
-      var updates = {};
-      updates['/posts/' + newPostKey] = postData;
-      fire.database().ref().update(updates);
-
-
+      alert("678")
+      fire.database().ref('/users/' + uid).set({
+        party_size: this.state.password,
+        state: "CO",
+        country: "US"
+      });
+      alert("after update!")
 
       //fire.analytics().setUserProperties({party_size: '69'});
     }
@@ -133,21 +123,33 @@ class Account extends Component {
 
       return name;
     }
-    getFamilySize = (e) => {
+    getFamilySize = (e) => {      
       var user = fire.auth().currentUser;
-      var name, email, photoUrl, uid, emailVerified, familySize;
-
+      var uid;
       if (user != null) {
-        name = user.displayName;
-        email = user.email;
-        photoUrl = user.photoURL;
-        emailVerified = user.emailVerified;
-        uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                        // this value to authenticate with your backend server, if
-                        // you have one. Use User.getToken() instead.
-        familySize = user.tenantId;
+        uid = user.uid;
+        //return "X";
       }
-      return familySize;
+
+      var data;
+      const usersRef = fire.database().ref('/users/' + uid);
+      usersRef.on("value", function(snapshot) {
+        data = snapshot.val();
+        console.log("sadfg");
+        //console.log(snapshot.val());
+        console.log(data);
+        //console.log(data.party_size)
+        //alert(party_size[0]);
+        if (data != null) {
+          alert(data.party_size)
+          return data.party_size;
+        }
+      }, function (error) {
+        //console.log("Error: " + error.code)
+      });
+
+      
+      return data;
     }
     getEmail = (e) => {
       var user = fire.auth().currentUser;
@@ -165,6 +167,7 @@ class Account extends Component {
 
       return email;
     }
+
     getProfilePic = (e) => {
       var user = fire.auth().currentUser;
       var name, email, photoUrl, uid, emailVerified;
@@ -224,7 +227,7 @@ class Account extends Component {
             
               <h3 align="center">Current Info</h3>
               <p>Name: {this.getName()}</p>
-              <p>Family Size: {this.getFamilySize()}</p>
+              <p>Party Size: {this.getFamilySize()}</p>
               <p>Email: {this.getEmail()}</p>
          
 
