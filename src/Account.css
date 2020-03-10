@@ -1,0 +1,13 @@
+img {
+    clip-path: circle(90px at center);
+}
+
+img.passphoto { 
+    font-family: 'Font Awesome 5 Free';
+    /* customize the following as desired */
+    font-size: 9em;
+    display: inline-block;
+    width: 200px;
+    height: 234px;
+    border: 1px solid lightgray;
+}

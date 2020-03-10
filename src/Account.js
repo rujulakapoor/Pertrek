@@ -9,6 +9,7 @@ import { Button, Form, Col, InputGroup } from 'react-bootstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component, useState } from 'react';
 import fire from './config/fire'
+import './Account.css';
 
 class Account extends Component {
     constructor(props) {
@@ -81,13 +82,11 @@ class Account extends Component {
       }).catch(function(error) {
         alert(error)
       });
-      alert("123")
       //let msgRef = fire.database().ref('users/').orderByKey().limitToLast
       var profileData = {
         party_size: this.state.password,
         state: "IN"
       }
-      alert("45")
       if (user != null) {
         name = user.displayName;
         email = user.email;
@@ -97,13 +96,11 @@ class Account extends Component {
                         // this value to authenticate with your backend server, if
                         // you have one. Use User.getToken() instead.
       }
-      alert("678")
       fire.database().ref('/users/' + uid).set({
         party_size: this.state.password,
         state: "CO",
         country: "US"
       });
-      alert("after update!")
 
       //fire.analytics().setUserProperties({party_size: '69'});
     }
@@ -132,7 +129,7 @@ class Account extends Component {
       }
 
       var data;
-      const usersRef = fire.database().ref('/users/' + uid);
+      /*const usersRef = fire.database().ref('/users/' + uid);
       usersRef.on("value", function(snapshot) {
         data = snapshot.val();
         console.log("sadfg");
@@ -141,13 +138,13 @@ class Account extends Component {
         //console.log(data.party_size)
         //alert(party_size[0]);
         if (data != null) {
-          alert(data.party_size)
+          //alert(data.party_size)
           return data.party_size;
         }
       }, function (error) {
         //console.log("Error: " + error.code)
       });
-
+      */
       
       return data;
     }
@@ -193,7 +190,8 @@ class Account extends Component {
         <section id="container">
         <div id="accountone">
         <div id="icon">  
-        <i class="fas fa-user-circle fa-10x"></i>
+        
+        <img src={this.getProfilePic()} alt="&#xf007;" width="180" height="180" class="passphoto"></img>
         
         <h3>Welcome,</h3> 
         </div>
@@ -227,7 +225,6 @@ class Account extends Component {
             
               <h3 align="center">Current Info</h3>
               <p>Name: {this.getName()}</p>
-              <p>Party Size: {this.getFamilySize()}</p>
               <p>Email: {this.getEmail()}</p>
          
 
