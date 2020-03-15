@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { $CombinedState } from 'redux';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
 
 class scheduler extends Component {
@@ -63,6 +63,16 @@ class scheduler extends Component {
 					var address = obj.location.address1 + "," + obj.location.city + "," + obj.location.zip_code;
 					var description = obj.name + " is a restaurant that offers " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 					var priceVal = '';
+					var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
+					//console.log("lat = " + obj.coordinates.latitude + "long" + obj.coordinates.longitude);
+					//console.log(mapz);
+					//var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=41.8841%2C-87.6480&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
+					
+					// var mapProp= {
+					// 	center:new google.maps.LatLng(obj.latitude,obj.longitude),
+					// 	zoom:5,
+					//   };
+					// var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
 					if(obj.price == undefined) {
 						priceVal = "$";
@@ -79,6 +89,7 @@ class scheduler extends Component {
 						image: obj.image_url,
 						address: address,
 						description: description,
+						map: mapSrc,
 						id: obj.id
 					}
 
@@ -115,6 +126,7 @@ class scheduler extends Component {
 					for(var a in response.data.businesses){
 						var obj = response.data.businesses[a];
 						var priceVal = '';
+						var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 
 						if(obj.price == undefined) {
 							//free!!
@@ -134,6 +146,7 @@ class scheduler extends Component {
 							image: obj.image_url,
 							address: address,
 							description: description,
+							map: mapSrc,
 							id: obj.id
 						}
 
@@ -177,36 +190,47 @@ class scheduler extends Component {
 					</div>
 				</div>
 
+
 				<div className='row'>
 					<div className='col-xl-12'>
 						{
 						this.state.restaurants //COLLECTION NAME
 						.map(attraction =>
-							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '35rem', margin:'15px'}}>
-								<Card.Header as="h5">{ attraction.name }</Card.Header>
-								<Card.Img variant="top" src={ attraction.image } className="card-img"/>
+							<Accordion defaultActiveKey="0">
+								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+									<Card.Header as="h5">{ attraction.name }</Card.Header>
+									<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
-								<Card.Body>
-									<Card.Text as="h4">
-										Cost: { attraction.price }
-									</Card.Text>
-									{/* <Card.Text as="h4">
-										Estimated duration: { attraction.duration } hours
-									</Card.Text> */}
-									<Card.Text as="h4">
-										Popularity: { attraction.popularity }/5
-									</Card.Text>
-									<Card.Text as="p">
-										{ attraction.description }
-									</Card.Text>
-									<Button variant="secondary">Add</Button>
-								</Card.Body>
+									<Card.Body>
+										<Card.Text as="h4">
+											Cost: { attraction.price }
+										</Card.Text>
+										{/* <Card.Text as="h4">
+											Estimated duration: { attraction.duration } hours
+										</Card.Text> */}
+										<Card.Text as="h4">
+											Popularity: { attraction.popularity }/5
+										</Card.Text>
+										<Card.Text as="p">
+											{ attraction.description }
+										</Card.Text>
+										<Button variant="secondary">Add</Button>
 
-								<Card.Footer as="h3">
-									{ attraction.address }
-								</Card.Footer>
+									</Card.Body>
 
-							</Card>
+									<Card.Header>
+										<Accordion.Toggle as="h2" variant="link" eventKey="1">
+											{ attraction.address }
+										</Accordion.Toggle>
+									</Card.Header>
+									<Accordion.Collapse eventKey="1">
+										<Card.Body>
+											<iframe width="100%" frameBorder="0" src={attraction.map}></iframe>
+										</Card.Body>
+									</Accordion.Collapse>
+
+								</Card>
+							</Accordion>
 
 							)
 						}
@@ -225,31 +249,40 @@ class scheduler extends Component {
 						{
 						this.state.attractions //COLLECTION NAME
 						.map(attraction =>
-							<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '35rem', margin:'15px'}}>
-								<Card.Header as="h5">{ attraction.name }</Card.Header>
-								<Card.Img variant="top" src={ attraction.image } className="card-img"/>
+							<Accordion defaultActiveKey="0">
+								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+									<Card.Header as="h5">{ attraction.name }</Card.Header>
+									<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
-								<Card.Body>
-									<Card.Text as="h4">
-										Cost: { attraction.price }
-									</Card.Text>
-									{/* <Card.Text as="h4">
-										Estimated duration: { attraction.duration } hours
-									</Card.Text> */}
-									<Card.Text as="h4">
-										Popularity: { attraction.popularity }/5
-									</Card.Text>
-									<Card.Text as="p">
-										{ attraction.description }
-									</Card.Text>
-									<Button variant="secondary">Add</Button>
-								</Card.Body>
+									<Card.Body>
+										<Card.Text as="h4">
+											Cost: { attraction.price }
+										</Card.Text>
+										{/* <Card.Text as="h4">
+											Estimated duration: { attraction.duration } hours
+										</Card.Text> */}
+										<Card.Text as="h4">
+											Popularity: { attraction.popularity }/5
+										</Card.Text>
+										<Card.Text as="p">
+											{ attraction.description }
+										</Card.Text>
+										<Button variant="secondary">Add</Button>
+									</Card.Body>
 
-								<Card.Footer as="h3">
-									{ attraction.address }
-								</Card.Footer>
+									<Card.Header>
+										<Accordion.Toggle as="h2" variant="link" eventKey="1">
+											{ attraction.address }
+										</Accordion.Toggle>
+									</Card.Header>
+									<Accordion.Collapse eventKey="1">
+										<Card.Body>
+											<iframe width="100%" frameBorder="0" src={attraction.map}></iframe>
+										</Card.Body>
+									</Accordion.Collapse>
 
-							</Card>
+								</Card>
+							</Accordion>
 
 							)
 						}

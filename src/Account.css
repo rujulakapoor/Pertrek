@@ -1,8 +1,8 @@
-img {
+.Account img {
     clip-path: circle(90px at center);
 }
 
-img.passphoto { 
+.Account img.passphoto { 
     font-family: 'Font Awesome 5 Free';
     /* customize the following as desired */
     font-size: 9em;
