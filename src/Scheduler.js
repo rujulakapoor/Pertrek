@@ -219,13 +219,16 @@ class scheduler extends Component {
 												rating={ attraction.popularity }
 												starDimension="15px"
 												starSpacing="2px"
+												starRatedColor="rgb(245, 214, 44)"
 											/>
 										</Card.Text>
 
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
+
 										<Button variant="secondary">Add</Button>
+										<Button variant="outline-danger"><i className="far fa-heart"></i>Favorite</Button>
 
 									</Card.Body>
 
@@ -281,6 +284,7 @@ class scheduler extends Component {
 												rating={ attraction.popularity }
 												starDimension="15px"
 												starSpacing="2px"
+												starRatedColor="rgb(245, 214, 44)"
 											/>
 										</Card.Text>
 
