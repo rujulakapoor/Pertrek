@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { $CombinedState } from 'redux';
 import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
+import StarRatings from 'react-star-ratings';
+
 
 class scheduler extends Component {
 	constructor(props) {
@@ -209,8 +211,17 @@ class scheduler extends Component {
 											Estimated duration: { attraction.duration } hours
 										</Card.Text> */}
 										<Card.Text as="h4">
-											Popularity: { attraction.popularity }/5
+											Rating: { attraction.popularity }/5
 										</Card.Text>
+
+										<Card.Text as="h4">
+											<StarRatings
+												rating={ attraction.popularity }
+												starDimension="15px"
+												starSpacing="2px"
+											/>
+										</Card.Text>
+
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
@@ -262,8 +273,17 @@ class scheduler extends Component {
 											Estimated duration: { attraction.duration } hours
 										</Card.Text> */}
 										<Card.Text as="h4">
-											Popularity: { attraction.popularity }/5
+											Rating: { attraction.popularity }/5
 										</Card.Text>
+
+										<Card.Text as="h4">
+											<StarRatings
+												rating={ attraction.popularity }
+												starDimension="15px"
+												starSpacing="2px"
+											/>
+										</Card.Text>
+
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
