@@ -110,6 +110,10 @@ p {
   height: 10vw;
 }
 
+.planner Button {
+  margin-right:5px;
+}
+
 
 /* RUJULA STUFF */
 #container {

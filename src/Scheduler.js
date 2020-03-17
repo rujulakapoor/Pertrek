@@ -3,6 +3,8 @@ import { $CombinedState } from 'redux';
 import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
 class scheduler extends Component {
@@ -186,6 +188,7 @@ class scheduler extends Component {
 	render() {
 		return (
 			<div className="planner">
+
 				<div className="row">
 					<div className='col-xl-12'>
 						<h1>Restaurants</h1>
@@ -227,8 +230,8 @@ class scheduler extends Component {
 											{ attraction.description }
 										</Card.Text>
 
-										<Button variant="secondary">Add</Button>
-										<Button variant="outline-danger"><i className="far fa-heart"></i>Favorite</Button>
+										<Button variant="outline-success"><FontAwesomeIcon icon={faPlus} /></Button>
+										<Button variant="outline-danger"><FontAwesomeIcon icon={faHeart} /></Button>
 
 									</Card.Body>
 
@@ -292,6 +295,7 @@ class scheduler extends Component {
 											{ attraction.description }
 										</Card.Text>
 										<Button variant="secondary">Add</Button>
+										<Button variant="outline-danger"><FontAwesomeIcon icon={faHeart} /></Button>
 									</Card.Body>
 
 									<Card.Header>
