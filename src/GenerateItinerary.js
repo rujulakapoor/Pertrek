@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Jumbotron, Table, Tabs,Tab, TabPane, Accordion,Card, Container, Row, Col,
 Nav, NavItem, NavLink } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {FaCheck} from 'react-icons/fa'
 import fire from "./config/fire";
@@ -463,6 +464,7 @@ console.log(this.state.days)
 
 
     <Container>
+      
 
 
 <Row>
@@ -498,6 +500,84 @@ console.log(this.state.days)
 
 
 <Container>
+
+  
+<div id="cus" className="Custom">  
+            
+            <Accordion defaultActiveKey="0">
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                <i class="fas fa-edit fa-2x"></i>
+                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">custom</span> </Link>
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                <h1>Pick a Background Color</h1>  
+                <input id="select1" name="check1" type="checkbox" />
+                <label for="select1">Black</label>
+                <input id="select2" name="check1" type="checkbox" />
+                <label for="select2">Blue</label>
+                <input id="select3" name="check1" type="checkbox" />
+                <label for="select3">Green</label>
+                <input id="select4" name="check1" type="checkbox" />
+                <label for="select4">Purple</label>
+                <input id="select5" name="check1" type="checkbox" />
+                <label for="select5">Maroon</label>
+                <input id="select6" name="check1" type="checkbox" />
+                <label for="select6">Orange</label>
+                <input id="select7" name="check1" type="checkbox" />
+                <label for="select7">Yellow</label>
+                <input id="select8" name="check1" type="checkbox" />
+                <label for="select8">Pink</label>
+
+                <h1>Pick a Font</h1>  
+                <input id="sel1" name="check1" type="checkbox" />
+                <label for="sel1">Quicksand</label>
+                <input id="sel2" name="check1" type="checkbox" />
+                <label for="sel2">Calibri</label>
+                <input id="sel3" name="check1" type="checkbox" />
+                <label for="sel3">Arial</label>
+                <input id="sel4" name="check1" type="checkbox" />
+                <label for="sel4">Comic Sans</label>
+                <input id="sel5" name="check1" type="checkbox" />
+                <label for="sel5">Times </label>
+                <input id="sel6" name="check1" type="checkbox" />
+                <label for="sel6">Gothic </label>
+
+
+                <h1>Pick a Font Size</h1>  
+                <input id="se1" name="check1" type="checkbox" />
+                <label for="se1">12</label>
+                <input id="se5" name="check1" type="checkbox" />
+                <label for="se5">16</label>
+                <input id="se2" name="check1" type="checkbox" />
+                <label for="se2">18</label>
+                <input id="se3" name="check1" type="checkbox" />
+                <label for="se3">24</label>
+                <input id="se4" name="check1" type="checkbox" />
+                <label for="se4">30</label>
+                <input id="se6" name="check1" type="checkbox" />
+                <label for="se6">42</label>
+
+                <h1>Pick a Font Color</h1>  
+                <input id="s1" name="check1" type="checkbox" />
+                <label for="s1">Black</label>
+                <input id="s2" name="check1" type="checkbox" />
+                <label for="s2">White</label>
+
+                <div id="cus" class="wrapper2 wrap wr w">
+                  Some text here
+                  <Timetable id="time" />
+                 </div>
+
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+  
+            </div>
 <Row>
 <Col sm={10}>
 
@@ -508,6 +588,7 @@ console.log(this.state.days)
 
 
   return(
+      
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
       <Timetable />

@@ -5,7 +5,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { Button, Form, Col, InputGroup } from 'react-bootstrap';
+import { Button, Form, Col, InputGroup,Accordion,Card} from 'react-bootstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component, useState } from 'react';
 import fire from './config/fire'
@@ -213,16 +213,18 @@ class Account extends Component {
         <i class="fas fa-cog fa-2x"></i>
         <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
         </div>
-
         <div>  
         <i class="fas fa-key fa-2x"></i>
         <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
         </div>
+
+        
+
         </div>
         <div align="center" id="accounttwo"> 
         <div id="move">  
         <h2 align="center">Account Details</h2>
-            
+        
               <h3 align="center">Current Info</h3>
               <p>Name: {this.getName()}</p>
               <p>Email: {this.getEmail()}</p>
@@ -256,9 +258,13 @@ class Account extends Component {
               
               
               <Button type="submit">Submit form</Button>
-              
+                    
             </Form>
+
             </div>
+
+
+
           </div>
         </div>   
         </section> 
