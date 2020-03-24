@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import {Button, Jumbotron, Table, Tabs,Tab, TabPane, Accordion,Card, Container, Row, Col,
 Nav, NavItem, NavLink } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {FaCheck} from 'react-icons/fa'
 import fire from "./config/fire";
+import TimePicker from 'react-gradient-timepicker'; 
 import Timetable from './Timetable'
 import PreviewAttractions from './PreviewAttractions'
+import { TimeInput } from './TimeInput';
+import { TimeInput2 } from './TimeInput2';
+import RentalCar from './RentalCar'
+import Breakfast from "./Breakfast";
+import Lunch from "./Lunch";
+import Dinner from "./Dinner";
+import Snack from "./Snack";
+import Other from "./Other";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
 export class GenerateItinerary extends Component {
 
 constructor(props){
@@ -23,7 +35,7 @@ constructor(props){
   this.handleSavedEdits =this.handleSavedEdits.bind(this)
 
   this.state = {
-
+    
     enddate: this.props.values.enddate,
     startdate:this.props.values.startdate,
     budget: this.props.values.budget,
@@ -272,6 +284,7 @@ if(this.state.editbudget) {
 }
 
 titleButtonRender() {
+  
 if(this.state.edittitle) {
 return(<Button variant="light" onClick={this.changeTitle}>
      <FiSave />
@@ -361,6 +374,7 @@ changeBudget() {
   }
 
 }
+
 
 
 changeNotes() {
@@ -501,14 +515,53 @@ console.log(this.state.days)
 
 <Container>
 
-  
-<div id="cus" className="Custom">  
-            
-            <Accordion defaultActiveKey="0">
+
+<Accordion defaultActiveKey="0">  
             <Card>
               <Card.Header>
                 <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <i class="fas fa-edit fa-2x"></i>
+                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Rental Car</span> </Link>
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                <RentalCar / >
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+  </Accordion>
+  
+
+  
+
+<Accordion defaultActiveKey="0">  
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Meal Inofrmation</span> </Link>
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                <div className="MealsStuff" id="moreMealStuff">
+                <Breakfast / >
+                <Lunch / >
+                <Dinner / >  
+                <Snack />
+                <Other />
+                </div> 
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+  </Accordion>
+
+  
+<div id="cus" className="Custom">  
+            
+            <Accordion defaultActiveKey="0">  
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1">
                 <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">custom</span> </Link>
                 </Accordion.Toggle>
               </Card.Header>
@@ -567,9 +620,21 @@ console.log(this.state.days)
                 <input id="s2" name="check1" type="checkbox" />
                 <label for="s2">White</label>
 
-                <div id="cus" class="wrapper2 wrap wr w">
+                <div id="cuse" class="wrapper2 wrap wr w">
                   Some text here
                   <Timetable id="time" />
+                  <div id="wakeup">
+                  Wake Up Time
+                  </div>
+                  <div>
+                  <TimeInput / >
+                  </div>
+                  <div id="bedtime">
+                  Bed Time
+                  </div>
+                  <div>
+                  <TimeInput2 / >
+                  </div> 
                  </div>
 
                 </Card.Body>
@@ -583,15 +648,18 @@ console.log(this.state.days)
 
     <Tabs  id="uncontrolled-tab-example">
     {this.state.days.map((day) =>
+    
 {
 
-
-
+  
+  
   return(
-      
+          
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable />
+      <Timetable /> 
+      
+
       </Tab>
 
   )

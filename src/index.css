@@ -196,6 +196,9 @@ p {
   margin-bottom: 5%;
   
 }
+#hello{
+  width: 800pt;
+}
 .Custom time{
   height: 200px;
 }
@@ -220,7 +223,7 @@ p {
     outline: none;
     cursor: pointer;
     
-  }
+  } 
 .Custom input:checked {
   background-color: gray;
 }
@@ -229,6 +232,105 @@ p {
   color: #c7d0d8;
   font-size: 30px;
   font-weight: bold;
+}
+.TimeInput input{
+  background-color: transparent;
+  border-color: transparent;
+  color: black;
+}
+#timeeee{
+  height: 250pt;
+  margin-top: 3%;
+}
+#wakeup{
+  margin-top: 3%;
+  text-align: center;
+}
+#bedtime{
+  margin-top: 3%;
+  text-align: center;
+}
+#meals{
+  height: 200pt;
+}
+#meal2{
+  height: 50pt;
+}
+.MealsStuff input{
+  border-width: 0;
+  box-shadow: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  border-bottom: 3px dotted #c7d0d8;
+  margin-bottom: 1%;
+  
+}
+.MealsStuff h4{
+  margin-top: 3%;
+  font-size: 20pt;
+  margin-left: 5%;
+}
+#moreMealStuff{
+  margin-left: 5%;
+}
+#RentalCar{
+  text-align: center;
+}
+#carone {
+  width: 75%;
+  height: 200pt;
+  background-color: #c7d0d8;
+  border-width: 20pt;
+  float: left;
+}
+
+#cartwo {
+  margin-left: 15%;
+  height: 200pt;
+  background: white;
+  text-align: center;
+  border:15px solid #c7d0d8;
+}
+#carthree {
+  height: 15pt;
+  background: white;
+
+}
+
+.Car h1{
+  margin-top: 3%;
+  font-size: 27pt;
+  color: #fff;
+}
+.Car h3{
+  margin-left: 5%;
+  font-size: 20pt;
+  color: #fff;
+}
+.Car h4{
+  font-size: 20pt;
+  text-align: left;
+  margin-left: 5%;
+  margin-top: 2%;
+  color: #fff;
+}
+.Car h5{
+  margin-left: 5%;
+  color: white;
+}
+.Car2 h1{
+  color: #fff;
+}
+.CarCar input{
+  margin-left: 8%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+}
+#CardLeft{
+  margin-left: 8%;
+  margin-top: 2%;
 }
 #five {
   text-align: center;
