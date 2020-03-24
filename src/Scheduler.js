@@ -5,28 +5,40 @@ import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
+import fire from "./config/fire";
 
 
 class scheduler extends Component {
 	constructor(props) {
 		super(props);
+		this.save= this.save.bind(this);
+		this.favoriteItem = this.favoriteItem.bind(this);
+		this.getAlreadyFaved = this.getAlreadyFaved.bind(this);
+
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
 		console.log("cityName = " + cityName);
+
 
 		this.state = {
 			restaurants: [],
 			freeAttractions: [],
 			usedAttractions: [],
 			attractions: [],
-			citySelect: cityName
+			favoriteItems: [],
+			citySelect: cityName,
+			alreadysaved: false,
+			itkey: null,
+			alreadyFaved: [],
+			favNames: [],
+      		retreived: false,
 		}
 
 	}
 	componentDidMount() {
 		console.log("starting");
-
+		
 		var token = 'Bearer zyPWG_QxvokChwb3lHLU8wvzWLEWq8SlvpPwr1I_yE9izq4aonvbf6XTlM7JkhqA7uPbKqorBa-0H67-9djEePPUE5JWAgBUloI5s9blpLpDD_70Qo2M1Bz61Iw3XnYx';
 		var yelp_search_url = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search';
 		const state = this.state;
@@ -50,7 +62,8 @@ class scheduler extends Component {
 			},
 			params: {
 					term:'restaurants',
-					location: this.state.citySelect
+					location: this.state.citySelect,
+					limit:5
 			}
 			})
 			.then(function (response) {
@@ -68,16 +81,7 @@ class scheduler extends Component {
 					var description = obj.name + " is a restaurant that offers " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 					var priceVal = '';
 					var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
-					//console.log("lat = " + obj.coordinates.latitude + "long" + obj.coordinates.longitude);
-					//console.log(mapz);
-					//var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=41.8841%2C-87.6480&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 					
-					// var mapProp= {
-					// 	center:new google.maps.LatLng(obj.latitude,obj.longitude),
-					// 	zoom:5,
-					//   };
-					// var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-
 					if(obj.price == undefined) {
 						priceVal = "$";
 					}
@@ -109,7 +113,7 @@ class scheduler extends Component {
 				console.log("done");
 
 				//check restaurants state
-				// console.log("check");
+				console.log("check");
 				// for(var i in this.state.restaurants) {
 				// 	var r = this.state.restaurants[i];
 				// 	console.log(i + " = " + r.name + ", " + r.description);
@@ -123,7 +127,8 @@ class scheduler extends Component {
 				},
 				params: {
 						term:'attractions',
-						location: this.state.citySelect
+						location: this.state.citySelect,
+						limit:5
 				}
 				})
 				.then(function (response) {
@@ -162,30 +167,112 @@ class scheduler extends Component {
 					console.log(error);
 				})
 				.then(function() {
-					//get rid of free attractions
-					// for(var i in this.state.attractions) {
-					// 	var attID = this.state.attractions[i].id;
-
-					// 	console.log("comparing " + attID )
-					// 	if(this.state.usedAttractions.includes(attID)) {
-					// 		console.log("duplicate!");
-					// 	}
-
-					// 	// this.setState({attractions: this.state.attractions.filter(function(attractions) {
-					// 	// 	return attractions !== attID
-					// 	// })});
-
-					// }
-
-
 					console.log("done");
-
 				}.bind(this));
 
 	}
 
+	save(name, price, popularity, image, address, description) {
+		//check if item is already favorited
+
+		//TODO: move to component mount this is dumb
+		//get user's favorited stuff
+		// console.log("getting favs");
+		// this.getAlreadyFaved();
+		// console.log("done getting favs");
+
+		//favorite item
+		if(this.state.alreadysaved == false){
+			const user = fire.auth().currentUser.uid
+			const db = fire.database().ref('favoriteItems/' + user);
+			const item = {
+			name: name,
+			price: price,
+			popularity: popularity,
+			image: image,
+			address: address,
+			description: description
+		}
+  
+		  db.push(item
+		  ).then(ref => {
+		   console.log('Added fav with ID: ', ref.id);
+		   //console.log(ref)
+		   this.setState({
+			 itkey: ref.path.pieces_[2]
+		   })
+		 });
+		 console.log("save completed?" + item);
+		 //console.log(item);
+		//  this.setState({
+		//    alreadysaved: true
+		//  })
+	  }
+	  else {
+		console.log("Already saved")
+  
+	  }
+	}
+
+	favoriteItem(name, price, popularity, image, address, description) {
+		console.log("favoriting item");
+		this.save(name, price, popularity, image, address, description);
+	}
+
+	getAlreadyFaved() {
+		if(this.state.retreived === false ){
+			const user = fire.auth().currentUser.uid;
+			console.log("user id = " + user);
+
+			fire.database()
+				.ref('favoriteItems/' + user)
+				.on("value", snapshot=> {
+					if(snapshot.val()) {
+						let currentstate = this;
+						console.log("Snapshot = " + snapshot.val());
+					
+						const values = snapshot.val();
+						console.log(values);
+						var keyList = Object.keys(values);
+						//console.log(Object.keys(values));
+						//console.log("name = " + values[tempkey].name);
+
+						for(var k in keyList) {
+							//console.log("key in keylist = " + keyList[k]);
+							var key = keyList[k];
+							var favName = values[key].name;
+							currentstate.setState( {
+								favNames: [...currentstate.state.favNames,  favName]
+							})
+						}
+
+						console.log("printing faved stuff: length = " + this.state.favNames.length);
+						for(var i in this.state.favNames) {
+							var r = this.state.favNames[i];
+							console.log(i + " = " + r);
+						}
+
+					}
+				})
+		
+
+			this.state.retreived=true;
+			console.log("DID IT !!!")
+		}
+		
+	}
+
 
 	render() {
+		let statenow = this
+
+		fire.auth().onAuthStateChanged( function(user) {
+			if (user) {
+			console.log("REVTRIEVING FAVORITES")
+			statenow.getAlreadyFaved();
+			console.log("RETRIEVED");
+		}})
+
 		return (
 			<div className="planner">
 
@@ -194,7 +281,6 @@ class scheduler extends Component {
 						<h1>Restaurants</h1>
 					</div>
 				</div>
-
 
 				<div className='row'>
 					<div className='col-xl-12'>
@@ -231,7 +317,19 @@ class scheduler extends Component {
 										</Card.Text>
 
 										<Button variant="outline-success"><FontAwesomeIcon icon={faPlus} /></Button>
-										<Button variant="outline-danger"><FontAwesomeIcon icon={faHeart} /></Button>
+
+										<Button onClick={ () => this.favoriteItem(
+																attraction.name, 
+																attraction.price, 
+																attraction.popularity, 
+																attraction.image, 
+																attraction.address, 
+																attraction.description
+															) 
+														}										
+														variant="outline-danger">
+															<FontAwesomeIcon icon={faHeart} />
+										</Button>
 
 									</Card.Body>
 
