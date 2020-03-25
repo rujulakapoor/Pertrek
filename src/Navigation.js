@@ -72,9 +72,8 @@ class Navigation extends React.Component {
                 <div id="left"><Button variant="secondary" href='./itform'>New Itinerary</Button></div>
 
                 <NavDropdown title={this.state.email} id="basic-nav-dropdown" className="dropdown">
-                  <NavDropdown.Item href="./account" >Account Details</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3" >Something</NavDropdown.Item>
+                  <NavDropdown.Item><Link to="/account">Account Details</Link></NavDropdown.Item>
+                  <NavDropdown.Item ><Link to="/favorites">My Favorites</Link></NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="#action/3.4" onClick={this.props.value}>Sign Out</NavDropdown.Item>
                 </NavDropdown>
