@@ -332,6 +332,38 @@ p {
   margin-left: 8%;
   margin-top: 2%;
 }
+#flight{
+  height: 370pt;
+  width: 370pt;
+  background-color: #c7d0d8;
+  display: inline-block;
+  margin-right: 3%;
+  text-align: center;
+  margin-top: 3%;
+}
+.flightStuff input {
+  margin-top: 1%;
+  margin-bottom: 2%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+  width: 310pt;
+  margin-left: 1%;
+}
+#FlightLeft{
+  text-align: right;
+  margin-top: 4%;
+  margin-right: 4%;
+}
+.flightStuff h6{
+  color: white;
+  text-align: left;
+  margin-left: 8%;
+  font-size: large;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
 #five {
   text-align: center;
 }

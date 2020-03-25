@@ -16,6 +16,7 @@ import Lunch from "./Lunch";
 import Dinner from "./Dinner";
 import Snack from "./Snack";
 import Other from "./Other";
+import Plane from "./Plane"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
@@ -514,6 +515,22 @@ console.log(this.state.days)
 
 
 <Container>
+
+
+<Accordion defaultActiveKey="0">  
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Plane Information</span> </Link>
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>
+                <Plane / >
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+  </Accordion>
 
 
 <Accordion defaultActiveKey="0">  
