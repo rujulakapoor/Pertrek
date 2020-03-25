@@ -691,10 +691,13 @@ console.log(this.state.days)
       <Col sm={2}>
 
 
-
+      <Row>
      <h3> Suggested Attractions </h3>
-     <PreviewAttractions / >
+     <PreviewAttractions budget={this.state.budget} / >
+     </Row>
+     
      </Col>
+     
 
      </Row>
 <Row>
