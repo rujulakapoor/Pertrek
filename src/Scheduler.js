@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { $CombinedState } from 'redux';
-import { Card, Button, Accordion } from 'react-bootstrap';
+import { Card, Button, Accordion, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,7 +14,7 @@ class scheduler extends Component {
 		this.save= this.save.bind(this);
 		this.favoriteItem = this.favoriteItem.bind(this);
 		this.getAlreadyFaved = this.getAlreadyFaved.bind(this);
-
+		this.deleteFavorite = this.deleteFavorite.bind(this);
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
@@ -32,6 +32,7 @@ class scheduler extends Component {
 			itkey: null,
 			alreadyFaved: [],
 			favNames: [],
+			favKeys: [],
       		retreived: false,
 		}
 
@@ -173,13 +174,6 @@ class scheduler extends Component {
 	}
 
 	save(name, price, popularity, image, address, description) {
-		//check if item is already favorited
-
-		//TODO: move to component mount this is dumb
-		//get user's favorited stuff
-		// console.log("getting favs");
-		// this.getAlreadyFaved();
-		// console.log("done getting favs");
 
 		//favorite item
 		if(this.state.alreadysaved == false){
@@ -216,7 +210,46 @@ class scheduler extends Component {
 
 	favoriteItem(name, price, popularity, image, address, description) {
 		console.log("favoriting item");
-		this.save(name, price, popularity, image, address, description);
+
+		//check if this item already favorited
+		//console.log("printing faved stuff: length = " + this.state.favNames.length);
+		var isFavorited = false;
+		var removeIndex = 0;
+
+		for(var i in this.state.favNames) {
+			var r = this.state.favNames[i];
+			//console.log(i + " = " + r);
+			if(r === name) {	//duplicate found
+				console.log("DUPLICATE :(");
+				isFavorited = true;
+				removeIndex = i;
+				break;
+			}
+		}
+
+		if(!isFavorited) {	//FAVORITE
+			this.save(name, price, popularity, image, address, description);
+		}
+		else {	//REMOVE
+			console.log("you already favorited this dumbass");
+			//this.deleteFavorite(this.state.favKeys[removeIndex]);
+			alert("This item has already been favorited");
+		}
+	}
+
+	deleteFavorite(id) {
+		const user = fire.auth().currentUser.uid;
+			fire.database()
+				.ref('favoriteItems/' + user)
+				.child(id[0]).remove();
+
+			this.setState({
+				favNames: [],
+				favKeys: [],
+				retreived: false
+			})
+
+			this.getAlreadyFaved();
 	}
 
 	getAlreadyFaved() {
@@ -246,6 +279,15 @@ class scheduler extends Component {
 							})
 						}
 
+						for(var k in keyList) {
+							//console.log("key in keylist = " + keyList[k]);
+							var key = keyList[k];
+							var favKey = key;
+							currentstate.setState( {
+								favKeys: [...currentstate.state.favKeys,  favKey]
+							})
+						}
+
 						console.log("printing faved stuff: length = " + this.state.favNames.length);
 						for(var i in this.state.favNames) {
 							var r = this.state.favNames[i];
@@ -268,9 +310,7 @@ class scheduler extends Component {
 
 		fire.auth().onAuthStateChanged( function(user) {
 			if (user) {
-			console.log("REVTRIEVING FAVORITES")
 			statenow.getAlreadyFaved();
-			console.log("RETRIEVED");
 		}})
 
 		return (
@@ -392,8 +432,19 @@ class scheduler extends Component {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
-										<Button variant="outline-danger"><FontAwesomeIcon icon={faHeart} /></Button>
+										<Button variant="outline-success"><FontAwesomeIcon icon={faPlus} /></Button>
+										<Button onClick={ () => this.favoriteItem(
+																attraction.name, 
+																attraction.price, 
+																attraction.popularity, 
+																attraction.image, 
+																attraction.address, 
+																attraction.description
+															) 
+														}										
+														variant="outline-danger">
+															<FontAwesomeIcon icon={faHeart} />
+										</Button>
 									</Card.Body>
 
 									<Card.Header>
