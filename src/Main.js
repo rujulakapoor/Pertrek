@@ -7,6 +7,7 @@ import Forgot from './Forgot'
 import ItineraryForm from './ItineraryForm'
 import Scheduler from './Scheduler'
 import Saved from './SavedPage'
+import Favorites from './Favorites.js'
 
 const Main = () => (
     <main>
@@ -18,6 +19,7 @@ const Main = () => (
             <Route path='/itform' component={ItineraryForm}/>
             <Route path='/scheduler' component={Scheduler}/>
             <Route path='/savedpage' component={Saved}/>
+            <Route path='/favorites' component={Favorites}/>
         </Switch>
     </main>
 )
