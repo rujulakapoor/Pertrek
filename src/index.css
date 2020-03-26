@@ -205,6 +205,179 @@ Link {
   margin-bottom: 0%;
   
 }
+#cus{
+  margin-top: 5%;
+  margin-bottom: 5%;
+  
+}
+#hello{
+  width: 800pt;
+}
+.Custom time{
+  height: 200px;
+}
+.Custom label {
+  color: black;
+  font-weight: bold;
+  margin-left: 6pt;
+  font-family: 'Quicksand', sans-serif;
+  width: 100px;
+  margin-top: 2%;
+  text-align: left;
+  }
+  .Custom input{
+    width: 1.2em;
+    height: 1.2em;
+    padding-left: 5pt;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    
+  } 
+.Custom input:checked {
+  background-color: gray;
+}
+.Custom h1{
+  font-family: 'Quicksand', sans-serif;
+  color: #c7d0d8;
+  font-size: 30px;
+  font-weight: bold;
+}
+.TimeInput input{
+  background-color: transparent;
+  border-color: transparent;
+  color: black;
+}
+#timeeee{
+  height: 250pt;
+  margin-top: 3%;
+}
+#wakeup{
+  margin-top: 3%;
+  text-align: center;
+}
+#bedtime{
+  margin-top: 3%;
+  text-align: center;
+}
+#meals{
+  height: 200pt;
+}
+#meal2{
+  height: 50pt;
+}
+.MealsStuff input{
+  border-width: 0;
+  box-shadow: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  border-bottom: 3px dotted #c7d0d8;
+  margin-bottom: 1%;
+  
+}
+.MealsStuff h4{
+  margin-top: 3%;
+  font-size: 20pt;
+  margin-left: 5%;
+}
+#moreMealStuff{
+  margin-left: 5%;
+}
+#RentalCar{
+  text-align: center;
+}
+#carone {
+  width: 75%;
+  height: 200pt;
+  background-color: #c7d0d8;
+  border-width: 20pt;
+  float: left;
+}
+
+#cartwo {
+  margin-left: 15%;
+  height: 200pt;
+  background: white;
+  text-align: center;
+  border:15px solid #c7d0d8;
+}
+#carthree {
+  height: 15pt;
+  background: white;
+
+}
+
+.Car h1{
+  margin-top: 3%;
+  font-size: 27pt;
+  color: #fff;
+}
+.Car h3{
+  margin-left: 5%;
+  font-size: 20pt;
+  color: #fff;
+}
+.Car h4{
+  font-size: 20pt;
+  text-align: left;
+  margin-left: 5%;
+  margin-top: 2%;
+  color: #fff;
+}
+.Car h5{
+  margin-left: 5%;
+  color: white;
+}
+.Car2 h1{
+  color: #fff;
+}
+.CarCar input{
+  margin-left: 8%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+}
+#CardLeft{
+  margin-left: 8%;
+  margin-top: 2%;
+}
+#flight{
+  height: 370pt;
+  width: 370pt;
+  background-color: #c7d0d8;
+  display: inline-block;
+  margin-right: 3%;
+  text-align: center;
+  margin-top: 3%;
+}
+.flightStuff input {
+  margin-top: 1%;
+  margin-bottom: 2%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+  width: 310pt;
+  margin-left: 1%;
+}
+#FlightLeft{
+  text-align: right;
+  margin-top: 4%;
+  margin-right: 4%;
+}
+.flightStuff h6{
+  color: white;
+  text-align: left;
+  margin-left: 8%;
+  font-size: large;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
 #five {
   text-align: center;
 }
@@ -521,4 +694,83 @@ Link {
 .popup2 .content {
   max-height: 30%;
   overflow: auto;
+}
+#select1:checked~div.wrapper2 {
+  
+  background-color: black;
+  color: white;
+}
+#select2:checked~div.wrapper2 {
+  
+  background-color: #AED6F1;
+  color: white;
+}
+#select3:checked~div.wrapper2 {
+  background-color: #ABEBC6 ;
+  color: white;
+}
+#select4:checked~div.wrapper2 {
+  background-color: rgb(191, 173, 233) ;
+  color: white;
+}
+#select5:checked~div.wrapper2 {
+  background-color: rgb(77, 24, 8) ;
+  color: white;
+}
+#select6:checked~div.wrapper2 {
+  background-color: rgb(228, 159, 68) ;
+  color: white;
+}
+#select7:checked~div.wrapper2 {
+  background-color: rgba(245, 245, 112, 0.959);
+  color: white;
+}
+#select8:checked~div.wrapper2 {
+  background-color: palevioletred;
+  color: white;
+}
+
+#sel1:checked~div.wrap {
+  font-family: 'Quicksand', sans-serif;
+}
+#sel2:checked~div.wrap {
+  font-family: "Calibri", Times, serif;
+}
+#sel3:checked~div.wrap {
+  font-family: Arial, Helvetica, sans-serif;
+}
+#sel4:checked~div.wrap {
+  font-family: Comic sans-serif, cursive, sans-serif;
+}
+#sel5:checked~div.wrap {
+  font-family: 'Times New Roman', Times, serif;
+}
+#sel6:checked~div.wrap {
+  font-family: 'franklin gothic', Times, serif;
+}
+
+#se1:checked~div.wr {
+  font-size: 12px;
+}
+#se2:checked~div.wr {
+  font-size: 18px;
+}
+#se3:checked~div.wr {
+  font-size: 24px;
+}
+#se4:checked~div.wr {
+  font-size: 30px;
+}
+#se5:checked~div.wr {
+  font-size: 16px;
+}
+#se6:checked~div.wr {
+  font-size: 42px;
+}
+
+#s1:checked~div.w {
+  color: black;
+}
+#s2:checked~div.w {
+  color: white;
 }
