@@ -9,6 +9,7 @@ class Favorites extends Component {
     constructor(props) {
       super(props);
       this.getAlreadyFaved = this.getAlreadyFaved.bind(this);
+      this.deleteFavorite = this.deleteFavorite.bind(this);
 
         this.state = {
             alreadyFaved: [],
@@ -16,7 +17,6 @@ class Favorites extends Component {
         }
     }
     
-
     getAlreadyFaved() {
 		if(this.state.retreived === false ){
 			const user = fire.auth().currentUser.uid;
@@ -44,9 +44,23 @@ class Favorites extends Component {
 
 			this.state.retreived=true;
 			console.log("DID IT !!!")
-		}
+        } 
 		
-	}
+    }
+    
+    deleteFavorite(favID){
+
+        const user = fire.auth().currentUser.uid;
+        fire.database().ref('favoriteItems/' + user).child(favID[0]).remove();
+      
+         this.setState({
+            itineraalreadyFavedries: [],
+            retreived: false
+        })
+        this.getAlreadyFaved();
+        window.location.reload(false); //TODO: you shouldn't have to reload everything :(
+      
+    }
   
     render() {
         let statenow = this
@@ -92,9 +106,12 @@ class Favorites extends Component {
                                 { value[1].description }
                             </Card.Text>
 
-                            <Button variant="outline-danger">
+                            <Button variant="outline-danger" onClick={this.deleteFavorite.bind(this, this.state.alreadyFaved[key])}>
                                 <FontAwesomeIcon icon={faTimes} />
                             </Button>
+
+                            <Button variant="primary" onClick={this.deleteFavorite.bind(this, this.state.alreadyFaved[key])}>Delete</Button>
+
                         </Card.Body>
                         <Card.Footer as="h4">{ value[1].address }</Card.Footer>
                     </Card>
