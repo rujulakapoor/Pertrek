@@ -2,4 +2,6 @@
     width:18rem;
     height:150px;
     margin: auto;
+    position: relative;
+    padding-bottom: 40rem;
 }

@@ -213,6 +213,7 @@ Link {
 #hello{
   width: 800pt;
 }
+
 .Custom time{
   height: 200px;
 }
@@ -243,7 +244,7 @@ Link {
 }
 .Custom h1{
   font-family: 'Quicksand', sans-serif;
-  color: #c7d0d8;
+  color: black;
   font-size: 30px;
   font-weight: bold;
 }
@@ -346,9 +347,21 @@ Link {
   margin-left: 8%;
   margin-top: 2%;
 }
+#planebut{
+  font-family: 'Palanquin Dark', sans-serif;
+  background-color: transparent;
+  border-width: 4pt;
+  border-color: #c7d0d8;
+  margin-left: 280pt;
+  font-size: 30px;
+  width: 250pt;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  color: #c7d0d8;
+}
 #flight{
-  height: 370pt;
-  width: 370pt;
+  height: 445pt;
+  width: 375pt;
   background-color: #c7d0d8;
   display: inline-block;
   margin-right: 3%;
@@ -364,6 +377,8 @@ Link {
   color: white;
   width: 310pt;
   margin-left: 1%;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15pt;
 }
 #FlightLeft{
   text-align: right;
@@ -374,9 +389,28 @@ Link {
   color: white;
   text-align: left;
   margin-left: 8%;
-  font-size: large;
+  font-size: 20pt;
   margin-bottom: 5%;
   margin-top: 5%;
+  font-family: 'Quicksand', sans-serif;
+}
+.Plane h1{
+  font-family: 'Palanquin Dark', sans-serif;
+  text-decoration: bold;
+  text-align: center;
+  color: #c7d0d8;
+}
+.flighstuff2 a {
+  border-radius: 50%;
+  border: solid white;
+  color: white;
+  line-height: 2em;
+  width: 6.9em;
+  height: 6.9em;
+  text-align: center;
+  display: inline-block;
+  transition:0.5s;
+
 }
 #five {
   text-align: center;
