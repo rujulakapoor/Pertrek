@@ -691,8 +691,8 @@ console.log(this.state.days)
 
 
       <Row>
-     <h3> Suggested Attractions </h3>
-     <PreviewAttractions budget={this.state.budget} / >
+     
+     <PreviewAttractions budget={this.state.budget} location={this.state.location}/ >
      </Row>
      
      </Col>
