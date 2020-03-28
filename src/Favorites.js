@@ -69,56 +69,75 @@ class Favorites extends Component {
 			if (user) {
 			statenow.getAlreadyFaved();
         }})
+
+        console.log("alreadyfaved length = " + this.state.alreadyFaved.length);
         
-        return (
+        if(this.state.alreadyFaved.length === 0) {
+            return (
+                <div className="planner">
+                    <div className="row">
+                        <div className='col-xl-12'>
+                            <h1>My Favorites</h1>
+                        </div>
+                     </div>
 
-            <div className="planner">
+                     <p>no favorites :(</p>
+                </div>
+            )
+        }
+        else {
+            return (
 
-                <div className="row">
-					<div className='col-xl-12'>
-						<h1>My Favorites</h1>
-                    </div>
-                 </div>
-
-                {Object.entries(this.state.alreadyFaved).map(([key,value]) =>
-
-                    <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '30rem', margin:'15px'}}>
-                        <Card.Header as="h5"> <b>{value[1].name}</b> </Card.Header>
-                        <Card.Img variant="top" src={ value[1].image } className="card-img"/>
-                        <Card.Body>
-                            <Card.Text as="h4">
-                                Cost: { value[1].price }
-                            </Card.Text>
-                            <Card.Text as="h4">
-                                Rating: { value[1].popularity }/5
-                            </Card.Text>
-
-                            <Card.Text as="h4">
-                                <StarRatings
-                                    rating={ value[1].popularity }
-                                    starDimension="15px"
-                                    starSpacing="2px"
-                                    starRatedColor="rgb(245, 214, 44)"
-                                />
-                            </Card.Text>
-
-                            <Card.Text as="p">
-                                { value[1].description }
-                            </Card.Text>
-
-                            <Button variant="outline-danger" onClick={this.deleteFavorite.bind(this, this.state.alreadyFaved[key])}>
-                                <FontAwesomeIcon icon={faTimes} />
-                            </Button>
-
-                        </Card.Body>
-                        <Card.Footer as="h4">{ value[1].address }</Card.Footer>
-                    </Card>
-                    )
-                }
-
-
-            </div>  
-        )
+                <div className="planner">
+    
+                    <div className="row">
+                        <div className='col-xl-12'>
+                            <h1>My Favorites</h1>
+                        </div>
+                     </div>
+    
+                    {Object.entries(this.state.alreadyFaved).map(([key,value]) =>
+    
+                        <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '30rem', margin:'15px'}}>
+                            <Card.Header as="h5"> <b>{value[1].name}</b> </Card.Header>
+                            <Card.Img variant="top" src={ value[1].image } className="card-img"/>
+                            <Card.Body>
+                                <Card.Text as="h4">
+                                    Cost: { value[1].price }
+                                </Card.Text>
+                                <Card.Text as="h4">
+                                    Rating: { value[1].popularity }/5
+                                </Card.Text>
+    
+                                <Card.Text as="h4">
+                                    <StarRatings
+                                        rating={ value[1].popularity }
+                                        starDimension="15px"
+                                        starSpacing="2px"
+                                        starRatedColor="rgb(245, 214, 44)"
+                                    />
+                                </Card.Text>
+    
+                                <Card.Text as="p">
+                                    { value[1].description }
+                                </Card.Text>
+    
+                                <Button variant="outline-danger" onClick={this.deleteFavorite.bind(this, this.state.alreadyFaved[key])}>
+                                    <FontAwesomeIcon icon={faTimes} />
+                                </Button>
+    
+                            </Card.Body>
+                            <Card.Footer as="h4">{ value[1].address }</Card.Footer>
+                        </Card>
+                        )
+                    }
+    
+    
+                </div>  
+            )
+        }
+        
+        
     }
       
   }
