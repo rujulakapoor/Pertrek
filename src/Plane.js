@@ -1,6 +1,6 @@
 import mobiscroll from '@mobiscroll/react';
 import '@mobiscroll/react/dist/css/mobiscroll.min.css';
-import { fas, faHamburger, faPlane, faIceCream, faBirthdayCake, faCookie, faCoffee, faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
+import { fas, faHamburger, faPlane, faIceCream, faBirthdayCake, faCookie, faCoffee, faPlaneDeparture, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { faBacon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {FiEdit2, FiSave,FiX} from 'react-icons/fi'
@@ -42,6 +42,7 @@ export class Plane extends Component {
                         <FiX />
                         </Button>
                         </div>
+                        <FontAwesomeIcon icon={faPlaneDeparture} size = '4x' color='white'/>
                          <h6>Flight Name</h6>
                         <input onChange={(e)=>this.handleChange(e,index)} value={flight}></input>
                         <h6>Flight Date</h6>
@@ -55,7 +56,8 @@ export class Plane extends Component {
         }
 
         <hr></hr>
-        <button onClick={(e)=>this.addFlight(e)}> Add Flight </button>
+        
+        <button id="planebut" onClick={(e)=>this.addFlight(e)}> Add Flight </button>
 
         </div>    
     );

@@ -572,18 +572,17 @@ console.log(this.state.days)
             </Card>
   </Accordion>
 
-  
-<div id="cus" className="Custom">  
-            
-            <Accordion defaultActiveKey="0">  
+
+  <Accordion defaultActiveKey="0">  
             <Card>
               <Card.Header>
                 <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">custom</span> </Link>
+                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Customize Itinerary</span> </Link>
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
+                <div id="cus" className="Custom">  
                 <h1>Pick a Background Color</h1>  
                 <input id="select1" name="check1" type="checkbox" />
                 <label for="select1">Black</label>
@@ -653,13 +652,13 @@ console.log(this.state.days)
                   <TimeInput2 / >
                   </div> 
                  </div>
-
+                 </div>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
-          </Accordion>
+    </Accordion>
   
-            </div>
+            
 <Row>
 <Col sm={10}>
 

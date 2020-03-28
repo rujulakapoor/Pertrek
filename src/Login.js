@@ -70,7 +70,7 @@ class Login extends Component {
       })
     }
     else{
-      alert("Your Password if weak");
+      alert("Your password is weak please create a password that contains \n An Uppercase Letter \n A Special Character \n Longer than 8 characters");
     } 
   }
   

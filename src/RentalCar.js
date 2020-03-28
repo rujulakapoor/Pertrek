@@ -354,7 +354,7 @@ export class RentalCar extends Component {
             <FontAwesomeIcon icon={faHotel} color="#c7d0d8" size = '10x' />
             </div> 
             </div>
-            <button type="submit" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
+            <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
             </div>
         )
     }

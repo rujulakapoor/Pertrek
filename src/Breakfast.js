@@ -180,8 +180,8 @@ export class Breakfast extends Component {
                 <div>
                     <mobiscroll.CardSubtitle className="mbsc-bold mbsc-txt-s"></mobiscroll.CardSubtitle>
                     <div className="mbsc-bold">  
-                    <FontAwesomeIcon icon={faBacon} size = '2x' className="mr-3"/>
-                    <span style={{ fontSize:'20pt'}} class="ml-1">Breakfast</span> 
+                    <FontAwesomeIcon icon={faBacon} size = '2x' color='#c7d0d8' className="mr-3"/>
+                    <span style={{ fontSize:'20pt', color:"#c7d0d8"}} class="ml-1">Breakfast</span> 
                     </div>
                     
                 </div>
