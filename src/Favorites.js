@@ -110,8 +110,6 @@ class Favorites extends Component {
                                 <FontAwesomeIcon icon={faTimes} />
                             </Button>
 
-                            <Button variant="primary" onClick={this.deleteFavorite.bind(this, this.state.alreadyFaved[key])}>Delete</Button>
-
                         </Card.Body>
                         <Card.Footer as="h4">{ value[1].address }</Card.Footer>
                     </Card>

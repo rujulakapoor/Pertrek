@@ -6,6 +6,8 @@ import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 import fire from "./config/fire";
+import bootbox from 'bootbox';
+import bootstrap from 'bootstrap';
 
 
 class scheduler extends Component {
@@ -229,11 +231,33 @@ class scheduler extends Component {
 
 		if(!isFavorited) {	//FAVORITE
 			this.save(name, price, popularity, image, address, description);
+			bootbox.alert({
+				size: "small",
+				title: "Favorite added",
+				message: "<b>" + name + "</b> has been added to your favorites!",
+				backdrop: true
+			})
 		}
 		else {	//REMOVE
-			console.log("you already favorited this dumbass");
-			//this.deleteFavorite(this.state.favKeys[removeIndex]);
-			alert("This item has already been favorited");
+			bootbox.confirm({
+				title: "Failed to add favorite",
+				message: "<b>" + name + "</b> has already been favorited. Go to the favorites page to edit your favorites",
+				buttons: {
+					cancel: {
+						label: '<i class="fa fa-times"></i> Cancel',
+						className: 'outline-success'
+					},
+					confirm: {
+						label: '<i class="fa fa-check"></i> Take me to my favorites!',
+						className: 'outline-dark'
+					}
+				},
+				callback: function (result) {
+					if (result) {
+						window.location.href = '/favorites';
+					}
+				}
+			});
 		}
 	}
 
