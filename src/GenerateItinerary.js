@@ -17,6 +17,8 @@ import Dinner from "./Dinner";
 import Snack from "./Snack";
 import Other from "./Other";
 import Plane from "./Plane"
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd'
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
@@ -516,6 +518,23 @@ console.log(this.state.days)
 
 <Container>
 
+
+<DragDropContext onDragEnd={result => console.log(result)}> 
+  <Droppable droppableId={123455}>
+  {(provided, snapshot) => {
+   return (<div {...provided.droppableProps} ref={provided.innerRef} style={{
+      background: snapshot.isDraggingOver ? 'lightblue' : 'lightgray',
+      padding: 4,
+      width: 250,
+      minHeight: 500
+    }}
+    > 
+    
+   </div> )
+  }}
+    </Droppable>
+
+</DragDropContext>
 
 <Accordion defaultActiveKey="0">  
             <Card>
