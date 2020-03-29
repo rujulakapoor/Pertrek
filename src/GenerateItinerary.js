@@ -529,7 +529,25 @@ console.log(this.state.days)
       minHeight: 500
     }}
     > 
-    
+    <Draggable key='123' draggableId ="activity1" index={1} >
+      {(provided, snapshot) => {
+        return( 
+          <div {...provided.draggableProps} ref={provided.innerRef} {...provided.dragHandleProps}
+          style={{
+            userSelect: 'none',
+            padding: 16,
+            margin: '0 0 8px 0 ',
+            minHeight: '50px',
+            backgroundColor : snapshot.isDragging ? '#263B4A' : '#456C86', 
+            color: 'white',
+            ...provided.draggableProps.style
+          }}
+          >
+          <p1> HERE </p1>
+          </div>
+        )
+      }}
+    </Draggable>
    </div> )
   }}
     </Droppable>
