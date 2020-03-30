@@ -3,7 +3,7 @@ import '@mobiscroll/react/dist/css/mobiscroll.min.css';
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee, faPlaneDeparture } from '@fortawesome/free-solid-svg-icons'
 import { faBacon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {FiEdit2, FiSave,FiX} from 'react-icons/fi'
+import {FiEdit2, FiSave,FiX, FiPlus} from 'react-icons/fi'
 import {Button, Jumbotron,Table, Tabs,Tab, TabPane, Accordion,Card, Form, Container, Row, Col,
     Nav, NavItem, NavLink } from 'react-bootstrap'
 import {faCar} from '@fortawesome/free-solid-svg-icons'   
@@ -93,7 +93,6 @@ export class Plane1 extends Component {
         alert("key is " + this.state.itkey)
         const user = fire.auth().currentUser.uid;
         fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
-  
         this.save()
     }
     else {
@@ -105,6 +104,8 @@ export class Plane1 extends Component {
     
     save() {
       //need to update itkey
+      alert("buthhhhh" + this.state.countf)
+
       if(this.state.alreadysaved == false){
       const user = fire.auth().currentUser.uid
       const db = fire.database().ref('itineraries/' + user);
@@ -125,7 +126,10 @@ export class Plane1 extends Component {
         plane2n:this.state.plane2n,
         plane2d:this.state.plane2d,
         plane2t:this.state.plane2t,
-
+        plane3n:this.state.plane3n,
+        plane3d:this.state.plane3d,
+        plane3t:this.state.plane3t,
+        countf:this.state.countf,
       }
 
         db.push(item
@@ -721,22 +725,41 @@ export class Plane1 extends Component {
         }
       }
       countButtons(){
-          alert(this.state.flightNum + " " + this.state.countf)
-        if(this.state.countf==3){  
+        var n1=this.state.plane1n.length;
+        var n2=this.state.plane2n.length;
+        var n3=this.state.plane3n.length;
+        var temp=0;
+        alert(n1)
+        alert(n2)
+        alert(n3)
+        if(n1>0 && n2>0 && n3>0){
+           temp=3;
+        }
+        else if(n1>0 && n2>0 && n3==0){
+           alert("i maddeeeee it")   
+           temp=2;
+        }
+        else if(n1>0 && n2==0 && n3==0){
+            temp=1;
+        }
+        else{
+           temp=0;
+        }
+        if(temp==3){  
         this.setState({
             showing3:true,
             showing4:false,
             showing5:false
           })
         }  
-        if(this.state.countf==2){  
+        if(temp==2){  
             this.setState({
                 showing3:false,
                 showing4:true,
                 showing5:false
               })
         }
-        if(this.state.countf==1){  
+        if(temp==1){  
             this.setState({
                 showing3:false,
                 showing4:false,
@@ -746,13 +769,13 @@ export class Plane1 extends Component {
       }
       removeButton(){
           
-        var newcountf=this.state.countf-1; 
+        var newcountf= parseInt(this.state.countf) -1; 
 
         this.setState({
             countf:newcountf
         })
           alert(this.state.countf);
-          if(this.state.countf==2){  
+          if(this.state.countf==1){  
             this.setState({
                 showing3:false,
                 showing4:true,
@@ -763,7 +786,7 @@ export class Plane1 extends Component {
                 plane3t:"",
               })
         }
-        if(this.state.countf==1){  
+        if(this.state.countf==0){  
             this.setState({
                 showing3:false,
                 showing4:false,
@@ -774,7 +797,7 @@ export class Plane1 extends Component {
                 plane2t:"",
               })
         }
-        if(this.state.countf==0){  
+        if(this.state.countf==-1){  
             this.setState({
                 showing3:false,
                 showing4:false,
@@ -791,8 +814,8 @@ export class Plane1 extends Component {
 
       addFlight(){
           alert("Lets add stuff");
-          var newcountf=this.state.countf+1; 
-
+          var newcountf= parseInt(this.state.countf) + 1; 
+          alert("new val" + newcountf);
             this.setState({
                 countf:newcountf
             })
@@ -818,6 +841,13 @@ export class Plane1 extends Component {
                     showing5:false
                   })
             }
+            if(this.state.countf==2){  
+                this.setState({
+                    showing3:true,
+                    showing4:false,
+                    showing5:false
+                  })
+            }
           
       }
 
@@ -828,15 +858,17 @@ export class Plane1 extends Component {
             <div>
                 <div>
                 <Col>
-                 <h6>  getRightButtuns </h6>
-                 <button onClick={this.countButtons}>Count</button>
-                 <button onClick={this.addFlight}>Add Flight</button>
+                 <button id="planebut2" onClick={this.countButtons}>Get Flight Information</button>
                 </Col>
+                <Button variant="light" onClick={this.addFlight}>
+                <FiPlus />
+                </Button>
+                <button type="submit" id="planebut" onClick={this.handleSavedEdits} class="btn btn-primary">Save Stuff</button>
                 </div>
                 
                 { showing5 
                     ? <div>
-                        <button onClick={() => this.setState({ showing: !showing })}>flight 1</button>
+                        <button id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
                     </div>
                     
                     : <div>
@@ -845,8 +877,8 @@ export class Plane1 extends Component {
                 }
                 { showing4 
                     ? <div>
-                        <button onClick={() => this.setState({ showing: !showing })}>flight 1</button>
-                        <button onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
+                        <button id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
+                        <button id="planebut3" onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
                     </div>
                     
                     : <div>
@@ -855,9 +887,9 @@ export class Plane1 extends Component {
                 }
                 { showing3 
                     ? <div>
-                        <button onClick={() => this.setState({ showing: !showing })}>flight 1</button>
-                        <button onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
-                        <button onClick={() => this.setState({ showing6: !showing6 })}>flight 3</button>
+                        <button id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
+                        <button id="planebut3" onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
+                        <button id="planebut3" onClick={() => this.setState({ showing6: !showing6 })}>flight 3</button>
                     </div>
                     
                     : <div>
@@ -865,10 +897,12 @@ export class Plane1 extends Component {
                       </div>
                 }
                 { showing 
-                    ? <div>This is visible
+                    ? <div>
                         <div id="flight" className="flightStuff">
                         <div id="FlightLeft">
-                        <button onClick={this.removeButton}>Remove</button>
+                        <Button variant="light" onClick={this.removeButton}>
+                        <FiX />
+                        </Button>
                         </div>   
                         <FontAwesomeIcon icon={faPlaneDeparture} size = '4x' color='white'/>    
                         <h1>Flight 1 Information</h1>
@@ -895,10 +929,12 @@ export class Plane1 extends Component {
                 }
                 
                 { showing2 
-                    ? <div>This is visible
+                    ? <div>
                     <div id="flight" className="flightStuff">
                     <div id="FlightLeft">
-                    <button onClick={this.removeButton}>Remove</button>   
+                    <Button variant="light" onClick={this.removeButton}>
+                        <FiX />
+                        </Button>   
                     </div>   
                     <FontAwesomeIcon icon={faPlaneDeparture} size = '4x' color='white'/>    
                     <h1>Flight 2 Information</h1>
@@ -924,10 +960,12 @@ export class Plane1 extends Component {
                     : null
                 }
                 { showing6 
-                    ? <div>This is visible
+                    ? <div>
                     <div id="flight" className="flightStuff">
                     <div id="FlightLeft">
-                    <button onClick={this.removeButton}>Remove</button>
+                    <Button variant="light" onClick={this.removeButton}>
+                        <FiX />
+                    </Button>
                     </div>   
                     <FontAwesomeIcon icon={faPlaneDeparture} size = '4x' color='white'/>    
                     <h1>Flight 3 Information</h1>

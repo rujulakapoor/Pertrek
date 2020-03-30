@@ -574,8 +574,6 @@ console.log(this.state.days)
                 <div>
                 <Plane1 values={values} / >
                 </div>  
-    
-                <button id="planebut" onClick={this.trypush}> Try Databse </button>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
