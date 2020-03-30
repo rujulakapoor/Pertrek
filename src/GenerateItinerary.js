@@ -764,3 +764,4 @@ console.log(this.state.days)
   }
 }
 export default GenerateItinerary;
+

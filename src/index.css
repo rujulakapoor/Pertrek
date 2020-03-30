@@ -635,14 +635,28 @@ Link {
 }
 
 .notes{
-    color: black;
+    color: gray;
     border: 13px;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-
-
+    background-color: white;
 }
-
+.breakfast h2{
+  color: #c7d0d8;
+  font-size: 17pt;
+  font-family: 'Quicksand', sans-serif;
+  text-align: left;
+  display: inline-block;
+  
+}
+.breakfast h3{
+  color: black;
+  font-size: 17pt;
+  font-family: 'Quicksand', sans-serif;
+  margin-right: 3%;
+  display: inline-block;
+  
+}
 
 
 

@@ -1,5 +1,4 @@
-import mobiscroll from '@mobiscroll/react';
-import '@mobiscroll/react/dist/css/mobiscroll.min.css';
+
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import { faBacon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +21,7 @@ export class Lunch extends Component {
         this.handleChangeCheck = this.handleChangeCheck.bind(this);
     }
     handleChangeCheck() {
-        alert("hello");
+        //alert("hello");
         this.setState({
           checked: !this.state.checked
         })
@@ -168,28 +167,20 @@ export class Lunch extends Component {
         </div>;
 
     return (
-        <div id="meals2">   
-         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"></link>   
-        <mobiscroll.Card collapsible
-            ref="run1"
-            theme="ios" 
-            themeVariant="light"
-        >
-            <mobiscroll.CardHeader>
-                <div>
-                    <mobiscroll.CardSubtitle className="mbsc-bold mbsc-txt-s"></mobiscroll.CardSubtitle>
-                    <div className="mbsc-bold">  
-                    <FontAwesomeIcon icon={faPizzaSlice} size = '2x' color='#c7d0d8' className="mr-3"/>
-                    <span style={{ fontSize:'20pt',color:"#c7d0d8"}} class="ml-1">Lunch</span> 
-                    </div>
-                    
-                </div>
-            </mobiscroll.CardHeader>
-            <mobiscroll.CardContent className="mbsc-no-padding">
-                <div className="mbsc-btn-group-block">
+        <div id="meals2" className="breakfast">   
+         <Accordion defaultActiveKey="1">
+     <Card className="notes2">
+
+       <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+       <FontAwesomeIcon icon={faPizzaSlice} size = '2x' color='#c7d0d8' className="mr-3"/>  
+       <h2>Lunch</h2>
+       </Accordion.Toggle>
+       <Accordion.Collapse eventKey="0">
+       <Card.Body>
+          <div className="mbsc-btn-group-block">
                 <div>
                 <div>
-                    <label>I'm Not Eating</label>
+                    <h3>I'm Not Eating</h3>
                     <input 
                     type="checkbox" 
                     checked={ this.state.checked } 
@@ -198,8 +189,12 @@ export class Lunch extends Component {
                 { content }
                 </div>
                 </div>
-            </mobiscroll.CardContent>
-        </mobiscroll.Card>
+        </Card.Body>
+       </Accordion.Collapse>
+
+     </Card>
+    </Accordion>
+        
         
     </div>
     );

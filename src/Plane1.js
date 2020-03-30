@@ -863,7 +863,9 @@ export class Plane1 extends Component {
                 <Button variant="light" onClick={this.addFlight}>
                 <FiPlus />
                 </Button>
-                <button type="submit" id="planebut" onClick={this.handleSavedEdits} class="btn btn-primary">Save Stuff</button>
+                <Button variant="light" onClick={this.handleSavedEdits}>
+                <FiSave />
+                </Button>
                 </div>
                 
                 { showing5 
