@@ -34,7 +34,8 @@ export class InWaitingActivity extends Component {
 
 
                     var height = attraction.duration * 50;
-        
+                    height = (height > 750) ? 750 : height;
+
                     var heightpx = height + "px"
                     console.log('height px is ' + heightpx)
                     console.log(height)
@@ -43,9 +44,10 @@ export class InWaitingActivity extends Component {
                     return(
                 <Draggable grid={[50,50]}>
                         <Card key={attraction.uid} className="float-left" style={{height: heightpx, width: '18rem', marginRight: '1rem'}}>
-                        <Card.Header as="h5">{ attraction.name }</Card.Header>
+                        <Card.Header as="h5" style={{height: "10px"}}></Card.Header>
                         <Card.Body>
                           <Card.Text as="h5">
+                          { attraction.name } <br/>
                             Cost: ${ attraction.cost }
                             <br/>
                             Estimated duration: { attraction.duration } hours
