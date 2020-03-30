@@ -360,8 +360,8 @@ Link {
   color: #c7d0d8;
 }
 #flight{
-  height: 445pt;
-  width: 375pt;
+  width: 100%;
+  height:280pt;
   background-color: #c7d0d8;
   display: inline-block;
   margin-right: 3%;
@@ -375,8 +375,8 @@ Link {
   border: none;
   border-bottom: 2px solid white;
   color: white;
-  width: 310pt;
-  margin-left: 1%;
+  width: 200pt;
+  margin-left: 6%;
   font-family: 'Quicksand', sans-serif;
   font-size: 15pt;
 }
@@ -385,14 +385,28 @@ Link {
   margin-top: 4%;
   margin-right: 4%;
 }
+
+#FlightLeft2{
+  
+  width: 450pt;
+  background-color: #c7d0d8;
+}
+
 .flightStuff h6{
   color: white;
   text-align: left;
-  margin-left: 8%;
   font-size: 20pt;
-  margin-bottom: 5%;
-  margin-top: 5%;
   font-family: 'Quicksand', sans-serif;
+  margin-left: 4%;
+}
+.flightStuff h1{
+  color: white;
+  text-align: center;
+  font-size: 28pt;
+  font-family: 'Quicksand', sans-serif;
+  text-decoration: bold;
+  margin-top: 1%;
+  margin-bottom: 3%;
 }
 .Plane h1{
   font-family: 'Palanquin Dark', sans-serif;
