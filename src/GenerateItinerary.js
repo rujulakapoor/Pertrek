@@ -715,28 +715,27 @@ const activities = this.state.inwaitingactivity;
 
       </Tabs>
       </Col>
+      <Col>
+      <InWaitingActivity activities={activities}/>
+
+      </Col>
       </Row>
-      <Row>
 
-        <Col>
-
-        <InWaitingActivity activities={activities}/>
-        </Col>
-        </Row>
-
-      <Row>
-      <Col sm={2}>
 
 
       <Row>
      
+      <Col sm={2}>
+
      <PreviewAttractions budget={this.state.budget} location={this.state.location} handleAdd={this.handleAdd} />
-     </Row>
+    
      
      </Col>
      
 
      </Row>
+
+     
 <Row>
 <Col>
      <Button onClick={this.handleSavedEdits()}> Save </Button>

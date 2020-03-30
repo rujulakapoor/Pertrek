@@ -23,6 +23,7 @@ export class InWaitingActivity extends Component {
         console.log(activities)
         console.log("is activities render")
         console.log(this.props.activities)
+ 
         return(
 
             <div>
@@ -30,9 +31,18 @@ export class InWaitingActivity extends Component {
                     console.log(activity[1].name);
                     console.log("is the attraction")
                     var attraction = activity[1]
+
+
+                    var height = attraction.duration * 50;
+        
+                    var heightpx = height + "px"
+                    console.log('height px is ' + heightpx)
+                    console.log(height)
+                    console.log(attraction.duration)
+
                     return(
-<Draggable grid={[50,50]}>
-                        <Card key={attraction.uid} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
+                <Draggable grid={[50,50]}>
+                        <Card key={attraction.uid} className="float-left" style={{height: heightpx, width: '18rem', marginRight: '1rem'}}>
                         <Card.Header as="h5">{ attraction.name }</Card.Header>
                         <Card.Body>
                           <Card.Text as="h5">
@@ -46,7 +56,7 @@ export class InWaitingActivity extends Component {
 
                       </Card>
 
-</Draggable>
+                </Draggable>
                     )
                 }
                 )
