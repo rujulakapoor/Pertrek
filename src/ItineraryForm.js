@@ -14,6 +14,7 @@ class ItineraryForm extends Component {
       multiday: '',
       location: '',
       notes: '',
+      schedule: []
     };
   }
   onNavigateHome(){
@@ -36,9 +37,9 @@ handleChange = input => e => {
 }
 render() {
   const {step } = this.state;
-  const {startdate, enddate, title, budget, multiday, location, notes} = this.state;
+  const {startdate, enddate, title, budget, multiday, location, schedule, notes} = this.state;
   let itkey = null
-  const values = {startdate, enddate, title, budget, multiday, location, notes, itkey}
+  const values = {startdate, enddate, title, budget, multiday, location, schedule, notes, itkey}
   switch(step) {
     case 1 :
     return(

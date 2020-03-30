@@ -1,11 +1,40 @@
+// import React, {Component} from 'react'
+// import Example from './ItineraryTimetable/Example'
+// import { DndProvider } from 'react-dnd'
+// import Backend from 'react-dnd-html5-backend'
+
+// import ScheduleBasic from './ItineraryTimetable/ScheduleBasic'
+
+// export class Timetable extends Component {
+
+//   constructor (props) {
+//     super(props) 
+//   }
+//   render() {
+//     return (
+//       <div className="App">
+//         <DndProvider backend={Backend}>
+//           <ScheduleBasic snapToGrid='true' />
+//         </DndProvider>
+//       </div>
+//     )
+//     }
+
+// }
+
+// export default Timetable
+
+
+
 import React, { Component } from 'react';
 import {Button, Form, FormControl, FormLabel, FormGroup, Table} from 'react-bootstrap'
+ 
 export class Timetable extends Component {
 
 
-
 constructor(props) {
-super(props);
+
+  super(props);
 }
 
 render() {
@@ -30,6 +59,8 @@ render() {
 </tr>
     <tr>
       <td> 10:00am </td>
+     
+   
 </tr>
     <tr>
       <td> 11:00am </td>

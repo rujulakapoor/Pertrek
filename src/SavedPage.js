@@ -20,6 +20,7 @@ class SavedPage extends Component {
       multiday: '',
       location: '',
       notes: '',
+      schedule: [],
       itkey: '',
       step: 1,
     }
@@ -27,32 +28,6 @@ class SavedPage extends Component {
     this.deletePlan = this.deletePlan.bind(this);
     this.editPlan = this.editPlan.bind(this);
   }
-// //
-// // async componentWillMount() {
-// // let thisstate = this;
-// //   await fire.auth().onAuthStateChanged( function(user) {
-// //       if (user) {
-// //         console.log("user is ");
-// //         console.log(user);
-// //         const fireuser = fire.auth().currentUser.uid;
-// //     fire.database().ref('itineraries/' + fireuser
-// //   ).on("value", snapshot=> {
-// //   thisstate.setState(prevState=>{
-// //     itineraries:prevState.itineraries.concat(snapshot.val())
-// //
-// //   })
-//
-//   console.log('value is ')
-//   console.log(snapshot.val())
-//   console.log(thisstate.state.itineraries)
-//
-//   })
-// console.log('done with compondentmount')
-// console.log(this.state.itineraries)
-//
-//     }
-//   })
-// }
 
 getItineraries() {
 if(this.state.retreived === false ){
@@ -76,11 +51,6 @@ if(this.state.retreived === false ){
     }
   })
 
-    // console.log(snapshot.val())
-    // this.setState( {
-    // itineraries: [...this.state.itineraries, snapshot.val()]
-  //0})
-
   this.state.retreived=true;
   }
 }
@@ -93,6 +63,7 @@ editPlan(itinerary) {
     budget: itinerary[1].budget,
     location: itinerary[1].location,
     notes: itinerary[1].notes,
+    schedule: itinerary[1].schedule ? itinerary[1].schedule : [],
     itkey: itinerary[0],
     step: 2
 
@@ -110,46 +81,21 @@ deletePlan(itinerary){
   })
   this.getItineraries();
 
-
-     /*fire.database().ref('itineraries/' + user
-  ).on("value", snapshot=> {
-    let currentstate = this;
-    console.log("snapshot is ")
-    console.log(snapshot.val())
-
-    const values = snapshot.val();
-    console.log(values);
-
-    Object.entries(values).map((thing) => {
-    console.log("key val is " + thing ) ;
-    currentstate.setState( {
-      itineraries: [...currentstate.state.itineraries,  thing]
-      })
-    })
-  })
-  */
-
 }
 
 
 
 render(){
-  // if(fire.auth().currentUser === null || this.state.itineraries.length ===0) {
-  //   console.log("no user");
-  //   return null;
-  // }
 
-  const {startdate, enddate, location, title, budget, notes, itkey} = this.state;
-  const values = {startdate, enddate, title, budget, location, notes, itkey}
-let statenow = this
+  const {startdate, enddate, location, title, budget, notes, schedule, itkey} = this.state;
+  const values = {startdate, enddate, title, budget, location, notes, schedule, itkey}
+  let statenow = this
+
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
-console.log("HERE")
- statenow.getItineraries();
+      statenow.getItineraries();
 }})
-
-  console.log("second props");
-  console.log(this.state.itineraries);
+ 
 
   switch(this.state.step) {
     case 1:

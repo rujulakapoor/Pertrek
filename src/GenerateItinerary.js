@@ -18,8 +18,16 @@ import Snack from "./Snack";
 import Other from "./Other";
 import Plane from "./Plane"
 
+import InWaitingActivity from './ItineraryTimetable/InWaitingActivity'
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
+
+
+const onDragEnd  = (result, columns, setColumns) => {
+ if(!result.destination) return;
+ const {source , destination } = result; 
+}
 export class GenerateItinerary extends Component {
 
 constructor(props){
@@ -34,6 +42,7 @@ constructor(props){
   this.changeLocation = this.changeLocation.bind(this)
   this.handleChange = this.handleChange.bind(this)
   this.handleSavedEdits =this.handleSavedEdits.bind(this)
+  this.handleAdd = this.handleAdd.bind(this)
 
   this.state = {
     
@@ -43,6 +52,7 @@ constructor(props){
     title: this.props.values.title,
     notes:this.props.values.notes,
     location:this.props.values.location,
+    schedule: this.props.values.schedule,
     days: [],
     alreadysaved: false,
     edittitle:false,
@@ -51,6 +61,8 @@ constructor(props){
     editnotes:false,
     editstart:false,
     editend:false,
+    inwaitingactivity: [],
+
     itkey: this.props.values.itkey
 
 
@@ -154,8 +166,10 @@ handleSavedEdits() {
         location: this.state.location,
         startdate: this.state.startdate,
         enddate: this.state.enddate,
-        budget: this.state.budget
+        budget: this.state.budget,
+        schedule: this.state.schedule
       }
+      console.log("SCHEDULE IS" + this.state.schedule)
 
         db.push(item
         ).then(ref => {
@@ -175,6 +189,19 @@ handleSavedEdits() {
       console.log("Already saved")
 
     }
+
+  }
+
+
+  /// HANDLE ADDING AN ATTRACTION
+
+
+  handleAdd = (info) => {
+
+    var inwaitings = this.state.inwaitingactivity.concat(info);
+    this.setState({ inwaitingactivity: inwaitings })
+
+    console.log(this.state.inwaitingactivity)
 
   }
 
@@ -447,9 +474,10 @@ renderCheck(){
   }
 }
   render() {
+ 
 
-console.log("Rendering days:")
-console.log(this.state.days)
+const activities = this.state.inwaitingactivity;
+
    return(
 
      <div id="form">
@@ -515,7 +543,7 @@ console.log(this.state.days)
 
 
 <Container>
-
+ 
 
 <Accordion defaultActiveKey="0">  
             <Card>
@@ -687,12 +715,22 @@ console.log(this.state.days)
 
       </Tabs>
       </Col>
+      </Row>
+      <Row>
+
+        <Col>
+
+        <InWaitingActivity activities={activities}/>
+        </Col>
+        </Row>
+
+      <Row>
       <Col sm={2}>
 
 
       <Row>
      
-     <PreviewAttractions budget={this.state.budget} location={this.state.location}/ >
+     <PreviewAttractions budget={this.state.budget} location={this.state.location} handleAdd={this.handleAdd} />
      </Row>
      
      </Col>

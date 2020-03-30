@@ -224,10 +224,7 @@ render() {
   const { attractionList } = this.state; //COLLECTION NAME
   const budget = this.props.budget;
   const location = this.state.citySelect;
-  console.log("printitott");
-  console.log(this.state.attractions);
-  console.log(this.state);
-  return(
+   return(
     <div>
 	<div className="row">
 	<h3> User Submitted Attractions </h3>
@@ -255,7 +252,7 @@ render() {
                   <Card.Text as="p">
                     { attraction.description }
                   </Card.Text>
-                  <Button variant="secondary">Add</Button>
+                  <Button value={attraction} variant="secondary" onClick={e => this.props.handleAdd(attraction)}>Add</Button>
                 </Card.Body>
                 <Card.Footer as="h4">
                   { attraction.address }
@@ -292,7 +289,7 @@ render() {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
+										<Button value={attraction} variant="secondary" onClick={e => this.props.handleAdd(attraction)}>Add</Button>
 
 									</Card.Body>
 
@@ -340,7 +337,7 @@ render() {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
+										<Button value={attraction} variant="secondary" onClick={e => this.props.handleAdd(attraction)}>Add</Button>
 									</Card.Body>
 
 									<Card.Header>
