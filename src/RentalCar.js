@@ -8,45 +8,149 @@ import {Button, Jumbotron,Table, Tabs,Tab, TabPane, Accordion,Card, Form, Contai
     Nav, NavItem, NavLink } from 'react-bootstrap'
 import {faCar} from '@fortawesome/free-solid-svg-icons'   
 import React, { Component } from "react";
-
+import fire from "./config/fire";
   
 export class RentalCar extends Component {
-        
+  
+
     constructor(props){
         super(props);
         this.calc = this.calc.bind(this);
-        this.changeLocation = this.changeLocation.bind(this)
-        this.changeCostC = this.changeCostC.bind(this)
-        this.changeName = this.changeName.bind(this)
+        this.changePlate = this.changePlate.bind(this)
+        this.changeCostH = this.changeCostH.bind(this)
+        this.changeHName = this.changeHName.bind(this)
         this.changeCostCC = this.changeCostCC.bind(this)
+        this.handleSavedEdits =this.handleSavedEdits.bind(this)
+        this.save= this.save.bind(this);
+
         this.state = {
-            editlocation:false,
-            editcostc:false,
-            editname:false,
-            editcostcc: false
+         
+          enddate: this.props.values.enddate,
+          startdate:this.props.values.startdate,
+          budget: this.props.values.budget,
+          title: this.props.values.title,
+          notes:this.props.values.notes,
+          location:this.props.values.location,
+          Plate:this.props.values.Plate,
+          CostH:this.props.values.CostH,
+          costcc:this.props.values.costcc,
+          HName:this.props.values.HName,
+          itkey: this.props.values.itkey,
+          plane1n:this.props.values.plane1n,
+          plane1d:this.props.values.plane1d,
+          plane1t:this.props.values.plane1t,
+          plane2n:this.props.values.plane2n,
+          plane2d:this.props.values.plane2d,
+          plane2t:this.props.values.plane2t,
+          plane3n:this.props.values.plane3n,
+          plane3d:this.props.values.plane3d,
+          plane3t:this.props.values.plane3t,
+          countf:this.props.values.countf,
+          alreadysaved: false,
+          editPlate:false,
+          editCostH:false,
+          editHName:false,
+          editcostcc: false,
+            
+           
+           
         }
     }
+    continue = e => {
+      e.preventDefault();
+      this.props.nextStep();
+    };
+
     handleChange = input => e => {
         this.setState({[input]: e.target.value})
       
     }
+    handleSavedEdits() {
+      //delete old Itinerary
+      console.log("key is " + this.state.itkey)
+      if(this.state.itkey != null && this.state.alreadysaved === false) {
+        //Delete from firebase
+        alert("Come On")
+        alert("key is " + this.state.itkey)
+        const user = fire.auth().currentUser.uid;
+        fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
+  
+        this.save()
+    }
+    else {
+      alert("here44444")
+      this.save()
+    }
+  
+  }
+    
+    save() {
+      //need to update itkey
+      if(this.state.alreadysaved == false){
+      const user = fire.auth().currentUser.uid
+      const db = fire.database().ref('itineraries/' + user);
+      const item = {
+        notes: this.state.notes,
+        title: this.state.title,
+        location: this.state.location,
+        startdate: this.state.startdate,
+        enddate: this.state.enddate,
+        budget: this.state.budget,
+        Plate:this.state.Plate,
+        CostH:this.state.CostH,
+        costcc:this.state.costcc,
+        HName:this.state.HName,
+        plane1n:this.state.plane1n,
+        plane1d:this.state.plane1d,
+        plane1t:this.state.plane1t,
+        plane2n:this.state.plane2n,
+        plane2d:this.state.plane2d,
+        plane2t:this.state.plane2t,
+        plane3n:this.state.plane3n,
+        plane3d:this.state.plane3d,
+        plane3t:this.state.plane3t,
+        countf:this.state.countf,
+      }
+
+        db.push(item
+        ).then(ref => {
+         console.log('Added document with ID: ', ref.id);
+         console.log(ref)
+         this.setState({
+           itkey: ref.path.pieces_[2]
+         })
+       });
+       console.log("save completed?" + item);
+       console.log(item);
+       this.setState({
+         alreadysaved: true
+       })
+    }
+    else {
+      console.log("Already saved")
+
+    }
+
+  }
+    
+    
     calc(){
         alert("quick maths");
         
-        var integer1 = parseInt(this.state.costc, 10);
+        var integer1 = parseInt(this.state.CostH, 10);
         var integer2 = parseInt(this.state.costcc, 10);
         var budget=100;
         var newbudget=budget-integer1-integer2;
         alert(newbudget);
 
     }
-    locationRender() {
+    PlateRender() {
 
-        if(this.state.editlocation) {
+        if(this.state.editPlate) {
           return(
           <div className="CarCar">
           <Row>  
-          <input  type="text" placeholder={this.state.location} onChange={this.handleChange('location')}/>
+          <input  type="text" placeholder={this.state.Plate} onChange={this.handleChange('Plate')}/>
           </Row>  
           </div>    
           )
@@ -57,7 +161,7 @@ export class RentalCar extends Component {
           <div className="Car"> 
           <Col>
            <Row>  
-          <h5> {this.state.location}</h5>
+          <h5> {this.state.Plate}</h5>
           </Row>  
           </Col>
           </div>
@@ -66,13 +170,13 @@ export class RentalCar extends Component {
         }
       
     }
-    CostCRender() {
+    CostHRender() {
 
-        if(this.state.editcostc) {
+        if(this.state.editCostH) {
           return(
           <div className="CarCar">
           <Row>  
-          <input  type="text" placeholder={this.state.costc} onChange={this.handleChange('costc')}/>
+          <input  type="text" placeholder={this.state.CostH} onChange={this.handleChange('CostH')}/>
           </Row>  
           </div>    
           )
@@ -83,7 +187,7 @@ export class RentalCar extends Component {
           <div className="Car"> 
           <Col>
            <Row>  
-          <h5> {this.state.costc}</h5>
+          <h5> {this.state.CostH}</h5>
           </Row>  
           </Col>
           </div>
@@ -92,13 +196,13 @@ export class RentalCar extends Component {
         }
       
     }
-    NameRender() {
+    HNameRender() {
 
-        if(this.state.editName) {
+        if(this.state.editHName) {
           return(
           <div className="CarCar">
           <Row>  
-          <input  type="text" placeholder={this.state.name} onChange={this.handleChange('name')}/>
+          <input  type="text" placeholder={this.state.HName} onChange={this.handleChange('HName')}/>
           </Row>  
           </div>    
           )
@@ -109,7 +213,7 @@ export class RentalCar extends Component {
           <div className="Car"> 
           <Col>
            <Row>  
-          <h5> {this.state.name}</h5>
+          <h5> {this.state.HName}</h5>
           </Row>  
           </Col>
           </div>
@@ -144,12 +248,12 @@ export class RentalCar extends Component {
         }
       
     }
-    locationButtonRender() {
-        if(this.state.editlocation) {
+    PlateButtonRender() {
+        if(this.state.editPlate) {
         return(   
             <Row>    
              <div id="CardLeft">
-             <Button variant="light" onClick={this.changeLocation}>
+             <Button variant="light" onClick={this.changePlate}>
              <FiSave />
              </Button>
              </div>
@@ -159,7 +263,7 @@ export class RentalCar extends Component {
           return(     
                 <Row>  
                 <div id="CardLeft">
-                <Button variant="light" onClick={this.changeLocation}>
+                <Button variant="light" onClick={this.changePlate}>
                <FiEdit2 />
                </Button>
                 </div>
@@ -169,12 +273,12 @@ export class RentalCar extends Component {
       
     }
 
-    CostCButtonRender() {
-        if(this.state.editcostc) {
+    CostHButtonRender() {
+        if(this.state.editCostH) {
         return(   
             <Row>    
              <div id="CardLeft">
-             <Button variant="light" onClick={this.changeCostC}>
+             <Button variant="light" onClick={this.changeCostH}>
              <FiSave />
              </Button>
              </div>
@@ -184,7 +288,7 @@ export class RentalCar extends Component {
           return(     
                 <Row>  
                 <div id="CardLeft">
-                <Button variant="light" onClick={this.changeCostC}>
+                <Button variant="light" onClick={this.changeCostH}>
                <FiEdit2 />
                </Button>
                 </div>
@@ -193,12 +297,12 @@ export class RentalCar extends Component {
         }
       
     }
-    NameButtonRender() {
-        if(this.state.editName) {
+    HNameButtonRender() {
+        if(this.state.editHName) {
         return(   
             <Row>    
              <div id="CardLeft">
-             <Button variant="light" onClick={this.changeName}>
+             <Button variant="light" onClick={this.changeHName}>
              <FiSave />
              </Button>
              </div>
@@ -208,7 +312,7 @@ export class RentalCar extends Component {
           return(     
                 <Row>  
                 <div id="CardLeft">
-                <Button variant="light" onClick={this.changeName}>
+                <Button variant="light" onClick={this.changeHName}>
                <FiEdit2 />
                </Button>
                 </div>
@@ -243,28 +347,28 @@ export class RentalCar extends Component {
       
     }
 
-    changeLocation() {
-        if(this.state.editlocation === false) {
+    changePlate() {
+        if(this.state.editPlate === false) {
           this.setState({
-            editlocation:true
+            editPlate:true
           })
         } else {
           this.setState({
-            editlocation:false,
+            editPlate:false,
             alreadysaved:false
           })
       
         }
       }
 
-      changeCostC() {
-        if(this.state.editcostc === false) {
+      changeCostH() {
+        if(this.state.editCostH === false) {
           this.setState({
-            editcostc:true
+            editCostH:true
           })
         } else {
           this.setState({
-            editcostc:false,
+            editCostH:false,
             alreadysaved:false
           })
       
@@ -284,14 +388,14 @@ export class RentalCar extends Component {
         }
       }
 
-      changeName() {
-        if(this.state.editName === false) {
+      changeHName() {
+        if(this.state.editHName === false) {
           this.setState({
-            editName:true
+            editHName:true
           })
         } else {
           this.setState({
-            editName:false,
+            editHName:false,
             alreadysaved:false
           })
       
@@ -308,8 +412,8 @@ export class RentalCar extends Component {
              <Row>
               <Col>   
               <h4>  License Plate Number:  </h4>
-              {this.locationRender()}
-              {this.locationButtonRender()}
+              {this.PlateRender()}
+              {this.PlateButtonRender()}
               </Col>
               <Col>
               <h4>  Rental Car Cost:  </h4>
@@ -338,13 +442,13 @@ export class RentalCar extends Component {
             <Row>
             <Col>   
             <h4>  Hotel Name:  </h4>
-            {this.NameRender()}
-            {this.NameButtonRender()}
+            {this.HNameRender()}
+            {this.HNameButtonRender()}
             </Col>
             <Col>
             <h4>  Hotel Cost:  </h4>
-            {this.CostCRender()}
-            {this.CostCButtonRender()}
+            {this.CostHRender()}
+            {this.CostHButtonRender()}
             </Col>
             </Row>
             </div>  
@@ -355,6 +459,7 @@ export class RentalCar extends Component {
             </div> 
             </div>
             <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
+            <button type="submit" id="planebut" onClick={this.handleSavedEdits} class="btn btn-primary">Save Stuff</button>
             </div>
         )
     }

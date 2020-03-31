@@ -3,7 +3,7 @@ import {Button, Table, Jumbotron, Accordion,Card, Container, Row, Col } from 're
 
 import fire from "./config/fire";
 import GenerateItinerary from './GenerateItinerary'
-
+import RentalCar from './RentalCar'
 class SavedPage extends Component {
 
 
@@ -20,6 +20,7 @@ class SavedPage extends Component {
       multiday: '',
       location: '',
       notes: '',
+      costc: '',
       itkey: '',
       step: 1,
     }
@@ -93,6 +94,21 @@ editPlan(itinerary) {
     budget: itinerary[1].budget,
     location: itinerary[1].location,
     notes: itinerary[1].notes,
+    costc: itinerary[1].costc,
+    Plate: itinerary[1].Plate,
+    CostH: itinerary[1].CostH,
+    HName: itinerary[1].HName,
+    costcc: itinerary[1].costcc,
+    plane1n: itinerary[1].plane1n,
+    plane1d: itinerary[1].plane1d,
+    plane1t: itinerary[1].plane1t,
+    plane2n: itinerary[1].plane2n,
+    plane2d: itinerary[1].plane2d,
+    plane2t: itinerary[1].plane2t,
+    plane3n: itinerary[1].plane3n,
+    plane3d: itinerary[1].plane3d,
+    plane3t: itinerary[1].plane3t,
+    countf: itinerary[1].countf,
     itkey: itinerary[0],
     step: 2
 
@@ -139,8 +155,8 @@ render(){
   //   return null;
   // }
 
-  const {startdate, enddate, location, title, budget, notes, itkey} = this.state;
-  const values = {startdate, enddate, title, budget, location, notes, itkey}
+  const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf, itkey} = this.state;
+  const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf, itkey}
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
@@ -183,10 +199,17 @@ console.log("HERE")
       );
     case 2:
       return(
+        <div>
+    
         <GenerateItinerary
 
         values={values}
+        
         />
+        
+       
+        
+        </div>
       );
   }
 
