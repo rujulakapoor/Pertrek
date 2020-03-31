@@ -61,10 +61,10 @@ class Navigation extends React.Component {
           </Navbar.Brand>
 
             <Nav className="mr-auto">
-                <Nav.Link href="."><h5>Home</h5></Nav.Link>
-                <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link>
-                <Nav.Link href="./savedpage"><h5>My Itineraries </h5> </Nav.Link>
+                <Nav.Link href="./planner">Planner</Nav.Link>
+                <Nav.Link href="./savedpage">My Itineraries</Nav.Link>
             </Nav>
+
             <Form inline>
 
                 <div id="left"><Button variant="outline-warning" href='./itform'>New Itinerary</Button></div>

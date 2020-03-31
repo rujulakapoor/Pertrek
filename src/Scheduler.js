@@ -328,11 +328,7 @@ class scheduler extends Component {
 		return (
 			<div className="planner">
 
-				<div className="row">
-					<div className='col-xl-12'>
-						<h1>Restaurants</h1>
-					</div>
-				</div>
+				<h1>Restaurants</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>
@@ -402,11 +398,7 @@ class scheduler extends Component {
 				</div>
 
 
-				<div className="row">
-					<div className='col-xl-12'>
-						<h1>Attractions</h1>
-					</div>
-				</div>
+				<h1>Attractions</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>

@@ -25,7 +25,14 @@ p {
 
 /* NAV BAR */
 .nav-bar {
+  box-shadow: 1px 2px 4px rgba(41, 41, 41, 0.2);
   text-decoration: none;
+  background-color: #ABEBC6;
+}
+
+.nav-bar .navButtons {
+  text-decoration: none;
+  color: rgb(15, 5, 95);
 }
 
 Link {
@@ -40,6 +47,7 @@ Link {
 
 .nav-bar h5 {
   color: rgb(39, 39, 39);
+  font-size: 23px;
 }
 
 /* HOME */
@@ -70,10 +78,29 @@ Link {
   padding: 3%;
 }
 
+.planner .sandcastle {
+  margin-left: 25%;
+  opacity: 90%;
+}
+
+.planner .favP {
+  text-align: center;
+  color: #333;
+}
+
 /* ITINERARY PLANNER */
 .planner {
   background-color: rgb(255, 255, 255);
   padding: 3%;
+}
+
+.planner h1 {
+  font-weight: bolder;
+  font-size: larger;
+  color: rgb(29, 29, 29);
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
 }
 
 .planner h5 {
@@ -123,6 +150,7 @@ Link {
 .planner Button {
   margin-right:5px;
 }
+
 
 
 /* RUJULA STUFF */
