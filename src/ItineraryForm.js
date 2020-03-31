@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import FormItineraryDetails from './FormItineraryDetails'
 import GenerateItinerary from './GenerateItinerary'
+import RentalCar from './RentalCar'
 class ItineraryForm extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +15,24 @@ class ItineraryForm extends Component {
       multiday: '',
       location: '',
       notes: '',
+
       schedule: []
+
+      Plate: '',
+      CostH: '',
+      HName: '',
+      costcc: '',
+      plane1n: '',
+      plane1d: '',
+      plane1t: '',
+      plane2n: '',
+      plane2d: '',
+      plane2t: '',
+      plane3n: '',
+      plane3d: '',
+      plane3t: '',
+      countf: '',
+
     };
   }
   onNavigateHome(){
@@ -37,9 +55,10 @@ handleChange = input => e => {
 }
 render() {
   const {step } = this.state;
-  const {startdate, enddate, title, budget, multiday, location, schedule, notes} = this.state;
+
+  const {startdate, enddate, title, budget, multiday, location,notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf} = this.state;
   let itkey = null
-  const values = {startdate, enddate, title, budget, multiday, location, schedule, notes, itkey}
+  const values = {startdate, enddate, title, budget, multiday, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t, plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey}
   switch(step) {
     case 1 :
     return(
@@ -50,11 +69,19 @@ render() {
       />
     );
     case 2:
-      return(<GenerateItinerary
+      return(
+        <div>
+        <GenerateItinerary
         nextStep={this.nextStep}
         handleChange={this.handleChange}
         values={values}
         />
+        <RentalCar
+        nextStep={this.nextStep}
+        handleChange={this.handleChange}
+        values={values}
+        />
+        </div>
       );
 
     case 3:

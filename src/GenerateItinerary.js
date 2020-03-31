@@ -16,7 +16,8 @@ import Lunch from "./Lunch";
 import Dinner from "./Dinner";
 import Snack from "./Snack";
 import Other from "./Other";
-import Plane from "./Plane"
+import Plane from "./Plane";
+import Plane1 from "./Plane1"
 
 import InWaitingActivity from './ItineraryTimetable/InWaitingActivity'
 
@@ -52,7 +53,24 @@ constructor(props){
     title: this.props.values.title,
     notes:this.props.values.notes,
     location:this.props.values.location,
+
     schedule: this.props.values.schedule,
+
+    Plate:this.props.values.Plate,
+    CostH:this.props.values.CostH,
+    costcc:this.props.values.costcc,
+    HName:this.props.values.HName,
+    plane1n:this.props.values.plane1n,
+    plane1d:this.props.values.plane1d,
+    plane1t:this.props.values.plane1t,
+    plane2n:this.props.values.plane2n,
+    plane2d:this.props.values.plane2d,
+    plane2t:this.props.values.plane2t,
+    plane3n:this.props.values.plane3n,
+    plane3d:this.props.values.plane3d,
+    plane3t:this.props.values.plane3t,
+    countf:this.props.values.countf,
+
     days: [],
     alreadysaved: false,
     edittitle:false,
@@ -167,7 +185,25 @@ handleSavedEdits() {
         startdate: this.state.startdate,
         enddate: this.state.enddate,
         budget: this.state.budget,
+
         schedule: this.state.schedule
+
+        Plate:this.state.Plate,
+        CostH:this.state.CostH,
+        costcc:this.state.costcc,
+        HName:this.state.HName,
+        plane1n:this.state.plane1n,
+        plane1d:this.state.plane1d,
+        plane1t:this.state.plane1t,
+        plane2n:this.state.plane2n,
+        plane2d:this.state.plane2d,
+        plane2t:this.state.plane2t,
+        plane3n:this.state.plane3n,
+        plane3d:this.state.plane3d,
+        plane3t:this.state.plane3t,
+        countf:this.state.countf,
+        
+
       }
       console.log("SCHEDULE IS" + this.state.schedule)
 
@@ -179,6 +215,9 @@ handleSavedEdits() {
            itkey: ref.path.pieces_[2]
          })
        });
+        
+        
+       
        console.log("save completed?" + item);
        console.log(item);
        this.setState({
@@ -465,7 +504,16 @@ changeTitle() {
   }
 }
 
-
+trypush(){
+  alert("here77777");
+  alert("key is" + this.state.itkey)
+  const user = fire.auth().currentUser.uid
+  fire.database().ref('itineraries/flight' + user).child(this.state.itkey).push({
+    FlightName: "American",
+    FlighDate: "12/03/2020", 
+    FlighTime: "12:00AM"
+  });
+}
 
 
 renderCheck(){
@@ -477,6 +525,12 @@ renderCheck(){
  
 
 const activities = this.state.inwaitingactivity;
+
+
+
+const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey} = this.state;
+const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey}
+
 
    return(
 
@@ -554,7 +608,9 @@ const activities = this.state.inwaitingactivity;
               </Card.Header>
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
-                <Plane / >
+                <div>
+                <Plane1 values={values} / >
+                </div>  
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
@@ -570,7 +626,7 @@ const activities = this.state.inwaitingactivity;
               </Card.Header>
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
-                <RentalCar / >
+                <RentalCar values={values} / >
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
@@ -754,3 +810,4 @@ const activities = this.state.inwaitingactivity;
   }
 }
 export default GenerateItinerary;
+
