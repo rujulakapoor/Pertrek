@@ -4,6 +4,7 @@ import StarRatings from 'react-star-ratings';
 import fire from "./config/fire";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
+import sandcastle from './img/sandcastle.png';
 
 class Favorites extends Component {
     constructor(props) {
@@ -75,13 +76,17 @@ class Favorites extends Component {
         if(this.state.alreadyFaved.length === 0) {
             return (
                 <div className="planner">
-                    <div className="row">
-                        <div className='col-xl-12'>
-                            <h1>My Favorites</h1>
-                        </div>
-                     </div>
 
-                     <p>no favorites :(</p>
+                    <img
+                        src={ sandcastle }
+                        width="50%"
+                        height="50%"
+                        className="sandcastle"
+                        alt="Sad sandcastle"
+                    />
+                    <div className="favP">no favorites :(</div>
+
+                     
                 </div>
             )
         }
@@ -90,11 +95,7 @@ class Favorites extends Component {
 
                 <div className="planner">
     
-                    <div className="row">
-                        <div className='col-xl-12'>
-                            <h1>My Favorites</h1>
-                        </div>
-                     </div>
+                    <h1>My Favorites</h1>
     
                     {Object.entries(this.state.alreadyFaved).map(([key,value]) =>
     

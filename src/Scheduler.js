@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { $CombinedState } from 'redux';
-import { Card, Button, Accordion, Alert } from 'react-bootstrap';
+import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -20,7 +19,7 @@ class scheduler extends Component {
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
-		console.log("cityName = " + cityName);
+		//console.log("cityName = " + cityName);
 
 
 		this.state = {
@@ -45,16 +44,6 @@ class scheduler extends Component {
 		var token = 'Bearer zyPWG_QxvokChwb3lHLU8wvzWLEWq8SlvpPwr1I_yE9izq4aonvbf6XTlM7JkhqA7uPbKqorBa-0H67-9djEePPUE5JWAgBUloI5s9blpLpDD_70Qo2M1Bz61Iw3XnYx';
 		var yelp_search_url = 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search';
 		const state = this.state;
-
-		var requestObj = {
-			url: yelp_search_url,
-			data: {term:'restaurants', location: '92697'},
-			headers: {'Authorization': token},
-			error: function(jqXHR, textStatus, errorThrown) {
-				console.log('AJAX error, jqKHR = ', jqXHR, ', textStatus = ', textStatus, ', errorThrown = ', errorThrown)
-			}
-		}
-
 
 		const axios = require('axios');
 
@@ -105,18 +94,17 @@ class scheduler extends Component {
 					}
 
 					this.setState({ restaurants: [...this.state.restaurants, restaurant] });
-					// var joined = this.state.restaurants.concat(restaurant);
-					// this.setState({ restaurants: joined });
+
 				}
 			}.bind(this))
 			.catch(function (error) {
 				console.log(error);
 			})
 			.then(function() {
-				console.log("done");
+				//console.log("done");
 
 				//check restaurants state
-				console.log("check");
+				//console.log("check");
 				// for(var i in this.state.restaurants) {
 				// 	var r = this.state.restaurants[i];
 				// 	console.log(i + " = " + r.name + ", " + r.description);
@@ -170,7 +158,7 @@ class scheduler extends Component {
 					console.log(error);
 				})
 				.then(function() {
-					console.log("done");
+					//console.log("done");
 				}.bind(this));
 
 	}
@@ -198,7 +186,7 @@ class scheduler extends Component {
 			 itkey: ref.path.pieces_[2]
 		   })
 		 });
-		 console.log("save completed?" + item);
+		 //console.log("save completed?" + item);
 		 //console.log(item);
 		//  this.setState({
 		//    alreadysaved: true
@@ -222,7 +210,7 @@ class scheduler extends Component {
 			var r = this.state.favNames[i];
 			//console.log(i + " = " + r);
 			if(r === name) {	//duplicate found
-				console.log("DUPLICATE :(");
+				//console.log("DUPLICATE :(");
 				isFavorited = true;
 				removeIndex = i;
 				break;
@@ -279,17 +267,17 @@ class scheduler extends Component {
 	getAlreadyFaved() {
 		if(this.state.retreived === false ){
 			const user = fire.auth().currentUser.uid;
-			console.log("user id = " + user);
+			//console.log("user id = " + user);
 
 			fire.database()
 				.ref('favoriteItems/' + user)
 				.on("value", snapshot=> {
 					if(snapshot.val()) {
 						let currentstate = this;
-						console.log("Snapshot = " + snapshot.val());
+						//console.log("Snapshot = " + snapshot.val());
 					
 						const values = snapshot.val();
-						console.log(values);
+						//console.log(values);
 						var keyList = Object.keys(values);
 						//console.log(Object.keys(values));
 						//console.log("name = " + values[tempkey].name);
@@ -312,11 +300,11 @@ class scheduler extends Component {
 							})
 						}
 
-						console.log("printing faved stuff: length = " + this.state.favNames.length);
-						for(var i in this.state.favNames) {
-							var r = this.state.favNames[i];
-							console.log(i + " = " + r);
-						}
+						// console.log("printing faved stuff: length = " + this.state.favNames.length);
+						// for(var i in this.state.favNames) {
+						// 	var r = this.state.favNames[i];
+						// 	console.log(i + " = " + r);
+						// }
 
 					}
 				})
@@ -340,11 +328,7 @@ class scheduler extends Component {
 		return (
 			<div className="planner">
 
-				<div className="row">
-					<div className='col-xl-12'>
-						<h1>Restaurants</h1>
-					</div>
-				</div>
+				<h1>Restaurants</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>
@@ -360,9 +344,6 @@ class scheduler extends Component {
 										<Card.Text as="h4">
 											Cost: { attraction.price }
 										</Card.Text>
-										{/* <Card.Text as="h4">
-											Estimated duration: { attraction.duration } hours
-										</Card.Text> */}
 										<Card.Text as="h4">
 											Rating: { attraction.popularity }/5
 										</Card.Text>
@@ -417,11 +398,7 @@ class scheduler extends Component {
 				</div>
 
 
-				<div className="row">
-					<div className='col-xl-12'>
-						<h1>Attractions</h1>
-					</div>
-				</div>
+				<h1>Attractions</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>
@@ -437,9 +414,6 @@ class scheduler extends Component {
 										<Card.Text as="h4">
 											Cost: { attraction.price }
 										</Card.Text>
-										{/* <Card.Text as="h4">
-											Estimated duration: { attraction.duration } hours
-										</Card.Text> */}
 										<Card.Text as="h4">
 											Rating: { attraction.popularity }/5
 										</Card.Text>

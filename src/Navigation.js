@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-import fire from './config/fire'
+import fire from './config/fire';
+import logo from './img/logo_airplane.png';
+import logoSquare from './img/logo_airplane_square.png';
+
 
 class Navigation extends React.Component {
   constructor(props) {
@@ -46,30 +49,25 @@ class Navigation extends React.Component {
     render() {
       return (
         <Navbar bg="light" expand="lg" className="nav-bar">
-            <Navbar.Brand><Link to="/" style={{ textDecoration: 'none' }}><h4>Pertrek</h4></Link></Navbar.Brand>            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-                <Nav.Link href="."><h5>Home</h5></Nav.Link>
-                <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link>
-                <Nav.Link href="./savedpage"><h5>My Itineraries </h5> </Nav.Link>
-                <NavDropdown title="Dropdown" id="basic-nav-dropdown" className="dropdown">
-                <NavDropdown.Item href="#action/3.1" >Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2" >Another action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3" >Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                </NavDropdown>
-                {/* <Nav.Link href="./planner"><h5>Planner</h5></Nav.Link> */}
-            </Nav>
-            <Form inline>
-                {/* <div id="left"> <Button variant="secondary">
-                  <Nav>
-                    <Nav.Link href="./itform"><h5>New Itinerary</h5></Nav.Link>
-                  </Nav>
-                </Button>
-                </div> */}
+          <Navbar.Brand href="/">
+            <img
+              src={ logoSquare }
+              width="35"
+              height="35"
+              className="d-inline-block align-top"
+              alt="Pertrek logo"
+            />{' '}
+              Pertrek
+          </Navbar.Brand>
 
-                <div id="left"><Button variant="secondary" href='./itform'>New Itinerary</Button></div>
+            <Nav className="mr-auto">
+                <Nav.Link href="./planner">Planner</Nav.Link>
+                <Nav.Link href="./savedpage">My Itineraries</Nav.Link>
+            </Nav>
+
+            <Form inline>
+
+                <div id="left"><Button variant="outline-warning" href='./itform'>New Itinerary</Button></div>
 
                 <NavDropdown title={this.state.email} id="basic-nav-dropdown" className="dropdown">
                   <NavDropdown.Item><Link to="/account">Account Details</Link></NavDropdown.Item>
@@ -78,11 +76,10 @@ class Navigation extends React.Component {
                   <NavDropdown.Item href="#action/3.4" onClick={this.props.value}>Sign Out</NavDropdown.Item>
                 </NavDropdown>
 
-                <div id="left"><Button variant="secondary" onClick={this.onNavigateHome}>Log in</Button></div>
-                <div id="left"><Button variant="dark" onClick={this.props.value}>Log out</Button></div>
+                <div id="left"><Button variant="outline-secondary" onClick={this.onNavigateHome}>Log in</Button></div>
+                <div id="left"><Button variant="outline-dark" onClick={this.props.value}>Log out</Button></div>
 
             </Form>
-            </Navbar.Collapse>
          </Navbar>
 
       );
