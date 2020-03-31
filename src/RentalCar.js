@@ -139,9 +139,12 @@ export class RentalCar extends Component {
         
         var integer1 = parseInt(this.state.CostH, 10);
         var integer2 = parseInt(this.state.costcc, 10);
-        var budget=100;
+        var budget=this.state.budget;
         var newbudget=budget-integer1-integer2;
         alert(newbudget);
+        this.setState({
+          budget: newbudget
+        })
 
     }
     PlateRender() {
@@ -406,6 +409,9 @@ export class RentalCar extends Component {
     render() {
         return(
             <div>
+            <Button variant="light" onClick={this.handleSavedEdits}>
+            <FiSave />
+            </Button> 
             <div id="RentalCar" className="Car">
              <div id="carone">
              <h1>Enter Your Car Info</h1>
@@ -458,8 +464,10 @@ export class RentalCar extends Component {
             <FontAwesomeIcon icon={faHotel} color="#c7d0d8" size = '10x' />
             </div> 
             </div>
+            <div className="Carlable">
             <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
-            <button type="submit" id="planebut" onClick={this.handleSavedEdits} class="btn btn-primary">Save Stuff</button>
+            <h5> Your New Budget Is: {this.state.budget}</h5>
+            </div>
             </div>
         )
     }

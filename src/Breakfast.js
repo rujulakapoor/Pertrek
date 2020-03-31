@@ -12,10 +12,12 @@ export class Breakfast extends Component {
         super(props);
         this.changeLocation = this.changeLocation.bind(this);
         this.changeBudget= this.changeBudget.bind(this)
+        this.changeMeal= this.changeMeal.bind(this)
         this.state = { 
             checked: true,
             editlocation:false,
             editbudget:false, 
+            editmealcount:false,
         
         };
         this.handleChangeCheck = this.handleChangeCheck.bind(this);
@@ -117,7 +119,46 @@ export class Breakfast extends Component {
           )
           }
         
+      }
+      mealRender() {
+
+        if(this.state.editmealcount) {
+          return(
+          <div className="MealsStuff" id="moreMealStuff">      
+          <input type="text" placeholder={this.state.meal}  onChange={this.handleChange('meal')}/>
+          </div>
+          )
+          
         }
+        else {
+          return(
+          <div className="MealsStuff" id="moreMealStuff">
+          <h5> {this.state.meal}</h5>
+          </div>  
+            );
+        }
+      
+    }
+    mealButtonRender() {
+      if(this.state.editmealcount) {
+        return(   
+             <div className="MealsStuff" id="moreMealStuff">   
+             <Button variant="light" onClick={this.changeMeal}>
+             <FiSave />
+             </Button>
+             </div>
+        )
+        } else {
+          return(     
+              <div className="MealsStuff" id="moreMealStuff">   
+               <Button variant="light" onClick={this.changeMeal}>
+               <FiEdit2 />
+               </Button>
+               </div>
+        )
+        }
+      
+    }
 
       changeLocation() {
           alert("herrrrrrrrrrrrrrrr");
@@ -147,6 +188,20 @@ export class Breakfast extends Component {
         }
       
       } 
+      changeMeal() {
+        if(this.state.editmealcount === false) {
+          this.setState({
+            editmealcount:true
+          });
+        } else {
+          this.setState({
+            editmealcount:false,
+            alreadysaved:false
+          })
+        }
+      
+      } 
+    
     
     render() {
         const content = this.state.checked 
@@ -168,6 +223,11 @@ export class Breakfast extends Component {
 
     return (
       <div id="meals2" className="breakfast">
+      <div id="meals4">
+      <h4>  Daily Meal Count:  </h4>
+          {this.mealRender()}
+          {this.mealButtonRender()}
+      </div>  
      <Accordion defaultActiveKey="1">
      <Card className="notes2">
 

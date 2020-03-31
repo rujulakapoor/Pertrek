@@ -775,7 +775,13 @@ export class Plane1 extends Component {
             countf:newcountf
         })
           alert(this.state.countf);
-          if(this.state.countf==1){  
+          if(this.state.countf>=1){  
+            if(this.state.countf>=1){
+              alert("Big boi");
+              this.setState({
+                countf:0
+              })
+            } 
             this.setState({
                 showing3:false,
                 showing4:true,
@@ -841,7 +847,13 @@ export class Plane1 extends Component {
                     showing5:false
                   })
             }
-            if(this.state.countf==2){  
+            if(this.state.countf>=2){ 
+              if(this.state.countf>2){
+                alert("Big boi");
+                this.setState({
+                  countf:2
+                })
+              } 
                 this.setState({
                     showing3:true,
                     showing4:false,

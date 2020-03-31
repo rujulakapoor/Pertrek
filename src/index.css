@@ -299,6 +299,10 @@ Link {
 #meal2{
   height: 50pt;
 }
+#meals4{
+  height: 130pt;
+  float: center;
+}
 .MealsStuff input{
   border-width: 0;
   box-shadow: none;
@@ -364,6 +368,13 @@ Link {
 .Car2 h1{
   color: #fff;
 }
+.Carlable h5{
+  text-align: center;
+  font-family: 'Palanquin Dark', sans-serif;
+  font-size: 30px;
+  color: #c7d0d8;
+
+}
 .CarCar input{
   margin-left: 8%;
   background: transparent;
@@ -390,7 +401,8 @@ Link {
 #planebut2{
   font-family: 'Palanquin Dark', sans-serif;
   background-color: transparent;
-  border-width: 0pt;
+  border: none;
+  border-bottom: 3px solid #c7d0d8;
   margin-left: 280pt;
   font-size: 30px;
   width: 250pt;
@@ -401,7 +413,7 @@ Link {
 #planebut3{
   font-family: 'Quicksand', sans-serif;
   background-color:#c7d0d8 ;
-  border: 0pt;
+  border-width: 0pt;
   color: white;
   margin-right: 2%;
   margin-top: 2%;
@@ -683,6 +695,15 @@ Link {
   font-family: 'Quicksand', sans-serif;
   margin-right: 3%;
   display: inline-block;
+  
+}
+.breakfast h4{
+  color: black;
+  font-size: 17pt;
+  font-family: 'Quicksand', sans-serif;
+  margin-right: 3%;
+  display: inline-block;
+  
   
 }
 
