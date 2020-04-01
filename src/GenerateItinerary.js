@@ -796,7 +796,13 @@ console.log(this.state.days)
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
       <Timetable /> 
-      
+      <div className="MealsStuff" id="moreMealStuff">
+                <Breakfast / >
+                <Lunch / >
+                <Dinner / >  
+                <Snack />
+                <Other />
+                </div>       
 
       </Tab>
 

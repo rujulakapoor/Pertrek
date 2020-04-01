@@ -13,11 +13,19 @@ export class Breakfast extends Component {
         this.changeLocation = this.changeLocation.bind(this);
         this.changeBudget= this.changeBudget.bind(this)
         this.changeMeal= this.changeMeal.bind(this)
+        this.changeWakeup= this.changeWakeup.bind(this)
+        this.changeSleep= this.changeSleep.bind(this)
+        this.save= this.save.bind(this)
         this.state = { 
             checked: true,
             editlocation:false,
             editbudget:false, 
             editmealcount:false,
+            editwakeup:false,
+            editsleep:false,
+            wakeup:null,
+            sleep:null,
+            mealcount:null,
         
         };
         this.handleChangeCheck = this.handleChangeCheck.bind(this);
@@ -120,13 +128,16 @@ export class Breakfast extends Component {
           }
         
       }
+
       mealRender() {
 
         if(this.state.editmealcount) {
+          
           return(
           <div className="MealsStuff" id="moreMealStuff">      
-          <input type="text" placeholder={this.state.meal}  onChange={this.handleChange('meal')}/>
+          <input type="text" value={this.state.mealcount} placeholder={this.state.meal}  onChange={this.handleChange('meal')}/>
           </div>
+          
           )
           
         }
@@ -137,8 +148,47 @@ export class Breakfast extends Component {
           </div>  
             );
         }
+        
+    }
+    wakeupRender() {
+
+      if(this.state.editwakeup) {
+        
+        return(
+        <div className="MealsStuff" id="moreMealStuff">      
+        <input type="time" value={this.state.wakeup} placeholder={this.state.wakeup}  onChange={this.handleChange('wakeup')}/>
+        </div>
+        )
+        
+      }
+      else {
+        return(
+        <div className="MealsStuff" id="moreMealStuff">
+        <h5> {this.state.wakeup}</h5>
+        </div>  
+          );
+      }
+    
+  }
+  sleepRender() {
+
+    if(this.state.editsleep) {
+      return(
+      <div className="MealsStuff" id="moreMealStuff">      
+      <input type="time" value={this.state.sleep} placeholder={this.state.sleep}  onChange={this.handleChange('sleep')}/>
+      </div>
+      )
       
     }
+    else {
+      return(
+      <div className="MealsStuff" id="moreMealStuff">
+      <h5> {this.state.sleep}</h5>
+      </div>  
+        );
+    }
+  
+}
     mealButtonRender() {
       if(this.state.editmealcount) {
         return(   
@@ -152,6 +202,46 @@ export class Breakfast extends Component {
           return(     
               <div className="MealsStuff" id="moreMealStuff">   
                <Button variant="light" onClick={this.changeMeal}>
+               <FiEdit2 />
+               </Button>
+               </div>
+        )
+        }
+      
+    }
+    wakeupButtonRender() {
+      if(this.state.editwakeup) {
+        return(   
+             <div className="MealsStuff" id="moreMealStuff">   
+             <Button variant="light" onClick={this.changeWakeup}>
+             <FiSave />
+             </Button>
+             </div>
+        )
+        } else {
+          return(     
+              <div className="MealsStuff" id="moreMealStuff">   
+               <Button variant="light" onClick={this.changeWakeup}>
+               <FiEdit2 />
+               </Button>
+               </div>
+        )
+        }
+      
+    }
+    sleeppButtonRender() {
+      if(this.state.editsleep) {
+        return(   
+             <div className="MealsStuff" id="moreMealStuff">   
+             <Button variant="light" onClick={this.changeSleep}>
+             <FiSave />
+             </Button>
+             </div>
+        )
+        } else {
+          return(     
+              <div className="MealsStuff" id="moreMealStuff">   
+               <Button variant="light" onClick={this.changeSleep}>
                <FiEdit2 />
                </Button>
                </div>
@@ -201,7 +291,37 @@ export class Breakfast extends Component {
         }
       
       } 
-    
+      changeWakeup() {
+        if(this.state.editwakeup === false) {
+          this.setState({
+            editwakeup:true
+          });
+        } else {
+          this.setState({
+            editwakeup:false,
+            alreadysaved:false
+          })
+        }
+      
+      } 
+      changeSleep() {
+        if(this.state.editsleep === false) {
+          this.setState({
+            editsleep:true
+          });
+        } else {
+          this.setState({
+            editsleep:false,
+            alreadysaved:false
+          })
+        }
+      
+      } 
+    save(){
+      alert(this.state.meal)
+      alert(this.state.wakeup)
+      alert(this.state.sleep)
+    }
     
     render() {
         const content = this.state.checked 
@@ -224,10 +344,28 @@ export class Breakfast extends Component {
     return (
       <div id="meals2" className="breakfast">
       <div id="meals4">
+      <Button variant="light" onClick={this.save}>
+             <FiSave />
+      </Button>  
+      <Row>
+      <Col> 
       <h4>  Daily Meal Count:  </h4>
           {this.mealRender()}
           {this.mealButtonRender()}
+      </Col> 
+      <Col> 
+      <h4>  Daily Wake Up Time:  </h4>
+          {this.wakeupRender()}
+          {this.wakeupButtonRender()}
+      </Col>  
+      <Col>     
+      <h4>  Daily Sleep Time:  </h4>
+          {this.sleepRender()}
+          {this.sleeppButtonRender()} 
+      </Col>     
+      </Row> 
       </div>  
+
      <Accordion defaultActiveKey="1">
      <Card className="notes2">
 

@@ -46,6 +46,7 @@ export class RentalCar extends Component {
           plane3d:this.props.values.plane3d,
           plane3t:this.props.values.plane3t,
           countf:this.props.values.countf,
+          newbudget:0,
           alreadysaved: false,
           editPlate:false,
           editCostH:false,
@@ -73,12 +74,14 @@ export class RentalCar extends Component {
         alert("Come On")
         alert("key is " + this.state.itkey)
         const user = fire.auth().currentUser.uid;
-        fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
-  
+        //fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
+        fire.database().ref('itineraries/' + user).remove();
         this.save()
     }
     else {
       alert("here44444")
+      const user = fire.auth().currentUser.uid;
+      fire.database().ref('itineraries/' + user).remove();
       this.save()
     }
   
@@ -140,10 +143,10 @@ export class RentalCar extends Component {
         var integer1 = parseInt(this.state.CostH, 10);
         var integer2 = parseInt(this.state.costcc, 10);
         var budget=this.state.budget;
-        var newbudget=budget-integer1-integer2;
-        alert(newbudget);
+        
+        alert(this.state.newbudget);
         this.setState({
-          budget: newbudget
+          newbudget:budget-integer1-integer2
         })
 
     }
@@ -466,7 +469,7 @@ export class RentalCar extends Component {
             </div>
             <div className="Carlable">
             <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
-            <h5> Your New Budget Is: {this.state.budget}</h5>
+            <h5> Your Remaining Budget Is: {this.state.newbudget}</h5>
             </div>
             </div>
         )

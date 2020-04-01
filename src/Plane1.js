@@ -92,11 +92,14 @@ export class Plane1 extends Component {
         alert("Come On")
         alert("key is " + this.state.itkey)
         const user = fire.auth().currentUser.uid;
-        fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
+        //fire.database().ref('itineraries/' + user).child(this.state.itkey).remove();
+        fire.database().ref('itineraries/' + user).remove();
         this.save()
     }
     else {
       alert("here44444")
+      const user = fire.auth().currentUser.uid;
+      fire.database().ref('itineraries/' + user).remove();
       this.save()
     }
   
