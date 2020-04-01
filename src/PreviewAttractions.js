@@ -5,6 +5,7 @@ import './PreviewAttractions.css';
 export class PreviewAttractions extends Component {
 constructor(props) {
   super(props);
+  this.save = this.save.bind(this);
 
   this.state = {
     attractionList: [],
@@ -220,13 +221,29 @@ componentDidUpdate(prevProps, prevState) {
   //}
 }
 
+save(attraction) {
+
+	//alert(attraction.name);
+	//alert(attraction.address);
+	
+	const user = Firebase.auth().currentUser.uid;
+	//Firebase.database().ref('destinations/' + user + '/' + this.props.itkey).remove();
+    //const db = Firebase.database().ref('destinations/' + user + '/' + this.props.itkey);
+	//Firebase.database().ref('destinations/' + user + '/' + this.props.title).remove();
+	const db = Firebase.database().ref('destinations/' + user + '/' + this.props.title);
+    db.push(attraction
+    ).then(ref => {
+        console.log('Added document with ID: ', ref.id);
+        console.log(ref)
+        
+    });
+}
+
 render() {
   const { attractionList } = this.state; //COLLECTION NAME
   const budget = this.props.budget;
   const location = this.state.citySelect;
-  console.log("printitott");
-  console.log(this.state.attractions);
-  console.log(this.state);
+  
   return(
     <div>
 	<div className="row">
@@ -255,7 +272,7 @@ render() {
                   <Card.Text as="p">
                     { attraction.description }
                   </Card.Text>
-                  <Button variant="secondary">Add</Button>
+                  <Button variant="secondary" onClick={this.save.bind(this, attraction)}>Add</Button>
                 </Card.Body>
                 <Card.Footer as="h4">
                   { attraction.address }
@@ -292,7 +309,7 @@ render() {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
+										<Button variant="secondary" onClick={this.save.bind(this, attraction)}>Add</Button>
 
 									</Card.Body>
 
@@ -340,7 +357,7 @@ render() {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
+										<Button variant="secondary" onClick={this.save.bind(this, attraction)}>Add</Button>
 									</Card.Body>
 
 									<Card.Header>

@@ -18,9 +18,14 @@ import Snack from "./Snack";
 import Other from "./Other";
 import Plane from "./Plane";
 import Plane1 from "./Plane1"
-
+import MapAll from "./MapAll";
+import LocationIQ from 'react-native-locationiq';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
+import Geocode from "react-geocode";
+LocationIQ.init("c4e640b5ed0925");
+Geocode.setApiKey("AIzaSyBvjIBIZImCFAb-6Rtz2C7EQlnS1Ga1Z0o");
+// Geocodio Key: ee000100feccee8445ccfee8e0c0fcedef8e545
 export class GenerateItinerary extends Component {
 
 constructor(props){
@@ -37,6 +42,8 @@ constructor(props){
   this.handleSavedEdits =this.handleSavedEdits.bind(this)
   this.handleChangeTab1 =this.handleChangeTab1.bind(this)
   this.handleChangeTab2 =this.handleChangeTab2.bind(this)
+  this.getDestinations = this.getDestinations.bind(this);
+
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -68,7 +75,9 @@ constructor(props){
     editstart:false,
     editend:false,
     typetab:false,
-    itkey: this.props.values.itkey
+    itkey: this.props.values.itkey,
+    retreived:false,
+    destinations: []
 
 
   }
@@ -129,6 +138,7 @@ componentWillMount() {
     }
   }
   console.log("IN COMPONENT WILL MOUNT")
+  this.getDestinations();
 }
 
 
@@ -213,6 +223,95 @@ handleSavedEdits() {
 
   }
 
+  getDestinations() {
+    if(this.state.retreived === false ){
+      const user = fire.auth().currentUser.uid;
+      fire.database().ref('destinations/' + user + '/' + this.state.title
+      ).on("value", snapshot=> {
+        if(snapshot.val()) {
+        let currentstate = this;
+        console.log("dest snapshot is ")
+        //alert("inside getdest")
+        console.log(snapshot.val())
+    
+        const values = snapshot.val();
+        console.log(values);
+    
+        var name;
+        var id;
+        Object.entries(values).map((thing) => {
+          console.log("key val is " + thing ) ;
+          console.log(thing[1].name);
+          name = thing[1].name;
+          console.log(thing[1].address);
+          console.log(thing[1].id);
+          id = thing[1].id;
+          var thing;
+          /*
+          geocodio.get('geocode', {q: thing[1].address}, function(err, response){
+            if (err) throw err;
+            
+            console.log(response);
+          });
+          
+          LocationIQ.search(thing[1].address)
+          .then(json => {
+              var lat = json[0].lat;
+              var lon = json[0].lon;
+              console.log(lat, lon);
+              thing = {
+                lat: lat,
+                lon: lon
+              }
+              
+          })
+          .catch(error => console.warn(error));
+          */
+          Geocode.fromAddress(thing[1].address).then(
+            response => {
+              console.log("RESPONSE FROM GOOGLE GEOCODER")
+              console.log(response)
+              console.log(response.results[0].geometry.location)
+              if (response.results[0] != undefined) {
+                var lat = response.results[0].geometry.location.lat;
+                var lon = response.results[0].geometry.location.lng;
+                var item = {
+                  lat: lat,
+                  lon: lon,
+                  name: thing[1].name,
+                  address: thing[1].address
+                }
+                this.setState( {
+                  destinations: [...currentstate.state.destinations, item]
+                })
+              }
+            },
+            error => {
+              alert('Geocode was not successful for the following reason: ' + error);
+            }
+          );
+
+          /*
+          console.log("PUT THE SET STATE HERREEE THEN")
+          currentstate.setState( {
+            destinations: [...currentstate.state.destinations,  thing]
+          })
+          */
+          console.log("ASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDS")
+          console.log(this.state.destinations)
+        })
+        console.log("PEEKABOOOOOO")
+        }
+      })
+    
+        // console.log(snapshot.val())
+        // this.setState( {
+        // itineraries: [...this.state.itineraries, snapshot.val()]
+      //0})
+    
+      this.state.retreived=true;
+      }
+    }
 
 titleRender() {
   if(this.state.edittitle) {
@@ -563,6 +662,14 @@ const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,
 
 console.log("Rendering days:")
 console.log(this.state.days)
+console.log(this.state.destinations)
+let statenow = this
+  fire.auth().onAuthStateChanged( function(user) {
+      if (user) {
+console.log("grabbin dests")
+ statenow.getDestinations();
+}})
+console.log(this.state.destinations)
    return(
 
      <div id="form">
@@ -820,10 +927,11 @@ console.log(this.state.days)
 
       <Row>
      
-     <PreviewAttractions budget={this.state.budget} location={this.state.location}/ >
+     <PreviewAttractions budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title}/ >
      </Row>
      
      </Col>
+     <MapAll destinations={this.state.destinations} />
      
 
      </Row>
