@@ -486,6 +486,14 @@ Link {
   transition:0.5s;
 
 }
+.inactive {
+  color: black;
+  text-decoration: none;
+  background-color: white;
+}
+.tabStuff{
+  margin-top: 4%;
+}
 #five {
   text-align: center;
 }

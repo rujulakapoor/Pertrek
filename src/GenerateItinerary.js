@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react';
-import {Button, Jumbotron, Table, Tabs,Tab, TabPane, Accordion,Card, Container, Row, Col,
+import {Button, Jumbotron, Table,Tab,Tabs,TabPane, Accordion,Card, Container, Row, Col,
 Nav, NavItem, NavLink } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
@@ -35,7 +35,8 @@ constructor(props){
   this.changeLocation = this.changeLocation.bind(this)
   this.handleChange = this.handleChange.bind(this)
   this.handleSavedEdits =this.handleSavedEdits.bind(this)
-
+  this.handleChangeTab1 =this.handleChangeTab1.bind(this)
+  this.handleChangeTab2 =this.handleChangeTab2.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -66,6 +67,7 @@ constructor(props){
     editnotes:false,
     editstart:false,
     editend:false,
+    typetab:false,
     itkey: this.props.values.itkey
 
 
@@ -316,7 +318,73 @@ if(this.state.editbudget) {
   }
 
 }
-
+handleChangeTab1(){
+  alert("made it big")
+  this.setState({
+   typetab:true,
+  })
+}
+handleChangeTab2(){
+  alert("made it big")
+  this.setState({
+   typetab:false,
+  })
+}
+tabRender() {
+  if(this.state.typetab==false){
+  return(
+    
+    <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+    <Row>
+      <Col sm={3}>
+        <Nav variant="pills" className="flex-column">
+          <Nav.Item>
+            <Nav.Link  className="inactive" activeClassName="active" eventKey="first">Tab 1</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link  className="inactive"  activeClassName="active" eventKey="second">Tab 2</Nav.Link>
+          </Nav.Item>
+        </Nav>
+      </Col>
+      <Col sm={9}>
+        <Tab.Content>
+          <Tab.Pane eventKey="first">
+           <div className="tabStuff">
+           Day 1 
+           </div> 
+          <Timetable id="time" />
+          </Tab.Pane>
+          <Tab.Pane eventKey="second">
+          <div className="tabStuff">
+           Day 2 
+           </div> 
+          <Timetable id="time" />
+          </Tab.Pane>
+        </Tab.Content>
+      </Col>
+    </Row>
+  </Tab.Container>
+  )
+  }
+  else{
+    return(
+    <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example">
+  <Tab eventKey="home" title="Home">
+  <div className="tabStuff">
+           Day 1 
+           </div> 
+  <Timetable id="time" />
+  </Tab>
+  <Tab eventKey="profile" title="Profile">
+  <div className="tabStuff">
+  Day 2  
+  </div> 
+  <Timetable id="time" />
+  </Tab>
+</Tabs>
+    )
+  }
+}
 titleButtonRender() {
   
 if(this.state.edittitle) {
@@ -683,9 +751,14 @@ console.log(this.state.days)
                 <input id="s2" name="check1" type="checkbox" />
                 <label for="s2">White</label>
 
+                <h1>Pick a Tab</h1>  
+                <input onChange={this.handleChangeTab1} id="tab1" name="check1" type="checkbox" />
+                <label for="tab1">Tab Style 1</label>
+                <input onChange={this.handleChangeTab2} id="tab2" name="check1" type="checkbox" />
+                <label for="tab22">Tab Style 2</label>
+
                 <div id="cuse" class="wrapper2 wrap wr w">
-                  Some text here
-                  <Timetable id="time" />
+                  {this.tabRender()} 
                   <div id="wakeup">
                   Wake Up Time
                   </div>
@@ -703,6 +776,8 @@ console.log(this.state.days)
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
+
+            
     </Accordion>
   
             
