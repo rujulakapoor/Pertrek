@@ -750,20 +750,31 @@ console.log(this.state.days)
     
       {
 
-        
+        //maybe need to create inwaiting activities list for every day?
+        const inwaitingstyle={
+          overflowY: 'scroll', 
+         
+          height:'1000px',
+          position:'relative'
+        };
         
         return(
                 
             <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
-            <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-            <Row> <Col> <Timetable id="time"/> 
+           <div style={inwaitingstyle}> 
+           
+           <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
+            <Row> <Col sm={8}> <Timetable id="time"/> 
             </Col>
-            <Col>
-            <div style={{overflow-y:"auto"}}> 
-              <InWaitingActivity activities={activities}/>
-            </div> 
-      </Col> 
-</Row>
+              <Col sm={2}>
+              <div >
+                <InWaitingActivity activities={activities}/>
+              </div> 
+              </Col> 
+              </Row>
+            </div>
+      
+
      
             </Tab>
 
