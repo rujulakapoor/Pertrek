@@ -21,6 +21,10 @@ import Plane1 from "./Plane1"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
+
+import InWaitingActivity from './ItineraryTimetable/InWaitingActivity'
+
+
 export class GenerateItinerary extends Component {
 
 constructor(props){
@@ -35,6 +39,8 @@ constructor(props){
   this.changeLocation = this.changeLocation.bind(this)
   this.handleChange = this.handleChange.bind(this)
   this.handleSavedEdits =this.handleSavedEdits.bind(this)
+  this.handleAdd = this.handleAdd.bind(this)
+
 
   this.state = {
     
@@ -44,6 +50,8 @@ constructor(props){
     title: this.props.values.title,
     notes:this.props.values.notes,
     location:this.props.values.location,
+    dailydata:this.props.values.dailydata, //This is data for the activities.    
+    dailydataisnull:this.props.values.dailydataisnull,
     Plate:this.props.values.Plate,
     CostH:this.props.values.CostH,
     costcc:this.props.values.costcc,
@@ -66,11 +74,15 @@ constructor(props){
     editnotes:false,
     editstart:false,
     editend:false,
-    itkey: this.props.values.itkey
+    itkey: this.props.values.itkey,
+    inwaitingactivity: []
+
 
 
   }
 }
+
+
 
 
 handleChange = input => e => {
@@ -79,11 +91,18 @@ handleChange = input => e => {
 }
 
 
+handleAdd = (info) => {
+//Handle adding an attraction from list
+  var inwaitings = this.state.inwaitingactivity.concat(info);
+  this.setState({ inwaitingactivity: inwaitings })
+
+  console.log(this.state.inwaitingactivity)
+
+}
 
 
 calculateDaysAgain() {
-  let currentState = this
-console.log("IN CALCULATE AGAIN")
+  let currentState = this 
   const end=new Date(this.state.enddate);
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
@@ -96,7 +115,11 @@ console.log("IN CALCULATE AGAIN")
     let len = 1
     for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
     {
+
       currentState.state.days.push(new Date(d));
+      
+ 
+
       if(len++ > 31) {
         break
       }
@@ -122,10 +145,19 @@ componentWillMount() {
   for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
   {
     this.state.days.push(new Date(d));
+    if(this.state.dailydataisnull) {
+        //If first time, generate the daily data vars for the table. Notice:bugs iwth changing the dates
+      var daystate = this.state.dailydata;
+      var newday = {"date": new Date(d), "activities" :[], daydata: {}}
+      daystate.concat(newday);
+      this.state.dailydata = daystate;
+    }
+
     if(len++ > 31) {
       break
     }
   }
+  this.state.dailydataisnull = false;
   console.log("IN COMPONENT WILL MOUNT")
 }
 
@@ -170,6 +202,8 @@ handleSavedEdits() {
         startdate: this.state.startdate,
         enddate: this.state.enddate,
         budget: this.state.budget,
+        dailydata: this.state.dailydata,
+
         Plate:this.state.Plate,
         CostH:this.state.CostH,
         costcc:this.state.costcc,
@@ -490,6 +524,8 @@ renderCheck(){
 }
 
 render() {
+  const activities = this.state.inwaitingactivity;
+
 const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey} = this.state;
 const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey}
 
@@ -712,41 +748,43 @@ console.log(this.state.days)
     <Tabs  id="uncontrolled-tab-example">
     {this.state.days.map((day) =>
     
-{
+      {
 
-  
-  
-  return(
-          
-      <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
-      <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable /> 
-      
+        
+        
+        return(
+                
+            <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+            <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
+            <Timetable id="time"/> 
+            
 
-      </Tab>
+            </Tab>
 
-  )
-}
+        )
+      }
 
 
     )
-  }
+    }
 
       </Tabs>
+
       </Col>
+      
       <Col sm={2}>
-
-
-      <Row>
+ 
+      <InWaitingActivity activities={activities}/>
+ 
      
-     <PreviewAttractions budget={this.state.budget} location={this.state.location}/ >
-     </Row>
-     
-     </Col>
+      </Col>
      
 
      </Row>
 <Row>
+  <Col>     
+  <PreviewAttractions budget={this.state.budget} location={this.state.location} handleAdd={this.handleAdd}/ >
+ </Col>
 <Col>
      <Button onClick={this.handleSavedEdits()}> Save </Button>
      </Col>

@@ -20,6 +20,7 @@ class SavedPage extends Component {
       multiday: '',
       location: '',
       notes: '',
+      dailydata:[],
       costc: '',
       itkey: '',
       step: 1,
@@ -94,6 +95,8 @@ editPlan(itinerary) {
     budget: itinerary[1].budget,
     location: itinerary[1].location,
     notes: itinerary[1].notes,
+    dailydata:itinerary[1].dailydata,
+    dailydataisnull: false,
     costc: itinerary[1].costc,
     Plate: itinerary[1].Plate,
     CostH: itinerary[1].CostH,
@@ -113,6 +116,7 @@ editPlan(itinerary) {
     step: 2
 
   })
+  
 
 }
 deletePlan(itinerary){

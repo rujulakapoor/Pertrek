@@ -255,7 +255,7 @@ render() {
                   <Card.Text as="p">
                     { attraction.description }
                   </Card.Text>
-                  <Button variant="secondary">Add</Button>
+                  <Button variant="secondary"  onClick={e => this.props.handleAdd(attraction)}>Add</Button>
                 </Card.Body>
                 <Card.Footer as="h4">
                   { attraction.address }
@@ -292,7 +292,7 @@ render() {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
+										<Button variant="secondary"  onClick={e => this.props.handleAdd(attraction)}>Add</Button>
 
 									</Card.Body>
 
@@ -340,7 +340,7 @@ render() {
 										<Card.Text as="p">
 											{ attraction.description }
 										</Card.Text>
-										<Button variant="secondary">Add</Button>
+										<Button variant="secondary"  onClick={e => this.props.handleAdd(attraction)}		>Add</Button>
 									</Card.Body>
 
 									<Card.Header>
