@@ -23,6 +23,45 @@ import LocationIQ from 'react-native-locationiq';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import Geocode from "react-geocode";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  OKShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  VKShareButton,
+  WhatsappShareButton,
+  WorkplaceShareButton,
+  EmailIcon,
+  FacebookIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  LivejournalIcon,
+  MailruIcon,
+  OKIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  ViberIcon,
+  VKIcon,
+  WeiboIcon,
+  WhatsappIcon,
+  WorkplaceIcon,
+} from "react-share";
 LocationIQ.init("c4e640b5ed0925");
 Geocode.setApiKey("AIzaSyBvjIBIZImCFAb-6Rtz2C7EQlnS1Ga1Z0o");
 // Geocodio Key: ee000100feccee8445ccfee8e0c0fcedef8e545
@@ -731,6 +770,52 @@ console.log(this.state.destinations)
 <h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
     </Col>
     </Row>
+    
+    </Container>
+    <Container>
+    <Row>
+      <h3>SHARE&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+      <EmailShareButton 
+        url={window.location.href}
+      >
+        <EmailIcon size={32} round={true} />
+      </EmailShareButton>
+      <FacebookShareButton 
+        url={window.location.href}
+      >
+        <FacebookIcon size={32} round={true} />
+      </FacebookShareButton>
+      <LineShareButton 
+        url={window.location.href}
+      >
+        <LineIcon size={32} round={true} />
+      </LineShareButton>
+      <LinkedinShareButton 
+        url={window.location.href}
+      >
+        <LinkedinIcon size={32} round={true} />
+      </LinkedinShareButton>
+      <PinterestShareButton 
+        url={window.location.href}
+      >
+        <PinterestIcon size={32} round={true} />
+      </PinterestShareButton>
+      <RedditShareButton 
+        url={window.location.href}
+      >
+        <RedditIcon size={32} round={true} />
+      </RedditShareButton>
+      <TwitterShareButton 
+        url={window.location.href}
+      >
+        <TwitterIcon size={32} round={true} />
+      </TwitterShareButton>
+      <WhatsappShareButton 
+        url={window.location.href}
+      >
+        <WhatsappIcon size={32} round={true} />
+      </WhatsappShareButton>
+    </Row>
     </Container>
 
 
@@ -938,13 +1023,15 @@ console.log(this.state.destinations)
 <Row>
 <Col>
      <Button onClick={this.handleSavedEdits()}> Save </Button>
+     
+     
      </Col>
      <Col>
      {this.renderCheck()}
      </Col>
      </Row>
      </Container>
-
+    
      </div>
 
 
