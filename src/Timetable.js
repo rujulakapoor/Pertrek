@@ -7,10 +7,18 @@ export class Timetable extends Component {
 constructor(props) {
 super(props);
 }
+ 
+refcallback = element => {
+  if (element) {
+      let domRect = element.getBoundingClientRect();
+      let { x, y } = domRect;
+      console.log( "FOUND VALUES FOR TIMETABLE:" + x + y )
+    }
+}
 
 render() {
   return(
-      <div>
+      <div ref={this.refcallback}>
     <Table responsive striped bordered variant="dark" width="400">
 
     <thead>

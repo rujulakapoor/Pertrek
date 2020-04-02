@@ -756,9 +756,15 @@ console.log(this.state.days)
                 
             <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
             <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-            <Timetable id="time"/> 
-            
-
+            <Row> <Col> <Timetable id="time"/> 
+            </Col>
+            <Col>
+            <div style={{overflow-y:"auto"}}> 
+              <InWaitingActivity activities={activities}/>
+            </div> 
+      </Col> 
+</Row>
+     
             </Tab>
 
         )
@@ -772,13 +778,8 @@ console.log(this.state.days)
 
       </Col>
       
-      <Col sm={2}>
- 
-      <InWaitingActivity activities={activities}/>
- 
-     
-      </Col>
-     
+  
+      
 
      </Row>
 <Row>
