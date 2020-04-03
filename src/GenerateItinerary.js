@@ -25,7 +25,7 @@ import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, f
 import Geocode from "react-geocode";
 import bootbox from 'bootbox';
 import AddEventModal from './AddEventModal'
-
+import MiniTravelCosts from './MiniTravelCosts'
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -88,6 +88,7 @@ constructor(props){
   this.changePartySize = this.changePartySize.bind(this);
   this.saveNewEvent = this.saveNewEvent.bind(this)
   this.newbudget = this.newbudget.bind(this);
+  this.handleMiniTravel = this.handleMiniTravel.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -129,13 +130,20 @@ constructor(props){
     currentEvent: {},
     currentlyEditing: false,
     dailydata: [],
-    totalexpenses: 0
+    totalexpenses: 0,
+    minitravel: 0
     
 
 
   }
 }
 
+handleMiniTravel(cost) {
+  this.setState({
+    minitravel: cost
+  })
+  console.log("Done in mini travel")
+}
 
 handleChange = input => e => {
   this.setState({[input]: e.target.value})
@@ -497,7 +505,7 @@ handleSavedEdits() {
 renderCostBar() {
    var percentCost = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
-
+  var percenttravel = 0;
   if(this.state.budget != 0) {
 
       percentCost = this.state.totalexpenses  / this.state.budget;
@@ -507,14 +515,32 @@ renderCostBar() {
         percentCost = 100; 
         badge = <Badge variant="danger" > You Are Over Budget</Badge>
       }
+
+      percenttravel = this.state.minitravel * this.state.numdays / this.state.budget;
+      percenttravel *=100;
+      percenttravel = Math.round(percenttravel)
+      if(percenttravel>100) {
+        percenttravel = 100;
+
+      }
+      if(percenttravel + percentCost > 100) {
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
+
+      }
+
  
      
   }
+  var totalwithtravel = this.state.totalexpenses + this.state.minitravel;
   return(
     <div>
-      <h2> Current Cost : ${this.state.totalexpenses} </h2>
+      <h2> Current Cost : ${totalwithtravel} </h2>
       { badge }
-      <ProgressBar now={percentCost} label={`${percentCost}%`} />
+      <ProgressBar>
+      <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
+      
+      <ProgressBar variant="warning" now={percenttravel} key={2} label={`${percenttravel}%`} />
+      </ProgressBar>
     </div>
   )
 
@@ -984,7 +1010,7 @@ let statenow = this
 </Row>
 
     <Row>
-    <Col></Col>
+    <Col><MiniTravelCosts handlemini={this.handleMiniTravel}/></Col>
     <Col></Col>
     <Col>
 <h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
@@ -1216,7 +1242,7 @@ let statenow = this
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
+      <Timetable travel={this.state.minitravel} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >

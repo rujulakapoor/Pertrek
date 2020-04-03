@@ -35,11 +35,9 @@ renderEdit(event) {
 }
 
 handleChange = input => e => {
-
-console.log("IN HANDLE BUDGET CHANGE")
+ 
   this.setState({[input]: e.target.value})
 this.state.dailybudget = e.target.value 
-console.log("CHang eis now" + e.target.value)
 this.props.newbudget(e.target.value)
 }
 
@@ -92,6 +90,7 @@ renderCostBar() {
  
   var percentCost = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
+  var travelCost = 0;
 
   if(this.state.budget != 0) {
     if(this.state.times){
@@ -103,16 +102,39 @@ renderCostBar() {
         percentCost = 100; 
         badge = <Badge variant="danger" > You Are Over Budget</Badge>
       }
+      if(this.props.travel) {
+        travelCost = this.props.travel / this.state.dailybudget;
+        travelCost *= 100
+        travelCost = Math.round(travelCost)
+        if(travelCost > 100) {
+          travelCost = 100
+          badge = <Badge variant="danger" > You Are Over Budget</Badge>
+
+        }
+
+      }
+      if(travelCost + percentCost > 100) {
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
+
+      }
+
  
     } 
   }
 
-  
+  var costtotal = this.state.times.cost 
+  if(this.props.travel) {
+    costtotal += parseInt(this.props.travel)
+  }
   return(
     <div>
-      <h2> Current Cost : ${this.state.times.cost} </h2>
+      <h2> Current Cost : ${costtotal} </h2>
       { badge }
-      <ProgressBar now={percentCost} label={`${percentCost}%`} />
+      <ProgressBar>
+      <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
+      
+      <ProgressBar variant="warning" now={travelCost} key={2} label={`${travelCost}%`} />
+      </ProgressBar>
     </div>
   )
 
