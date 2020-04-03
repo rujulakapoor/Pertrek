@@ -38,6 +38,10 @@ export class Breakfast extends Component {
     }
     handleChange = input => e => {
         this.setState({[input]: e.target.value})
+        if(input === 'budget'){
+          this.props.lailafunc(e.target.value);
+
+        }
       
     }
     closeAll = () => {

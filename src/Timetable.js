@@ -89,6 +89,7 @@ changeBudget() {
 renderCostBar() {
  
   var percentCost = 0;
+  var foodCost = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
   var travelCost = 0;
 
@@ -113,7 +114,18 @@ renderCostBar() {
         }
 
       }
-      if(travelCost + percentCost > 100) {
+      if(this.props.food) {
+        foodCost = this.props.food / this.state.dailybudget;
+        foodCost *= 100
+        foodCost = Math.round(foodCost)
+        if(travelCost > 100) {
+          travelCost = 100
+          badge = <Badge variant="danger" > You Are Over Budget</Badge>
+
+        }
+
+      }
+      if(travelCost + percentCost + foodCost> 100) {
         badge = <Badge variant="danger" > You Are Over Budget</Badge>
 
       }
@@ -126,13 +138,17 @@ renderCostBar() {
   if(this.props.travel) {
     costtotal += parseInt(this.props.travel)
   }
+  if(this.props.food) {
+    costtotal += parseInt(this.props.food)
+  }
   return(
     <div>
       <h2> Current Cost : ${costtotal} </h2>
       { badge }
       <ProgressBar>
       <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
-      
+      <ProgressBar variant="info" now={foodCost} key={3} label={`${foodCost}%`} />
+
       <ProgressBar variant="warning" now={travelCost} key={2} label={`${travelCost}%`} />
       </ProgressBar>
     </div>

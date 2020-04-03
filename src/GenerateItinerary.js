@@ -89,6 +89,7 @@ constructor(props){
   this.saveNewEvent = this.saveNewEvent.bind(this)
   this.newbudget = this.newbudget.bind(this);
   this.handleMiniTravel = this.handleMiniTravel.bind(this)
+  this.handleAddBreakfast = this.handleAddBreakfast.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -131,13 +132,20 @@ constructor(props){
     currentlyEditing: false,
     dailydata: [],
     totalexpenses: 0,
-    minitravel: 0
+    minitravel: 0,
+    breakfast: 0
     
 
 
   }
 }
 
+handleAddBreakfast(cost) {
+  this.setState({
+    breakfast: cost
+  })
+  console.log("HANDLED BREAKFAST")
+}
 handleMiniTravel(cost) {
   this.setState({
     minitravel: cost
@@ -504,6 +512,7 @@ handleSavedEdits() {
     
 renderCostBar() {
    var percentCost = 0;
+   var percentFood = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
   var percenttravel = 0;
   if(this.state.budget != 0) {
@@ -521,9 +530,18 @@ renderCostBar() {
       percenttravel = Math.round(percenttravel)
       if(percenttravel>100) {
         percenttravel = 100;
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
 
       }
-      if(percenttravel + percentCost > 100) {
+
+      percentFood = this.state.breakfast * this.state.numdays / this.state.budget;
+      percentFood *= 100;
+      percentFood = Math.round(percentFood)
+      if(percentFood> 100 ){
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
+        percentFood = 100;
+      }
+      if(percenttravel + percentCost + percentFood > 100) {
         badge = <Badge variant="danger" > You Are Over Budget</Badge>
 
       }
@@ -531,14 +549,15 @@ renderCostBar() {
  
      
   }
-  var totalwithtravel = this.state.totalexpenses + this.state.minitravel;
+  var totalwithtravel = parseInt(this.state.totalexpenses) + (parseInt(this.state.minitravel) + parseInt(this.state.breakfast)) * (parseInt(this.state.numdays));
   return(
     <div>
       <h2> Current Cost : ${totalwithtravel} </h2>
       { badge }
       <ProgressBar>
       <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
-      
+      <ProgressBar variant="info" now={percentFood} key={3} label={`${percentFood}%`} />
+
       <ProgressBar variant="warning" now={percenttravel} key={2} label={`${percenttravel}%`} />
       </ProgressBar>
     </div>
@@ -1120,7 +1139,7 @@ let statenow = this
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
                 <div className="MealsStuff" id="moreMealStuff">
-                <Breakfast / >
+                <Breakfast lailafunc={this.handleAddBreakfast} / >
                 <Lunch / >
                 <Dinner / >  
                 <Snack />
@@ -1242,7 +1261,7 @@ let statenow = this
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable travel={this.state.minitravel} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
+      <Timetable travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >
