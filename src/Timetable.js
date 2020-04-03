@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table} from 'react-bootstrap'
 
 import {FiEdit2, FiSave} from 'react-icons/fi'
+import {TiDeleteOutline} from 'react-icons/ti'
 
 export class Timetable extends Component {
 
@@ -12,7 +13,8 @@ this.state = {
   times: '',
   budget: 0,
   dailybudget:0,
-  editBudget: false
+  editBudget: false,
+  daynum: 0
 }
 this.renderTable =this.renderTable.bind(this)
 this.renderEdit = this.renderEdit.bind(this)
@@ -21,17 +23,30 @@ this.changeBudget = this.changeBudget.bind(this)
 this.renderBudgetEdit = this.renderBudgetEdit.bind(this)
 this.renderDailyBudget = this.renderDailyBudget.bind(this)
 this.handleChange = this.handleChange.bind(this)
+this.deleteEvent = this.deleteEvent.bind(this)
 }
 
-renderEdit(event) {
+renderEdit(time, event) {
 
   if(event.isfirst) {
     
     
     return(
-      <Button variant="info"> <FiEdit2 /> </Button>
+      <Button variant="info" onClick={() => this.deleteEvent(time,event)}> <TiDeleteOutline /> </Button>
     )
   }
+}
+
+deleteEvent(time,event) {
+console.log("In Delete Event")
+      this.props.delete(time,event, this.state.daynum)
+
+console.log("time")
+console.log(this.props.times)
+
+this.setState({
+  times: this.props.times
+})
 }
 
 handleChange = input => e => {
@@ -171,7 +186,7 @@ renderTime(time) {
   if(size != 0){
     
     return(
-      <p> {activity.name} {this.renderEdit(event)} </p>
+      <p> {activity.name} {this.renderEdit(time, event)} </p>
     )
 
   }  
@@ -479,6 +494,9 @@ render() {
       console.log("num days is" + this.props.days)
 
     }
+  }
+  if(this.props.daynum) {
+    this.state.daynum = this.props.daynum
   }
  
   return(
