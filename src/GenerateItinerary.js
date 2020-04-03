@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react';
-import {Button, Modal, Jumbotron, Table,Tab,Tabs,TabPane, Accordion,Card, Container, Row, Col,
+import {Button, Modal, Jumbotron, Table,Tab,Tabs,TabPane, ProgressBar, Accordion,Card, Badge, Container, Row, Col,
 Nav, NavItem, NavLink } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
@@ -128,7 +128,7 @@ constructor(props){
     currentEvent: {},
     currentlyEditing: false,
     dailydata: [],
-    totalbudget: 0
+    totalexpenses: 0
     
 
 
@@ -161,22 +161,21 @@ saveNewEvent = (info) => {
 
       if(key == 0) {
         this.state.dailydata[info.day].scheduleactivities[block.toString()].isfirst =true;
-        
+        console.log("SETTING KEY " + key + block)
         this.state.dailydata[info.day].scheduleactivities[block.toString()].duration =info.blocks;
         
+      } else {
+        this.state.dailydata[info.day].scheduleactivities[block.toString()].isfirst =false;
+
       }
-      console.log("Day is " + info.day)
-      console.log("block is")
-      console.log(block)
-      console.log(block.toString())
+       
       this.state.dailydata[info.day].scheduleactivities[block.toString()].eventdetails = this.state.currentEvent;
-      console.log(this.state.currentEvent)
-      console.log(this.state.dailydata[info.day].scheduleactivities[block.toString()])// = this.state.currentEvent;
-    })
+         })
 
     this.state.dailydata[info.day].cost += info.cost;
+    this.state.totalexpenses += info.cost;
     console.log("cost added cost is now" + this.state.dailydata[info.day].cost)
-
+         console.log(this.state.dailydata)
     
 
     // this.state.dailydata[str.valueOf()] = {
@@ -491,6 +490,35 @@ handleSavedEdits() {
       this.state.retreived=true;
       }
     }
+
+
+    
+renderCostBar() {
+  console.log(this.state.budget)
+  var percentCost = 0;
+  let badge = <Badge variant="info" > You Are Under Budget!</Badge>
+
+  if(this.state.budget != 0) {
+
+      percentCost = this.state.totalexpenses  / this.state.budget;
+      percentCost *= 100
+      percentCost = Math.round(percentCost)
+      if(percentCost > 100) {
+        percentCost = 100; 
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
+      }
+ 
+     
+  }
+  return(
+    <div>
+      <h2> Current Cost : ${this.state.totalexpenses} </h2>
+      { badge }
+      <ProgressBar now={percentCost} label={`${percentCost}%`} />
+    </div>
+  )
+
+}
 
 
 
@@ -972,6 +1000,9 @@ let statenow = this
       <Row>
         <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
       </Row>
+      <Row>
+        {this.renderCostBar()}
+        </Row>
     <Row>
       <h3>SHARE&nbsp;&nbsp;&nbsp;&nbsp;</h3>
       <EmailShareButton 
@@ -1189,7 +1220,7 @@ let statenow = this
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable times={this.state.dailydata[key]} /> 
+      <Timetable times={this.state.dailydata[key]} budget={this.state.budget} /> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >

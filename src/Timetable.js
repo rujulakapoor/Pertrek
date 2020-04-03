@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Form, FormControl, FormLabel, FormGroup, Card, Table} from 'react-bootstrap'
+import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table} from 'react-bootstrap'
 
 import {FiEdit2} from 'react-icons/fi'
 
@@ -9,21 +9,56 @@ export class Timetable extends Component {
 constructor(props) {
 super(props);
 this.state = {
-  times: ''
+  times: '',
+  budget: 0
 }
 this.renderTable =this.renderTable.bind(this)
 this.renderEdit = this.renderEdit.bind(this)
+this.renderCostBar = this.renderCostBar.bind(this)
 }
 
-renderEdit(value) {
+renderEdit(event) {
 
-  if(value) {
+  if(event.isfirst) {
+    
+    
     return(
       <Button variant="info"> <FiEdit2 /> </Button>
     )
   }
 }
 
+
+renderCostBar() {
+  console.log("in render costbar")
+  console.log(this.state.budget)
+  console.log(this.state.times)
+  var percentCost = 0;
+  let badge = <Badge variant="info" > You Are Under Budget!</Badge>
+
+  if(this.state.budget != 0) {
+    if(this.state.times){
+
+      percentCost = this.state.times.cost  / this.state.budget;
+      percentCost *= 100
+      percentCost = Math.round(percentCost)
+      if(percentCost > 100) {
+        percentCost = 100; 
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
+      }
+ 
+    } 
+  }
+  return(
+    <div>
+      <h2> Current Cost : ${this.state.times.cost} </h2>
+      { badge }
+      <ProgressBar now={percentCost} label={`${percentCost}%`} />
+    </div>
+  )
+
+
+}
 renderTime(time) {
 
   var event = this.state.times.scheduleactivities[time.toString()]
@@ -35,24 +70,21 @@ renderTime(time) {
   for (key in activity) {
       if (activity.hasOwnProperty(key)) size++;
   }
- 
 
   if(size != 0){
-    console.log(activity)
-    console.log("Is event")
+    
     return(
-      <p> {activity.name} {this.renderEdit(event.isfirst)} </p>
+      <p> {activity.name} {this.renderEdit(event)} </p>
     )
 
-  } else {
-    console.log("No activity here")
-  }
+  }  
 }
 renderTable() {
   if(this.state.times){
-    console.log("times is")
-     console.log(this.state.times)
+   
 return (
+  <div>
+    {this.renderCostBar()}
   <Table responsive striped bordered variant="dark" width="400" size="sm">
 
   <thead>
@@ -69,15 +101,15 @@ return (
     </tr>
     <tr>
       <td> 8:15am </td>
-      <td> {this.renderTime("08:00")} </td>
+      <td> {this.renderTime("08:15")} </td>
     </tr>
     <tr>
       <td> 8:30am </td>
-        <td> {this.renderTime("08:00")} </td>   
+        <td> {this.renderTime("08:30")} </td>   
     </tr>
     <tr>
       <td> 8:45am </td>
-        <td> {this.renderTime("08:00")} </td>
+        <td> {this.renderTime("08:45")} </td>
     </tr>
 
         <tr>
@@ -259,6 +291,7 @@ return (
      </tr>
      </tbody>
 </Table>
+</div>
 )
   }
   else {
@@ -334,9 +367,14 @@ return (
 
 render() {
 
+
   if (this.props.times) {
     this.state.times = this.props.times
  
+  } 
+  if(this.props.budget) {
+    console.log("Budget found")
+    this.state.budget = this.props.budget;
   }
  
   return(
