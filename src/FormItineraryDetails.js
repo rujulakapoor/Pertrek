@@ -40,6 +40,11 @@ render() {
         defaultValue={values.budget}/>
       </FormGroup>
       <FormGroup>
+        <FormLabel> Party Size </FormLabel>
+        <FormControl type="double" onChange={handleChange('partysize')}
+        defaultValue={values.partysize}/>
+      </FormGroup>
+      <FormGroup>
         <FormLabel>Notes </FormLabel>
         <FormControl type="text"onChange={handleChange('notes')}
         defaultValue={values.notes}/>

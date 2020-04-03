@@ -243,6 +243,10 @@ render() {
   const { attractionList } = this.state; //COLLECTION NAME
   const budget = this.props.budget;
   const location = this.state.citySelect;
+  var partysizemultiple = 1;
+  if (this.props.partysize > 1) {
+	  partysizemultiple = this.props.partysize;
+  }
   
   return(
     <div>
@@ -252,7 +256,7 @@ render() {
       { 
             attractionList //COLLECTION NAME
             .filter(function (attractionito) {
-              return Number.parseInt(attractionito.cost, 10) < budget || attractionito.cost == "free"
+              return Number.parseInt(attractionito.cost*partysizemultiple, 10) < budget || attractionito.cost == "free"
                 || attractionito.cost == "FREE" || attractionito.cost == "free!"
             }).map(attraction => 
               <Carousel.Item>
@@ -289,7 +293,7 @@ render() {
     {
 						this.state.restaurants //COLLECTION NAME
 						.filter(function (attractionito) {
-							return Number.parseInt(attractionito.priceNum, 10) < budget
+							return Number.parseInt(attractionito.priceNum*partysizemultiple, 10) < budget
 						}).map(attraction =>
 							<Carousel.Item>
 								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
@@ -336,7 +340,7 @@ render() {
     {
 						this.state.attractions //COLLECTION NAME
 						.filter(function (attractionito) {
-							return Number.parseInt(attractionito.priceNum, 10) < budget || attractionito.price == "free"
+							return Number.parseInt(attractionito.priceNum*partysizemultiple, 10) < budget || attractionito.price == "free"
 							|| attractionito.price == "FREE" || attractionito.price == "free!"
 						}).map(attraction =>
 							<Carousel.Item>

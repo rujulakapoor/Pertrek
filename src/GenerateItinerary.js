@@ -82,6 +82,7 @@ constructor(props){
   this.handleChangeTab1 =this.handleChangeTab1.bind(this)
   this.handleChangeTab2 =this.handleChangeTab2.bind(this)
   this.getDestinations = this.getDestinations.bind(this);
+  this.changePartySize = this.changePartySize.bind(this);
 
   this.state = {
     
@@ -105,6 +106,7 @@ constructor(props){
     plane3d:this.props.values.plane3d,
     plane3t:this.props.values.plane3t,
     countf:this.props.values.countf,
+    partysize:this.props.values.partysize,
     days: [],
     alreadysaved: false,
     edittitle:false,
@@ -113,10 +115,12 @@ constructor(props){
     editnotes:false,
     editstart:false,
     editend:false,
+    editpartysize:false,
     typetab:false,
     itkey: this.props.values.itkey,
     retreived:false,
     destinations: []
+    
 
 
   }
@@ -235,7 +239,12 @@ handleSavedEdits() {
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
         countf:this.state.countf,
+        partysize:this.state.partysize
         
+      }
+
+      if (item.partysize === undefined) {
+        item.partysize = null;
       }
 
         db.push(item
@@ -425,6 +434,13 @@ budgetRender(e) {
   }
 
 }
+partySizeRender(e) {
+  if (this.state.editpartysize) {
+    return(<input type="number" placeholder={this.state.partysize} onChange={this.handleChange('partySize')}/>);
+  } else {
+    return(<h5>{this.state.partysize}</h5>);
+  }
+}
 
 locationButtonRender() {
   if(this.state.editlocation) {
@@ -585,6 +601,20 @@ notesButtonRender() {
 
 }
 
+partySizeButtonRender() {
+  if(this.state.editpartysize) {
+  return(<Button variant="light" onClick={this.changePartySize}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changePartySize}>
+         <FiEdit2 />
+         </Button>
+  )
+  }
+  
+  }
 
 
 changeLocation() {
@@ -672,6 +702,20 @@ changeTitle() {
   } else {
     this.setState({
       edittitle:false,
+      alreadysaved:false
+    })
+  }
+}
+
+changePartySize() {
+  if(this.state.editpartysize === false) {
+    this.setState({
+      editpartysize: true
+    })
+    console.log("SET EDIT TITLE TO TRUE")
+  } else {
+    this.setState({
+      editpartysize:false,
       alreadysaved:false
     })
   }
@@ -773,6 +817,9 @@ console.log(this.state.destinations)
     
     </Container>
     <Container>
+      <Row>
+        <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+      </Row>
     <Row>
       <h3>SHARE&nbsp;&nbsp;&nbsp;&nbsp;</h3>
       <EmailShareButton 
@@ -1012,7 +1059,7 @@ console.log(this.state.destinations)
 
       <Row>
      
-     <PreviewAttractions budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title}/ >
+     <PreviewAttractions budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title} partysize={this.state.partysize}/ >
      </Row>
      
      </Col>
