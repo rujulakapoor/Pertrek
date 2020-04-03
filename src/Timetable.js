@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table} from 'react-bootstrap'
 
-import {FiEdit2} from 'react-icons/fi'
+import {FiEdit2, FiSave} from 'react-icons/fi'
 
 export class Timetable extends Component {
 
@@ -10,11 +10,17 @@ constructor(props) {
 super(props);
 this.state = {
   times: '',
-  budget: 0
+  budget: 0,
+  dailybudget:0,
+  editBudget: false
 }
 this.renderTable =this.renderTable.bind(this)
 this.renderEdit = this.renderEdit.bind(this)
 this.renderCostBar = this.renderCostBar.bind(this)
+this.changeBudget = this.changeBudget.bind(this)
+this.renderBudgetEdit = this.renderBudgetEdit.bind(this)
+this.renderDailyBudget = this.renderDailyBudget.bind(this)
+this.handleChange = this.handleChange.bind(this)
 }
 
 renderEdit(event) {
@@ -28,32 +34,107 @@ renderEdit(event) {
   }
 }
 
+handleChange = input => e => {
+ 
+  this.setState({[input]: e.target.value})
+this.state.dailybudget = e.target.value 
+this.props.newbudget(e.target.value)
+}
 
+renderDailyBudget() {
+
+  if(this.state.editBudget) {
+    return((<input type="number" placeholder={this.state.dailybudget} onChange={this.handleChange('dailybudget')}/>)
+    ) 
+  } else {
+    return(
+      <h4>Daily Budget is: ${this.state.dailybudget}</h4>
+    )
+  }
+
+}
+
+renderBudgetEdit() {
+   
+  if(this.state.editBudget) {
+  return(      <Button variant="light" onClick={this.changeBudget}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeBudget}>
+         <FiEdit2 />
+         </Button>
+  )
+  }
+
+
+}
+
+
+changeBudget() {
+  if(this.state.editBudget === false) {
+    this.setState({
+      editBudget:true
+    })
+  } else if(this.state.editBudget === true) {
+    this.props.newbudget(this.state.dailybudget)
+    this.setState({
+      editBudget:false,
+    })
+   
+
+  }
+}
 renderCostBar() {
-  console.log("in render costbar")
-  console.log(this.state.budget)
-  console.log(this.state.times)
+ 
   var percentCost = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
+  var travelCost = 0;
 
   if(this.state.budget != 0) {
     if(this.state.times){
 
-      percentCost = this.state.times.cost  / this.state.budget;
+      percentCost = this.state.times.cost  / this.state.dailybudget;
       percentCost *= 100
       percentCost = Math.round(percentCost)
       if(percentCost > 100) {
         percentCost = 100; 
         badge = <Badge variant="danger" > You Are Over Budget</Badge>
       }
+      if(this.props.travel) {
+        travelCost = this.props.travel / this.state.dailybudget;
+        travelCost *= 100
+        travelCost = Math.round(travelCost)
+        if(travelCost > 100) {
+          travelCost = 100
+          badge = <Badge variant="danger" > You Are Over Budget</Badge>
+
+        }
+
+      }
+      if(travelCost + percentCost > 100) {
+        badge = <Badge variant="danger" > You Are Over Budget</Badge>
+
+      }
+
  
     } 
   }
+
+  var costtotal = this.state.times.cost 
+  if(this.props.travel) {
+    costtotal += parseInt(this.props.travel)
+  }
   return(
     <div>
-      <h2> Current Cost : ${this.state.times.cost} </h2>
+      <h2> Current Cost : ${costtotal} </h2>
       { badge }
-      <ProgressBar now={percentCost} label={`${percentCost}%`} />
+      <ProgressBar>
+      <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
+      
+      <ProgressBar variant="warning" now={travelCost} key={2} label={`${travelCost}%`} />
+      </ProgressBar>
     </div>
   )
 
@@ -84,6 +165,8 @@ renderTable() {
    
 return (
   <div>
+    {this.renderDailyBudget()}
+    {this.renderBudgetEdit()}
     {this.renderCostBar()}
   <Table responsive striped bordered variant="dark" width="400" size="sm">
 
@@ -372,9 +455,14 @@ render() {
     this.state.times = this.props.times
  
   } 
-  if(this.props.budget) {
-    console.log("Budget found")
+  if(this.props.budget) { 
     this.state.budget = this.props.budget;
+    if(this.props.days){
+      this.state.dailybudget = this.state.budget / this.props.days
+      this.state.dailybudget = Math.round(this.state.dailybudget)
+      console.log("num days is" + this.props.days)
+
+    }
   }
  
   return(
