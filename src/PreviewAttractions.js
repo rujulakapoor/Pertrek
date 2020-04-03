@@ -236,7 +236,9 @@ save(attraction) {
         console.log('Added document with ID: ', ref.id);
         console.log(ref)
         
-    });
+	});
+	
+	this.props.handleAdd(attraction);
 }
 
 render() {

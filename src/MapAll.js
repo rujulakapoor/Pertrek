@@ -41,7 +41,7 @@ export class MapAll extends Component {
 	}
 	componentWillReceiveProps() {
 		//alert("componentwillmount")
-		console.log("DESTINATIONSDESTINATIONSDESTINATIONSDESTINATIONSDESTINATIONSDESTINATIONS")
+		//console.log("DESTINATIONSDESTINATIONSDESTINATIONSDESTINATIONSDESTINATIONSDESTINATIONS")
 		if (this.props.destinations[0] != undefined && this.state.setCenter == false) {
 			//alert(this.props.destinations[0].lat)
 			this.state.viewport.longitude = this.props.destinations[0].lon;
@@ -49,15 +49,15 @@ export class MapAll extends Component {
 			this.state.setCenter = true;
 		}
 		
-		console.log(this.props.destinations)
+	//	console.log(this.props.destinations)
 	}
 	formatAddresses() {
 		//var geocoder = new google.maps.Geocoder();
 		var dest = this.props.destinations;
 		if (dest[0] != undefined) {
 			alert("formattttt")
-			console.log("dasfgfhdsffbadfgfdhgndfgdfsgfgsgaf")
-			console.log(dest);
+		//	console.log("dasfgfhdsffbadfgfdhgndfgdfsgfgsgaf")
+	//		console.log(dest);
 			alert("address" + dest[0][1].address);
 			dest.map((curr) => {
 				console.log(curr[1].address);
@@ -116,18 +116,18 @@ export class MapAll extends Component {
 	}
 
     render() {
-        console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
-		console.log(this.props.destinations);
+       // console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
+		//console.log(this.props.destinations);
 		/*if (this.props.destinations[0] != undefined) {
 			this.state.viewport.longitude = this.props.destinations[0].lon;
 			this.state.viewport.latitude = this.props.destinations[0].lat;
 		}*/
 		
-		console.log("this.state.dest")
-		console.log(this.state.dest)
+		//console.log("this.state.dest")
+		//console.log(this.state.dest)
 		
-		console.log("LAT LONG ARRAY")
-		console.log(this.state.destCoord)
+	//	console.log("LAT LONG ARRAY")
+		//console.log(this.state.destCoord)
         return(
             <div style={{ width: "100vw", height: "100vh" }}>
                 <h3>Map</h3>

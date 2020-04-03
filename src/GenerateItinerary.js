@@ -1,5 +1,5 @@
 import React, { Component,useState } from 'react';
-import {Button, Jumbotron, Table,Tab,Tabs,TabPane, Accordion,Card, Container, Row, Col,
+import {Button, Modal, Jumbotron, Table,Tab,Tabs,TabPane, Accordion,Card, Container, Row, Col,
 Nav, NavItem, NavLink } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
@@ -23,6 +23,9 @@ import LocationIQ from 'react-native-locationiq';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { fas, faHamburger, faPizzaSlice, faIceCream, faBirthdayCake, faCookie, faCoffee } from '@fortawesome/free-solid-svg-icons'
 import Geocode from "react-geocode";
+import bootbox from 'bootbox';
+import AddEventModal from './AddEventModal'
+
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -83,7 +86,7 @@ constructor(props){
   this.handleChangeTab2 =this.handleChangeTab2.bind(this)
   this.getDestinations = this.getDestinations.bind(this);
   this.changePartySize = this.changePartySize.bind(this);
-
+  this.saveNewEvent = this.saveNewEvent.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -119,7 +122,13 @@ constructor(props){
     typetab:false,
     itkey: this.props.values.itkey,
     retreived:false,
-    destinations: []
+    destinations: [],
+    dailydata: {},
+    timesoftheday: [],
+    currentEvent: {},
+    currentlyEditing: false,
+    dailydata: [],
+    totalbudget: 0
     
 
 
@@ -132,7 +141,64 @@ handleChange = input => e => {
 
 }
 
+saveNewEvent = (info) => {
+    //Add it to the itinerary table for the desired day. Use the 
+    //index of chosen day
+    //also, close the modal. 
+    //On clicking Add in PreviewAttr
+    //change mode to create modal and put the attraction in currentEvent to add to the table
 
+    //assume info has start time, duration, and
+    this.setState({
+      currentlyEditing:false
+    }) 
+    console.log("IN SAVE NEW EVENT")
+    console.log(info)
+    console.log(this.state)
+
+    Object(info.blockids).map((block) =>{
+      
+      console.log("Day is " + info.day)
+      console.log("block is")
+      console.log(block)
+      console.log(block.toString())
+      this.state.dailydata[info.day].scheduleactivities[block.toString()] = this.state.currentEvent;
+      console.log(this.state.currentEvent)
+      console.log(this.state.dailydata[info.day].scheduleactivities[block.toString()])// = this.state.currentEvent;
+    })
+
+    this.state.dailydata[info.day].cost += info.cost;
+    console.log("cost added cost is now" + this.state.dailydata[info.day].cost)
+
+    Object.entries(this.state.dailydata).map((thingy)=> {
+      console.log(thingy)
+    })
+
+    // this.state.dailydata[str.valueOf()] = {
+    //   scheduleactivities: this.state.timesoftheday,
+    //   cost: 0
+    // };
+}
+
+ 
+handleEventAdd = (info) => {
+
+  console.log("IN HANDLE EVENT ADD")
+  console.log(info)
+  this.state.currentEvent = info;
+  this.state.currentlyEditing = true;
+   
+
+  
+} 
+
+
+
+handleSaveEvent = (info) => {
+  console.log("SAVE EVENT HERE")
+ // this.setState({currentlyEditing: false});
+  // get info  
+}
 
 
 calculateDaysAgain() {
@@ -150,6 +216,7 @@ console.log("IN CALCULATE AGAIN")
     let len = 1
     for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
     {
+ 
       currentState.state.days.push(new Date(d));
       if(len++ > 31) {
         break
@@ -171,17 +238,72 @@ componentWillMount() {
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
   start.setDate(start.getDate() + 1);
+//this.setState({dailydata: []})
 
-  let len = 1
+
+
+
+ var intdailydata = []
+  let len = 0
   for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
   {
+    
     this.state.days.push(new Date(d));
-    if(len++ > 31) {
+
+var thisdaystimes = [];
+
+      //Calculate times of day
+  var hours = 0;
+  var minutes =0;
+  for( var i = 0 ; i < 24; i++ ){
+    minutes = 0;
+    for(var j = 0 ; j < 4; j++)
+    {
+      var str = "";
+
+      if( hours < 10){
+        str += "0"
+      }
+      str+= hours;
+      str+=":"
+      if(minutes < 15) {
+        str += "00"
+      }
+      else {
+        str += minutes
+      }console.log( str)
+      
+thisdaystimes[str.valueOf()] = {}
+      minutes+= 15
+    }
+    hours++;
+
+  } 
+
+
+
+
+
+
+    str = len.toString();
+
+      //initialize dailydata for days
+      
+    intdailydata[str.valueOf()] = {
+      scheduleactivities: thisdaystimes,
+      cost: 0
+    };
+ 
+    if(len++ > 30) {
       break
     }
   }
   console.log("IN COMPONENT WILL MOUNT")
   this.getDestinations();
+
+console.log(this.state.dailydata)
+this.setState({dailydata: intdailydata})
+this.state.timesoftheday[1000] = "BOFA"
 }
 
 
@@ -265,7 +387,7 @@ handleSavedEdits() {
        })
     }
     else {
-      console.log("Already saved")
+     // console.log("Already saved")
 
     }
 
@@ -317,9 +439,9 @@ handleSavedEdits() {
           */
           Geocode.fromAddress(thing[1].address).then(
             response => {
-              console.log("RESPONSE FROM GOOGLE GEOCODER")
-              console.log(response)
-              console.log(response.results[0].geometry.location)
+            //  console.log("RESPONSE FROM GOOGLE GEOCODER")
+         //     console.log(response)
+           //   console.log(response.results[0].geometry.location)
               if (response.results[0] != undefined) {
                 var lat = response.results[0].geometry.location.lat;
                 var lon = response.results[0].geometry.location.lng;
@@ -360,6 +482,21 @@ handleSavedEdits() {
       this.state.retreived=true;
       }
     }
+
+
+
+modalRender() {
+  if(this.state.currentlyEditing) {
+    console.log("MODAL RENDER CURRENLTY EDITING")
+    return( 
+      <AddEventModal days={this.state.days} saveNewEvent={this.saveNewEvent}
+ 
+/>
+      )
+  }  else {
+    console.log("NO MODAL RENDER")
+  }
+}
 
 titleRender() {
   if(this.state.edittitle) {
@@ -740,22 +877,28 @@ renderCheck(){
 }
 
 render() {
+ console.log("DAILY DATA")
+ console.log(this.state.dailydata)
+
 const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey} = this.state;
 const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey}
 
-console.log("Rendering days:")
-console.log(this.state.days)
-console.log(this.state.destinations)
+//console.log("Rendering days:")
+//console.log(this.state.days)
+//console.log(this.state.destinations)
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
-console.log("grabbin dests")
+//console.log("grabbin dests")
  statenow.getDestinations();
 }})
-console.log(this.state.destinations)
+//console.log(this.state.destinations)
    return(
 
      <div id="form">
+  
+
+   {this.modalRender()}
 
     <Jumbotron>
     <h1>
@@ -788,7 +931,7 @@ console.log(this.state.destinations)
 <Row>
 <h3> Trip Details </h3>
 </Row>
-<Row>
+<Row className="goback">
 <Col>
 <Row>
   <h4>  Destination:  </h4>{this.locationRender()}
@@ -1024,17 +1167,20 @@ console.log(this.state.destinations)
 <Col sm={10}>
 
     <Tabs  id="uncontrolled-tab-example">
-    {this.state.days.map((day) =>
+    {this.state.days.map((day, key) =>
     
 {
 
-  
+  console.log(key)
+  // var day = this.state.days[data[0]]
+  // console.log(day)
+   console.log("IS DAY IN TABS")
   
   return(
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable /> 
+      <Timetable times={this.state.dailydata[key]} /> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >
@@ -1059,7 +1205,7 @@ console.log(this.state.destinations)
 
       <Row>
      
-     <PreviewAttractions budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title} partysize={this.state.partysize}/ >
+     <PreviewAttractions handleAdd={this.handleEventAdd} budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title} partysize={this.state.partysize}/ >
      </Row>
      
      </Col>
