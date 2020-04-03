@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {Button, Form, FormControl, FormLabel, FormGroup, Card, Table} from 'react-bootstrap'
-export class Timetable extends Component {
 
+import {FiEdit2} from 'react-icons/fi'
+
+export class Timetable extends Component {
 
 
 constructor(props) {
@@ -10,29 +12,36 @@ this.state = {
   times: ''
 }
 this.renderTable =this.renderTable.bind(this)
+this.renderEdit = this.renderEdit.bind(this)
 }
 
+renderEdit(value) {
+
+  if(value) {
+    return(
+      <Button variant="info"> <FiEdit2 /> </Button>
+    )
+  }
+}
 
 renderTime(time) {
-  console.log("this is in render Times")
-  console.log(this.state.times)
+
   var event = this.state.times.scheduleactivities[time.toString()]
-console.log("In renderTime")
-var size = 0, key;
-for (key in event) {
-    if (event.hasOwnProperty(key)) size++;
-}
+
+  var activity = event.eventdetails;
+
+
+  var size = 0, key;
+  for (key in activity) {
+      if (activity.hasOwnProperty(key)) size++;
+  }
  
 
   if(size != 0){
-    console.log(event)
+    console.log(activity)
     console.log("Is event")
     return(
-      <Card>
-        <Card.Body>
-          <p> is name  {event.name}</p>
-          </Card.Body>
-        </Card>
+      <p> {activity.name} {this.renderEdit(event.isfirst)} </p>
     )
 
   } else {
@@ -60,191 +69,191 @@ return (
     </tr>
     <tr>
       <td> 8:15am </td>
-      <td>   </td>
+      <td> {this.renderTime("08:00")} </td>
     </tr>
     <tr>
       <td> 8:30am </td>
-      <td>   </td>
+        <td> {this.renderTime("08:00")} </td>   
     </tr>
     <tr>
       <td> 8:45am </td>
-      <td>  </td>
+        <td> {this.renderTime("08:00")} </td>
     </tr>
 
         <tr>
-      <td> 9:00am </td>
+      <td> 9:00am </td>  <td> {this.renderTime("09:00")} </td>
 </tr>
 <tr>
-      <td> 9:15am </td>
+      <td> 9:15am </td>  <td> {this.renderTime("09:15")} </td>
 </tr>
 <tr>
-      <td> 9:30am </td>
+      <td> 9:30am </td>  <td> {this.renderTime("09:30")} </td>
 </tr>
 <tr>
-      <td> 9:45am </td>
+      <td> 9:45am </td>  <td> {this.renderTime("09:45")} </td>
 </tr>
   <tr>
-    <td> 10:00am </td>
+    <td> 10:00am </td>  <td> {this.renderTime("10:00")} </td>
 </tr>
 <tr>
-    <td> 10:15am </td>
+    <td> 10:15am </td>  <td> {this.renderTime("10:15")} </td>
 </tr>
 <tr>
-    <td> 10:30am </td>
+    <td> 10:30am </td>  <td> {this.renderTime("10:30")} </td>
 </tr>
 <tr>
-    <td> 10:45am </td>
+    <td> 10:45am </td>  <td> {this.renderTime("10:45")} </td>
 </tr>
   <tr>
-    <td> 11:00am </td>
+    <td> 11:00am </td>  <td> {this.renderTime("11:00")} </td>
 </tr>
 <tr>
-    <td> 11:15am </td>
+    <td> 11:15am </td>  <td> {this.renderTime("11:15")} </td>
 </tr>
 <tr>
-    <td> 11:30am </td>
+    <td> 11:30am </td>  <td> {this.renderTime("11:30")} </td>
 </tr>
 <tr>
-    <td> 11:45am </td>
+    <td> 11:45am </td>  <td> {this.renderTime("11:45")} </td>
 </tr>
   <tr>
-    <td> 12:00pm </td>
+    <td> 12:00pm </td>  <td> {this.renderTime("12:00")} </td>
 </tr>
 <tr>
-    <td> 12:15pm </td>
+    <td> 12:15pm </td>  <td> {this.renderTime("12:15")} </td>
 </tr>
 <tr>
-    <td> 12:30pm </td>
+    <td> 12:30pm </td>  <td> {this.renderTime("12:30")} </td>
 </tr>
 <tr>
-    <td> 12:45pm </td>
+    <td> 12:45pm </td>  <td> {this.renderTime("12:45")} </td>
 </tr>
   <tr>
-    <td> 1:00pm </td>
+    <td> 1:00pm </td>  <td> {this.renderTime("13:00")} </td>
   </tr>
   <tr>
-    <td> 1:15pm </td>
+    <td> 1:15pm </td>  <td> {this.renderTime("13:15")} </td>
   </tr>
   <tr>
-    <td> 1:30pm </td>
+    <td> 1:30pm </td>  <td> {this.renderTime("13:30")} </td>
   </tr>
   <tr>
-    <td> 1:45pm </td>
+    <td> 1:45pm </td>  <td> {this.renderTime("13:45")} </td>
   </tr>
       <tr>
-   <td> 2:00pm </td>
+   <td> 2:00pm </td>  <td> {this.renderTime("14:00")} </td>
 </tr>
 <tr>
-   <td> 2:15pm </td>
+   <td> 2:15pm </td>  <td> {this.renderTime("14:15")} </td>
 </tr>
 <tr>
-   <td> 2:30pm </td>
+   <td> 2:30pm </td>  <td> {this.renderTime("14:30")} </td>
 </tr>
 <tr>
-   <td> 2:45pm </td>
+   <td> 2:45pm </td>  <td> {this.renderTime("14:45")} </td>
 </tr>
   <tr>
-    <td> 3:00pm </td>
+    <td> 3:00pm </td>  <td> {this.renderTime("15:00")} </td>
 </tr>
 <tr>
-    <td> 3:15pm </td>
+    <td> 3:15pm </td>  <td> {this.renderTime("15:15")} </td>
 </tr>
 <tr>
-    <td> 3:30pm </td>
+    <td> 3:30pm </td>  <td> {this.renderTime("15:30")} </td>
 </tr>
 <tr>
-    <td> 3:45pm </td>
+    <td> 3:45pm </td>  <td> {this.renderTime("15:45")} </td>
 </tr>
   <tr>
-    <td> 4:00pm </td>
+    <td> 4:00pm </td>  <td> {this.renderTime("16:00")} </td>
 </tr>
 <tr>
-    <td> 4:15pm </td>
+    <td> 4:15pm </td>  <td> {this.renderTime("16:15")} </td>
 </tr>
 <tr>
-    <td> 4:30pm </td>
+    <td> 4:30pm </td>  <td> {this.renderTime("16:30")} </td>
 </tr>
 <tr>
-    <td> 4:45pm </td>
+    <td> 4:45pm </td>  <td> {this.renderTime("16:45")} </td>
 </tr>
   <tr>
-    <td> 5:00pm </td>
+    <td> 5:00pm </td>  <td> {this.renderTime("17:00")} </td>
 </tr>
 <tr>
-    <td> 5:15pm </td>
+    <td> 5:15pm </td>  <td> {this.renderTime("17:15")} </td>
 </tr>
 <tr>
-    <td> 5:30pm </td>
+    <td> 5:30pm </td>  <td> {this.renderTime("17:30")} </td>
 </tr>
 <tr>
-    <td> 5:45pm </td>
+    <td> 5:45pm </td>  <td> {this.renderTime("17:45")} </td>
 </tr>
 
   <tr>
-    <td> 6:00pm </td>
+    <td> 6:00pm </td>  <td> {this.renderTime("18:00")} </td>
 </tr>
 <tr>
-    <td> 6:15pm </td>
+    <td> 6:15pm </td>  <td> {this.renderTime("18:15")} </td>
 </tr>
 <tr>
-    <td> 6:30pm </td>
+    <td> 6:30pm </td>  <td> {this.renderTime("18:30")} </td>
 </tr>
 <tr>
-    <td> 6:45pm </td>
+    <td> 6:45pm </td>  <td> {this.renderTime("18:45")} </td>
 </tr>
   <tr>
-      <td> 7:00pm </td>
+      <td> 7:00pm </td>  <td> {this.renderTime("19:00")} </td>
 </tr>
 <tr>
-      <td> 7:15pm </td>
+      <td> 7:15pm </td>  <td> {this.renderTime("19:15")} </td>
 </tr>
 <tr>
-      <td> 7:30pm </td>
+      <td> 7:30pm </td>  <td> {this.renderTime("19:30")} </td>
 </tr>
 <tr>
-      <td> 7:45pm </td>
+      <td> 7:45pm </td>  <td> {this.renderTime("19:45")} </td>
 </tr>
   <tr>
-    <td> 8:00pm </td>
+    <td> 8:00pm </td>  <td> {this.renderTime("20:00")} </td>
 </tr>
 <tr>
-    <td> 8:15pm </td>
+    <td> 8:15pm </td>  <td> {this.renderTime("20:15")} </td>
 </tr>
 <tr>
-    <td> 8:30pm </td>
+    <td> 8:30pm </td>  <td> {this.renderTime("20:30")} </td>
 </tr>
 <tr>
-    <td> 8:45pm </td>
+    <td> 8:45pm </td>  <td> {this.renderTime("20:45")} </td>
 </tr>
   <tr>
-    <td> 9:00pm </td>
+    <td> 9:00pm </td>  <td> {this.renderTime("21:00")} </td>
 </tr>
 <tr>
-    <td> 9:15pm </td>
+    <td> 9:15pm </td>  <td> {this.renderTime("21:15")} </td>
 </tr>
 <tr>
-    <td> 9:30pm </td>
+    <td> 9:30pm </td>  <td> {this.renderTime("21:30")} </td>
 </tr>
 <tr>
-    <td> 9:45pm </td>
+    <td> 9:45pm </td>  <td> {this.renderTime("21:45")} </td>
 </tr>
   <tr>
-    <td> 10:00pm </td>
+    <td> 10:00pm </td>  <td> {this.renderTime("22:00")} </td>
 </tr>
 
   <tr>
-    <td> 10:15pm </td>
+    <td> 10:15pm </td>  <td> {this.renderTime("22:15")} </td>
 </tr>
 
   <tr>
-    <td> 10:30pm </td>
+    <td> 10:30pm </td>  <td> {this.renderTime("22:30")} </td>
 </tr>
 
   <tr>
-    <td> 10:45pm </td>
+    <td> 10:45pm </td>  <td> {this.renderTime("22:45")} </td>
 </tr>
   <tr>
-    <td> 11:00pm </td>
+    <td> 11:00pm </td>  <td> {this.renderTime("23:00")} </td>
   </tr>
       <tr>
      </tr>
@@ -266,7 +275,7 @@ return (
       <tbody>
       <tr>
         <td> 8:00am </td>
-        <td> <Card> </Card> </td>
+        <td>  </td>
       </tr>
 
           <tr>

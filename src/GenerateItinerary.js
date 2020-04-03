@@ -156,13 +156,20 @@ saveNewEvent = (info) => {
     console.log(info)
     console.log(this.state)
 
-    Object(info.blockids).map((block) =>{
-      
+    Object(info.blockids).map((block, key) =>{
+      console.log(key)
+
+      if(key == 0) {
+        this.state.dailydata[info.day].scheduleactivities[block.toString()].isfirst =true;
+        
+        this.state.dailydata[info.day].scheduleactivities[block.toString()].duration =info.blocks;
+        
+      }
       console.log("Day is " + info.day)
       console.log("block is")
       console.log(block)
       console.log(block.toString())
-      this.state.dailydata[info.day].scheduleactivities[block.toString()] = this.state.currentEvent;
+      this.state.dailydata[info.day].scheduleactivities[block.toString()].eventdetails = this.state.currentEvent;
       console.log(this.state.currentEvent)
       console.log(this.state.dailydata[info.day].scheduleactivities[block.toString()])// = this.state.currentEvent;
     })
@@ -170,9 +177,7 @@ saveNewEvent = (info) => {
     this.state.dailydata[info.day].cost += info.cost;
     console.log("cost added cost is now" + this.state.dailydata[info.day].cost)
 
-    Object.entries(this.state.dailydata).map((thingy)=> {
-      console.log(thingy)
-    })
+    
 
     // this.state.dailydata[str.valueOf()] = {
     //   scheduleactivities: this.state.timesoftheday,
@@ -273,7 +278,11 @@ var thisdaystimes = [];
         str += minutes
       }console.log( str)
       
-thisdaystimes[str.valueOf()] = {}
+      thisdaystimes[str.valueOf()] = {
+        eventdetails: {},
+        isfirst: false,
+        duration: 0
+      }
       minutes+= 15
     }
     hours++;
