@@ -1,7 +1,7 @@
 import React, {Component } from 'react'
 import {Form, Button} from 'react-bootstrap'
  
-export class AddEventModal extends Component{
+export class OriginalEventModal extends Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -11,7 +11,10 @@ export class AddEventModal extends Component{
             cost: 0,
             blocks: '',
             timeblocks: [],
-            blockids:[]
+            blockids:[],
+            name:'',
+            address: '',
+            description: ''
 
         }
         this.saveNewEvent = this.saveNewEvent.bind(this)
@@ -21,13 +24,19 @@ export class AddEventModal extends Component{
        var starttime = document.getElementById("appt").value
        var durationtime = document.getElementById("quantity").value
        var cost = document.getElementById("cost").value
-    
+        var addr = document.getElementById("addr").value
+        var desc = document.getElementById("desc").value
+        var name = document.getElementById("name").value
 
         var blocksnum = durationtime / .25;
         this.state.time = starttime
         this.state.duration = durationtime
         this.state.blocks = blocksnum
         this.state.cost = parseInt(cost);
+        this.state.address = addr;
+        this.state.description = desc;
+        this.state.name = name;
+
 
        
         var midstr = starttime.substring(0,2)
@@ -84,6 +93,10 @@ export class AddEventModal extends Component{
 
     		    <h5>Add Actvity</h5>
 <Form>
+
+        <Form.Label> Activity Name</Form.Label>
+        <input type="text" id="name" name="name" />
+
     <Form.Label> Select Date</Form.Label>
     <Form.Control as="select"   onChange={this.handleChange('day')}>
     {Object.entries(this.props.days).map((thing)=> {
@@ -95,6 +108,12 @@ export class AddEventModal extends Component{
                 }
     </Form.Control>
     
+    <Form.Label> Description </Form.Label>
+    <input type="text" id="desc" name="desc" />
+    <Form.Label> Address </Form.Label>
+    <input type="text" id="addr" name="addr" />
+
+
     <label for="appt">Select a time:</label>
         <input type="time" id="appt" name="appt" step="900" />
 
@@ -122,4 +141,4 @@ export class AddEventModal extends Component{
 
 }
 
-export default AddEventModal
+export default OriginalEventModal

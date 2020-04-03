@@ -26,6 +26,8 @@ import Geocode from "react-geocode";
 import bootbox from 'bootbox';
 import AddEventModal from './AddEventModal'
 import MiniTravelCosts from './MiniTravelCosts'
+import OriginalEventModal from './OriginalEventModal'
+
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -90,6 +92,8 @@ constructor(props){
   this.newbudget = this.newbudget.bind(this);
   this.handleMiniTravel = this.handleMiniTravel.bind(this)
   this.handleAddBreakfast = this.handleAddBreakfast.bind(this)
+  this.handleOriginalAdd = this.handleOriginalAdd.bind(this)
+  this.deleteOldEvent = this.deleteOldEvent.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -133,7 +137,8 @@ constructor(props){
     dailydata: [],
     totalexpenses: 0,
     minitravel: 0,
-    breakfast: 0
+    breakfast: 0,
+    currentlyEditingOriginal: false
     
 
 
@@ -158,6 +163,60 @@ handleChange = input => e => {
 
 }
 
+//Deletes from the daily data info about the event that was there
+
+deleteOldEvent(time, event, daynum) {
+  
+console.log("DELETING FROM ITINERARY")
+
+  var midstr = time.substring(0,2)
+  var starthour = parseInt(midstr)
+  var storedcost = this.state.dailydata[daynum].scheduleactivities[time.valueOf()].cost 
+    
+  var startmin = parseInt(time.substring(3,5))
+
+  for( var i = 0 ; i < event.duration; i++ ){
+    var str = ""
+      if(starthour < 10) {
+        str += 0
+    }
+    str+= starthour;
+    str += ':'
+    if(startmin < 15){
+        str+= "00"
+    } else {
+        str += startmin
+    }
+
+    if(startmin == 45) {
+        startmin = 0
+        starthour++;
+    } else {
+        startmin += 15;
+    }
+    console.log("STRING IS")
+    console.log(str)
+    console.log(str.toString()) 
+     
+
+    this.state.dailydata[daynum].scheduleactivities[str.valueOf()].eventdetails = {}
+    this.state.dailydata[daynum].scheduleactivities[str.valueOf()].isfirst = false
+
+
+    // need to decrement the cost too
+  }
+  this.state.dailydata[daynum].cost -= storedcost;
+  var intexp = this.state.totalexpenses -= storedcost;
+  this.setState({
+    totalexpenses: intexp
+  })
+
+  //do i need hooks here
+  
+
+console.log(this.state.dailydata)
+}
+
 saveNewEvent = (info) => {
     //Add it to the itinerary table for the desired day. Use the 
     //index of chosen day
@@ -167,65 +226,77 @@ saveNewEvent = (info) => {
 
     //assume info has start time, duration, and
     this.setState({
-      currentlyEditing:false
+      currentlyEditing:false,
+      currentlyEditingOriginal: false
     }) 
     console.log("IN SAVE NEW EVENT")
     console.log(info)
     console.log(this.state)
 
-    Object(info.blockids).map((block, key) =>{
-      console.log(key)
+    var stufftosave
+    if(this.state.currentEvent === 0) {
+      stufftosave={ 
+        name: info.name
 
+      }
+
+    } else 
+    { 
+      stufftosave = this.state.currentEvent
+    }
+
+    Object(info.blockids).map((block, key) =>{
+ 
       if(key == 0) {
         this.state.dailydata[info.day].scheduleactivities[block.toString()].isfirst =true;
-        console.log("SETTING KEY " + key + block)
-        this.state.dailydata[info.day].scheduleactivities[block.toString()].duration =info.blocks;
+         this.state.dailydata[info.day].scheduleactivities[block.toString()].duration =info.blocks;
+         this.state.dailydata[info.day].scheduleactivities[block.toString()].cost =info.cost;
+         
         
       } else {
         this.state.dailydata[info.day].scheduleactivities[block.toString()].isfirst =false;
 
       }
        
-      this.state.dailydata[info.day].scheduleactivities[block.toString()].eventdetails = this.state.currentEvent;
+      this.state.dailydata[info.day].scheduleactivities[block.toString()].eventdetails = stufftosave;
          })
 
     this.state.dailydata[info.day].cost += info.cost;
     this.state.totalexpenses += info.cost;
-    console.log("cost added cost is now" + this.state.dailydata[info.day].cost)
-         console.log(this.state.dailydata)
     
-
-    // this.state.dailydata[str.valueOf()] = {
-    //   scheduleactivities: this.state.timesoftheday,
-    //   cost: 0
-    // };
+    
+ 
 }
 
  
 handleEventAdd = (info) => {
 
-  console.log("IN HANDLE EVENT ADD")
-  console.log(info)
+ 
   this.state.currentEvent = info;
   this.state.currentlyEditing = true;
    
 
   
 } 
+handleOriginalAdd() {
+   this.state.currentEvent = 0
+  this.state.currentlyEditingOriginal = true;
+  this.setState({
+    currentlyEditingOriginal: true
+  })
+}
 
 
 
 handleSaveEvent = (info) => {
-  console.log("SAVE EVENT HERE")
- // this.setState({currentlyEditing: false});
+  // this.setState({currentlyEditing: false});
   // get info  
 }
 
 
 calculateDaysAgain() {
   let currentState = this
-console.log("IN CALCULATE AGAIN")
-  const end=new Date(this.state.enddate);
+   const end=new Date(this.state.enddate);
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
   start.setDate(start.getDate() + 1);
@@ -246,8 +317,7 @@ console.log("IN CALCULATE AGAIN")
 
 
   })
-  console.log(this.state.days);
-  this.setState({
+   this.setState({
     alreadysaved:true
   })
 
@@ -292,12 +362,13 @@ var thisdaystimes = [];
       }
       else {
         str += minutes
-      }console.log( str)
+      } 
       
       thisdaystimes[str.valueOf()] = {
         eventdetails: {},
         isfirst: false,
-        duration: 0
+        duration: 0,
+        cost: 0
       }
       minutes+= 15
     }
@@ -565,7 +636,14 @@ renderCostBar() {
 
 }
 
+originalEventModal() {
+  if(this.state.currentlyEditingOriginal && !this.state.currentlyEditing) {
+    return(
+      <OriginalEventModal  days={this.state.days}  saveNewEvent={this.saveNewEvent} />
+    )
 
+  }
+}
 
 modalRender() {
   if(this.state.currentlyEditing) {
@@ -975,7 +1053,7 @@ let statenow = this
 
      <div id="form">
   
-
+    {this.originalEventModal()}
    {this.modalRender()}
 
     <Jumbotron>
@@ -1243,7 +1321,9 @@ let statenow = this
             
     </Accordion>
   
-            
+        <Row>
+          <Button onClick={this.handleOriginalAdd}> Add Your Own Event </Button>
+          </Row>    
 <Row>
 <Col sm={10}>
 
@@ -1252,16 +1332,14 @@ let statenow = this
     
 {
 
-  console.log(key)
-  // var day = this.state.days[data[0]]
+   // var day = this.state.days[data[0]]
   // console.log(day)
-   console.log("IS DAY IN TABS")
-  
+   
   return(
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
+      <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >
