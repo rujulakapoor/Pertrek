@@ -306,6 +306,7 @@ var thisdaystimes = [];
       break
     }
   }
+  this.setState({numdays: len})
   console.log("IN COMPONENT WILL MOUNT")
   this.getDestinations();
 
@@ -474,11 +475,10 @@ handleSavedEdits() {
           currentstate.setState( {
             destinations: [...currentstate.state.destinations,  thing]
           })
-          */
-          console.log("ASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDSASDFGGSAFDFSDFDS")
+          */ 
           console.log(this.state.destinations)
         })
-        console.log("PEEKABOOOOOO")
+  
         }
       })
     
@@ -494,8 +494,7 @@ handleSavedEdits() {
 
     
 renderCostBar() {
-  console.log(this.state.budget)
-  var percentCost = 0;
+   var percentCost = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
 
   if(this.state.budget != 0) {
@@ -524,15 +523,12 @@ renderCostBar() {
 
 modalRender() {
   if(this.state.currentlyEditing) {
-    console.log("MODAL RENDER CURRENLTY EDITING")
-    return( 
+     return( 
       <AddEventModal days={this.state.days} saveNewEvent={this.saveNewEvent}
  
 />
       )
-  }  else {
-    console.log("NO MODAL RENDER")
-  }
+  }   
 }
 
 titleRender() {
@@ -541,8 +537,7 @@ titleRender() {
   }
   else {
     return(<h1> {this.state.title} </h1>);
-    console.log("state HERE is " + this.state.title)
-  }
+   }
 
 }
 
@@ -872,8 +867,7 @@ changeTitle() {
     this.setState({
       edittitle: true
     })
-    console.log("SET EDIT TITLE TO TRUE")
-  } else {
+   } else {
     this.setState({
       edittitle:false,
       alreadysaved:false
@@ -886,8 +880,7 @@ changePartySize() {
     this.setState({
       editpartysize: true
     })
-    console.log("SET EDIT TITLE TO TRUE")
-  } else {
+   } else {
     this.setState({
       editpartysize:false,
       alreadysaved:false
@@ -914,15 +907,9 @@ renderCheck(){
 }
 
 render() {
- console.log("DAILY DATA")
- console.log(this.state.dailydata)
-
 const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey} = this.state;
 const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey}
-
-//console.log("Rendering days:")
-//console.log(this.state.days)
-//console.log(this.state.destinations)
+ 
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
@@ -1220,7 +1207,7 @@ let statenow = this
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable times={this.state.dailydata[key]} budget={this.state.budget} /> 
+      <Timetable times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >

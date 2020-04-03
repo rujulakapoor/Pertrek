@@ -10,7 +10,8 @@ constructor(props) {
 super(props);
 this.state = {
   times: '',
-  budget: 0
+  budget: 0,
+  dailybudget:0
 }
 this.renderTable =this.renderTable.bind(this)
 this.renderEdit = this.renderEdit.bind(this)
@@ -30,16 +31,14 @@ renderEdit(event) {
 
 
 renderCostBar() {
-  console.log("in render costbar")
-  console.log(this.state.budget)
-  console.log(this.state.times)
+ 
   var percentCost = 0;
   let badge = <Badge variant="info" > You Are Under Budget!</Badge>
 
   if(this.state.budget != 0) {
     if(this.state.times){
 
-      percentCost = this.state.times.cost  / this.state.budget;
+      percentCost = this.state.times.cost  / this.state.dailybudget;
       percentCost *= 100
       percentCost = Math.round(percentCost)
       if(percentCost > 100) {
@@ -49,9 +48,12 @@ renderCostBar() {
  
     } 
   }
+
+  
   return(
     <div>
       <h2> Current Cost : ${this.state.times.cost} </h2>
+      <h4>Daily Budget is: ${this.state.dailybudget}</h4>
       { badge }
       <ProgressBar now={percentCost} label={`${percentCost}%`} />
     </div>
@@ -372,9 +374,14 @@ render() {
     this.state.times = this.props.times
  
   } 
-  if(this.props.budget) {
-    console.log("Budget found")
+  if(this.props.budget) { 
     this.state.budget = this.props.budget;
+    if(this.props.days){
+      this.state.dailybudget = this.state.budget / this.props.days
+      this.state.dailybudget = Math.round(this.state.dailybudget)
+      console.log("num days is" + this.props.days)
+
+    }
   }
  
   return(
