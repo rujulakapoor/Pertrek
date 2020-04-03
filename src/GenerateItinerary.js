@@ -87,6 +87,7 @@ constructor(props){
   this.getDestinations = this.getDestinations.bind(this);
   this.changePartySize = this.changePartySize.bind(this);
   this.saveNewEvent = this.saveNewEvent.bind(this)
+  this.newbudget = this.newbudget.bind(this);
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -755,6 +756,14 @@ return(<Button variant="light" onClick={this.changeEnd}>
 
 }
 
+newbudget(dailybudget) {
+  console.log("IN NEW BUDGET")
+  var newb = dailybudget * this.state.numdays;
+  console.log("NEW BUDGET IS" + newb)
+  this.setState({
+    budget: newb
+  })
+}
 notesButtonRender() {
   if(this.state.editnotes) {
   return(<Button variant="light" onClick={this.changeNotes}>
@@ -1207,7 +1216,7 @@ let statenow = this
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
+      <Timetable newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast / >
                 <Lunch / >

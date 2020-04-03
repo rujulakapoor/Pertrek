@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table} from 'react-bootstrap'
 
-import {FiEdit2} from 'react-icons/fi'
+import {FiEdit2, FiSave} from 'react-icons/fi'
 
 export class Timetable extends Component {
 
@@ -11,11 +11,16 @@ super(props);
 this.state = {
   times: '',
   budget: 0,
-  dailybudget:0
+  dailybudget:0,
+  editBudget: false
 }
 this.renderTable =this.renderTable.bind(this)
 this.renderEdit = this.renderEdit.bind(this)
 this.renderCostBar = this.renderCostBar.bind(this)
+this.changeBudget = this.changeBudget.bind(this)
+this.renderBudgetEdit = this.renderBudgetEdit.bind(this)
+this.renderDailyBudget = this.renderDailyBudget.bind(this)
+this.handleChange = this.handleChange.bind(this)
 }
 
 renderEdit(event) {
@@ -29,7 +34,60 @@ renderEdit(event) {
   }
 }
 
+handleChange = input => e => {
 
+console.log("IN HANDLE BUDGET CHANGE")
+  this.setState({[input]: e.target.value})
+this.state.dailybudget = e.target.value 
+console.log("CHang eis now" + e.target.value)
+this.props.newbudget(e.target.value)
+}
+
+renderDailyBudget() {
+
+  if(this.state.editBudget) {
+    return((<input type="number" placeholder={this.state.dailybudget} onChange={this.handleChange('dailybudget')}/>)
+    ) 
+  } else {
+    return(
+      <h4>Daily Budget is: ${this.state.dailybudget}</h4>
+    )
+  }
+
+}
+
+renderBudgetEdit() {
+   
+  if(this.state.editBudget) {
+  return(      <Button variant="light" onClick={this.changeBudget}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeBudget}>
+         <FiEdit2 />
+         </Button>
+  )
+  }
+
+
+}
+
+
+changeBudget() {
+  if(this.state.editBudget === false) {
+    this.setState({
+      editBudget:true
+    })
+  } else if(this.state.editBudget === true) {
+    this.props.newbudget(this.state.dailybudget)
+    this.setState({
+      editBudget:false,
+    })
+   
+
+  }
+}
 renderCostBar() {
  
   var percentCost = 0;
@@ -53,7 +111,6 @@ renderCostBar() {
   return(
     <div>
       <h2> Current Cost : ${this.state.times.cost} </h2>
-      <h4>Daily Budget is: ${this.state.dailybudget}</h4>
       { badge }
       <ProgressBar now={percentCost} label={`${percentCost}%`} />
     </div>
@@ -86,6 +143,8 @@ renderTable() {
    
 return (
   <div>
+    {this.renderDailyBudget()}
+    {this.renderBudgetEdit()}
     {this.renderCostBar()}
   <Table responsive striped bordered variant="dark" width="400" size="sm">
 
