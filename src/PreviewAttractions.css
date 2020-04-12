@@ -4,4 +4,10 @@
     margin: auto;
     position: relative;
     padding-bottom: 40rem;
+
 }
+
+.carousel-row {
+    padding-bottom: 15rem;
+}
+

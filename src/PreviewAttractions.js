@@ -69,10 +69,12 @@ componentDidMount() {
 					var priceVal = '';
 					var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 					var priceNum = 0;
+					var estTime = "";
 					//console.log("lat = " + obj.coordinates.latitude + "long" + obj.coordinates.longitude);
 					//console.log(mapz);
 					//var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=41.8841%2C-87.6480&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
-					
+					console.log("OBJECTTTTTTTTTTTT")
+					console.log(obj)
 					// var mapProp= {
 					// 	center:new google.maps.LatLng(obj.latitude,obj.longitude),
 					// 	zoom:5,
@@ -89,15 +91,19 @@ componentDidMount() {
 					// Edit for filter
 					if (priceVal == "$") {
 						priceNum = 10;
+						estTime = "30 min - 2 hours"
 					}
 					else if (priceVal == "$$") {
 						priceNum = 20;
+						estTime = "45 min - 2 hours"
 					}
 					else if (priceVal = "$$$") {
 						priceNum = 50;
+						estTime = "1-2 hours"
 					}
 					else if (priceVal = "$$$$") {
 						priceNum = 100;
+						estTime = "2-3 hours"
 					}
 
 					var restaurant = {
@@ -109,7 +115,8 @@ componentDidMount() {
 						address: address,
 						description: description,
 						map: mapSrc,
-						id: obj.id
+						id: obj.id,
+						estTime: estTime
 					}
 
 					this.setState({ restaurants: [...this.state.restaurants, restaurant] });
@@ -147,7 +154,12 @@ componentDidMount() {
 						var priceVal = '';
 						var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 						var priceNum = 0;
+						var category = obj.categories[0].alias;
+						var estTime = "";
 
+						console.log("ATTRACTIONS")
+						console.log(obj)
+						console.log(obj.categories[0].alias)
 						if(obj.price == undefined) {
 							//free!!
 							priceVal = "free!";
@@ -170,6 +182,38 @@ componentDidMount() {
 							priceNum = 100;
 						}
 
+						// Estimate time spent
+						if (category == "museums") {
+							estTime = "3-6"
+						}
+						else if (category == "localflavor") {
+							estTime = "1-3"
+						}
+						else if (category == "landmarks") {
+							estTime = "1-4"
+						}
+						else if (category == "zoos") {
+							estTime = "2-3"
+						}
+						else if (category == "venues") {
+							estTime = "1-4"
+						}
+						else if (category == "artmuseums") {
+							estTime = "1-6"
+						}
+						else if (category == "skatingrinks") {
+							estTime = "1-2"
+						}
+						else if (category == "parks") {
+							estTime = "1-6"
+						}
+						else if (category == "hiking") {
+							estTime = "1-7"
+						}
+						else {
+							estTime = "2-5"
+						}
+						
 						var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
 						var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 
@@ -182,7 +226,8 @@ componentDidMount() {
 							address: address,
 							description: description,
 							map: mapSrc,
-							id: obj.id
+							id: obj.id,
+							estTime: estTime
 						}
 
 						this.setState({ attractions: [...this.state.attractions, attraction] });
@@ -254,7 +299,7 @@ render() {
     <div>
 	<div className="row">
 	<h3> User Submitted Attractions </h3>
-    <Carousel >
+    <Carousel>
       { 
             attractionList //COLLECTION NAME
             .filter(function (attractionito) {
@@ -290,6 +335,7 @@ render() {
     </Carousel>
 	</div>
 	<div className="row">
+		<div className="carousel-row">
 		<h3>Suggested Restaurants</h3>
     <Carousel>
     {
@@ -298,7 +344,7 @@ render() {
 							return Number.parseInt(attractionito.priceNum*partysizemultiple, 10) < budget
 						}).map(attraction =>
 							<Carousel.Item>
-								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '50rem', margin:'15px'}}>
 									<Card.Header as="h5">{ attraction.name }</Card.Header>
 									<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
@@ -314,6 +360,9 @@ render() {
 										</Card.Text>
 										<Card.Text as="p">
 											{ attraction.description }
+										</Card.Text>
+										<Card.Text as="h5">
+											People typically spend { attraction.estTime } here
 										</Card.Text>
 										<Button variant="secondary" onClick={this.save.bind(this, attraction)}>Add</Button>
 
@@ -336,7 +385,9 @@ render() {
 						}
     </Carousel>
 	</div>
+	</div>
 	<div className="row">
+		<div className="carousel-row">
 	<h3>Suggested Attractions</h3>
     <Carousel>
     {
@@ -346,7 +397,7 @@ render() {
 							|| attractionito.price == "FREE" || attractionito.price == "free!"
 						}).map(attraction =>
 							<Carousel.Item>
-								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '50rem', margin:'15px'}}>
 									<Card.Header as="h5">{ attraction.name }</Card.Header>
 									<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
@@ -362,6 +413,9 @@ render() {
 										</Card.Text>
 										<Card.Text as="p">
 											{ attraction.description }
+										</Card.Text>
+										<Card.Text as ="h5">
+											People typically spend { attraction.estTime } hours here.
 										</Card.Text>
 										<Button variant="secondary" onClick={this.save.bind(this, attraction)}>Add</Button>
 									</Card.Body>
@@ -382,6 +436,7 @@ render() {
 							)
 						}
     </Carousel>
+	</div>
 	</div>
     </div>
   )
