@@ -19,7 +19,10 @@ class scheduler extends Component {
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
-		//console.log("cityName = " + cityName);
+		console.log("city = " + cityName);
+		console.log(url.lastIndexOf("scheduler") + 10);
+		var category = url.substring(url.lastIndexOf("scheduler") + 10, url.lastIndexOf("/"));
+		console.log("category = " + category);
 
 
 		this.state = {
@@ -29,6 +32,7 @@ class scheduler extends Component {
 			attractions: [],
 			favoriteItems: [],
 			citySelect: cityName,
+			categorySelect: category,
 			alreadysaved: false,
 			itkey: null,
 			alreadyFaved: [],
@@ -53,9 +57,9 @@ class scheduler extends Component {
 					Authorization: token
 			},
 			params: {
-					term:'restaurants',
+					term: this.state.categorySelect,
 					location: this.state.citySelect,
-					limit:5
+					limit:15
 			}
 			})
 			.then(function (response) {
@@ -70,12 +74,12 @@ class scheduler extends Component {
 				for(var a in response.data.businesses){
 					var obj = response.data.businesses[a];
 					var address = obj.location.address1 + "," + obj.location.city + "," + obj.location.zip_code;
-					var description = obj.name + " is a restaurant that offers " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
+					var description = obj.name + " offers " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 					var priceVal = '';
 					var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 					
-					if(obj.price == undefined) {
-						priceVal = "$";
+					if(obj.price === undefined) {
+						priceVal = "free!";
 					}
 					else {
 						priceVal = obj.price;
@@ -112,54 +116,54 @@ class scheduler extends Component {
 			}.bind(this));
 
 			//GET ATTRACTIONS
-			axios.get(yelp_search_url, {
-				headers: {
-						Authorization: token
-				},
-				params: {
-						term:'attractions',
-						location: this.state.citySelect,
-						limit:5
-				}
-				})
-				.then(function (response) {
-					for(var a in response.data.businesses){
-						var obj = response.data.businesses[a];
-						var priceVal = '';
-						var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
+			// axios.get(yelp_search_url, {
+			// 	headers: {
+			// 			Authorization: token
+			// 	},
+			// 	params: {
+			// 			term:'attractions',
+			// 			location: this.state.citySelect,
+			// 			limit:5
+			// 	}
+			// 	})
+			// 	.then(function (response) {
+			// 		for(var a in response.data.businesses){
+			// 			var obj = response.data.businesses[a];
+			// 			var priceVal = '';
+			// 			var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 
-						if(obj.price == undefined) {
-							//free!!
-							priceVal = "free!";
-						}
-						else {
-							priceVal = obj.price;
-						}
+			// 			if(obj.price == undefined) {
+			// 				//free!!
+			// 				priceVal = "free!";
+			// 			}
+			// 			else {
+			// 				priceVal = obj.price;
+			// 			}
 
-						var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
-						var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
+			// 			var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
+			// 			var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 
-						var attraction = {
-							name: obj.name,
-							price: priceVal,
-							popularity: obj.rating,
-							image: obj.image_url,
-							address: address,
-							description: description,
-							map: mapSrc,
-							id: obj.id
-						}
+			// 			var attraction = {
+			// 				name: obj.name,
+			// 				price: priceVal,
+			// 				popularity: obj.rating,
+			// 				image: obj.image_url,
+			// 				address: address,
+			// 				description: description,
+			// 				map: mapSrc,
+			// 				id: obj.id
+			// 			}
 
-						this.setState({ attractions: [...this.state.attractions, attraction] });
+			// 			this.setState({ attractions: [...this.state.attractions, attraction] });
 
-					}
-				}.bind(this))
-				.catch(function (error) {
-					console.log(error);
-				})
-				.then(function() {
-					//console.log("done");
-				}.bind(this));
+			// 		}
+			// 	}.bind(this))
+			// 	.catch(function (error) {
+			// 		console.log(error);
+			// 	})
+			// 	.then(function() {
+			// 		//console.log("done");
+			// 	}.bind(this));
 
 	}
 
@@ -328,7 +332,7 @@ class scheduler extends Component {
 		return (
 			<div className="planner">
 
-				<h1>Restaurants</h1>
+				<h1>{statenow.state.categorySelect}s in {statenow.state.citySelect}</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>
@@ -398,7 +402,7 @@ class scheduler extends Component {
 				</div>
 
 
-				<h1>Attractions</h1>
+				{/* <h1>Attractions</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>
@@ -462,7 +466,7 @@ class scheduler extends Component {
 							)
 						}
 					</div>
-				</div>
+				</div> */}
 
 			</div>
 		);

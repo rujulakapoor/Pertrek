@@ -4,7 +4,7 @@ import {
   Link
 } from "react-router-dom";
 import fire from './config/fire'
-import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button } from 'react-bootstrap';
 
 class Home extends Component {
     constructor(props) {
@@ -12,7 +12,10 @@ class Home extends Component {
         this.logout = this.logout.bind(this);
         this.onNavigateHome = this.onNavigateHome.bind(this);
 
-        this.state = {value: ''};
+        this.state = {
+          value: '',
+          category: 'category'
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,61 +38,65 @@ class Home extends Component {
    
 
     render() {
-        return (
-          <div className="home">
-           <div id="three" className="col">
-           
-              <h3>P E R T R E K</h3>
-              <h2>YOUR PERFECT VACATION STARTS HERE</h2>
+      const curr = this;
+      return (
+        <div className="home">
+          <div id="three" className="col">
+          
+            <h3>P E R T R E K</h3>
+            <h2>YOUR PERFECT VACATION STARTS HERE</h2>
 
-              {/* <div class="dropdown">
 
-                <button class="dropbtn">Select A Destination</button>
-                <div class="dropdown-content">
-                  <Link to={{
-                      pathname: "/scheduler/Seattle,WA",
-                      state: {
-                        dbName: true
-                      }
-                    }}>
-                      Seattle
-                    </Link>
-                  <Link to={{
-                    pathname: "/scheduler/Chicago,IL",
-                    state: {
-                      dbName: true
-                    }
-                  }}>
-                    Chicago
-                  </Link>
-                  <a href="#">Cincinnati</a>
-                </div>
+            {/* <Form onSubmit={this.handleSubmit} className="searchBar">
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
                 
-              </div>        */}
-
-
-              <Form onSubmit={this.handleSubmit} className="searchBar">
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
-                  <Form.Text className="text-muted">
-                    Enter a city, address, or zipcode
-                  </Form.Text>
-                </Form.Group>
-                {/* <label>
-                  <input type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
-                </label> */}
-                <Link to={{
-                      pathname: "/scheduler/" + this.state.value,
-                    }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
-                </Link>
+                <Form.Text className="text-muted">
+                  Enter a city, address, or zipcode
+                </Form.Text>
                 
-              </Form>
+              </Form.Group>
+              <Link to={{
+                    pathname: "/scheduler/" + this.state.value,
+                  }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
+              </Link>
+              
+            </Form> */}
 
-            </div>
+            <InputGroup onSubmit={this.handleSubmit}>
+              <DropdownButton
+                as={InputGroup.Append}
+                variant="outline-secondary"
+                title={curr.state.category}
+                id="input-group-dropdown-2"
+                onSelect={
+                  function(evt){
+                    console.log(evt);
+                    curr.setState({category: evt});
+                  }
+                }
+              >
+                <Dropdown.Item eventKey="restaurant">Restaurant</Dropdown.Item>
+                <Dropdown.Item eventKey="attraction">Attraction</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item href="#">Separated link</Dropdown.Item>
+              </DropdownButton>
 
-            
+              <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
+
+              <Link to={{
+                    pathname: "/scheduler/" + this.state.category + "/" + this.state.value,
+                    // pathname: "/" + this.state.category,
+                  }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
+              </Link>
+
+            </InputGroup>
+
           </div>
-        );
-      }
+
+          
+        </div>
+      );
     }
-    export default Home;
+  }
+  export default Home;
