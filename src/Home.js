@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import fire from './config/fire'
 import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button } from 'react-bootstrap';
+import bootbox from 'bootbox';
 
 class Home extends Component {
     constructor(props) {
@@ -14,11 +15,14 @@ class Home extends Component {
 
         this.state = {
           value: '',
-          category: 'category'
+          category: 'Attractions',
+          customCategory: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCategorychange = this.handleCategorychange.bind(this);
+        this.onCustomCategory = this.onCustomCategory.bind(this);
         
     }
     logout() {
@@ -29,6 +33,19 @@ class Home extends Component {
     }
     handleChange(event) {
       this.setState({value: event.target.value});
+    }
+    handleCategorychange(event) {
+      this.setState({category: event.target.category});
+    }
+    onCustomCategory() {
+      const curr = this;
+      bootbox.prompt({
+        title: "Enter a category", 
+        centerVertical: true,
+        callback: function(result){ 
+          curr.setState({category: result});
+        }
+      });
     }
   
     handleSubmit(event) {
@@ -71,15 +88,16 @@ class Home extends Component {
                 id="input-group-dropdown-2"
                 onSelect={
                   function(evt){
-                    console.log(evt);
                     curr.setState({category: evt});
                   }
                 }
               >
-                <Dropdown.Item eventKey="restaurant">Restaurant</Dropdown.Item>
-                <Dropdown.Item eventKey="attraction">Attraction</Dropdown.Item>
+                <Dropdown.Item eventKey="Restaurants">Restaurants</Dropdown.Item>
+                <Dropdown.Item eventKey="Attractions">Attractions</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="#">Separated link</Dropdown.Item>
+                <Dropdown.Item onClick={this.onCustomCategory}>
+                  Custom
+                </Dropdown.Item>
               </DropdownButton>
 
               <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />

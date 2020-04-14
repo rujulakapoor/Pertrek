@@ -19,7 +19,19 @@ class scheduler extends Component {
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
-		console.log("city = " + cityName);
+		var city = '';
+		for(var i = 0; i < cityName.length; i++) {
+			var c = cityName.charAt(i);
+			if(c != "%") {
+				city += c;
+			}
+			else {
+				city += " ";
+				i += 2;
+			}
+		}
+		console.log("city = " + city);
+
 		console.log(url.lastIndexOf("scheduler") + 10);
 		var category = url.substring(url.lastIndexOf("scheduler") + 10, url.lastIndexOf("/"));
 		console.log("category = " + category);
@@ -31,7 +43,7 @@ class scheduler extends Component {
 			usedAttractions: [],
 			attractions: [],
 			favoriteItems: [],
-			citySelect: cityName,
+			citySelect: city,
 			categorySelect: category,
 			alreadysaved: false,
 			itkey: null,
@@ -332,7 +344,7 @@ class scheduler extends Component {
 		return (
 			<div className="planner">
 
-				<h1>{statenow.state.categorySelect}s in {statenow.state.citySelect}</h1>
+				<h1>{statenow.state.categorySelect} in {statenow.state.citySelect}</h1>
 
 				<div className='row'>
 					<div className='col-xl-12'>
