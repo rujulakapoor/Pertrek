@@ -8,6 +8,7 @@ import ItineraryForm from './ItineraryForm'
 import Scheduler from './Scheduler'
 import Saved from './SavedPage'
 import Favorites from './Favorites.js'
+import Rip from './rip.js'
 
 const Main = () => (
     <main>
@@ -20,6 +21,7 @@ const Main = () => (
             <Route path='/scheduler' component={Scheduler}/>
             <Route path='/savedpage' component={Saved}/>
             <Route path='/favorites' component={Favorites}/>
+            <Route path='/rip' component={Rip}/>
         </Switch>
     </main>
 )

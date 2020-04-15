@@ -4,8 +4,13 @@ import {
   Link
 } from "react-router-dom";
 import fire from './config/fire'
-import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button } from 'react-bootstrap';
+import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button, Container, Row, Col } from 'react-bootstrap';
 import bootbox from 'bootbox';
+import slide1 from './img/new-zealand.jpg';
+import slide2 from './img/rough-sea-waves.jpg';
+import slide3 from './img/cape-town.jpg';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 class Home extends Component {
     constructor(props) {
@@ -46,10 +51,8 @@ class Home extends Component {
           curr.setState({category: result});
         }
       });
-    }
-  
+    } 
     handleSubmit(event) {
-      //alert('A name was submitted: ' + this.state.value);
       event.preventDefault();
     }
    
@@ -58,62 +61,73 @@ class Home extends Component {
       const curr = this;
       return (
         <div className="home">
-          <div id="three" className="col">
-          
+
+          <Carousel showThumbs={false} showStatus={false} >
+              <div>
+                  <img src={slide1} />
+                  <p className="legend">Legend 1</p>
+              </div>
+              <div>
+                  <img src={slide2} />
+                  <p className="legend">Legend 2</p>
+              </div>
+              <div>
+                  <img src={slide3} />
+                  <p className="legend">Legend 3</p>
+              </div>
+          </Carousel>
+
+          <div className="main-text">
             <h3>P E R T R E K</h3>
             <h2>YOUR PERFECT VACATION STARTS HERE</h2>
-
-
-            {/* <Form onSubmit={this.handleSubmit} className="searchBar">
-              <Form.Group controlId="formBasicEmail">
-                <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
-                
-                <Form.Text className="text-muted">
-                  Enter a city, address, or zipcode
-                </Form.Text>
-                
-              </Form.Group>
-              <Link to={{
-                    pathname: "/scheduler/" + this.state.value,
-                  }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
-              </Link>
-              
-            </Form> */}
-
-            <InputGroup onSubmit={this.handleSubmit}>
-              <DropdownButton
-                as={InputGroup.Append}
-                variant="outline-secondary"
-                title={curr.state.category}
-                id="input-group-dropdown-2"
-                onSelect={
-                  function(evt){
-                    curr.setState({category: evt});
-                  }
-                }
-              >
-                <Dropdown.Item eventKey="Restaurants">Restaurants</Dropdown.Item>
-                <Dropdown.Item eventKey="Attractions">Attractions</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={this.onCustomCategory}>
-                  Custom
-                </Dropdown.Item>
-              </DropdownButton>
-
-              <Form.Control type="text" placeholder="Enter city" value={this.state.value} onChange={this.handleChange} />
-
-              <Link to={{
-                    pathname: "/scheduler/" + this.state.category + "/" + this.state.value,
-                    // pathname: "/" + this.state.category,
-                  }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
-              </Link>
-
-            </InputGroup>
-
+            <Button href="#anchor" style={{color: "#FFF",backgroundColor: "#FF5E5B", borderColor: "#FFF", marginLeft: "50%"}} >Get Started</Button>
           </div>
+
+          <Container fluid id="anchor" style={{width:"100%"}}>
+            <Row>
+              <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%", backgroundColor:"#FFFFEA"}}>
+                <h4 style={{ color:"#FF5E5B" }}>Explore</h4>
+                
+                <InputGroup onSubmit={this.handleSubmit} style={{ width:"100%" }}>
+                  <DropdownButton
+                    as={InputGroup.Append}
+                    variant="outline-secondary"
+                    title={curr.state.category}
+                    id="input-group-dropdown-2"
+                    onSelect={
+                      function(evt){
+                        curr.setState({category: evt});
+                      }
+                    }
+                  >
+                    <Dropdown.Item eventKey="Restaurants">Restaurants</Dropdown.Item>
+                    <Dropdown.Item eventKey="Attractions">Attractions</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={this.onCustomCategory}>
+                      Custom
+                    </Dropdown.Item>
+                  </DropdownButton>
+
+                  <Form.Control type="text" placeholder="Enter city, address, or zip code" value={this.state.value} onChange={this.handleChange} />
+
+                  <Link to={{
+                        pathname: "/scheduler/" + this.state.category + "/" + this.state.value,
+                      }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
+                  </Link>
+
+                </InputGroup>
+
+              </Col>
+              <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%", backgroundColor:"#FF5E5B"}}>
+                <h4 style={{ color:"#FFFFEA" }}>Create</h4>
+              </Col>
+            </Row>
+          </Container>
 
           
         </div>
+
+          
       );
     }
   }

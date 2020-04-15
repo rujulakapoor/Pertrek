@@ -52,24 +52,65 @@ Link {
 
 /* HOME */
 .home h3 {
-  display: block;
   font-size: 120px;
   font-weight: bold;
-  margin-bottom: 0px;
   text-align: center;
 }
 
 .home h2 {
-  display: block;
   font-size: 48px;
   margin-bottom: 4%;
   text-align: center;
+}
+
+.home h4 {
+  font-size: 48px;
+  font-family: 'Palanquin Dark', sans-serif;
+  text-align: center;
+  padding: 20px;
 }
 
 .home .searchBar {
   position: relative;
   width: 70%;
   display: inline-block;
+}
+
+.home Button {
+  color: #FF5E5B;
+  background-color: transparent;
+  border-color: #FF5E5B;
+}
+
+.home Button:hover {
+  color: #FFF;
+  background-color: #FF5E5B;
+  border-color: #FFF;
+}
+
+.home .main-text
+{
+  position: absolute;
+  top: 20%;
+  width: 97%;
+  color: rgb(255, 255, 255);
+}
+
+.home .main-text Button {
+  color: #FFF;
+  background-color: #FF5E5B;
+  border-color: #FFF;
+  margin-left: 50%;
+}
+
+.home .main-text Button:hover
+{
+  color: #FF5E5B;
+  background-color: rgb(255, 255, 255);
+}
+
+.home Col{
+  background-color: #069;
 }
 
 /* FAVORITES */
