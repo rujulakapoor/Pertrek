@@ -55,12 +55,15 @@ Link {
   font-size: 120px;
   font-weight: bold;
   text-align: center;
+  text-shadow: rgba(41, 41, 41, 1);
+  color: rgb(255, 255, 255);
 }
 
 .home h2 {
   font-size: 48px;
   margin-bottom: 4%;
   text-align: center;
+  color: rgb(255, 255, 255);
 }
 
 .home h4 {
@@ -93,7 +96,6 @@ Link {
   position: absolute;
   top: 20%;
   width: 97%;
-  color: rgb(255, 255, 255);
 }
 
 .home .main-text Button {

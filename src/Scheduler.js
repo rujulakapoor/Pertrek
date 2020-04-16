@@ -3,7 +3,7 @@ import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faClock, faPen, faInfo } from '@fortawesome/free-solid-svg-icons'
 import fire from "./config/fire";
 import bootbox from 'bootbox';
 import bootstrap from 'bootstrap';
@@ -16,6 +16,9 @@ class scheduler extends Component {
 		this.favoriteItem = this.favoriteItem.bind(this);
 		this.getAlreadyFaved = this.getAlreadyFaved.bind(this);
 		this.deleteFavorite = this.deleteFavorite.bind(this);
+		this.userTime = this.userTime.bind(this);
+		this.getUserSubmissions = this.getUserSubmissions.bind(this);
+		this.showUserInfo = this.showUserInfo.bind(this);
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
@@ -50,6 +53,8 @@ class scheduler extends Component {
 			alreadyFaved: [],
 			favNames: [],
 			favKeys: [],
+			userVals: [],
+			userRetreived: false,
       		retreived: false,
 		}
 
@@ -71,7 +76,7 @@ class scheduler extends Component {
 			params: {
 					term: this.state.categorySelect,
 					location: this.state.citySelect,
-					limit:15
+					limit:5
 			}
 			})
 			.then(function (response) {
@@ -116,66 +121,66 @@ class scheduler extends Component {
 			.catch(function (error) {
 				console.log(error);
 			})
-			.then(function() {
-				//console.log("done");
+			// .then(function() {
+			// 	//console.log("done");
 
-				//check restaurants state
-				//console.log("check");
-				// for(var i in this.state.restaurants) {
-				// 	var r = this.state.restaurants[i];
-				// 	console.log(i + " = " + r.name + ", " + r.description);
-				// }
-			}.bind(this));
+			// 	//check restaurants state
+			// 	//console.log("check");
+			// 	// for(var i in this.state.restaurants) {
+			// 	// 	var r = this.state.restaurants[i];
+			// 	// 	console.log(i + " = " + r.name + ", " + r.description);
+			// 	// }
+			// }.bind(this));
 
-			//GET ATTRACTIONS
-			// axios.get(yelp_search_url, {
-			// 	headers: {
-			// 			Authorization: token
-			// 	},
-			// 	params: {
-			// 			term:'attractions',
-			// 			location: this.state.citySelect,
-			// 			limit:5
-			// 	}
-			// 	})
-			// 	.then(function (response) {
-			// 		for(var a in response.data.businesses){
-			// 			var obj = response.data.businesses[a];
-			// 			var priceVal = '';
-			// 			var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
+			// //GET ATTRACTIONS
+			// // axios.get(yelp_search_url, {
+			// // 	headers: {
+			// // 			Authorization: token
+			// // 	},
+			// // 	params: {
+			// // 			term:'attractions',
+			// // 			location: this.state.citySelect,
+			// // 			limit:5
+			// // 	}
+			// // 	})
+			// // 	.then(function (response) {
+			// // 		for(var a in response.data.businesses){
+			// // 			var obj = response.data.businesses[a];
+			// // 			var priceVal = '';
+			// // 			var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
 
-			// 			if(obj.price == undefined) {
-			// 				//free!!
-			// 				priceVal = "free!";
-			// 			}
-			// 			else {
-			// 				priceVal = obj.price;
-			// 			}
+			// // 			if(obj.price == undefined) {
+			// // 				//free!!
+			// // 				priceVal = "free!";
+			// // 			}
+			// // 			else {
+			// // 				priceVal = obj.price;
+			// // 			}
 
-			// 			var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
-			// 			var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
+			// // 			var address = obj.location.address1 + ", " + obj.location.city + ", " + obj.location.zip_code;
+			// // 			var description = obj.name + " is categorized as " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 
-			// 			var attraction = {
-			// 				name: obj.name,
-			// 				price: priceVal,
-			// 				popularity: obj.rating,
-			// 				image: obj.image_url,
-			// 				address: address,
-			// 				description: description,
-			// 				map: mapSrc,
-			// 				id: obj.id
-			// 			}
+			// // 			var attraction = {
+			// // 				name: obj.name,
+			// // 				price: priceVal,
+			// // 				popularity: obj.rating,
+			// // 				image: obj.image_url,
+			// // 				address: address,
+			// // 				description: description,
+			// // 				map: mapSrc,
+			// // 				id: obj.id
+			// // 			}
 
-			// 			this.setState({ attractions: [...this.state.attractions, attraction] });
+			// // 			this.setState({ attractions: [...this.state.attractions, attraction] });
 
-			// 		}
-			// 	}.bind(this))
-			// 	.catch(function (error) {
-			// 		console.log(error);
-			// 	})
-			// 	.then(function() {
-			// 		//console.log("done");
-			// 	}.bind(this));
+			// // 		}
+			// // 	}.bind(this))
+			// // 	.catch(function (error) {
+			// // 		console.log(error);
+			// // 	})
+			// // 	.then(function() {
+			// // 		//console.log("done");
+			// // 	}.bind(this));
 
 	}
 
@@ -331,6 +336,162 @@ class scheduler extends Component {
 		}
 		
 	}
+	getUserSubmissions() {
+		console.log("getting user submissions");
+		if(!this.state.userRetreived) {
+
+			fire.database()
+				.ref('userSubmissions')
+				.on("value", snapshot=> {
+					if(snapshot.val()) {
+						let currentstate = this;
+						//console.log("Snapshot = " + snapshot.val());
+					
+						const values = snapshot.val();
+						//console.log(values);
+						var keyList = Object.keys(values);
+						//console.log(Object.keys(values));
+						//console.log("name = " + values[tempkey].name);
+
+						for(var k in keyList) {
+							console.log("key in keylist = " + keyList[k]);
+
+							var key = keyList[k];
+							var item = values[keyList[k]];
+
+							//create object
+							var val = {
+								key: key,
+								id: item.id,
+								avgTime: item.avgTime,
+								numTime: item.numTime
+							}
+
+							currentstate.setState( {
+								userVals: [...currentstate.state.userVals,  val]
+							})
+						}
+
+						// for(var k in keyList) {
+						// 	//console.log("key in keylist = " + keyList[k]);
+						// 	var key = keyList[k];
+						// 	var favKey = key;
+						// 	currentstate.setState( {
+						// 		favKeys: [...currentstate.state.favKeys,  favKey]
+						// 	})
+						// }
+
+						console.log("printing user stuff: length = " + this.state.userVals.length);
+						for(var i in this.state.userVals) {
+							var r = this.state.userVals[i];
+							console.log(i + "avgtime = " + r.avgTime);
+						}
+
+					}
+				})
+		
+			this.state.userRetreived = true;
+			console.log("GOT TIME !!!")
+		}
+		
+	}
+	userTime(name, id) {
+		//check if this attraction already has data
+		var hasTime = false;
+		var dupKey;
+		var dupNum;
+		var dupTime;
+
+		for(var i in this.state.userVals) {
+			var r = this.state.userVals[i];
+			console.log(i + "id = " + r.id);
+			if(r.id === id) {
+				console.log("ALREADY HAS TIME!");
+				dupKey = r.key;
+				dupNum = r.numTime;
+				dupTime = r.avgTime;
+				hasTime = true;
+			}
+		}
+
+		this.getUserSubmissions();
+		var locale = {
+			OK: 'I Suppose',
+			CONFIRM: 'Go Ahead',
+			CANCEL: 'Maybe Not'
+		};
+					
+		bootbox.addLocale('custom', locale);
+					
+		bootbox.prompt({ 
+			title: "How many hours did you spend at " + name + "?", 
+			locale: 'custom',
+			inputType: 'number',
+			callback: function (result) {
+				console.log('This was logged in the callback: ' + result);
+				console.log("id = " + id);
+
+				if(!hasTime){
+					const db = fire.database().ref('userSubmissions');
+					const item = {
+						id: id,
+						numTime: 1,
+						avgTime: result
+					}
+		  
+				  db.push(item
+				  ).then(ref => {
+				   console.log('Added user time with ID: ', ref.id);
+				   
+				 });
+			  }
+			  else {
+				console.log("Already saved");
+				console.log("dup key = " + dupKey);
+
+				const db = fire.database().ref('userSubmissions/' + dupKey);
+		
+				var newNum = dupNum + 1;
+				var newAvg = (dupTime + Number(result)) / (dupNum + 1);
+				console.log("dupTime = " + dupTime);
+				console.log("dividing" + (dupTime + Number(result)) + " by " + (dupNum + 1));
+
+				//update database values
+				db.update({
+					"avgTime": newAvg,
+					"numTime": newNum
+				  });
+			  }
+			}
+		});
+	}
+	showUserInfo(name, id) {
+		var hasTime = false;
+		var dupTime;
+
+		for(var i in this.state.userVals) {
+			var r = this.state.userVals[i];
+			console.log(i + "id = " + r.id);
+			if(r.id === id) {
+				console.log("ALREADY HAS TIME!");
+				dupTime = r.avgTime;
+				hasTime = true;
+			}
+		}
+
+		var message;
+		if(hasTime) {
+			message = "Average time user spent at " + name + ": " + dupTime;
+		}
+		else {
+			message = name + " does not have any user submitted information";
+		}
+
+		bootbox.alert({
+			message: message,
+			backdrop: true
+		});
+	}
 
 
 	render() {
@@ -339,6 +500,7 @@ class scheduler extends Component {
 		fire.auth().onAuthStateChanged( function(user) {
 			if (user) {
 			statenow.getAlreadyFaved();
+			statenow.getUserSubmissions();
 		}})
 
 		return (
@@ -377,7 +539,21 @@ class scheduler extends Component {
 											{ attraction.description }
 										</Card.Text>
 
-										<Button variant="outline-success"><FontAwesomeIcon icon={faPlus} /></Button>
+										<Button variant="outline-secondary" 
+											onClick={ () => this.showUserInfo( 
+														attraction.name,
+														attraction.id
+													)}>
+												<FontAwesomeIcon icon={faInfo} />
+										</Button>
+
+										<Button variant="outline-primary" 
+											onClick={ () => this.userTime( 
+														attraction.name,
+														attraction.id
+													)}>
+												<FontAwesomeIcon icon={faClock} />
+										</Button>
 
 										<Button onClick={ () => this.favoriteItem(
 																attraction.name, 
