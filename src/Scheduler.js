@@ -452,13 +452,13 @@ class scheduler extends Component {
 				const db = fire.database().ref('userSubmissions/' + dupKey);
 		
 				var newNum = dupNum + 1;
-				var newAvg = (dupTime + parseInt(result)) / (dupNum + 1);
+				var newSum = parseInt(dupTime) + parseInt(result);
 				console.log("dupTime = " + dupTime);
 				console.log("dividing" + (dupTime + parseInt(result)) + " by " + (dupNum + 1));
 
 				//update database values
 				db.update({
-					"avgTime": newAvg,
+					"avgTime": newSum,
 					"numTime": newNum
 				  });
 			  }
@@ -467,19 +467,19 @@ class scheduler extends Component {
 	}
 	showUserInfo(name, id) {
 		var hasTime = false;
-		var dupTime;
+		var timeAvg;
 
 		for(var i in this.state.userVals) {
 			var r = this.state.userVals[i];
 			if(r.id === id) {
-				dupTime = r.avgTime;
+				timeAvg = r.avgTime/r.numTime;
 				hasTime = true;
 			}
 		}
 
 		var message;
 		if(hasTime) {
-			message = "Average time user spent at " + name + ": " + dupTime;
+			message = "Average time user spent at " + name + ": " + timeAvg + "hours";
 		}
 		else {
 			message = name + " does not have any user submitted information";
