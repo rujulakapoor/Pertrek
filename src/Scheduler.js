@@ -452,9 +452,9 @@ class scheduler extends Component {
 				const db = fire.database().ref('userSubmissions/' + dupKey);
 		
 				var newNum = dupNum + 1;
-				var newAvg = (dupTime + Number(result)) / (dupNum + 1);
+				var newAvg = (dupTime + parseInt(result)) / (dupNum + 1);
 				console.log("dupTime = " + dupTime);
-				console.log("dividing" + (dupTime + Number(result)) + " by " + (dupNum + 1));
+				console.log("dividing" + (dupTime + parseInt(result)) + " by " + (dupNum + 1));
 
 				//update database values
 				db.update({
@@ -471,9 +471,7 @@ class scheduler extends Component {
 
 		for(var i in this.state.userVals) {
 			var r = this.state.userVals[i];
-			console.log(i + "id = " + r.id);
 			if(r.id === id) {
-				console.log("ALREADY HAS TIME!");
 				dupTime = r.avgTime;
 				hasTime = true;
 			}
