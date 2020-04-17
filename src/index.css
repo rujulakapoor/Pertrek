@@ -183,17 +183,111 @@ Link {
 }
 #accountone {
   width: 30%;
-  height: 900px;
+  height: 1200px;
   background: white;
   float: left;
+  border-right: 1px solid #ddd;
+  
 }
-
+#topbottom{
+  color: black;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  height: 40pt;
+}
 #accounttwo {
   margin-left: 15%;
-  height: 900px;
-  background: #c7d0d8;
+  height: 1200px;
+  background: white;
   text-align: center;
   
+}
+#SettingPage{
+  height: 100%;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.settingForm{
+  margin-top: 9%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 170px;
+  left: 146px;
+  height: 50%;
+  width: 30%;
+  background-color:white;
+  border: 2px solid #ddd;
+}
+.bottom-middle {
+  position: absolute;
+  bottom: 330px;
+  left: 296px;
+  height: 40%;
+  width: 65%;
+  background-color:transparent;
+  
+}
+#rock{
+  font-size: 18px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-left: 4%;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/P3MT7ExOanB7zezGkHGzhkyx48oVz6Au8BdiXqf8qE1K_39-t74F41iWqsz01R_hHdts3flrcudCK_KVyl0fmdKbum_0Yt0mLPDgGqim-9P1lft0kaPooLwnGn-X248ygk00uydk5w=w2400);
+}
+
+#rock2{
+  font-size: 18px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/gZsYog9IZmBV-M8IBEO1mrZuvxBFLf2-3wwR8Z4JaU44E0LlSdfH-IFTysl7E4GTiHvchERnHRRbVoJUJnKF4Y7DKBE2fdfmazyU9BKXzTqFERSLRgkVgi_secGEC3F7UGQ_Gsfmdg=s64-p-k);
+}
+#rock3{
+  font-size: 18px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/KvN4WzPZ5X3tnF8vYAvNYo3fiYJP1vMzP0pUq7STlOv_zBLw14-grMVHSDau63i0MN2cuRDb2M24jgrqLKvuIM4UL_0zxinF24m-IkHKfYtt4mMGBnbyk_yGns37xWU77DqQAsKV8g=w2400);
+}
+#rock4{
+  font-size: 18px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/yZfIZspYFaC86sv2ruTKn9amZin2th55khzp33K8gIRrGJirH20cd7-_1UjzL1SWp_c_yPVvTqQPCelnxcQig8M5pNFU58ODhoHTfY38be3a7dqFoNXF3Z5POOZ-v4rYlabAM5OyCg=w2400);
+}
+#rock5{
+  font-size: 18px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/BHnA-XZR0nw8-q6RByHfoS7ipsUIdtOQYUZhhlp8c_uxkg-FsHDe9Z9hDsn8FEbeMJT7GH07LujG_ZEhgHYwYqIAwpaCw_zT7TpAI2z9S2kEPWc5TEhpTkDjl_b7p8Jpb3JSCw52NQ=w2400);
+}
+#rock6{
+  font-size: 18px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/jFMYV7ttOTapTtRk-qY3_9XNPwuie1RpBn4HFUgpZskU_O-PN2BnePWMPfK-fJKgUvQV9Ea4QosTkCQGufblGVybETA-fpO9qaQ08UXMTaxngaZ7A3d8mFmAt30AJ7GKhYBJEIvyfQ=w2400);
 }
 #icon{
   text-align: center;
@@ -230,6 +324,17 @@ Link {
   text-align: center;
   color: black;
   margin-top: 8%;
+  margin-bottom: 0%;
+  
+}
+.Account h4{
+  display: block;
+  font-size: 0px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  margin-top: 2%;
   margin-bottom: 0%;
   
 }
@@ -500,21 +605,20 @@ Link {
 }
 .Forgot h1{
   display: block;
-  font-size: 40px;
+  font-size: 60px;
   font-family: 'Palanquin Dark', sans-serif;
   text-align: center;
-  color: #777a7c;
-  margin-top: 8%;
-  margin-bottom: 2%;
+  color: white;
+  margin-top: 10%;
 }
 .Forgot h2{
   display: block;
-  font-size: 20px;
+  font-size: 0px;
   font-family: 'Quicksand', sans-serif;
   font-weight: bold;
   text-align: center;
-  color: black;
-  margin-bottom: 2%;
+  color: white;
+  margin-bottom: 4%;
 
 }
 
@@ -584,6 +688,17 @@ Link {
   font-size: 25px;
 
 }
+#exampleInputEmail13
+{
+  border-width: 0; 
+  box-shadow: none;
+  font-family: 'Quicksand', sans-serif;
+  color: black;
+  font-size: 25px;
+  border-radius: 25px;
+  padding: 15px;
+
+}
 #LogIn
 {
   font-family: 'Quicksand', sans-serif;
@@ -613,6 +728,16 @@ Link {
   color: white;
   width: 270px;
   height: 30px;
+  margin-top: 1%;
+}
+#Submit3
+{
+  font-family: 'Quicksand', sans-serif;
+  background: black;
+  border: 0;
+  color: white;
+  width: 170px;
+  height: 40px;
   margin-top: 1%;
 }
 #ForgotIn

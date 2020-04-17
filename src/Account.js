@@ -5,11 +5,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { Button, Form, Col, InputGroup,Accordion,Card} from 'react-bootstrap';
+import { Button, Form, Col, Jumbotron,InputGroup,Accordion,Card,Table,Tab,Tabs,TabPane,NavLink,Nav, NavItem} from 'react-bootstrap';
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component, useState } from 'react';
 import fire from './config/fire'
 import './Account.css';
+import SavedPage from "./SavedPage";
+import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 class Account extends Component {
     constructor(props) {
@@ -181,51 +183,13 @@ class Account extends Component {
 
       return photoUrl;
     }
-    
-
-    render() {
-      return (
-        <div className="Account">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"></link>
-        <section id="container">
-        <div id="accountone">
-        <div id="icon">  
-        
-        <img src={this.getProfilePic()} alt="&#xf007;" width="180" height="180" class="passphoto"></img>
-        
-        <h3>Welcome,</h3> 
-        </div>
-        <div>  
-        <h2>{this.getName()}!</h2>
-        </div>
-        
-        <div>  
-        <i class="fas fa-home fa-2x"></i>
-        <Link to='/' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12">Home</span> </Link>
-        </div>
-
-        <div>  
-        <i class="fas fa-plus-circle fa-2x"></i> 
-        <Link to='/planner' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12" >Create New</span></Link>
-        </div>
-
-        <div>  
-        <i class="fas fa-cog fa-2x"></i>
-        <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
-        </div>
-        <div>  
-        <i class="fas fa-key fa-2x"></i>
-        <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
-        </div>
-
-        
-
-        </div>
-        <div align="center" id="accounttwo"> 
-        <div id="move">  
+    /*
+    <div>
+        <Jumbotron style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}>
         <h2 align="center">Account Details</h2>
-        
-              <h3 align="center">Current Info</h3>
+        </Jumbotron> 
+        </div>
+<h3 align="center">Current Info</h3>
               <p>Name: {this.getName()}</p>
               <p>Email: {this.getEmail()}</p>
          
@@ -260,9 +224,67 @@ class Account extends Component {
               <Button type="submit">Submit form</Button>
                     
             </Form>
-
+           
             </div>
 
+
+
+
+    */
+
+    render() {
+      return (
+        <div className="Account">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"></link>
+        <section id="container">
+        <div id="accountone">
+        <div id="icon">  
+        
+        <img src={this.getProfilePic()} alt="&#xf007;" width="180" height="180" class="passphoto"></img>
+        
+        <h3>Welcome,</h3> 
+        </div>
+        <div>  
+        <h2>{this.getName()}!</h2>
+        </div>
+       
+        
+        <div id="topbottom">  
+
+        <h4>hello</h4>
+        <i class="fas fa-home fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i>
+        <Link to='/' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12">Home</span> </Link>
+        </div>
+
+        <div id="topbottom">  
+        <h4>hello</h4>
+        <i class="fas fa-plus-circle fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i> 
+        <Link to='/itform' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12" >Create New</span></Link>
+        </div>
+
+        <div id="topbottom">  
+        <h4>hello</h4> 
+        <i class="fas fa-cog fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}} ></i>
+        <Link to='/settings' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
+        </div>
+        <div id="topbottom">  
+        <h4>hello</h4>
+        <i class="fas fa-key fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i>
+        <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
+        </div>
+
+        
+
+        </div>
+        <div align="center" id="accounttwo"> 
+        <div id="move"> 
+
+        
+              
+              
+            <div>
+        <SavedPage / >
+        </div> 
 
 
           </div>
