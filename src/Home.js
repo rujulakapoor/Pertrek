@@ -10,6 +10,7 @@ import slide1 from './img/new-zealand.jpg';
 import slide2 from './img/rough-sea-waves.jpg';
 import slide3 from './img/cape-town-cropped.jpg';
 import banner from './img/banner.png';
+import dragon from './img/Dragon-Boat.png'
 import bg from './img/pertrek_home_bg.png';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -98,12 +99,11 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="banner">
-            <img src={banner} />
+          <br/>
+          
+          
 
-          </div>
-
-          <div className="options">
+          {/* <div className="options">
           <Container fluid id="anchor" style={{width:"100%"}}>
             <Row>
               <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%"}}>
@@ -140,10 +140,30 @@ class Home extends Component {
 
               </Col>
               <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%"}}>
-                <h4 style={{ color:"#FFFFEA" }}>Create</h4>
+                <h4 style={{ color:"#FF5E5B" }}>Create</h4>
               </Col>
             </Row>
           </Container>
+          </div> */}
+
+          <div className="options">
+            <div className="banner">
+              <img src={banner} />
+
+            </div>
+
+            <div className="infoBox">
+              <div id="infoLeft">
+                <img src={dragon} style={{height:"80%", width:"80%"}}></img>
+              </div>
+              
+              <div id="infoRight">
+                <h4 style={{ color:"#FF5E5B" }}>Create</h4>
+              </div>
+
+            </div>
+
+
           </div>
 
           

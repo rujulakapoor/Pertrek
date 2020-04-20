@@ -90,10 +90,6 @@ Link {
   border-color: #FF5E5B;
 }
 
-.home .options {
-  background-image: url("./img/pertrek_home_bg.png");
-}
-
 .home .options Button:hover {
   color: #FFF;
   background-color: #FF5E5B;
@@ -128,6 +124,41 @@ Link {
   background-color: #069;
 }
 
+
+.home .options {
+  /* background-image: url("./img/pertrek_home_bg.png"); */
+  background-color:#FFFFEA;
+  overflow: hidden;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.home .infoBox {
+  border-radius: 25px;
+  background: rgb(182, 182, 182);
+  padding: 20px;
+  width: 80%;
+  height: 30vh;
+  margin: auto;
+  margin-top: 3%;
+}
+
+.home #infoLeft {
+  float:left;
+  width:20%;
+}
+
+.hom #infoLeft img {
+  height:20px;
+  width:20px;
+}
+
+.home #infoRight {
+  float:right;
+  width:80%;
+}
+
 .home .carousel-container{
   /* height:1000px; */
   height:90vh;
@@ -144,6 +175,8 @@ Link {
 .home .banner {
   height:300px;
   width:100%;
+  overflow:hidden;
+  z-index: 100;
 }
 
 /* FAVORITES */
