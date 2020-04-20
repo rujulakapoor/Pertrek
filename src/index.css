@@ -27,7 +27,11 @@ p {
 .nav-bar {
   box-shadow: 1px 2px 4px rgba(41, 41, 41, 0.2);
   text-decoration: none;
-  background-color: #ABEBC6;
+  background-color: #FFFFEA;
+  color: white;
+  /* position: fixed; */
+  z-index: 100;
+  width: 100%;
 }
 
 .nav-bar .navButtons {
@@ -40,17 +44,18 @@ Link {
 }
 
 .nav-bar h4 {
-  color: rgb(15, 15, 15);
+  color: white;
   font-weight: bold;
   text-decoration: none;
 }
 
 .nav-bar h5 {
-  color: rgb(39, 39, 39);
+  color: white;
   font-size: 23px;
 }
 
 /* HOME */
+
 .home h3 {
   font-size: 120px;
   font-weight: bold;
@@ -85,7 +90,11 @@ Link {
   border-color: #FF5E5B;
 }
 
-.home Button:hover {
+.home .options {
+  background-image: url("./img/pertrek_home_bg.png");
+}
+
+.home .options Button:hover {
   color: #FFF;
   background-color: #FF5E5B;
   border-color: #FFF;
@@ -94,8 +103,12 @@ Link {
 .home .main-text
 {
   position: absolute;
-  top: 20%;
-  width: 97%;
+  top: 16%;
+  width: 60%;
+  background-color: rgba(41, 41, 41, 0.4);
+  padding: 2%;
+  margin-left: 20%;
+  z-index: 100;
 }
 
 .home .main-text Button {
@@ -113,6 +126,24 @@ Link {
 
 .home Col{
   background-color: #069;
+}
+
+.home .carousel-container{
+  /* height:1000px; */
+  height:90vh;
+  width:100%;
+  z-index: -10;
+}
+
+.home .carousel-container Button:hover {
+  color: #FFF;
+  background-color: rgb(126, 126, 126, rgba(0,0,0,0.2));
+  border-color: #FFF;
+}
+
+.home .banner {
+  height:300px;
+  width:100%;
 }
 
 /* FAVORITES */

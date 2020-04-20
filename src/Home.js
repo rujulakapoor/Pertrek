@@ -8,9 +8,13 @@ import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button, Contai
 import bootbox from 'bootbox';
 import slide1 from './img/new-zealand.jpg';
 import slide2 from './img/rough-sea-waves.jpg';
-import slide3 from './img/cape-town.jpg';
+import slide3 from './img/cape-town-cropped.jpg';
+import banner from './img/banner.png';
+import bg from './img/pertrek_home_bg.png';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import 'react-awesome-slider/dist/styles.css';
+import AwesomeSlider from 'react-awesome-slider';
 
 class Home extends Component {
     constructor(props) {
@@ -62,30 +66,47 @@ class Home extends Component {
       return (
         <div className="home">
 
-          <Carousel showThumbs={false} showStatus={false} >
-              <div>
-                  <img src={slide1} />
-                  <p className="legend">Legend 1</p>
-              </div>
-              <div>
-                  <img src={slide2} />
-                  <p className="legend">Legend 2</p>
-              </div>
-              <div>
-                  <img src={slide3} />
-                  <p className="legend">Legend 3</p>
-              </div>
-          </Carousel>
+          <div className="carousel-container">
+            <AwesomeSlider
+                  bullets={false}
+                  fillParent={true}
+              >
+                  <div data-src={slide1} />
+                  <div data-src={slide2} />
+                  <div data-src={slide3}/>
+            </AwesomeSlider>
+            
+            {/* <Carousel showThumbs={false} showStatus={false} dynamicHeight={true}>
+                <div>
+                    <img src={slide1} />
+                    <p className="legend">Legend 1</p>
+                </div>
+                <div>
+                    <img src={slide2} />
+                    <p className="legend">Legend 2</p>
+                </div>
+                <div>
+                    <img src={slide3} />
+                    <p className="legend">Legend 3</p>
+                </div>
+            </Carousel> */}
 
-          <div className="main-text">
-            <h3>P E R T R E K</h3>
-            <h2>YOUR PERFECT VACATION STARTS HERE</h2>
-            <Button href="#anchor" style={{color: "#FFF",backgroundColor: "#FF5E5B", borderColor: "#FFF", marginLeft: "50%"}} >Get Started</Button>
+            <div className="main-text">
+              <h3>P E R T R E K</h3>
+              <h2>YOUR PERFECT VACATION STARTS HERE</h2>
+              <Button href="#anchor" style={{color: "#FFF",backgroundColor: "#FF5E5B", borderColor: "#FFF", marginLeft: "48%"}} >Get Started</Button>
+            </div>
           </div>
 
+          <div className="banner">
+            <img src={banner} />
+
+          </div>
+
+          <div className="options">
           <Container fluid id="anchor" style={{width:"100%"}}>
             <Row>
-              <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%", backgroundColor:"#FFFFEA"}}>
+              <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%"}}>
                 <h4 style={{ color:"#FF5E5B" }}>Explore</h4>
                 
                 <InputGroup onSubmit={this.handleSubmit} style={{ width:"100%" }}>
@@ -118,11 +139,12 @@ class Home extends Component {
                 </InputGroup>
 
               </Col>
-              <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%", backgroundColor:"#FF5E5B"}}>
+              <Col xs={6} style={{ padding:"5%", paddingTop: "15%", paddingBottom: "15%"}}>
                 <h4 style={{ color:"#FFFFEA" }}>Create</h4>
               </Col>
             </Row>
           </Container>
+          </div>
 
           
         </div>

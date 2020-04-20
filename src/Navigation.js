@@ -3,7 +3,7 @@ import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-boots
 import { Link } from "react-router-dom";
 import fire from './config/fire';
 import logo from './img/logo_airplane.png';
-import logoSquare from './img/logo_airplane_square.png';
+import logoSquare from './img/airplane-logo-red-square.png';
 
 
 class Navigation extends React.Component {
@@ -48,7 +48,7 @@ class Navigation extends React.Component {
   }
     render() {
       return (
-        <Navbar bg="light" expand="lg" className="nav-bar">
+        <Navbar expand="lg" className="nav-bar">
           <Navbar.Brand href="/">
             <img
               src={ logoSquare }

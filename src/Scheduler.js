@@ -76,7 +76,7 @@ class scheduler extends Component {
 			params: {
 					term: this.state.categorySelect,
 					location: this.state.citySelect,
-					limit:5
+					limit:20
 			}
 			})
 			.then(function (response) {

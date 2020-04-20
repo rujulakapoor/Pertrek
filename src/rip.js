@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import ImageGallery from 'react-image-gallery';
+import AwesomeSlider from 'react-awesome-slider';
 import slide1 from './img/new-zealand.jpg';
+import slide2 from './img/rough-sea-waves.jpg';
+import slide3 from './img/cape-town.jpg';
+import 'react-awesome-slider/dist/styles.css';
+
 
 const Rip = () => {
+
     return (
         <div>
-            <Carousel showThumbs={false}>
-                <div>
-                    <img src={slide1} />
-                    <p className="legend">Legend 1</p>
-                </div>
-                <div>
-                    <img src="assets/2.jpeg" />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src="assets/3.jpeg" />
-                    <p className="legend">Legend 3</p>
-                </div>
-            </Carousel>
+            <AwesomeSlider
+                bullets={false}
+            >
+                <div data-src={slide1} />
+                <div data-src={slide2} />
+                <div data-src={slide3} />
+            </AwesomeSlider>
       </div>
     );
   }
