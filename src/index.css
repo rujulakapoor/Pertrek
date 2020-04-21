@@ -23,6 +23,7 @@ p {
   font-family: 'Quicksand', sans-serif;
 }
 
+
 /* NAV BAR */
 .nav-bar {
   box-shadow: 1px 2px 4px rgba(41, 41, 41, 0.2);
@@ -242,11 +243,14 @@ Link {
   height: 10vw;
 }
 
+.mapBox {
+  height: 400px;
+  background-color: royalblue;
+}
+
 .planner Button {
   margin-right:5px;
 }
-
-
 
 /* RUJULA STUFF */
 #container {

@@ -3,7 +3,7 @@ import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faClock, faPen, faInfo, faStar } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faClock, faPen, faInfo, faStar, faMap } from '@fortawesome/free-solid-svg-icons'
 import fire from "./config/fire";
 import bootbox from 'bootbox';
 import bootstrap from 'bootstrap';
@@ -21,6 +21,7 @@ class scheduler extends Component {
 		this.showUserInfo = this.showUserInfo.bind(this);
 		this.userRating = this.userRating.bind(this);
 		this.getUserRatings = this.getUserRatings.bind(this);
+		this.showMap = this.showMap.bind(this);
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
@@ -617,6 +618,13 @@ class scheduler extends Component {
 			}
 		});
 	}
+	showMap(name, mapSrc) {
+		bootbox.alert({
+			size: "large",
+			title: name + "Map",
+			message: "<div className='mapBox'><iframe width='100%' height='100%' frameBorder='0' src=" + mapSrc + "></iframe><br/></div>"
+		});
+	}
 
 
 	render() {
@@ -711,7 +719,14 @@ class scheduler extends Component {
 									</Card.Header>
 									<Accordion.Collapse eventKey="1">
 										<Card.Body>
-											<iframe width="100%" frameBorder="0" src={attraction.map}></iframe>
+											{/* <iframe width="100%" frameBorder="0" src={attraction.map}></iframe> */}
+											<Button variant="outline-primary" 
+											onClick={ () => this.showMap( 
+														attraction.name,
+														attraction.map
+													)}>
+												<FontAwesomeIcon icon={faMap} />
+										</Button>
 										</Card.Body>
 									</Accordion.Collapse>
 
