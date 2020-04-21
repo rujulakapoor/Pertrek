@@ -3,7 +3,7 @@ import { Card, Button, Accordion } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faClock, faPen, faInfo } from '@fortawesome/free-solid-svg-icons'
+import { faHeart, faClock, faPen, faInfo, faStar } from '@fortawesome/free-solid-svg-icons'
 import fire from "./config/fire";
 import bootbox from 'bootbox';
 import bootstrap from 'bootstrap';
@@ -19,6 +19,8 @@ class scheduler extends Component {
 		this.userTime = this.userTime.bind(this);
 		this.getUserSubmissions = this.getUserSubmissions.bind(this);
 		this.showUserInfo = this.showUserInfo.bind(this);
+		this.userRating = this.userRating.bind(this);
+		this.getUserRatings = this.getUserRatings.bind(this);
 
 		var url = window.location.href;
 		var cityName = url.substring(url.lastIndexOf("/")+1, url.length);
@@ -55,6 +57,8 @@ class scheduler extends Component {
 			favKeys: [],
 			userVals: [],
 			userRetreived: false,
+			userValsRating: [],
+			userRetreivedRating: false,
       		retreived: false,
 		}
 
@@ -76,7 +80,7 @@ class scheduler extends Component {
 			params: {
 					term: this.state.categorySelect,
 					location: this.state.citySelect,
-					limit:20
+					limit:5
 			}
 			})
 			.then(function (response) {
@@ -336,8 +340,9 @@ class scheduler extends Component {
 		}
 		
 	}
+
 	getUserSubmissions() {
-		console.log("getting user submissions");
+		//console.log("getting user submissions");
 		if(!this.state.userRetreived) {
 
 			fire.database()
@@ -354,7 +359,7 @@ class scheduler extends Component {
 						//console.log("name = " + values[tempkey].name);
 
 						for(var k in keyList) {
-							console.log("key in keylist = " + keyList[k]);
+							//console.log("key in keylist = " + keyList[k]);
 
 							var key = keyList[k];
 							var item = values[keyList[k]];
@@ -381,11 +386,11 @@ class scheduler extends Component {
 						// 	})
 						// }
 
-						console.log("printing user stuff: length = " + this.state.userVals.length);
-						for(var i in this.state.userVals) {
-							var r = this.state.userVals[i];
-							console.log(i + "avgtime = " + r.avgTime);
-						}
+						// console.log("printing user stuff: length = " + this.state.userVals.length);
+						// for(var i in this.state.userVals) {
+						// 	var r = this.state.userVals[i];
+						// 	console.log(i + "avgtime = " + r.avgTime);
+						// }
 
 					}
 				})
@@ -467,7 +472,9 @@ class scheduler extends Component {
 	}
 	showUserInfo(name, id) {
 		var hasTime = false;
-		var timeAvg;
+		var hasRating = false;
+		var timeAvg = "?";
+		var ratingAvg = "?";
 
 		for(var i in this.state.userVals) {
 			var r = this.state.userVals[i];
@@ -477,17 +484,137 @@ class scheduler extends Component {
 			}
 		}
 
+		for(var i in this.state.userValsRating) {
+			var r = this.state.userValsRating[i];
+			if(r.id === id) {
+				ratingAvg = r.ratingSum/r.ratingNum;
+				hasRating = true;
+			}
+		}
+
 		var message;
-		if(hasTime) {
-			message = "Average time user spent at " + name + ": " + timeAvg + " hours";
+		if(!hasTime && !hasRating) {
+			message = name + " does not have any user submitted information";
 		}
 		else {
-			message = name + " does not have any user submitted information";
+			message = "Average time user spent at " + name + ": " + timeAvg + " hours" + 
+						"<br/>" + 
+						"Average user rating: " + ratingAvg + "/10";
 		}
 
 		bootbox.alert({
 			message: message,
 			backdrop: true
+		});
+	}
+	getUserRatings() {
+		//console.log("getting user ratings");
+		if(!this.state.userRetreivedRating) {
+
+			fire.database()
+				.ref('userRatings')
+				.on("value", snapshot=> {
+					if(snapshot.val()) {
+						let currentstate = this;
+					
+						const values = snapshot.val();
+						var keyList = Object.keys(values);
+
+						for(var k in keyList) {
+							console.log("key in keylist = " + keyList[k]);
+
+							var key = keyList[k];
+							var item = values[keyList[k]];
+
+							//create object
+							var val = {
+								key: key,
+								id: item.id,
+								ratingSum: item.ratingSum,
+								ratingNum: item.ratingNum
+							}
+
+							currentstate.setState( {
+								userValsRating: [...currentstate.state.userValsRating,  val]
+							})
+						}
+
+					}
+				})
+		
+			this.state.userRetreivedRating = true;
+			console.log("GOT rating !!!")
+		}
+		
+	}
+	userRating(name, id) {
+		//check if this attraction already has data
+		var hasRating = false;
+		var dupKey;
+		var dupNum;
+		var dupRating;
+
+		for(var i in this.state.userValsRating) {
+			var r = this.state.userValsRating[i];
+			console.log(i + "id = " + r.id);
+			if(r.id === id) {
+				console.log("ALREADY HAS rating!");
+				dupKey = r.key;
+				dupNum = r.ratingNum;
+				dupRating = r.ratingSum;
+				hasRating = true;
+			}
+		}
+
+		this.getUserSubmissions();
+		var locale = {
+			OK: 'I Suppose',
+			CONFIRM: 'Submit',
+			CANCEL: 'Cancel'
+		};
+					
+		bootbox.addLocale('custom', locale);
+					
+		bootbox.prompt({ 
+			title: "How many stars do you give " + name + " out of 10?", 
+			locale: 'custom',
+			inputType: 'number',
+			callback: function (result) {
+				console.log('This was logged in the callback: ' + result);
+				console.log("id = " + id);
+
+				if(!hasRating){	//first entry
+					const db = fire.database().ref('userRatings');
+					const item = {
+						id: id,
+						ratingNum: 1,
+						ratingSum: result
+					}
+		  
+				  db.push(item
+				  ).then(ref => {
+				   console.log('Added user rating with ID: ', ref.id);
+				   
+				 });
+			  }
+			  else {
+				console.log("Already saved");
+				console.log("dup key = " + dupKey);
+
+				const db = fire.database().ref('userRatings/' + dupKey);
+		
+				var newNum = dupNum + 1;
+				var newSum = parseInt(dupRating) + parseInt(result);
+				console.log("duprating = " + dupRating);
+				console.log("dividing" + (dupRating + parseInt(result)) + " by " + (dupNum + 1));
+
+				//update database values
+				db.update({
+					"ratingSum": newSum,
+					"ratingNum": newNum
+				  });
+			  }
+			}
 		});
 	}
 
@@ -499,6 +626,7 @@ class scheduler extends Component {
 			if (user) {
 			statenow.getAlreadyFaved();
 			statenow.getUserSubmissions();
+			statenow.getUserRatings();
 		}})
 
 		return (
@@ -551,6 +679,14 @@ class scheduler extends Component {
 														attraction.id
 													)}>
 												<FontAwesomeIcon icon={faClock} />
+										</Button>
+
+										<Button variant="outline-primary" 
+											onClick={ () => this.userRating( 
+														attraction.name,
+														attraction.id
+													)}>
+												<FontAwesomeIcon icon={faStar} />
 										</Button>
 
 										<Button onClick={ () => this.favoriteItem(

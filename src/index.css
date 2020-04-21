@@ -34,6 +34,19 @@ p {
   width: 100%;
 }
 
+.nav-bar Button {
+  color: #FF5E5B;
+  background-color: transparent;
+  border-color: #FF5E5B;
+}
+
+.nav-bar Button:hover
+{
+  color: #FFFFEA;
+  background-color: #FF5E5B;
+  border-color: #FFFFEA;
+}
+
 .nav-bar .navButtons {
   text-decoration: none;
   color: rgb(15, 5, 95);
