@@ -28,7 +28,9 @@ export class Lunch extends Component {
     }
     handleChange = input => e => {
         this.setState({[input]: e.target.value})
-      
+        if(input === 'budget'){
+          this.props.lailafunc(e.target.value);
+        } 
     }
     closeAll = () => {
         this.refs.run1.instance.hide();
@@ -166,9 +168,8 @@ export class Lunch extends Component {
             </Row>      
         </div>;
 
-    return (
-        <div id="meals2" className="breakfast">   
-         <Accordion defaultActiveKey="1">
+/*
+   <Accordion defaultActiveKey="1">
      <Card className="notes2">
 
        <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
@@ -193,9 +194,48 @@ export class Lunch extends Component {
        </Accordion.Collapse>
 
      </Card>
+
+
+ 
     </Accordion>
-        
-        
+ 
+     
+
+
+
+
+
+
+*/
+    return (
+        <div id="meals2" className="breakfast">   
+      
+
+    <Row>
+    
+    <div id="lll" className="llll">
+        <h1>Lunch</h1>
+    </div> 
+    <Card  style={{ width: '34rem', height: '14rem'  }}  >
+    <Card.Img src="https://lh3.googleusercontent.com/XCBacUYzIkVIVub-ORPRrq1bTcGV-5MVhiN6OPMFcD-NsZPIiu1s2qOlP_ss-xZ0b7cKTK4QfBBqoNILXGFDDMWTCwS8li4kfO5HGp4ZQ6dWpbXY8hj9dIPA3-_iBvo7H4ghw6G0Dg=w2400" height="250" alt="Card image" />
+      <Card.ImgOverlay>
+        <Card.Body>
+          <div class="bottom-left2">
+                <div class="settingForm2">
+                <div>
+                    <h3>I'm Not Eating</h3>
+                    <input 
+                    type="checkbox" 
+                    checked={ this.state.checked } 
+                    onChange={ this.handleChangeCheck } />
+                </div>
+                { content }
+                </div>
+          </div>
+        </Card.Body>
+      </Card.ImgOverlay>
+  </Card>    
+  </Row>
     </div>
     );
     }   

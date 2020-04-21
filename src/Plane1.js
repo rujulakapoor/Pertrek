@@ -732,9 +732,9 @@ export class Plane1 extends Component {
         var n2=this.state.plane2n.length;
         var n3=this.state.plane3n.length;
         var temp=0;
-        alert(n1)
-        alert(n2)
-        alert(n3)
+        //alert(n1)
+        //alert(n2)
+        //alert(n3)
         if(n1>0 && n2>0 && n3>0){
            temp=3;
         }
@@ -867,6 +867,8 @@ export class Plane1 extends Component {
       }
 
     render() {
+      
+
         const { showing, showing2, showing3,showing4,showing5,showing6 } = this.state;
         return(
 
