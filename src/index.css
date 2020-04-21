@@ -68,6 +68,11 @@ Link {
   font-size: 23px;
 }
 
+.nav-bar Button{
+  color: #FF5E5B;
+}
+
+
 /* HOME */
 
 .home h3 {
@@ -173,6 +178,7 @@ Link {
   background-color: rgb(255, 255, 255);
   padding: 3%;
 }
+
 
 .planner .sandcastle {
   margin-left: 25%;
@@ -874,6 +880,7 @@ Link {
 .dropdown {
   position: relative;
   display: inline-block;
+  color: #FF5E5B;
 }
 
 .dropdown-content {
