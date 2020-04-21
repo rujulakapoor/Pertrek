@@ -173,7 +173,7 @@ console.log("HERE")
     case 1:
       return(
         <div>
-        <Jumbotron>
+        <Jumbotron style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}>
           <h1> My Itineraries </h1>
         </Jumbotron>
 
