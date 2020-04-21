@@ -4,13 +4,15 @@ import {
   Link
 } from "react-router-dom";
 import fire from './config/fire'
-import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button, Container, Row, Col } from 'react-bootstrap';
+import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button, Container, Row, Col, Card, CardGroup } from 'react-bootstrap';
 import bootbox from 'bootbox';
 import slide1 from './img/new-zealand.jpg';
 import slide2 from './img/rough-sea-waves.jpg';
 import slide3 from './img/cape-town-cropped.jpg';
 import banner from './img/banner.png';
 import dragon from './img/Dragon-Boat.png'
+import planning from './img/planning-light-square.jpg';
+import suitcase from './img/suitcase-square.jpg';
 import bg from './img/pertrek_home_bg.png';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -147,21 +149,51 @@ class Home extends Component {
           </div> */}
 
           <div className="options">
+
             <div className="banner">
               <img src={banner} />
-
             </div>
 
-            <div className="infoBox">
-              <div id="infoLeft">
-                <img src={dragon} style={{height:"80%", width:"80%"}}></img>
-              </div>
-              
-              <div id="infoRight">
-                <h4 style={{ color:"#FF5E5B" }}>Create</h4>
-              </div>
-
-            </div>
+            <CardGroup style={{padding:"20px"}}>
+              <Card>
+                <Card.Img variant="top" src={dragon} style={{padding:"20px", borderRadius: "25px"}}/>
+                <Card.Body>
+                  <Card.Title>Explore</Card.Title>
+                  <Card.Text>
+                    This is a wider card with supporting text below as a natural lead-in to
+                    additional content. This content is a little bit longer.
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </Card.Footer>
+              </Card>
+              <Card>
+                <Card.Img variant="top" src={planning} style={{padding:"20px", borderRadius: "25px"}}/>
+                <Card.Body>
+                  <Card.Title>Plan</Card.Title>
+                  <Card.Text>
+                    This card has supporting text below as a natural lead-in to additional
+                    content.{' '}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </Card.Footer>
+              </Card>
+              <Card>
+                <Card.Img variant="top" src={suitcase} style={{padding:"20px", borderRadius: "25px"}}/>
+                <Card.Body>
+                  <Card.Title>Store</Card.Title>
+                  <Card.Text>
+                    Save your created itineraries, favorited events, and other travel preferences to make your next trip even easier to plan
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
+                  <small className="text-muted">Last updated 3 mins ago</small>
+                </Card.Footer>
+              </Card>
+            </CardGroup>
 
 
           </div>
