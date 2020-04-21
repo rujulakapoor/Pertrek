@@ -80,7 +80,7 @@ Link {
 
 .home .searchBar {
   position: relative;
-  width: 70%;
+  width: 100%;
   display: inline-block;
 }
 
@@ -99,25 +99,27 @@ Link {
 .home .main-text
 {
   position: absolute;
-  top: 16%;
+  top: 40%;
   width: 60%;
-  background-color: rgba(41, 41, 41, 0.4);
+  background-color: rgba(41, 41, 41, 0.6);
+  box-shadow: rgba(41, 41, 41, 0.2);
   padding: 2%;
   margin-left: 20%;
   z-index: 100;
+  border-radius: 25px;
 }
 
 .home .main-text Button {
-  color: #FFF;
+  color: #FFFFEA;
   background-color: #FF5E5B;
-  border-color: #FFF;
-  margin-left: 50%;
+  border-color: #FFFFEA;
 }
 
 .home .main-text Button:hover
 {
   color: #FF5E5B;
-  background-color: rgb(255, 255, 255);
+  background-color: #FFFFEA;
+  border-color: #FF5E5B;
 }
 
 .home Col{
@@ -132,31 +134,7 @@ Link {
   align-items: center;
   align-content: center;
   text-align: center;
-}
-
-.home .infoBox {
-  border-radius: 25px;
-  background: rgb(182, 182, 182);
-  padding: 20px;
-  width: 80%;
-  height: 30vh;
-  margin: auto;
-  margin-top: 3%;
-}
-
-.home #infoLeft {
-  float:left;
-  width:20%;
-}
-
-.hom #infoLeft img {
-  height:20px;
-  width:20px;
-}
-
-.home #infoRight {
-  float:right;
-  width:80%;
+  margin-top: 20px;
 }
 
 .home .carousel-container{
@@ -166,17 +144,14 @@ Link {
   z-index: -10;
 }
 
-.home .carousel-container Button:hover {
-  color: #FFF;
-  background-color: rgb(126, 126, 126, rgba(0,0,0,0.2));
-  border-color: #FFF;
-}
-
 .home .banner {
-  height:300px;
-  width:100%;
+  /* height:300px;
+  width:100%; */
+  max-width:100%;
+  max-height:100%;
   overflow:hidden;
   z-index: 100;
+  box-shadow: rgba(41, 41, 41, 0.9);
 }
 
 /* FAVORITES */

@@ -6,9 +6,9 @@ import {
 import fire from './config/fire'
 import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button, Container, Row, Col, Card, CardGroup } from 'react-bootstrap';
 import bootbox from 'bootbox';
-import slide1 from './img/new-zealand.jpg';
+import slide1 from './img/cape-town-cropped.jpg';
 import slide2 from './img/rough-sea-waves.jpg';
-import slide3 from './img/cape-town-cropped.jpg';
+import slide3 from './img/new-zealand.jpg';
 import banner from './img/banner.png';
 import dragon from './img/Dragon-Boat.png'
 import planning from './img/planning-light-square.jpg';
@@ -78,30 +78,42 @@ class Home extends Component {
                   <div data-src={slide2} />
                   <div data-src={slide3}/>
             </AwesomeSlider>
-            
-            {/* <Carousel showThumbs={false} showStatus={false} dynamicHeight={true}>
-                <div>
-                    <img src={slide1} />
-                    <p className="legend">Legend 1</p>
-                </div>
-                <div>
-                    <img src={slide2} />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src={slide3} />
-                    <p className="legend">Legend 3</p>
-                </div>
-            </Carousel> */}
 
-            <div className="main-text">
-              <h3>P E R T R E K</h3>
-              <h2>YOUR PERFECT VACATION STARTS HERE</h2>
-              <Button href="#anchor" style={{color: "#FFF",backgroundColor: "#FF5E5B", borderColor: "#FFF", marginLeft: "48%"}} >Get Started</Button>
+
+            <div className="main-text" id="#top">
+              <h2>Where's your dream destination?</h2>
+              {/* <Button href="#anchor" style={{color: "#FFF",backgroundColor: "#FF5E5B", borderColor: "#FFF", marginLeft: "48%"}} >Get Started</Button> */}
+              <InputGroup onSubmit={this.handleSubmit} style={{ width:"100%" }}>
+                  <DropdownButton
+                    as={InputGroup.Append}
+                    variant="outline-secondary"
+                    title={curr.state.category}
+                    id="input-group-dropdown-2"
+                    onSelect={
+                      function(evt){
+                        curr.setState({category: evt});
+                      }
+                    }
+                  >
+                    <Dropdown.Item eventKey="Restaurants">Restaurants</Dropdown.Item>
+                    <Dropdown.Item eventKey="Attractions">Attractions</Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={this.onCustomCategory}>
+                      Custom
+                    </Dropdown.Item>
+                  </DropdownButton>
+
+                  <Form.Control type="text" placeholder="Enter city, address, or zip code" value={this.state.value} onChange={this.handleChange} style={{margin:"auto"}}/>
+
+                  <Link to={{
+                        pathname: "/scheduler/" + this.state.category + "/" + this.state.value,
+                      }}><Button variant="secondary" value="Submit" type="submit">Search</Button>
+                  </Link>
+
+                </InputGroup>
             </div>
           </div>
 
-          <br/>
           
           
 
@@ -154,18 +166,17 @@ class Home extends Component {
               <img src={banner} />
             </div>
 
-            <CardGroup style={{padding:"20px"}}>
+            <CardGroup style={{padding:"30px", marginBottom:"40px"}}>
               <Card>
                 <Card.Img variant="top" src={dragon} style={{padding:"20px", borderRadius: "25px"}}/>
                 <Card.Body>
                   <Card.Title>Explore</Card.Title>
                   <Card.Text>
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.
+                    Use a personalized search to find restaurants, attractions, or other activities around your next vacation spot
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small className="text-muted">Last updated 3 mins ago</small>
+                  <small className="text-muted"><a href="#top">Search a destination</a></small>
                 </Card.Footer>
               </Card>
               <Card>
@@ -173,12 +184,12 @@ class Home extends Component {
                 <Card.Body>
                   <Card.Title>Plan</Card.Title>
                   <Card.Text>
-                    This card has supporting text below as a natural lead-in to additional
-                    content.{' '}
+                    Create an all-encompassing itinerary that will make your vacation stress-free
+                    {' '}
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small className="text-muted">Last updated 3 mins ago</small>
+                  <small className="text-muted"><Link to="/itform">Create an itinerary</Link></small>
                 </Card.Footer>
               </Card>
               <Card>
@@ -190,7 +201,7 @@ class Home extends Component {
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small className="text-muted">Last updated 3 mins ago</small>
+                  <small className="text-muted"><Link to="/account">View your account details</Link></small>
                 </Card.Footer>
               </Card>
             </CardGroup>

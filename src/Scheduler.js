@@ -479,7 +479,7 @@ class scheduler extends Component {
 
 		var message;
 		if(hasTime) {
-			message = "Average time user spent at " + name + ": " + timeAvg + "hours";
+			message = "Average time user spent at " + name + ": " + timeAvg + " hours";
 		}
 		else {
 			message = name + " does not have any user submitted information";
