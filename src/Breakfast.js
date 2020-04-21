@@ -15,6 +15,7 @@ export class Breakfast extends Component {
         this.changeMeal= this.changeMeal.bind(this)
         this.changeWakeup= this.changeWakeup.bind(this)
         this.changeSleep= this.changeSleep.bind(this)
+
         this.save= this.save.bind(this)
         this.state = { 
             checked: true,
@@ -138,6 +139,7 @@ export class Breakfast extends Component {
         if(this.state.editmealcount) {
           
           return(
+            
           <div className="MealsStuff" id="moreMealStuff">      
           <input type="text" value={this.state.mealcount} placeholder={this.state.meal}  onChange={this.handleChange('meal')}/>
           </div>
@@ -196,11 +198,13 @@ export class Breakfast extends Component {
     mealButtonRender() {
       if(this.state.editmealcount) {
         return(   
+             
              <div className="MealsStuff" id="moreMealStuff">   
              <Button variant="light" onClick={this.changeMeal}>
              <FiSave />
              </Button>
              </div>
+             
         )
         } else {
           return(     
@@ -345,32 +349,8 @@ export class Breakfast extends Component {
             </Row>      
         </div>;
 
-    return (
-      <div id="meals2" className="breakfast">
-      <div id="meals4">
-      <Button variant="light" onClick={this.save}>
-             <FiSave />
-      </Button>  
-      <Row>
-      <Col> 
-      <h4>  Daily Meal Count:  </h4>
-          {this.mealRender()}
-          {this.mealButtonRender()}
-      </Col> 
-      <Col> 
-      <h4>  Daily Wake Up Time:  </h4>
-          {this.wakeupRender()}
-          {this.wakeupButtonRender()}
-      </Col>  
-      <Col>     
-      <h4>  Daily Sleep Time:  </h4>
-          {this.sleepRender()}
-          {this.sleeppButtonRender()} 
-      </Col>     
-      </Row> 
-      </div>  
-
-     <Accordion defaultActiveKey="1">
+/*
+<Accordion defaultActiveKey="1">
      <Card className="notes2">
 
        <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
@@ -398,9 +378,71 @@ export class Breakfast extends Component {
     </Accordion>
 
 
+*/
+    return (
+      <div id="meals2" className="breakfast">
+      <div id="meals4">
+       <div id="savemealc">
+      <Button variant="light" onClick={this.save}>
+             <FiSave />
+      </Button>  
+      </div> 
+      <Row>
+      <Col> 
+      <div id="outlinemeal" className="MealsStuffh3"> 
+      <h7>  Daily Meal Count:  </h7>
+          {this.mealRender()}
+          {this.mealButtonRender()}
+     </div>    
+      </Col> 
+      <Col> 
+      <div id="outlinemeal" className="MealsStuffh3"> 
+      <h7>  Daily Wake Up Time:  </h7>
+          {this.wakeupRender()}
+          {this.wakeupButtonRender()}
+      </div>     
+      </Col>  
+      <Col>   
+      <div id="outlinemeal" className="MealsStuffh3">   
+      <h7>  Daily Sleep Time:  </h7>
+          {this.sleepRender()}
+          {this.sleeppButtonRender()} 
+      </div>      
+      </Col>     
+      </Row> 
+      </div>  
+
+     
+      <div id="movedown">
+    <Row>
+     
+    <div id="lll" className="llll">
+        <h1>Breakfast</h1>
+    </div>  
+
+    <Card  style={{ width: '34rem', height: '14rem'  }}  >
+    <Card.Img src="https://lh3.googleusercontent.com/SUpYumojviGcsXU8-o05k2tm-b0MMD3sG6iQzag0Hl8nQg8lOk0W-063HHYzkg9w1nZe6Sn3-2meMJ-zNhl4OqVGNypgZYYgAiEBooPqCA4CmyoPqDWN730ekMpmA-i8WVLWSxrjRQ=w2400" height="250" alt="Card image" />
+      <Card.ImgOverlay>
+        <Card.Body>
+          <div class="bottom-left2">
+                <div class="settingForm2">
+                <div>
+                    <h3>I'm Not Eating</h3>
+                    <input 
+                    type="checkbox" 
+                    checked={ this.state.checked } 
+                    onChange={ this.handleChangeCheck } />
+                </div>
+                { content }
+                </div>
+          </div>
+          </Card.Body>
+      </Card.ImgOverlay>
+  </Card>   
+  
+  </Row>
+  </div> 
           
-
-
         
     </div>
     );

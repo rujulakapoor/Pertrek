@@ -1,4 +1,6 @@
 /* UNIVERSAL */
+
+
 h6 {
   font-family: 'Palanquin Dark', sans-serif;
 }
@@ -17,6 +19,13 @@ h3 {
 
 h2 {
   font-family: 'Montserrat', sans-serif;
+}
+h7 {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: x-large;
+  margin-top: 5%;
+
 }
 
 p {
@@ -224,6 +233,19 @@ Link {
   background-color:white;
   border: 2px solid #ddd;
 }
+.settingForm2{
+  margin-top: 5%;
+  margin-left: 5%;
+}
+/* Bottom left text */
+.bottom-left2 {
+  position: absolute;
+  height: 85%;
+  width: 74%;
+  background-color:white;
+  border: 2px solid #ddd;
+  bottom: 0px;
+}
 .bottom-middle {
   position: absolute;
   bottom: 330px;
@@ -232,6 +254,21 @@ Link {
   width: 65%;
   background-color:transparent;
   
+}
+#lll{
+  background-color: #ff5e5b;
+  height: 190pt;
+  width: 250pt;
+  margin-right: 2%;
+  
+  
+  
+}
+.llll h1{
+  font-size: 40px;
+  color: white;
+  text-align: center;
+  margin-top: 30%;
 }
 #rock{
   font-size: 18px;
@@ -327,7 +364,7 @@ Link {
   margin-bottom: 0%;
   
 }
-.Account h4{
+.Account h5{
   display: block;
   font-size: 0px;
   font-family: 'Quicksand', sans-serif;
@@ -404,9 +441,15 @@ Link {
 #meal2{
   height: 50pt;
 }
+#meals2{
+  margin-top: 2%;
+  margin-bottom: 1%;
+  color: white;
+}
 #meals4{
   height: 130pt;
   float: center;
+ 
   
 }
 .MealsStuff input{
@@ -414,7 +457,8 @@ Link {
   box-shadow: none;
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
-  border-bottom: 3px dotted #c7d0d8;
+  border-bottom: 3px solid white;
+  background-color: #ff5e5b;
   margin-bottom: 1%;
   
 }
@@ -422,9 +466,34 @@ Link {
   margin-top: 3%;
   font-size: 20pt;
   margin-left: 5%;
+  
 }
+
 #moreMealStuff{
   margin-left: 5%;
+  
+}
+#outlinemeal{
+  background-color: #ff5e5b;
+  border-width: 4px;
+  border: 3px solid #ff5e5b;
+  height: 120pt;
+  width: 160pt;
+  text-align: center;
+  margin-bottom: 100pt;
+  color: white;
+  
+  
+}
+#savemealc{
+  margin-bottom: 1%;
+}
+#movedown{
+  margin-top: 5%;
+}
+#piechart{
+  height: 300pt;
+  width: 300pt;
 }
 #RentalCar{
   text-align: center;

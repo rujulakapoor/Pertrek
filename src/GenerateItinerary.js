@@ -27,6 +27,9 @@ import bootbox from 'bootbox';
 import AddEventModal from './AddEventModal'
 import MiniTravelCosts from './MiniTravelCosts'
 import OriginalEventModal from './OriginalEventModal'
+import PieChart from 'react-minimal-pie-chart';
+import ReactMinimalPieChart from 'react-minimal-pie-chart';
+import { Progress } from 'semantic-ui-react'
 
 import {
   EmailShareButton,
@@ -92,6 +95,10 @@ constructor(props){
   this.newbudget = this.newbudget.bind(this);
   this.handleMiniTravel = this.handleMiniTravel.bind(this)
   this.handleAddBreakfast = this.handleAddBreakfast.bind(this)
+  this.handleAddLunch = this.handleAddLunch.bind(this)
+  this.handleAddDinner = this.handleAddDinner.bind(this)
+  this.handleAddSnack = this.handleAddSnack.bind(this)
+  this.handleAddOther = this.handleAddOther.bind(this)
   this.handleOriginalAdd = this.handleOriginalAdd.bind(this)
   this.deleteOldEvent = this.deleteOldEvent.bind(this)
   this.state = {
@@ -138,6 +145,10 @@ constructor(props){
     totalexpenses: 0,
     minitravel: 0,
     breakfast: 0,
+    lunch: 0,
+    dinner: 0,
+    snack: 0,
+    other: 0,
     currentlyEditingOriginal: false
     
 
@@ -150,6 +161,30 @@ handleAddBreakfast(cost) {
     breakfast: cost
   })
   console.log("HANDLED BREAKFAST")
+}
+handleAddLunch(cost) {
+  this.setState({
+    lunch: cost
+  })
+  console.log("HANDLED Lunch")
+}
+handleAddDinner(cost) {
+  this.setState({
+    dinner: cost
+  })
+  console.log("HANDLED dinner")
+}
+handleAddSnack(cost) {
+  this.setState({
+    snack: cost
+  })
+  console.log("HANDLED snack")
+}
+handleAddOther(cost) {
+  this.setState({
+    other: cost
+  })
+  console.log("HANDLED other")
 }
 handleMiniTravel(cost) {
   this.setState({
@@ -490,6 +525,7 @@ handleSavedEdits() {
 
   }
 
+  
   getDestinations() {
     if(this.state.retreived === false ){
       const user = fire.auth().currentUser.uid;
@@ -578,7 +614,81 @@ handleSavedEdits() {
       this.state.retreived=true;
       }
     }
+    
 
+renderTotalMealCost() {
+
+  var totalMeal =  (parseInt(this.state.breakfast)) + (parseInt(this.state.lunch)) + (parseInt(this.state.dinner))  +  (parseInt(this.state.snack)  +  (parseInt(this.state.other)));
+  var var1 = parseInt(this.state.breakfast);
+  var var2 = parseInt(this.state.lunch);
+  var var3 = parseInt(this.state.dinner);
+  var var4 = parseInt(this.state.other);
+  var var5 = parseInt(this.state.snack);
+
+  if(totalMeal!=0){
+  var bPercent= ((var1/totalMeal))*100;
+  bPercent = Math.round(bPercent);
+
+  var lPercent= ((var2/totalMeal))*100;
+  lPercent = Math.round(lPercent);
+
+  var lPercent= ((var2/totalMeal))*100;
+  lPercent = Math.round(lPercent);
+
+  var dPercent= ((var3/totalMeal))*100;
+  dPercent = Math.round(dPercent);
+
+  var oPercent= ((var4/totalMeal))*100;
+  oPercent = Math.round(oPercent);
+
+  var sPercent= ((var5/totalMeal))*100;
+  sPercent = Math.round(sPercent);
+  }
+  else{
+    var bPercent=0;
+    var lPercent=0;
+    var dPercent=0;
+    var oPercent=0;
+    var sPercent=0;
+  }
+   return(
+    <div>
+      <Row>
+      <Col>
+      <h2> Current Meal Cost : ${totalMeal} </h2>
+      </Col>
+      <Col >
+      <h2> Recommended Meal Budget : $60 </h2>
+      </Col>
+      </Row>
+      <div id="piechart">
+      <Row>
+      <Col >    
+      <div>
+
+      <ProgressBar>
+      <ProgressBar variant="success" now={bPercent} key={1} label="Breakfast"/>
+      <ProgressBar variant="warning" now={lPercent} key={2} label="Lunch"/>
+      <ProgressBar variant="info" now={dPercent} key={3} label="Dinner" />
+      <ProgressBar variant="success" now={sPercent } label="Dessert" key={4} />
+      <ProgressBar variant="info" now={oPercent} label="Other" key={5} />
+      </ProgressBar>
+
+
+      <ProgressBar>
+      <ProgressBar variant="success" now={5} key={1} label="Breakfast"/>
+      <ProgressBar variant="warning" now={15} key={2} label="Lunch"/>
+      <ProgressBar variant="info" now={25} key={3} label="Dinner" />
+      <ProgressBar variant="success" now={5} label="Dessert" key={4} />
+      <ProgressBar variant="info" now={5} label="Other" key={5} />
+      </ProgressBar>
+    </div>
+</Col>
+</Row>
+      </div>
+    </div>
+  )
+}   
 
     
 renderCostBar() {
@@ -620,7 +730,7 @@ renderCostBar() {
  
      
   }
-  var totalwithtravel = parseInt(this.state.totalexpenses) + (parseInt(this.state.minitravel) + parseInt(this.state.breakfast)) * (parseInt(this.state.numdays));
+  var totalwithtravel = parseInt(this.state.totalexpenses) + (parseInt(this.state.minitravel) + ((parseInt(this.state.breakfast)) * (parseInt(this.state.numdays))) + ((parseInt(this.state.lunch)) * (parseInt(this.state.numdays))) + ((parseInt(this.state.dinner)) * (parseInt(this.state.numdays))) +  ((parseInt(this.state.snack)) * (parseInt(this.state.numdays)))  +   ((parseInt(this.state.other)) * (parseInt(this.state.numdays))));
   return(
     <div>
       <h2> Current Cost : ${totalwithtravel} </h2>
@@ -1218,10 +1328,11 @@ let statenow = this
                 <Card.Body>
                 <div className="MealsStuff" id="moreMealStuff">
                 <Breakfast lailafunc={this.handleAddBreakfast} / >
-                <Lunch / >
-                <Dinner / >  
-                <Snack />
-                <Other />
+                <Lunch lailafunc={this.handleAddLunch} / >
+                <Dinner lailafunc={this.handleAddDinner} / >  
+                <Snack lailafunc={this.handleAddSnack}/>
+                <Other lailafunc={this.handleAddOther} />
+                {this.renderTotalMealCost()}
                 </div> 
                 </Card.Body>
               </Accordion.Collapse>
@@ -1341,11 +1452,11 @@ let statenow = this
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
       <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
-                <Breakfast / >
-                <Lunch / >
-                <Dinner / >  
-                <Snack />
-                <Other />
+                <Breakfast lailafunc={this.handleAddBreakfast} / >
+                <Lunch lailafunc={this.handleAddLunch} / >
+                <Dinner lailafunc={this.handleAddDinner}/ >  
+                <Snack lailafunc={this.handleAddSnack} / >
+                <Other lailafunc={this.handleAddOther} / >
                 </div>       
 
       </Tab>

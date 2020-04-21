@@ -31,6 +31,7 @@
     "react-gradient-timepicker": "0.0.3",
     "react-icons": "^3.9.0",
     "react-map-gl": "^5.2.3",
+    "react-minimal-pie-chart": "^7.2.0",
     "react-native": "^0.61.5",
     "react-native-cli": "^2.0.1",
     "react-native-locationiq": "^0.1.0",
@@ -50,6 +51,8 @@
     "redux-firestore": "^0.12.0",
     "redux-thunk": "^2.3.0",
     "register-service-worker": "^1.6.2",
+    "semantic-ui-progress": "^2.3.1",
+    "semantic-ui-react": "^0.88.2",
     "yelp-fusion": "^3.0.0"
   },
   "scripts": {

@@ -251,24 +251,24 @@ class Account extends Component {
         
         <div id="topbottom">  
 
-        <h4>hello</h4>
+        <h5>hello</h5>
         <i class="fas fa-home fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i>
         <Link to='/' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12">Home</span> </Link>
         </div>
 
         <div id="topbottom">  
-        <h4>hello</h4>
+        <h5>hello</h5>
         <i class="fas fa-plus-circle fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i> 
         <Link to='/itform' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12" >Create New</span></Link>
         </div>
 
         <div id="topbottom">  
-        <h4>hello</h4> 
+        <h5>hello</h5> 
         <i class="fas fa-cog fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}} ></i>
         <Link to='/settings' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
         </div>
         <div id="topbottom">  
-        <h4>hello</h4>
+        <h5>hello</h5>
         <i class="fas fa-key fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i>
         <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
         </div>
