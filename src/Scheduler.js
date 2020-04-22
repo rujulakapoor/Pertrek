@@ -716,7 +716,7 @@ class scheduler extends Component {
 										</Card.Text>
 
 										<OverlayTrigger
-											key="top"
+											key="info"
 											placement="top"
 											overlay={popInfo}
 										>
@@ -730,7 +730,7 @@ class scheduler extends Component {
 										</OverlayTrigger>
 										
 										<OverlayTrigger
-											key="top"
+											key="fav"
 											placement="top"
 											overlay={popFav}
 										>
@@ -759,8 +759,8 @@ class scheduler extends Component {
 									<Accordion.Collapse eventKey="1">
 										<Card.Body>
 											<OverlayTrigger
-												key="left"
-												placement="left"
+												key="time"
+												placement="top"
 												overlay={popTime}
 											>
 												<Button variant="outline-primary" 
@@ -773,8 +773,8 @@ class scheduler extends Component {
 											</OverlayTrigger>
 
 											<OverlayTrigger
-												key="left"
-												placement="left"
+												key="rating"
+												placement="top"
 												overlay={popRating}
 											>
 												<Button variant="outline-primary" 
@@ -790,7 +790,7 @@ class scheduler extends Component {
 									</Accordion.Collapse>
 
 									<OverlayTrigger
-										key="left"
+										key="map"
 										placement="left"
 										overlay={popMap}
 									>
