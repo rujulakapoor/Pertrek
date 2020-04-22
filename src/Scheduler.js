@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Accordion } from 'react-bootstrap';
+import { Card, Button, Accordion, Tooltip, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,6 +8,47 @@ import fire from "./config/fire";
 import bootbox from 'bootbox';
 import bootstrap from 'bootstrap';
 
+const popTime = (
+	<Popover id="popover-basic">
+	  <Popover.Title as="h3">Help make Pertrek even better!</Popover.Title>
+	  <Popover.Content>
+		Submit the amount of time you spent here
+	  </Popover.Content>
+	</Popover>
+);
+
+const popRating = (
+	<Popover id="popover-basic">
+	  <Popover.Title as="h3">Help make Pertrek even better!</Popover.Title>
+	  <Popover.Content>
+		Submit your rating of this location
+	  </Popover.Content>
+	</Popover>
+);
+
+const popFav = (
+	<Popover id="popover-basic">
+	  <Popover.Content>
+		Add to your favorites
+	  </Popover.Content>
+	</Popover>
+);
+
+const popInfo = (
+	<Popover id="popover-basic">
+	  <Popover.Content>
+		View user submitted information
+	  </Popover.Content>
+	</Popover>
+);
+
+const popMap = (
+	<Popover id="popover-basic">
+	  <Popover.Content>
+		View map
+	  </Popover.Content>
+	</Popover>
+);
 
 class scheduler extends Component {
 	constructor(props) {
@@ -81,7 +122,7 @@ class scheduler extends Component {
 			params: {
 					term: this.state.categorySelect,
 					location: this.state.citySelect,
-					limit:15
+					limit:5
 			}
 			})
 			.then(function (response) {
@@ -625,6 +666,7 @@ class scheduler extends Component {
 			message: "<div className='mapBox'><iframe width='100%' height='100%' frameBorder='0' src=" + mapSrc + "></iframe><br/></div>"
 		});
 	}
+	
 
 
 	render() {
@@ -673,31 +715,26 @@ class scheduler extends Component {
 											{ attraction.description }
 										</Card.Text>
 
-										<Button variant="outline-secondary" 
-											onClick={ () => this.showUserInfo( 
-														attraction.name,
-														attraction.id
-													)}>
-												<FontAwesomeIcon icon={faInfo} />
-										</Button>
-
-										<Button variant="outline-primary" 
-											onClick={ () => this.userTime( 
-														attraction.name,
-														attraction.id
-													)}>
-												<FontAwesomeIcon icon={faClock} />
-										</Button>
-
-										<Button variant="outline-primary" 
-											onClick={ () => this.userRating( 
-														attraction.name,
-														attraction.id
-													)}>
-												<FontAwesomeIcon icon={faStar} />
-										</Button>
-
-										<Button onClick={ () => this.favoriteItem(
+										<OverlayTrigger
+											key="top"
+											placement="top"
+											overlay={popInfo}
+										>
+												<Button variant="outline-secondary" 
+													onClick={ () => this.showUserInfo( 
+																attraction.name,
+																attraction.id
+															)}>
+														<FontAwesomeIcon icon={faInfo} />
+												</Button>
+										</OverlayTrigger>
+										
+										<OverlayTrigger
+											key="top"
+											placement="top"
+											overlay={popFav}
+										>
+											<Button onClick={ () => this.favoriteItem(
 																attraction.name, 
 																attraction.price, 
 																attraction.popularity, 
@@ -708,27 +745,65 @@ class scheduler extends Component {
 														}										
 														variant="outline-danger">
 															<FontAwesomeIcon icon={faHeart} />
-										</Button>
+											</Button>
+										</OverlayTrigger>
 
+										
 									</Card.Body>
 
 									<Card.Header>
 										<Accordion.Toggle as="h2" variant="link" eventKey="1">
-											{ attraction.address }
+											Feedback?
 										</Accordion.Toggle>
 									</Card.Header>
 									<Accordion.Collapse eventKey="1">
 										<Card.Body>
-											{/* <iframe width="100%" frameBorder="0" src={attraction.map}></iframe> */}
-											<Button variant="outline-primary" 
-											onClick={ () => this.showMap( 
+											<OverlayTrigger
+												key="left"
+												placement="left"
+												overlay={popTime}
+											>
+												<Button variant="outline-primary" 
+													onClick={ () => this.userTime( 
+																attraction.name,
+																attraction.id
+															)}>
+														<FontAwesomeIcon icon={faClock} />
+												</Button>
+											</OverlayTrigger>
+
+											<OverlayTrigger
+												key="left"
+												placement="left"
+												overlay={popRating}
+											>
+												<Button variant="outline-primary" 
+												onClick={ () => this.userRating( 
+															attraction.name,
+															attraction.id
+														)}>
+													<FontAwesomeIcon icon={faStar} />
+												</Button>
+											</OverlayTrigger>
+
+										</Card.Body>
+									</Accordion.Collapse>
+
+									<OverlayTrigger
+										key="left"
+										placement="left"
+										overlay={popMap}
+									>
+										<Card.Footer 
+										as="h2"
+										onClick={ () => this.showMap( 
 														attraction.name,
 														attraction.map
 													)}>
-												<FontAwesomeIcon icon={faMap} />
-										</Button>
-										</Card.Body>
-									</Accordion.Collapse>
+												{ attraction.address }
+										</Card.Footer>
+									</OverlayTrigger>
+									
 
 								</Card>
 							</Accordion>
