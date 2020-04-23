@@ -911,9 +911,9 @@ export class Plane1 extends Component {
                 }
                 { showing3 
                     ? <div id="actwo2">
-                        <button id="rock7" onClick={() => this.setState({ showing: !showing })}></button>
-                        <button id="rock7" onClick={() => this.setState({ showing2: !showing2 })}></button>
-                        <button id="rock7" onClick={() => this.setState({ showing6: !showing6 })}></button>
+                        <button id="rock7" onClick={() => this.setState({ showing: !showing })}>1</button>
+                        <button id="rock7" onClick={() => this.setState({ showing2: !showing2 })}>2</button>
+                        <button id="rock7" onClick={() => this.setState({ showing6: !showing6 })}>3</button>
                     </div>
                     
                     : <div>
