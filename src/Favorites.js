@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Button, Accordion } from 'react-bootstrap';
+import { Card, Button, Jumbotron } from 'react-bootstrap';
 import StarRatings from 'react-star-ratings';
 import fire from "./config/fire";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -95,7 +95,7 @@ class Favorites extends Component {
 
                 <div className="planner">
     
-                    <h1>My Favorites</h1>
+                    <h1> My Favorites </h1>
     
                     {Object.entries(this.state.alreadyFaved).map(([key,value]) =>
     

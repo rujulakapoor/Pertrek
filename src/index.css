@@ -32,6 +32,7 @@ p {
   font-family: 'Quicksand', sans-serif;
 }
 
+
 /* NAV BAR */
 .nav-bar {
   box-shadow: 1px 2px 4px rgba(41, 41, 41, 0.2);
@@ -41,6 +42,19 @@ p {
   /* position: fixed; */
   z-index: 100;
   width: 100%;
+}
+
+.nav-bar Button {
+  color: #FF5E5B;
+  background-color: transparent;
+  border-color: #FF5E5B;
+}
+
+.nav-bar Button:hover
+{
+  color: #FFFFEA;
+  background-color: #FF5E5B;
+  border-color: #FFFFEA;
 }
 
 .nav-bar .navButtons {
@@ -62,6 +76,11 @@ Link {
   color: white;
   font-size: 23px;
 }
+
+.nav-bar Button{
+  color: #FF5E5B;
+}
+
 
 /* HOME */
 
@@ -169,6 +188,7 @@ Link {
   padding: 3%;
 }
 
+
 .planner .sandcastle {
   margin-left: 25%;
   opacity: 90%;
@@ -238,11 +258,14 @@ Link {
   height: 10vw;
 }
 
+.mapBox {
+  height: 400px;
+  background-color: royalblue;
+}
+
 .planner Button {
   margin-right:5px;
 }
-
-
 
 /* RUJULA STUFF */
 #container {
@@ -1009,6 +1032,7 @@ Link {
 .dropdown {
   position: relative;
   display: inline-block;
+  color: #FF5E5B;
 }
 
 .dropdown-content {
