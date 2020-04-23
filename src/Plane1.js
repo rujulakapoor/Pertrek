@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {FiEdit2, FiSave,FiX, FiPlus} from 'react-icons/fi'
 import {Button, Jumbotron,Table, Tabs,Tab, TabPane, Accordion,Card, Form, Container, Row, Col,
     Nav, NavItem, NavLink } from 'react-bootstrap'
-import {faCar} from '@fortawesome/free-solid-svg-icons'   
+import {faCar} from '@fortawesome/free-solid-svg-icons'  
 import React, { Component } from "react";
 import fire from "./config/fire";
   
@@ -873,10 +873,13 @@ export class Plane1 extends Component {
         return(
 
             <div>
-                <div>
-                <Col>
-                 <button id="planebut2" onClick={this.countButtons}>Get Flight Information</button>
-                </Col>
+                <div id="acone">
+                 <button id="planebut4" onClick={this.countButtons}>Get Flight Information</button>
+                 <button id="planebut4" >Get Hotel Information</button>
+                 <button id="planebut4" >Get Rental Car Information</button>
+                 
+                </div>
+                <div id="actwo2">
                 <Button variant="light" onClick={this.addFlight}>
                 <FiPlus />
                 </Button>
@@ -886,8 +889,10 @@ export class Plane1 extends Component {
                 </div>
                 
                 { showing5 
-                    ? <div>
-                        <button id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
+                    ? 
+                    
+                    <div id="actwo2">
+                        <button  id="rock7"  onClick={() => this.setState({ showing: !showing })}>flight 1</button>
                     </div>
                     
                     : <div>
@@ -895,9 +900,9 @@ export class Plane1 extends Component {
                       </div>
                 }
                 { showing4 
-                    ? <div>
-                        <button id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
-                        <button id="planebut3" onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
+                    ? <div id="actwo2">
+                        <button id="rock7" id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
+                        <button  id="rock7" id="planebut3" onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
                     </div>
                     
                     : <div>
@@ -905,10 +910,10 @@ export class Plane1 extends Component {
                       </div>
                 }
                 { showing3 
-                    ? <div>
-                        <button id="planebut3" onClick={() => this.setState({ showing: !showing })}>flight 1</button>
-                        <button id="planebut3" onClick={() => this.setState({ showing2: !showing2 })}>flight 2</button>
-                        <button id="planebut3" onClick={() => this.setState({ showing6: !showing6 })}>flight 3</button>
+                    ? <div id="actwo2">
+                        <button id="rock7" onClick={() => this.setState({ showing: !showing })}></button>
+                        <button id="rock7" onClick={() => this.setState({ showing2: !showing2 })}></button>
+                        <button id="rock7" onClick={() => this.setState({ showing6: !showing6 })}></button>
                     </div>
                     
                     : <div>
@@ -916,7 +921,7 @@ export class Plane1 extends Component {
                       </div>
                 }
                 { showing 
-                    ? <div>
+                    ? <div id="actwo">
                         <div id="flight" className="flightStuff">
                         <div id="FlightLeft">
                         <Button variant="light" onClick={this.removeButton}>
@@ -948,7 +953,8 @@ export class Plane1 extends Component {
                 }
                 
                 { showing2 
-                    ? <div>
+                    ? 
+                    <div id="actwo">
                     <div id="flight" className="flightStuff">
                     <div id="FlightLeft">
                     <Button variant="light" onClick={this.removeButton}>
@@ -979,7 +985,8 @@ export class Plane1 extends Component {
                     : null
                 }
                 { showing6 
-                    ? <div>
+                    ? 
+                    <div id="actwo">
                     <div id="flight" className="flightStuff">
                     <div id="FlightLeft">
                     <Button variant="light" onClick={this.removeButton}>
@@ -1009,8 +1016,10 @@ export class Plane1 extends Component {
                     </div>
                     : null
                 }
+               <div></div> 
+                
             </div>  
-            
+             
             
             
 

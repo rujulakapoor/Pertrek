@@ -54,7 +54,7 @@ export class Lunch extends Component {
         else {
           return(
           <div className="MealsStuff" id="moreMealStuff">
-          <h5> {this.state.location}</h5>
+          <h4> {this.state.location} </h4>
           </div>  
             );
         }
@@ -93,7 +93,7 @@ export class Lunch extends Component {
         else {
           return(
           <div className="MealsStuff" id="moreMealStuff">      
-          <h5>${this.state.budget}</h5>
+          <h4>${this.state.budget}</h4>
           </div>
           
           );

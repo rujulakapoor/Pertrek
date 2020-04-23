@@ -267,12 +267,24 @@ class Account extends Component {
         <i class="fas fa-cog fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}} ></i>
         <Link to='/settings' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Settings</span> </Link>
         </div>
+
+        <div id="topbottom"> 
+        
+        <div id="badcoding">
+        
+        </div>  
+        <h6>hel</h6>
+        <i class="fas fa-heart fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}} ></i>
+        <h6>hel</h6>
+        <Link to='/favorites' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Favorites</span> </Link>
+        </div>
+
         <div id="topbottom">  
         <h5>hello</h5>
         <i class="fas fa-key fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i>
         <Link to='/forgot' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Reset Password</span> </Link>
         </div>
-
+        
         
 
         </div>

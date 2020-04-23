@@ -652,7 +652,8 @@ renderTotalMealCost() {
     var sPercent=0;
   }
    return(
-    <div>
+
+    <div id="mealbudgetstuff">
       <Row>
       <Col>
       <h2> Current Meal Cost : ${totalMeal} </h2>
@@ -1292,6 +1293,7 @@ let statenow = this
                 <Card.Body>
                 <div>
                 <Plane1 values={values} / >
+                <RentalCar values={values} / >
                 </div>  
                 </Card.Body>
               </Accordion.Collapse>
@@ -1327,11 +1329,12 @@ let statenow = this
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
                 <div className="MealsStuff" id="moreMealStuff">
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
-                <Lunch lailafunc={this.handleAddLunch} / >
-                <Dinner lailafunc={this.handleAddDinner} / >  
+                
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
+                <Dinner lailafunc={this.handleAddDinner} / > 
+                <Lunch lailafunc={this.handleAddLunch} / >
+                <Breakfast lailafunc={this.handleAddBreakfast} / >
                 {this.renderTotalMealCost()}
                 </div> 
                 </Card.Body>
@@ -1452,11 +1455,11 @@ let statenow = this
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
       <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
+                <Snack lailafunc={this.handleAddSnack}/>
+                <Other lailafunc={this.handleAddOther} />
+                <Dinner lailafunc={this.handleAddDinner} / > 
                 <Lunch lailafunc={this.handleAddLunch} / >
-                <Dinner lailafunc={this.handleAddDinner}/ >  
-                <Snack lailafunc={this.handleAddSnack} / >
-                <Other lailafunc={this.handleAddOther} / >
+                <Breakfast lailafunc={this.handleAddBreakfast} / >
                 </div>       
 
       </Tab>
