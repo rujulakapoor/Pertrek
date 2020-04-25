@@ -114,6 +114,104 @@ export class MapAll extends Component {
 			/>
 		);
 	}
+	addLines = () => {
+		const map = this.refs.map.getMap()
+		var i;
+		console.log(this.props.destinations.length) // trigger the for looop??
+		var coordinatePairs = [];
+		for (i = 0; i < this.props.destinations.length; i++) {
+			var j;
+			for (j = i+1; j < this.props.destinations.length; j++) {
+				coordinatePairs[i+j] = [
+					[this.props.destinations[i].lon, this.props.destinations[i].lat],
+					[this.props.destinations[j].lon, this.props.destinations[j].lat]
+				]
+			}
+		}
+		console.log("coordinate parissssss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + coordinatePairs)
+		console.log(coordinatePairs)
+		//alert("size of pairs:" + coordinatePairs.length)
+		
+		var k;
+		for (k = 1; k < coordinatePairs.length; k++) {
+			if (coordinatePairs[k] == null || coordinatePairs[k] == undefined)
+				continue;
+			
+			var R = 6371e3; // metres
+			var φ1 = coordinatePairs[k][0][1].toRadians();
+			var φ2 = coordinatePairs[k][1][1].toRadians();
+			var Δφ = (coordinatePairs[k][1][1]-coordinatePairs[k][0][1]).toRadians();
+			var Δλ = (coordinatePairs[k][1][0]-coordinatePairs[k][0][0]).toRadians();
+
+			var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+					Math.cos(φ1) * Math.cos(φ2) *
+					Math.sin(Δλ/2) * Math.sin(Δλ/2);
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+			var distance = R * c;
+			distance /= 1609.344;
+			distance = distance.toFixed(2);
+
+			map.addLayer({
+				"id": 'route'+k,
+				"type": "line",
+				"source": {
+					"type": "geojson",
+					"data": {
+						"type": "Feature",
+						"properties": {},
+						"geometry": {
+							"type": "LineString",
+							"coordinates": [
+								[coordinatePairs[k][0][0], coordinatePairs[k][0][1]],
+								[coordinatePairs[k][1][0], coordinatePairs[k][1][1]],
+							]
+							
+						}
+						}	
+			   },
+			   "layout": {
+				 "line-join": "round",
+				 "line-cap": "round"
+			   },
+			   "paint": {
+				 "line-color": "#39FF14",
+				 "line-width": 2
+			   }
+			 });
+			 
+			 map.addLayer({
+				"id": 'popup'+k,
+				"type": "symbol",
+				"source": {
+					"type": "geojson",
+						"data": {
+							"type": "Feature",
+							"properties": {},
+							"geometry": {
+								"type": "Point",
+								"coordinates": [(coordinatePairs[k][0][0]+coordinatePairs[k][1][0])/2, (coordinatePairs[k][0][1]+coordinatePairs[k][1][1])/2]
+							}
+						}	
+				},
+				"layout": {
+					"text-field": "" + distance + " mi",
+					"text-font": [
+					  "DIN Offc Pro Medium",
+					  "Arial Unicode MS Bold"
+					],
+					"text-size": 20
+				}
+			});
+		}
+		
+		/*
+		var popup = new Popup({ closeOnClick: false, })
+			.setLngLat([-96, 37.8])
+			.setHTML('<h1>Hello World!</h1>')
+			.addTo(map);
+			*/
+	 };
 
     render() {
        // console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
@@ -126,8 +224,8 @@ export class MapAll extends Component {
 		//console.log("this.state.dest")
 		//console.log(this.state.dest)
 		
-	//	console.log("LAT LONG ARRAY")
-		//console.log(this.state.destCoord)
+		console.log("LAT LONG ARRAY")
+		console.log(this.state.destCoord)
         return(
             <div style={{ width: "100vw", height: "100vh" }}>
                 <h3>Map</h3>
@@ -136,6 +234,9 @@ export class MapAll extends Component {
 					mapboxApiAccessToken="pk.eyJ1IjoianVuZzIwNSIsImEiOiJjazhoMWw0dTMwNGY4M2xxdHg1Mm1xZWs3In0.Rm97yg2R3Mi2osL2WaO5jA"
 					mapStyle="mapbox://styles/jung205/ck8h226la0ske1irz7vxdot81"
 					onViewportChange={(viewport) => this.setState({viewport})}
+					id={'map'}
+					ref={'map'}
+					onLoad={this.addLines}
 				>
 					{
 						this.props.destinations.map(loc => (
@@ -186,4 +287,5 @@ export class MapAll extends Component {
         );
     }
 }
+Number.prototype.toRadians = function() { return this * Math.PI / 180; };
 export default MapAll;

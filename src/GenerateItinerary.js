@@ -30,6 +30,7 @@ import OriginalEventModal from './OriginalEventModal'
 import PieChart from 'react-minimal-pie-chart';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Progress } from 'semantic-ui-react'
+import './GenerateItinerary.css'
 
 import {
   EmailShareButton,
@@ -1234,47 +1235,64 @@ let statenow = this
         {this.renderCostBar()}
         </Row>
     <Row>
-      <h3>SHARE&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-      <EmailShareButton 
-        url={window.location.href}
-      >
-        <EmailIcon size={32} round={true} />
-      </EmailShareButton>
-      <FacebookShareButton 
-        url={window.location.href}
-      >
-        <FacebookIcon size={32} round={true} />
-      </FacebookShareButton>
-      <LineShareButton 
-        url={window.location.href}
-      >
-        <LineIcon size={32} round={true} />
-      </LineShareButton>
-      <LinkedinShareButton 
-        url={window.location.href}
-      >
-        <LinkedinIcon size={32} round={true} />
-      </LinkedinShareButton>
-      <PinterestShareButton 
-        url={window.location.href}
-      >
-        <PinterestIcon size={32} round={true} />
-      </PinterestShareButton>
-      <RedditShareButton 
-        url={window.location.href}
-      >
-        <RedditIcon size={32} round={true} />
-      </RedditShareButton>
-      <TwitterShareButton 
-        url={window.location.href}
-      >
-        <TwitterIcon size={32} round={true} />
-      </TwitterShareButton>
-      <WhatsappShareButton 
-        url={window.location.href}
-      >
-        <WhatsappIcon size={32} round={true} />
-      </WhatsappShareButton>
+      <div class="sidenav">
+        <div class="share-button">
+        <EmailShareButton 
+          url={window.location.href}
+        >
+          <EmailIcon size={32} round={true} />
+        </EmailShareButton>
+        </div>
+        <div class="share-button">
+        <FacebookShareButton 
+          url={window.location.href}
+        >
+          <FacebookIcon size={32} round={true} />
+        </FacebookShareButton>
+        </div>
+        <div class="share-button">
+        <LineShareButton 
+          url={window.location.href}
+        >
+          <LineIcon size={32} round={true} />
+        </LineShareButton>
+        </div>
+        <div class="share-button">
+        <LinkedinShareButton 
+          url={window.location.href}
+        >
+          <LinkedinIcon size={32} round={true} />
+        </LinkedinShareButton>
+        </div>
+        <div class="share-button">
+        <PinterestShareButton 
+          url={window.location.href}
+        >
+          <PinterestIcon size={32} round={true} />
+        </PinterestShareButton>
+        </div>
+        <div class="share-button">
+        <RedditShareButton 
+          url={window.location.href}
+        >
+          <RedditIcon size={32} round={true} />
+        </RedditShareButton>
+        </div>
+        <div class="share-button">
+        <TwitterShareButton 
+          url={window.location.href}
+        >
+          <TwitterIcon size={32} round={true} />
+        </TwitterShareButton>
+        </div>
+        <div class="share-button">
+        <WhatsappShareButton 
+          url={window.location.href}
+        >
+          <WhatsappIcon size={32} round={true} />
+        </WhatsappShareButton>
+        </div>
+      </div>
     </Row>
     </Container>
 
