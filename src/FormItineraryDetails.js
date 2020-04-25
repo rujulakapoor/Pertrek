@@ -45,6 +45,11 @@ render() {
         defaultValue={values.partysize}/>
       </FormGroup>
       <FormGroup>
+        <FormLabel> Maximum Distance </FormLabel>
+        <FormControl type="double" onChange={handleChange('maxdist')}
+        defaultValue={values.maxdist}/>
+      </FormGroup>
+      <FormGroup>
         <FormLabel>Notes </FormLabel>
         <FormControl type="text"onChange={handleChange('notes')}
         defaultValue={values.notes}/>

@@ -131,7 +131,10 @@ export class MapAll extends Component {
 		console.log("coordinate parissssss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + coordinatePairs)
 		console.log(coordinatePairs)
 		//alert("size of pairs:" + coordinatePairs.length)
-		
+		var maximumdistance = this.props.maxdist;
+		if (this.props.maxdist == undefined) {
+			maximumdistance = 5;
+		}
 		var k;
 		for (k = 1; k < coordinatePairs.length; k++) {
 			if (coordinatePairs[k] == null || coordinatePairs[k] == undefined)
@@ -151,6 +154,16 @@ export class MapAll extends Component {
 			var distance = R * c;
 			distance /= 1609.344;
 			distance = distance.toFixed(2);
+
+			var color = "#FF0000";	// red
+			if (distance < maximumdistance) {
+				if (distance >= maximumdistance*0.9) {
+					color = "#FFFF00"	// yellow
+				}
+				else {
+					color = "#39FF14"	// neon green
+				}
+			}
 
 			map.addLayer({
 				"id": 'route'+k,
@@ -175,7 +188,7 @@ export class MapAll extends Component {
 				 "line-cap": "round"
 			   },
 			   "paint": {
-				 "line-color": "#39FF14",
+				 "line-color": color,
 				 "line-width": 2
 			   }
 			 });

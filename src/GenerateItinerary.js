@@ -92,6 +92,7 @@ constructor(props){
   this.handleChangeTab2 =this.handleChangeTab2.bind(this)
   this.getDestinations = this.getDestinations.bind(this);
   this.changePartySize = this.changePartySize.bind(this);
+  this.changeMaxdist = this.changeMaxdist.bind(this);
   this.saveNewEvent = this.saveNewEvent.bind(this)
   this.newbudget = this.newbudget.bind(this);
   this.handleMiniTravel = this.handleMiniTravel.bind(this)
@@ -125,6 +126,7 @@ constructor(props){
     plane3t:this.props.values.plane3t,
     countf:this.props.values.countf,
     partysize:this.props.values.partysize,
+    maxdist:this.props.values.maxdist,
     days: [],
     alreadysaved: false,
     edittitle:false,
@@ -134,6 +136,7 @@ constructor(props){
     editstart:false,
     editend:false,
     editpartysize:false,
+    editmaxdist:false,
     typetab:false,
     itkey: this.props.values.itkey,
     retreived:false,
@@ -494,12 +497,16 @@ handleSavedEdits() {
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
         countf:this.state.countf,
-        partysize:this.state.partysize
+        partysize:this.state.partysize,
+        maxdist:this.state.maxdist
         
       }
 
       if (item.partysize === undefined) {
         item.partysize = null;
+      }
+      if (item.maxdist === undefined) {
+        item.maxdist = 10;
       }
 
         db.push(item
@@ -847,6 +854,15 @@ partySizeRender(e) {
   }
 }
 
+maxdistRender(e) {
+  //alert("Max dist:" + this.state.maxdist + "location:" + this.state.location)
+  if (this.state.editmaxdist) {
+    return(<input type="number" placeholder={this.state.maxdist} onChange={this.handleChange('maxdist')}/>);
+  } else {
+    return(<h5>{this.state.maxdist}</h5>);
+  }
+}
+
 locationButtonRender() {
   if(this.state.editlocation) {
   return(      <Button variant="light" onClick={this.changeLocation}>
@@ -1027,7 +1043,22 @@ partySizeButtonRender() {
   )
   }
   
+}
+
+maxdistButtonRender() {
+  if(this.state.editmaxdist) {
+  return(<Button variant="light" onClick={this.changeMaxdist}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeMaxdist}>
+         <FiEdit2 />
+         </Button>
+  )
   }
+  
+}
 
 
 changeLocation() {
@@ -1132,6 +1163,19 @@ changePartySize() {
   }
 }
 
+changeMaxdist() {
+  if(this.state.editmaxdist === false) {
+    this.setState({
+      editmaxdist: true
+    })
+   } else {
+    this.setState({
+      editmaxdist:false,
+      alreadysaved:false
+    })
+  }
+}
+
 trypush(){
   alert("here77777");
   alert("key is" + this.state.itkey)
@@ -1229,7 +1273,12 @@ let statenow = this
     </Container>
     <Container>
       <Row>
-        <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+        <Col>
+          <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+        </Col>
+        <Col>
+          <h4>Maximum Distance (mi): {this.maxdistRender()} {this.maxdistButtonRender()}</h4>
+        </Col>
       </Row>
       <Row>
         {this.renderCostBar()}
@@ -1500,7 +1549,7 @@ let statenow = this
      </Row>
      
      </Col>
-     <MapAll destinations={this.state.destinations} />
+     <MapAll destinations={this.state.destinations} maxdist={this.state.maxdist}/>
      
 
      </Row>
