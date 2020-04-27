@@ -30,6 +30,7 @@ import OriginalEventModal from './OriginalEventModal'
 import PieChart from 'react-minimal-pie-chart';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Progress } from 'semantic-ui-react'
+import './GenerateItinerary.css'
 
 import {
   EmailShareButton,
@@ -91,6 +92,7 @@ constructor(props){
   this.handleChangeTab2 =this.handleChangeTab2.bind(this)
   this.getDestinations = this.getDestinations.bind(this);
   this.changePartySize = this.changePartySize.bind(this);
+  this.changeMaxdist = this.changeMaxdist.bind(this);
   this.saveNewEvent = this.saveNewEvent.bind(this)
   this.newbudget = this.newbudget.bind(this);
   this.handleMiniTravel = this.handleMiniTravel.bind(this)
@@ -124,6 +126,7 @@ constructor(props){
     plane3t:this.props.values.plane3t,
     countf:this.props.values.countf,
     partysize:this.props.values.partysize,
+    maxdist:this.props.values.maxdist,
     days: [],
     alreadysaved: false,
     edittitle:false,
@@ -133,6 +136,7 @@ constructor(props){
     editstart:false,
     editend:false,
     editpartysize:false,
+    editmaxdist:false,
     typetab:false,
     itkey: this.props.values.itkey,
     retreived:false,
@@ -493,12 +497,16 @@ handleSavedEdits() {
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
         countf:this.state.countf,
-        partysize:this.state.partysize
+        partysize:this.state.partysize,
+        maxdist:this.state.maxdist
         
       }
 
       if (item.partysize === undefined) {
         item.partysize = null;
+      }
+      if (item.maxdist === undefined) {
+        item.maxdist = 10;
       }
 
         db.push(item
@@ -652,7 +660,8 @@ renderTotalMealCost() {
     var sPercent=0;
   }
    return(
-    <div>
+
+    <div id="mealbudgetstuff">
       <Row>
       <Col>
       <h2> Current Meal Cost : ${totalMeal} </h2>
@@ -845,6 +854,15 @@ partySizeRender(e) {
   }
 }
 
+maxdistRender(e) {
+  //alert("Max dist:" + this.state.maxdist + "location:" + this.state.location)
+  if (this.state.editmaxdist) {
+    return(<input type="number" placeholder={this.state.maxdist} onChange={this.handleChange('maxdist')}/>);
+  } else {
+    return(<h5>{this.state.maxdist}</h5>);
+  }
+}
+
 locationButtonRender() {
   if(this.state.editlocation) {
   return(      <Button variant="light" onClick={this.changeLocation}>
@@ -1025,7 +1043,22 @@ partySizeButtonRender() {
   )
   }
   
+}
+
+maxdistButtonRender() {
+  if(this.state.editmaxdist) {
+  return(<Button variant="light" onClick={this.changeMaxdist}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+    return(      <Button variant="light" onClick={this.changeMaxdist}>
+         <FiEdit2 />
+         </Button>
+  )
   }
+  
+}
 
 
 changeLocation() {
@@ -1130,6 +1163,19 @@ changePartySize() {
   }
 }
 
+changeMaxdist() {
+  if(this.state.editmaxdist === false) {
+    this.setState({
+      editmaxdist: true
+    })
+   } else {
+    this.setState({
+      editmaxdist:false,
+      alreadysaved:false
+    })
+  }
+}
+
 trypush(){
   alert("here77777");
   alert("key is" + this.state.itkey)
@@ -1227,53 +1273,75 @@ let statenow = this
     </Container>
     <Container>
       <Row>
-        <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+        <Col>
+          <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+        </Col>
+        <Col>
+          <h4>Maximum Distance (mi): {this.maxdistRender()} {this.maxdistButtonRender()}</h4>
+        </Col>
       </Row>
       <Row>
         {this.renderCostBar()}
         </Row>
     <Row>
-      <h3>SHARE&nbsp;&nbsp;&nbsp;&nbsp;</h3>
-      <EmailShareButton 
-        url={window.location.href}
-      >
-        <EmailIcon size={32} round={true} />
-      </EmailShareButton>
-      <FacebookShareButton 
-        url={window.location.href}
-      >
-        <FacebookIcon size={32} round={true} />
-      </FacebookShareButton>
-      <LineShareButton 
-        url={window.location.href}
-      >
-        <LineIcon size={32} round={true} />
-      </LineShareButton>
-      <LinkedinShareButton 
-        url={window.location.href}
-      >
-        <LinkedinIcon size={32} round={true} />
-      </LinkedinShareButton>
-      <PinterestShareButton 
-        url={window.location.href}
-      >
-        <PinterestIcon size={32} round={true} />
-      </PinterestShareButton>
-      <RedditShareButton 
-        url={window.location.href}
-      >
-        <RedditIcon size={32} round={true} />
-      </RedditShareButton>
-      <TwitterShareButton 
-        url={window.location.href}
-      >
-        <TwitterIcon size={32} round={true} />
-      </TwitterShareButton>
-      <WhatsappShareButton 
-        url={window.location.href}
-      >
-        <WhatsappIcon size={32} round={true} />
-      </WhatsappShareButton>
+      <div class="sidenav">
+        <div class="share-button">
+        <EmailShareButton 
+          url={window.location.href}
+        >
+          <EmailIcon size={32} round={true} />
+        </EmailShareButton>
+        </div>
+        <div class="share-button">
+        <FacebookShareButton 
+          url={window.location.href}
+        >
+          <FacebookIcon size={32} round={true} />
+        </FacebookShareButton>
+        </div>
+        <div class="share-button">
+        <LineShareButton 
+          url={window.location.href}
+        >
+          <LineIcon size={32} round={true} />
+        </LineShareButton>
+        </div>
+        <div class="share-button">
+        <LinkedinShareButton 
+          url={window.location.href}
+        >
+          <LinkedinIcon size={32} round={true} />
+        </LinkedinShareButton>
+        </div>
+        <div class="share-button">
+        <PinterestShareButton 
+          url={window.location.href}
+        >
+          <PinterestIcon size={32} round={true} />
+        </PinterestShareButton>
+        </div>
+        <div class="share-button">
+        <RedditShareButton 
+          url={window.location.href}
+        >
+          <RedditIcon size={32} round={true} />
+        </RedditShareButton>
+        </div>
+        <div class="share-button">
+        <TwitterShareButton 
+          url={window.location.href}
+        >
+          <TwitterIcon size={32} round={true} />
+        </TwitterShareButton>
+        </div>
+        <div class="share-button">
+        <WhatsappShareButton 
+          url={window.location.href}
+        >
+          <WhatsappIcon size={32} round={true} />
+        </WhatsappShareButton>
+        </div>
+      </div>
     </Row>
     </Container>
 
@@ -1292,6 +1360,7 @@ let statenow = this
                 <Card.Body>
                 <div>
                 <Plane1 values={values} / >
+                <RentalCar values={values} / >
                 </div>  
                 </Card.Body>
               </Accordion.Collapse>
@@ -1327,11 +1396,12 @@ let statenow = this
               <Accordion.Collapse eventKey="1">
                 <Card.Body>
                 <div className="MealsStuff" id="moreMealStuff">
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
-                <Lunch lailafunc={this.handleAddLunch} / >
-                <Dinner lailafunc={this.handleAddDinner} / >  
+                
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
+                <Dinner lailafunc={this.handleAddDinner} / > 
+                <Lunch lailafunc={this.handleAddLunch} / >
+                <Breakfast lailafunc={this.handleAddBreakfast} / >
                 {this.renderTotalMealCost()}
                 </div> 
                 </Card.Body>
@@ -1452,11 +1522,11 @@ let statenow = this
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
       <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
       <div className="MealsStuff" id="moreMealStuff">
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
+                <Snack lailafunc={this.handleAddSnack}/>
+                <Other lailafunc={this.handleAddOther} />
+                <Dinner lailafunc={this.handleAddDinner} / > 
                 <Lunch lailafunc={this.handleAddLunch} / >
-                <Dinner lailafunc={this.handleAddDinner}/ >  
-                <Snack lailafunc={this.handleAddSnack} / >
-                <Other lailafunc={this.handleAddOther} / >
+                <Breakfast lailafunc={this.handleAddBreakfast} / >
                 </div>       
 
       </Tab>
@@ -1479,7 +1549,7 @@ let statenow = this
      </Row>
      
      </Col>
-     <MapAll destinations={this.state.destinations} />
+     <MapAll destinations={this.state.destinations} maxdist={this.state.maxdist}/>
      
 
      </Row>

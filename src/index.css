@@ -285,7 +285,7 @@ Link {
 #one {
   width: 60%;
   height: 700px;
-  background: #c7d0d8;
+  background: white;
   float: left;
 }
 
@@ -313,13 +313,39 @@ Link {
   color: black;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
-  height: 40pt;
+  height: 38pt;
+}
+#badcoding{
+  height: 8pt;
 }
 #accounttwo {
   margin-left: 15%;
   height: 1200px;
   background: white;
   text-align: center;
+  
+}
+#actwo {
+  margin-left: 29%;
+  height: 370px;
+  background: white;
+  text-align: center;
+  margin-bottom: 4%;
+ 
+}
+#actwo2 {
+  margin-left: 29%;
+  background: white;
+  text-align: center;
+  margin-bottom: 4%;
+}
+#acone {
+  width: 25%;
+  height: 900pt;
+  background: white;
+  float: left;
+  border-right: 1px solid #ddd;
+  
   
 }
 #SettingPage{
@@ -437,6 +463,18 @@ Link {
   margin-right: 4%;
   background-image: url(https://lh3.googleusercontent.com/jFMYV7ttOTapTtRk-qY3_9XNPwuie1RpBn4HFUgpZskU_O-PN2BnePWMPfK-fJKgUvQV9Ea4QosTkCQGufblGVybETA-fpO9qaQ08UXMTaxngaZ7A3d8mFmAt30AJ7GKhYBJEIvyfQ=w2400);
 }
+#rock7{
+  font-size: 10px;
+  border: 0px solid #AD235E;
+  border-radius: 100px;
+  color: #FF5E5B;
+  width: 82px;
+  height: 82px;
+  margin-left: 4%;
+  margin-right: 4%;
+  background-image: url(https://lh3.googleusercontent.com/uH-i5B7qqgRDGEYoZvZNrJcXf-FbJ3KwUWfV9JaVAHZ09rBwu-h22zjqghS1GsmOQEKUBRFfTtXjBlW1GlrCc62PkR15KUp1MYKbGumQayjtCfIXW3biA3o_WTWMEKeTkmZP6g1t_w=w2400);
+}
+
 #icon{
   text-align: center;
   margin-top: 10%;
@@ -475,6 +513,7 @@ Link {
   margin-bottom: 0%;
   
 }
+
 .Account h5{
   display: block;
   font-size: 0px;
@@ -484,6 +523,15 @@ Link {
   color: white;
   margin-top: 2%;
   margin-bottom: 0%;
+}
+.Account h6{
+  display: inline;
+  font-size: 15px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+
   
 }
 #cus{
@@ -561,9 +609,24 @@ Link {
   height: 130pt;
   float: center;
  
-  
+}
+.moreMealStuff h4{
+  color: black;
+  font-size: large;
+}
+#mealbudgetstuff{
+  margin-top: 10%;
 }
 .MealsStuff input{
+  border-width: 0;
+  box-shadow: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 15px;
+  border-bottom: 3px dotted #c7d0d8;
+  margin-bottom: 1%;
+  
+}
+.MealsStuff2 input{
   border-width: 0;
   box-shadow: none;
   font-family: 'Quicksand', sans-serif;
@@ -600,7 +663,7 @@ Link {
   margin-bottom: 1%;
 }
 #movedown{
-  margin-top: 5%;
+  margin-top: 1%;
 }
 #piechart{
   height: 300pt;
@@ -610,16 +673,22 @@ Link {
   text-align: center;
 }
 #carone {
-  width: 75%;
-  height: 200pt;
-  background-color: #c7d0d8;
+  width: 100%;
+  height: 280pt;
+  background-color: #ff5e5b;
   border-width: 20pt;
   float: left;
+  font-family: 'Quicksand', sans-serif;
+}
+#centericonsave{
+  text-align: left;
+  margin-left: 7pt;
+  margin-top: 8pt;
 }
 
 #cartwo {
   margin-left: 15%;
-  height: 200pt;
+  height: 280pt;
   background: white;
   text-align: center;
   border:15px solid #c7d0d8;
@@ -629,7 +698,9 @@ Link {
   background: white;
 
 }
-
+#icondown{
+  margin-top: 4%;
+}
 .Car h1{
   margin-top: 3%;
   font-size: 27pt;
@@ -643,12 +714,12 @@ Link {
 .Car h4{
   font-size: 20pt;
   text-align: left;
-  margin-left: 5%;
+  margin-left: 11%;
   margin-top: 2%;
   color: #fff;
 }
 .Car h5{
-  margin-left: 5%;
+  margin-left: 11%;
   color: white;
 }
 .Car2 h1{
@@ -662,14 +733,14 @@ Link {
 
 }
 .CarCar input{
-  margin-left: 8%;
+  margin-left: 11%;
   background: transparent;
   border: none;
   border-bottom: 2px solid white;
   color: white;
 }
 #CardLeft{
-  margin-left: 8%;
+  margin-left: 15%;
   margin-top: 2%;
 }
 #planebut{
@@ -696,6 +767,18 @@ Link {
   margin-bottom: 4%;
   color: #c7d0d8;
 }
+#planebut4{
+  font-family: 'Palanquin Dark', sans-serif;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px dotted #FF5E5B;
+  border-top: 1px dotted #FF5E5B;
+  font-size: 20px;
+  width: 190pt;
+  height: 40pt;
+  color: #FF5E5B;
+  margin-top: 7%;
+}
 #planebut3{
   font-family: 'Quicksand', sans-serif;
   background-color:#c7d0d8 ;
@@ -708,7 +791,7 @@ Link {
 #flight{
   width: 100%;
   height:280pt;
-  background-color: #c7d0d8;
+  background-color: #FF5E5B;
   display: inline-block;
   margin-right: 3%;
   text-align: center;
@@ -743,7 +826,7 @@ Link {
   text-align: left;
   font-size: 20pt;
   font-family: 'Quicksand', sans-serif;
-  margin-left: 4%;
+  margin-left: 11%;
 }
 .flightStuff h1{
   color: white;

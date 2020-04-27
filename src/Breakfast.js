@@ -67,7 +67,7 @@ export class Breakfast extends Component {
         else {
           return(
           <div className="MealsStuff" id="moreMealStuff">
-          <h5> {this.state.location}</h5>
+          <h4> {this.state.location}</h4>
           </div>  
             );
         }
@@ -106,7 +106,7 @@ export class Breakfast extends Component {
         else {
           return(
           <div className="MealsStuff" id="moreMealStuff">      
-          <h5>${this.state.budget}</h5>
+          <h4>${this.state.budget}</h4>
           </div>
           
           );
@@ -140,7 +140,7 @@ export class Breakfast extends Component {
           
           return(
             
-          <div className="MealsStuff" id="moreMealStuff">      
+          <div className="MealsStuff2" id="moreMealStuff">      
           <input type="text" value={this.state.mealcount} placeholder={this.state.meal}  onChange={this.handleChange('meal')}/>
           </div>
           
@@ -149,7 +149,7 @@ export class Breakfast extends Component {
         }
         else {
           return(
-          <div className="MealsStuff" id="moreMealStuff">
+          <div className="MealsStuff2" id="moreMealStuff">
           <h5> {this.state.meal}</h5>
           </div>  
             );
@@ -161,7 +161,7 @@ export class Breakfast extends Component {
       if(this.state.editwakeup) {
         
         return(
-        <div className="MealsStuff" id="moreMealStuff">      
+        <div className="MealsStuff2" id="moreMealStuff">      
         <input type="time" value={this.state.wakeup} placeholder={this.state.wakeup}  onChange={this.handleChange('wakeup')}/>
         </div>
         )
@@ -169,7 +169,7 @@ export class Breakfast extends Component {
       }
       else {
         return(
-        <div className="MealsStuff" id="moreMealStuff">
+        <div className="MealsStuff2" id="moreMealStuff">
         <h5> {this.state.wakeup}</h5>
         </div>  
           );
@@ -180,7 +180,7 @@ export class Breakfast extends Component {
 
     if(this.state.editsleep) {
       return(
-      <div className="MealsStuff" id="moreMealStuff">      
+      <div className="MealsStuff2" id="moreMealStuff">      
       <input type="time" value={this.state.sleep} placeholder={this.state.sleep}  onChange={this.handleChange('sleep')}/>
       </div>
       )
@@ -188,7 +188,7 @@ export class Breakfast extends Component {
     }
     else {
       return(
-      <div className="MealsStuff" id="moreMealStuff">
+      <div className="MealsStuff2" id="moreMealStuff">
       <h5> {this.state.sleep}</h5>
       </div>  
         );
@@ -381,36 +381,7 @@ export class Breakfast extends Component {
 */
     return (
       <div id="meals2" className="breakfast">
-      <div id="meals4">
-       <div id="savemealc">
-      <Button variant="light" onClick={this.save}>
-             <FiSave />
-      </Button>  
-      </div> 
-      <Row>
-      <Col> 
-      <div id="outlinemeal" className="MealsStuffh3"> 
-      <h7>  Daily Meal Count:  </h7>
-          {this.mealRender()}
-          {this.mealButtonRender()}
-     </div>    
-      </Col> 
-      <Col> 
-      <div id="outlinemeal" className="MealsStuffh3"> 
-      <h7>  Daily Wake Up Time:  </h7>
-          {this.wakeupRender()}
-          {this.wakeupButtonRender()}
-      </div>     
-      </Col>  
-      <Col>   
-      <div id="outlinemeal" className="MealsStuffh3">   
-      <h7>  Daily Sleep Time:  </h7>
-          {this.sleepRender()}
-          {this.sleeppButtonRender()} 
-      </div>      
-      </Col>     
-      </Row> 
-      </div>  
+      
 
      
       <div id="movedown">
@@ -442,7 +413,36 @@ export class Breakfast extends Component {
   
   </Row>
   </div> 
-          
+   <div id="meals4">
+       <div id="savemealc">
+      <Button variant="light" onClick={this.save}>
+             <FiSave />
+      </Button>  
+      </div> 
+      <Row>
+      <Col> 
+      <div id="outlinemeal" className="MealsStuffh3"> 
+      <h7>  Daily Meal Count:  </h7>
+          {this.mealRender()}
+          {this.mealButtonRender()}
+     </div>    
+      </Col> 
+      <Col> 
+      <div id="outlinemeal" className="MealsStuffh3"> 
+      <h7>  Daily Wake Up Time:  </h7>
+          {this.wakeupRender()}
+          {this.wakeupButtonRender()}
+      </div>     
+      </Col>  
+      <Col>   
+      <div id="outlinemeal" className="MealsStuffh3">   
+      <h7>  Daily Sleep Time:  </h7>
+          {this.sleepRender()}
+          {this.sleeppButtonRender()} 
+      </div>      
+      </Col>     
+      </Row> 
+      </div>         
         
     </div>
     );

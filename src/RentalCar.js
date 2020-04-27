@@ -412,11 +412,18 @@ export class RentalCar extends Component {
     render() {
         return(
             <div>
-            <Button variant="light" onClick={this.handleSavedEdits}>
+            
+            <div id="RentalCar" className="Car">
+              <div id="actwo">
+             <div id="carone">
+            <div id="centericonsave">
+             <Button variant="light" onClick={this.handleSavedEdits}>
             <FiSave />
             </Button> 
-            <div id="RentalCar" className="Car">
-             <div id="carone">
+            </div> 
+             <div id="icondown"> 
+             <FontAwesomeIcon icon={faCar} color="white" size = '5x' />  
+             </div> 
              <h1>Enter Your Car Info</h1>
              <Row>
               <Col>   
@@ -431,22 +438,20 @@ export class RentalCar extends Component {
               </Col>
             </Row>
             </div>  
-
-            <div id="cartwo" className="Car2">
-            <h3>Enter Your Car Info</h3>   
-            <FontAwesomeIcon icon={faCar} color="#c7d0d8" size = '10x' />
-            </div > 
+            </div> 
             </div>
-
-            <div id="carthree">
-
-            </div>
-
-
-
 
             <div id="RentalCar" className="Car">
+            <div id="actwo">
             <div id="carone">
+            <div id="centericonsave">
+             <Button variant="light" onClick={this.handleSavedEdits}>
+            <FiSave />
+            </Button> 
+            </div> 
+            <div id="icondown"> 
+            <FontAwesomeIcon icon={faHotel} color="white" size = '5x' />
+            </div>
             <h1>Enter Your Hotel Info</h1>
             <Row>
             <Col>   
@@ -461,11 +466,7 @@ export class RentalCar extends Component {
             </Col>
             </Row>
             </div>  
-
-            <div id="cartwo" className="Car2">
-            <h3>Enter Your Car Info</h3>   
-            <FontAwesomeIcon icon={faHotel} color="#c7d0d8" size = '10x' />
-            </div> 
+            </div>   
             </div>
             <div className="Carlable">
             <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>

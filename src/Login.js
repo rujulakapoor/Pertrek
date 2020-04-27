@@ -9,7 +9,7 @@ import {
 import ReactDOM from "react-dom";
 import Popup from "reactjs-popup";
 import Content from './Content';
-
+import { Carousel } from 'react-responsive-carousel';
 
 class Login extends Component {
   constructor(props) {
@@ -103,6 +103,7 @@ class Login extends Component {
     <div className="Login">
     <section id="container">
     <div id="one">
+    <img src="https://lh3.googleusercontent.com/0U1mUZCK1zQ3RFwzApDLwKjoX0XJ3TBpSeAhh9cFAJzyZpK0lqsvfRxnvO4i_Y95VoE8qxiV9VEfewjOi2XqBzzGKCsncou5UrZlDPzgYIumfkToj3oEzx3WQVYvr9CzZErSfCKSouQuG-4W_f8QvYVOvnSIfFmpGqfkyqnSfQ7eYtKSNPPGwKRuVur71duCVo6cd9l2-SLIJQ3oMZopvDIOq0szYdDCBl_ilBnTyoib8CIGDtl3SY5UPP_7fbHpRTOmLM0OTHWJLU6X6fQFoEnH7MvBfPFG6sFrmQw8MWIXWWvMbMmbCVknWlVnzAm5Pwxs5Yq0OsVn77daBJKNWXa45sg4_Exnyv3zZX0VE8UWJexXC6KgEuAuH31nnQ6XoPrxbD-Tm7r6qgjMzJ9gCqWj0YzrQ79Px2VJ16Yxky5mODeApF2wHJMRySPWJSGKNhg0fUWUVbHFXqwNRqDmZE1oYkOzBUz_TuW061_sHrZf_oOB34E-QBcCfMXQs7RNUFodMxboNRCwyZ39VxFmorKBXgrQKwu0YpTaAIM7pyD402vDlV9zjQyGGuJuwqn07nieeCPLRbT_HU96wzio0rILFFQEEBwPN5OCrIoNpx2LlfSWwmqN_AUnH_3LNkI7fO_8uZ6vizaKHIwSj9E4jxqMzYMRZTRRBc5hOI8LdwH6-TmglbSgwDxvU1dTcg=w541-h663-no" width="100%" height="720"/>
     </div>
     <div id="two">
     <h6>Log In</h6>
