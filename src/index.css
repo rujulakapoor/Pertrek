@@ -247,6 +247,12 @@ Link {
   cursor: pointer;
 }
 
+/* .planner Jumbotron {
+  background-image: url('./img/banner-empty.png');
+  height: 30vh;
+  margin:auto;
+} */
+
 .planner .card-img {
   width: 100%;
   height: 10vw;
