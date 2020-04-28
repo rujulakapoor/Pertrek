@@ -639,7 +639,7 @@ handleSavedEdits() {
         orange:false,
        })
     }
-      alert("ORANFE&&&&&&&" + this.state.orange);
+      //alert("ORANFE&&&&&&&" + this.state.orange);
   }
     
 
@@ -1216,7 +1216,7 @@ render() {
 const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,itkey} = this.state;
 const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,itkey}
  
-alert("orange is" + this.state.orange)
+//alert("orange is" + this.state.orange)
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
