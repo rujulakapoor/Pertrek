@@ -277,15 +277,15 @@ Link {
 }
 
 #one {
-  width: 60%;
-  height: 700px;
-  background: white;
+  width: 50%;
+  height: 300px;
+  background: gray;
   float: left;
 }
 
 #two {
   margin-left: 15%;
-  height: 700px;
+  height: 300px;
   background: white;
   text-align: center;
 }
@@ -353,6 +353,15 @@ Link {
   margin-top: 9%;
   margin-left: 5%;
   margin-right: 5%;
+}
+.bottom-left3 {
+  position: absolute;
+  bottom: 350px;
+  left: 540px;
+  height: 40%;
+  width: 30%;
+  background-color:white;
+  border: 1px solid #ddd;
 }
 /* Bottom left text */
 .bottom-left {
@@ -893,7 +902,8 @@ Link {
   font-family: 'Palanquin Dark', sans-serif;
   font-weight: bold;
   margin-bottom: 2%;
-  margin-top: 12%;
+  margin-top: 8%;
+  color: #00CECB;
 }
 .Login h5 {
   display: block;
@@ -901,7 +911,8 @@ Link {
   font-family: 'Palanquin Dark', sans-serif;
   font-weight: bold;
   margin-bottom: 5%;
-  margin-top: 12%;
+  margin-top: 8%;
+  color: #00CECB;
 }
 .Login h4 {
   margin-top: 0;
@@ -932,8 +943,8 @@ Link {
   box-shadow: none;
   font-family: 'Quicksand', sans-serif;
   font-size: 15px;
-  border-bottom: 3px dotted #c7d0d8;
-  margin-bottom: 1%;
+  border-bottom: 1px solid #c7d0d8;
+  margin-bottom: 2%;
 
 }
 #exampleInputEmail12
@@ -959,12 +970,13 @@ Link {
 #LogIn
 {
   font-family: 'Quicksand', sans-serif;
-  background: #c7d0d8;
+  background: #00CECB;
   border: 0;
   color: white;
-  width: 13%;
+  width: 165px;
   height: 30px;
-  margin-bottom: 1%;
+  font-weight: bold;
+  margin-top: 2%;
 }
 #Submit
 {
@@ -972,9 +984,11 @@ Link {
   background: #c7d0d8;
   border: 0;
   color: white;
-  width: 80px;
+  width: 165px;
   height: 30px;
   margin-bottom: 1%;
+  font-weight: bold;
+  background: #00CECB;
   margin-top: 5%;
 }
 #Submit2
@@ -1106,7 +1120,7 @@ Link {
 
 
 .box {
-  width: 99%;
+  width: 200px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid #fff;
@@ -1133,11 +1147,12 @@ Link {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: white;
   transition: opacity 500ms;
   visibility: visible;
   opacity: 1;
   z-index: 10;
+  
 }
 .overlay:target {
   visibility: hidden;
@@ -1145,12 +1160,12 @@ Link {
   display:none
 }
 .popup {
-  margin: 70px auto;
   padding: 60px;
   background: #fff;
-  border-radius: 20px;
-  width: 30%;
+  margin-top: 0px;
+  margin-left: 0px;
   position: relative;
+  border: 0px solid #00CECB;
   transition: all 5s ease-in-out;
 }
 .popup h2 {
@@ -1166,7 +1181,7 @@ Link {
   font-size: 30px;
   font-weight: bold;
   text-decoration: none;
-  color: #333;
+  color: #00CECB;
 }
 
 .popup .content {

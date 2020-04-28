@@ -93,19 +93,9 @@ class Login extends Component {
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+/*
 
-  
-  
-  render() {
-    
-    return (
-        
-    <div className="Login">
-    <section id="container">
-    <div id="one">
-    <img src="https://lh3.googleusercontent.com/0U1mUZCK1zQ3RFwzApDLwKjoX0XJ3TBpSeAhh9cFAJzyZpK0lqsvfRxnvO4i_Y95VoE8qxiV9VEfewjOi2XqBzzGKCsncou5UrZlDPzgYIumfkToj3oEzx3WQVYvr9CzZErSfCKSouQuG-4W_f8QvYVOvnSIfFmpGqfkyqnSfQ7eYtKSNPPGwKRuVur71duCVo6cd9l2-SLIJQ3oMZopvDIOq0szYdDCBl_ilBnTyoib8CIGDtl3SY5UPP_7fbHpRTOmLM0OTHWJLU6X6fQFoEnH7MvBfPFG6sFrmQw8MWIXWWvMbMmbCVknWlVnzAm5Pwxs5Yq0OsVn77daBJKNWXa45sg4_Exnyv3zZX0VE8UWJexXC6KgEuAuH31nnQ6XoPrxbD-Tm7r6qgjMzJ9gCqWj0YzrQ79Px2VJ16Yxky5mODeApF2wHJMRySPWJSGKNhg0fUWUVbHFXqwNRqDmZE1oYkOzBUz_TuW061_sHrZf_oOB34E-QBcCfMXQs7RNUFodMxboNRCwyZ39VxFmorKBXgrQKwu0YpTaAIM7pyD402vDlV9zjQyGGuJuwqn07nieeCPLRbT_HU96wzio0rILFFQEEBwPN5OCrIoNpx2LlfSWwmqN_AUnH_3LNkI7fO_8uZ6vizaKHIwSj9E4jxqMzYMRZTRRBc5hOI8LdwH6-TmglbSgwDxvU1dTcg=w541-h663-no" width="100%" height="720"/>
-    </div>
-    <div id="two">
+<div id="two">
     <h6>Log In</h6>
             <input value={this.state.email} onChange={this.handleChange} type="email" name="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
             <div>
@@ -147,7 +137,57 @@ class Login extends Component {
 
                  
     </div>
-    </section>
+
+
+
+*/
+  
+  
+  render() {
+    
+    return (
+        
+    <div className="Login">
+    <img src="https://lh3.googleusercontent.com/0rzLR7Drq6BSzPVzKQSqS2TBgUEWQAalzSOIafuIsK7SyOHGBi4t9kbFTgWBDU51kbek3vR7VOYjFjNOEWT-OyLgTehHD2FPRDMgdqRREdG1ngF23agco7VgLej47x8y3B71HR3ojoaH9dPQdA1EsMUAFmQcx64lBI2mQWnNe0tprRVI89kfqr0PDVcMT5y2_dBdOqENQg0zdArFnClUCjwyJadMEE86MHqht7qH5ESEnYpH4lcSqAn3lgpLV3S06CKt80UBv4Z2vO2MG-cNcMTwdasEimARh42mB0xSAZCAKAeQbEk3xJPk3wezKJfIxfcFpLcwOCUdropjSg3Mi4hXQykFsZLeEhev_CUSAdLU6oV9c-J7kp95d1COWLddFi_3qEw4Dg62AquGLVoqIl07-weeD7qjeZdzy0yCLU61PFhIPfMCM_FZzC1Hi_pND1GQKRnHAMXM2JvHfhBDBqh_VgcBSdU2pQZDeV1flQmXMhnG9xDxaulPVyCHMy-gnXXvlEGrVadTXmBxt5xJBaetpLwnajqTv8yAveFjzX3gs-__WhVs96XZ2nd_1sQLmzh-YuxWQs8p0XiJF10WANqjcENl_v37fhOYLnMiLbMrYiEEr0FuAImEcgIu7uBlyzVrd2rChryISOJ3ec2zt61KQ3rViybYza5fs07B84dKKY4BxX1o8twuxloLsQ=w1436-h943-no" width="100%" height="750"/>
+    <div class="bottom-left3">
+      <div align="center">
+      <h6>Log In</h6>
+            <input value={this.state.email} onChange={this.handleChange} type="email" name="email"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
+            <div>
+            <input value={this.state.password} onChange={this.handleChange} type="password" name="password"  id="exampleInputEmail1" placeholder="Password" />
+            </div>
+            <div>
+            <button id="LogIn"type="submit" onClick={this.login} class="btn btn-primary">Login</button>
+            </div>
+            <div class="box">
+            <a  class="button" href="#">Dont't Have An Account Sign Up</a>
+            </div> 
+            <div>
+            <Link to='/forgot' style={{ textDecoration: 'none', color:'black' }}><span class="ml-12" >Forgot Passowrd</span></Link>
+            </div>
+
+            <div id="popup1" class="overlay">
+    	      <div class="popup" >
+    		    <h5>Create an Account</h5>
+    		    <a class="close" href="#popup1">×</a>
+    		    <div class="content">
+            <input value={this.state.email2} onChange={this.handleChange} type="email" name="email2"  id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Adress" />
+            <div>
+            <input value={this.state.password2} onChange={this.handleChange} type="password" name="password2"  id="exampleInputEmail1" placeholder="Password" />
+            </div>
+            <div>
+            <input value={this.state.password22} onChange={this.handleChange} type="password" name="password22"  id="exampleInputEmail1" placeholder="Renter Password" />
+            </div>
+            <div>
+            <button id="Submit"type="submit" onClick={this.signup} class="btn btn-primary">SignUp</button>
+            </div>
+    		    </div>
+    	      </div>
+            </div> 
+           
+     </div> 
+     </div>  
+   
     </div>
 
         
