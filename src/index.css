@@ -273,6 +273,66 @@ Link {
   margin-right:5px;
 }
 
+/* ATTRACTIONS */
+.attractions {
+  background-color: rgb(255, 255, 255);
+  padding: 3%;
+}
+
+.attractions h1 {
+  font-weight: bolder;
+  font-size: larger;
+  color: rgb(29, 29, 29);
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+}
+
+.attractions h5 {
+  font-weight: bolder;
+  font-size: larger;
+  color: black;
+}
+
+.attractions h4 {
+  font-weight: lighter;
+  font-size: small;
+  color: #333;
+}
+
+.attractions h3 {
+  font-weight: lighter;
+  font-size: small;
+  color: rgb(80, 80, 80);
+}
+
+.attractions p {
+  font-size: small;
+}
+
+.attractions h2 {
+  font-weight: lighter;
+  font-size: small;
+  color: #069;
+  cursor: pointer;
+}
+
+.attractions .card-img {
+  width: 100%;
+  height: 6vw;
+  object-fit: cover;
+}
+
+.attractions map {
+  width: 85%;
+  height: 10vw;
+}
+
+
+.attractions Button {
+  margin-right:5px;
+}
+
 /* RUJULA STUFF */
 #container {
   width: 100%;

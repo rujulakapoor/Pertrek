@@ -17,17 +17,15 @@ import {
   faInfo,
   faStar,
   faMap,
-  faPlus
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import fire from "./config/fire";
 import bootbox from "bootbox";
 
 const popInfo = (
-	<Popover id="popover-basic">
-	  <Popover.Content>
-		View user submitted information
-	  </Popover.Content>
-	</Popover>
+  <Popover id="popover-basic">
+    <Popover.Content>View user submitted information</Popover.Content>
+  </Popover>
 );
 
 class Attractions extends Component {
@@ -38,7 +36,15 @@ class Attractions extends Component {
       location: "Chicago, IL",
       category: this.props.category,
       attractions: [],
+      userVals: [],
+			userRetreived: false,
+			userValsRating: [],
+			userRetreivedRating: false
     };
+
+    this.showUserInfo = this.showUserInfo.bind(this);
+    this.getUserRatings = this.getUserRatings.bind(this);
+    this.getUserSubmissions = this.getUserSubmissions.bind(this);
   }
   componentDidUpdate() {
     //console.log("what is happening");
@@ -68,7 +74,7 @@ class Attractions extends Component {
           params: {
             term: this.props.category,
             location: this.state.location,
-            limit: 5,
+            limit: 8,
           },
         })
         .then(
@@ -125,37 +131,158 @@ class Attractions extends Component {
         });
     }
   }
+  showUserInfo(name, id) {
+		var hasTime = false;
+		var hasRating = false;
+		var timeAvg = "?";
+		var ratingAvg = "?";
+
+		for(var i in this.state.userVals) {
+			var r = this.state.userVals[i];
+			if(r.id === id) {
+				timeAvg = r.avgTime/r.numTime;
+				hasTime = true;
+			}
+		}
+
+		for(var i in this.state.userValsRating) {
+			var r = this.state.userValsRating[i];
+			if(r.id === id) {
+				ratingAvg = r.ratingSum/r.ratingNum;
+				hasRating = true;
+			}
+		}
+
+		var message;
+		if(!hasTime && !hasRating) {
+			message = name + " does not have any user submitted information";
+		}
+		else {
+			message = "Average time user spent at " + name + ": " + timeAvg + " hours" + 
+						"<br/>" + 
+						"Average user rating: " + ratingAvg + "/10";
+		}
+
+		bootbox.alert({
+			message: message,
+			backdrop: true
+		});
+  }
+  getUserSubmissions() {
+		//console.log("getting user submissions");
+		if(!this.state.userRetreived) {
+
+			fire.database()
+				.ref('userSubmissions')
+				.on("value", snapshot=> {
+					if(snapshot.val()) {
+						let currentstate = this;
+					
+						const values = snapshot.val();
+						var keyList = Object.keys(values);
+
+						for(var k in keyList) {
+							var key = keyList[k];
+							var item = values[keyList[k]];
+
+							//create object
+							var val = {
+								key: key,
+								id: item.id,
+								avgTime: item.avgTime,
+								numTime: item.numTime
+							}
+
+							currentstate.setState( {
+								userVals: [...currentstate.state.userVals,  val]
+							})
+						}
+
+					}
+				})
+		
+			this.state.userRetreived = true;
+			console.log("GOT TIME !!!")
+		}
+		
+  }
+  getUserRatings() {
+		//console.log("getting user ratings");
+		if(!this.state.userRetreivedRating) {
+
+			fire.database()
+				.ref('userRatings')
+				.on("value", snapshot=> {
+					if(snapshot.val()) {
+						let currentstate = this;
+					
+						const values = snapshot.val();
+						var keyList = Object.keys(values);
+
+						for(var k in keyList) {
+							console.log("key in keylist = " + keyList[k]);
+
+							var key = keyList[k];
+							var item = values[keyList[k]];
+
+							//create object
+							var val = {
+								key: key,
+								id: item.id,
+								ratingSum: item.ratingSum,
+								ratingNum: item.ratingNum
+							}
+
+							currentstate.setState( {
+								userValsRating: [...currentstate.state.userValsRating,  val]
+							})
+						}
+
+					}
+				})
+		
+			this.state.userRetreivedRating = true;
+			console.log("GOT rating !!!")
+		}
+		
+	}
   addAttraction(name, id) {
     let curr = this;
 
     bootbox.prompt({
-        title: "How long are you planning on spending at " + name + "?",
-        inputType: 'number',
-        callback: function (result) {
-            var added = {
-                name: name,
-                id: id,
-                time: result
-            }
+      title: "How long are you planning on spending at " + name + "?",
+      inputType: "number",
+      callback: function (result) {
+        var added = {
+          name: name,
+          id: id,
+          time: result,
+        };
 
-            curr.props.addedAttraction(added);
-        }
+        curr.props.addedAttraction(added);
+      },
     });
   }
 
-
   render() {
-    let statenow = this
+    let statenow = this;
     const curr = this;
+
+    fire.auth().onAuthStateChanged( function(user) {
+			if (user) {
+			statenow.getUserSubmissions();
+			statenow.getUserRatings();
+		}})
+
     if (this.state.category == "") {
       return (
-        <div className="planner">
-          <p>Search a location</p>
+        <div className="attractions">
+          <h1>Enter a category</h1>
         </div>
       );
     } else {
       return (
-        <div className="planner">
+        <div className="attractions">
           <h1>
             {statenow.state.category} in {statenow.state.location}
           </h1>
@@ -169,9 +296,9 @@ class Attractions extends Component {
                       key={attraction.id}
                       className="float-left"
                       style={{
-                        width: "18rem",
+                        width: "14rem",
                         marginRight: "1rem",
-                        height: "40rem",
+                        // height: "37rem",
                         margin: "15px",
                       }}
                     >
@@ -184,9 +311,9 @@ class Attractions extends Component {
 
                       <Card.Body>
                         <Card.Text as="h4">Cost: {attraction.price}</Card.Text>
-                        <Card.Text as="h4">
+                        {/* <Card.Text as="h4">
                           Rating: {attraction.popularity}/5
-                        </Card.Text>
+                        </Card.Text> */}
 
                         <Card.Text as="h4">
                           <StarRatings
@@ -200,15 +327,15 @@ class Attractions extends Component {
                         <Card.Text as="p">{attraction.description}</Card.Text>
 
                         <Button
-                            variant="outline-secondary"
-                            onClick={() =>
-                                this.addAttraction(attraction.name, attraction.id)
-                              }
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </Button>
+                          variant="outline-secondary"
+                          onClick={() =>
+                            this.addAttraction(attraction.name, attraction.id)
+                          }
+                        >
+                          <FontAwesomeIcon icon={faPlus} />
+                        </Button>
 
-                        {/* <OverlayTrigger
+                        <OverlayTrigger
                           key="info"
                           placement="top"
                           overlay={popInfo}
@@ -221,11 +348,10 @@ class Attractions extends Component {
                           >
                             <FontAwesomeIcon icon={faInfo} />
                           </Button>
-                        </OverlayTrigger> */}
-
-
+                        </OverlayTrigger>
                       </Card.Body>
 
+                      <Card.Footer as="h3">{attraction.address}</Card.Footer>
                     </Card>
                   </Accordion>
                 ))}
