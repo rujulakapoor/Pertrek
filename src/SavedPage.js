@@ -111,6 +111,7 @@ editPlan(itinerary) {
     plane3t: itinerary[1].plane3t,
     countf: itinerary[1].countf,
     partysize: itinerary[1].partysize,
+    orange: itinerary[1].orange,
     itkey: itinerary[0],
     step: 2
 
@@ -157,8 +158,8 @@ render(){
   //   return null;
   // }
 
-  const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, itkey} = this.state;
-  const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, itkey}
+  const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, orange, itkey} = this.state;
+  const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, orange, itkey}
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {

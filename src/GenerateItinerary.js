@@ -103,6 +103,7 @@ constructor(props){
   this.handleAddOther = this.handleAddOther.bind(this)
   this.handleOriginalAdd = this.handleOriginalAdd.bind(this)
   this.deleteOldEvent = this.deleteOldEvent.bind(this)
+  this.handleChangeOrange= this.handleChangeOrange.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -126,6 +127,8 @@ constructor(props){
     plane3t:this.props.values.plane3t,
     countf:this.props.values.countf,
     partysize:this.props.values.partysize,
+    orange:this.props.values.orange,
+
     maxdist:this.props.values.maxdist,
     days: [],
     alreadysaved: false,
@@ -153,8 +156,9 @@ constructor(props){
     dinner: 0,
     snack: 0,
     other: 0,
-    currentlyEditingOriginal: false
-    
+   
+    currentlyEditingOriginal: false,
+   
 
 
   }
@@ -199,7 +203,7 @@ handleMiniTravel(cost) {
 
 handleChange = input => e => {
   this.setState({[input]: e.target.value})
-
+  
 }
 
 //Deletes from the daily data info about the event that was there
@@ -496,6 +500,7 @@ handleSavedEdits() {
         plane3n:this.state.plane3n,
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
+        orange:this.state.orange,
         countf:this.state.countf,
         partysize:this.state.partysize,
         maxdist:this.state.maxdist
@@ -622,6 +627,20 @@ handleSavedEdits() {
       this.state.retreived=true;
       }
     }
+  
+  handleChangeOrange(){
+    if(this.state.orange!=1){
+    this.setState({
+      orange:true,
+     })
+    }
+    else{
+      this.setState({
+        orange:false,
+       })
+    }
+      alert("ORANFE&&&&&&&" + this.state.orange);
+  }
     
 
 renderTotalMealCost() {
@@ -1187,7 +1206,6 @@ trypush(){
   });
 }
 
-
 renderCheck(){
   if(this.state.alreadysaved) {
     return(<FaCheck/>);
@@ -1195,9 +1213,10 @@ renderCheck(){
 }
 
 render() {
-const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey} = this.state;
-const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,itkey}
+const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,itkey} = this.state;
+const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,itkey}
  
+alert("orange is" + this.state.orange)
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {
@@ -1519,9 +1538,73 @@ let statenow = this
   return(
           
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+      <div id="cus" className="Custom">  
+                <h1>Pick a Background Color</h1>  
+                <input id="select1" name="check1" type="checkbox" />
+                <label for="select1">Black</label>
+                <input id="select2" name="check1" type="checkbox" />
+                <label for="select2">Blue</label>
+                <input id="select3" name="check1" type="checkbox" />
+                <label for="select3">Green</label>
+                <input id="select4" name="check1" type="checkbox" />
+                <label for="select4">Purple</label>
+                <input id="select5" name="check1" type="checkbox" />
+                <label for="select5">Maroon</label>
+                <input id="select6" name="check1" type="checkbox" checked={this.state.orange}  onClick={this.handleChangeOrange} />
+                <label for="select6">Orange</label>
+                <input id="select7" name="check1" type="checkbox" />
+                <label for="select7">Yellow</label>
+                <input id="select8" name="check1" type="checkbox" />
+                <label for="select8">Pink</label>
+
+                <h1>Pick a Font</h1>  
+                <input id="sel1" name="check1" type="checkbox" />
+                <label for="sel1">Quicksand</label>
+                <input id="sel2" name="check1" type="checkbox" />
+                <label for="sel2">Calibri</label>
+                <input id="sel3" name="check1" type="checkbox" />
+                <label for="sel3">Arial</label>
+                <input id="sel4" name="check1" type="checkbox" />
+                <label for="sel4">Comic Sans</label>
+                <input id="sel5" name="check1" type="checkbox" />
+                <label for="sel5">Times </label>
+                <input id="sel6" name="check1" type="checkbox" />
+                <label for="sel6">Gothic </label>
+
+
+                <h1>Pick a Font Size</h1>  
+                <input id="se1" name="check1" type="checkbox" />
+                <label for="se1">12</label>
+                <input id="se5" name="check1" type="checkbox" />
+                <label for="se5">16</label>
+                <input id="se2" name="check1" type="checkbox" />
+                <label for="se2">18</label>
+                <input id="se3" name="check1" type="checkbox" />
+                <label for="se3">24</label>
+                <input id="se4" name="check1" type="checkbox" />
+                <label for="se4">30</label>
+                <input id="se6" name="check1" type="checkbox" />
+                <label for="se6">42</label>
+
+                <h1>Pick a Font Color</h1>  
+                <input id="s1" name="check1" type="checkbox"/>
+                <label for="s1">Black</label>
+                <input id="s2" name="check1" type="checkbox" />
+                <label for="s2">White</label>
+
+                <h1>Pick a Tab</h1>  
+                <input onChange={this.handleChangeTab1} id="tab1" name="check1" type="checkbox" />
+                <label for="tab1">Tab Style 1</label>
+                <input onChange={this.handleChangeTab2} id="tab2" name="check1" type="checkbox" />
+                <label for="tab22">Tab Style 2</label>
+
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
-      <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
-      <div className="MealsStuff" id="moreMealStuff">
+                
+                <div id="cuse" class="wrapper2 wrap wr w">
+                <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
+                </div>
+                </div>
+        <div className="MealsStuff" id="moreMealStuff">
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
                 <Dinner lailafunc={this.handleAddDinner} / > 

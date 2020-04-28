@@ -30,6 +30,7 @@ class ItineraryForm extends Component {
       plane3t: '',
       countf: '',
       partysize: '',
+      orange: '',
       maxdist: ''
     };
   }
@@ -53,9 +54,9 @@ handleChange = input => e => {
 }
 render() {
   const {step } = this.state;
-  const {startdate, enddate, title, budget, multiday, location,notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize,maxdist} = this.state;
+  const {startdate, enddate, title, budget, multiday, location,notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize,maxdist,orange} = this.state;
   let itkey = null
-  const values = {startdate, enddate, title, budget, multiday, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t, plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize,maxdist,itkey}
+  const values = {startdate, enddate, title, budget, multiday, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t, plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize,maxdist,orange,itkey}
   switch(step) {
     case 1 :
     return(

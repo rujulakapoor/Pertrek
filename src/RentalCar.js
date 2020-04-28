@@ -46,6 +46,7 @@ export class RentalCar extends Component {
           plane3d:this.props.values.plane3d,
           plane3t:this.props.values.plane3t,
           countf:this.props.values.countf,
+          orange:this.props.values.orange,
           newbudget:0,
           alreadysaved: false,
           editPlate:false,
@@ -113,6 +114,7 @@ export class RentalCar extends Component {
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
         countf:this.state.countf,
+        orange:this.state.orange
       }
 
         db.push(item
