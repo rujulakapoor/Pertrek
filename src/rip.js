@@ -17,6 +17,7 @@ class Rip extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.onCustomCategory = this.onCustomCategory.bind(this);
+        this.getTime = this.getTime.bind(this);
     }
     handleChange(event) {
         this.setState({value: event.target.value});
@@ -37,6 +38,10 @@ class Rip extends Component {
     }
     search() {
         console.log("what");
+    }
+    getTime(val){
+        console.log("DATA RECEIVED = " + val.name + " , time = " + val.time);
+
     }
       
     render() { 
@@ -66,7 +71,7 @@ class Rip extends Component {
 
                 <Button variant="secondary" value="Submit" type="submit">Search</Button> */}
 
-                <Attractions category={curr.state.category} location={curr.state.location}/>
+                <Attractions category={curr.state.category} location={curr.state.location} addedAttraction={this.getTime}/>
             </div>
         );
   }

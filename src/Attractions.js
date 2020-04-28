@@ -126,7 +126,21 @@ class Attractions extends Component {
     }
   }
   addAttraction(name, id) {
+    let curr = this;
 
+    bootbox.prompt({
+        title: "How long are you planning on spending at " + name + "?",
+        inputType: 'number',
+        callback: function (result) {
+            var added = {
+                name: name,
+                id: id,
+                time: result
+            }
+
+            curr.props.addedAttraction(added);
+        }
+    });
   }
 
 
