@@ -148,7 +148,7 @@ class Login extends Component {
     return (
         
     <div className="Login">
-    <img src="https://lh3.googleusercontent.com/0rzLR7Drq6BSzPVzKQSqS2TBgUEWQAalzSOIafuIsK7SyOHGBi4t9kbFTgWBDU51kbek3vR7VOYjFjNOEWT-OyLgTehHD2FPRDMgdqRREdG1ngF23agco7VgLej47x8y3B71HR3ojoaH9dPQdA1EsMUAFmQcx64lBI2mQWnNe0tprRVI89kfqr0PDVcMT5y2_dBdOqENQg0zdArFnClUCjwyJadMEE86MHqht7qH5ESEnYpH4lcSqAn3lgpLV3S06CKt80UBv4Z2vO2MG-cNcMTwdasEimARh42mB0xSAZCAKAeQbEk3xJPk3wezKJfIxfcFpLcwOCUdropjSg3Mi4hXQykFsZLeEhev_CUSAdLU6oV9c-J7kp95d1COWLddFi_3qEw4Dg62AquGLVoqIl07-weeD7qjeZdzy0yCLU61PFhIPfMCM_FZzC1Hi_pND1GQKRnHAMXM2JvHfhBDBqh_VgcBSdU2pQZDeV1flQmXMhnG9xDxaulPVyCHMy-gnXXvlEGrVadTXmBxt5xJBaetpLwnajqTv8yAveFjzX3gs-__WhVs96XZ2nd_1sQLmzh-YuxWQs8p0XiJF10WANqjcENl_v37fhOYLnMiLbMrYiEEr0FuAImEcgIu7uBlyzVrd2rChryISOJ3ec2zt61KQ3rViybYza5fs07B84dKKY4BxX1o8twuxloLsQ=w1436-h943-no" width="100%" height="750"/>
+    <img src="https://lh3.googleusercontent.com/dlnEDtOKoNA-omFvpO4WIn2-Fuv-HLfaXN7QHb-244_t-b2Ma-IiWDtMCY7W2lG7WlN97Qfsrb809VAKqaiNlAoG5PxKfAdCtqw3aVWQAB3a_Ps82V6qtJkrZpQ08n-56OCXY42G3Q=w2400" width="100%" height="750"/>
     <div class="bottom-left3">
       <div align="center">
       <h6>Log In</h6>
