@@ -18,38 +18,7 @@
       color: #5E6472; 
   }
 
-  
-h6 {
-    font-family: 'Palanquin Dark', sans-serif;
-  }
-  
-  h5 {
-    font-family: 'Quicksand', sans-serif;
-  }
-  
-  h4 {
-    font-family: 'Quicksand', sans-serif;
-  }
-  
-  h3 {
-    font-family: 'Palanquin Dark', sans-serif;
-  }
-  
-  h2 {
-    font-family: 'Montserrat', sans-serif;
-  }
-  h7 {
-    font-family: 'Montserrat', sans-serif;
-    color: white;
-    font-size: x-large;
-    margin-top: 5%;
-  
-  }
-  
-  p {
-    font-family: 'Quicksand', sans-serif;
-  }
-
+ 
   .activity-modal {
     
     position: fixed;
@@ -69,3 +38,16 @@ h6 {
   .progress-bar-food{
       background-color:black;
   }
+ 
+  
+    .schedule a{
+        background-color: #FF5E5B;
+        color:#FFFFEA;
+    }
+    .schedule a:hover{
+        background-color: rgba(255, 94, 91, 0.288);
+        color:#FFFFEA;
+    }
+
+    
+    

@@ -1742,19 +1742,14 @@ let statenow = this
           <Button onClick={this.handleOriginalAdd}> Add Your Own Event </Button>
           </Row>    
 <Row>
-<Col sm={10}>
-
-    <Tabs  id="uncontrolled-tab-example">
-    {this.state.days.map((day, key) =>
-    
-{
-
-   // var day = this.state.days[data[0]]
-  // console.log(day)
+<Col sm={10} className="schedule">
+    <Tabs  id="uncontrolled-tab-example" >
    
-  return(
+    {this.state.days.map((day, key) => 
+    {
+      return(
           
-      <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+      <Tab  eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <div id="cus" className="Custom">  
                 <h1>Pick a Background Color</h1>  
                 <input id="select1" name="check1" type="checkbox"  checked={this.state.black}  onClick={this.handleChangeBlack}/>
