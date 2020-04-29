@@ -133,6 +133,13 @@ export class Plane1 extends Component {
         plane3n:this.state.plane3n,
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
+        times:this.state.times,
+        arial:this.state.arial,
+        quicksand:this.state.quicksand,
+        comic:this.state.comic,
+        size1:this.state.size1,
+        size2:this.state.size2,
+        size3:this.state.size3,
         countf:this.state.countf,
         orange:this.state.orange
       }
