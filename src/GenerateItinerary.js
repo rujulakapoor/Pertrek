@@ -169,11 +169,11 @@ constructor(props){
     itkey: this.props.values.itkey,
     retreived:false,
     destinations: [],
-    dailydata: {},
+    dailydata: this.props.values.dailydata,
+    numdays:this.props.values.numdays,
     timesoftheday: [],
     currentEvent: {},
     currentlyEditing: false,
-    dailydata: [],
     totalexpenses: 0,
     minitravel: 0,
     breakfast: 0,
@@ -193,37 +193,37 @@ handleAddBreakfast(cost) {
   this.setState({
     breakfast: cost
   })
-  console.log("HANDLED BREAKFAST")
+ // console.log("HANDLED BREAKFAST")
 }
 handleAddLunch(cost) {
   this.setState({
     lunch: cost
   })
-  console.log("HANDLED Lunch")
+ // console.log("HANDLED Lunch")
 }
 handleAddDinner(cost) {
   this.setState({
     dinner: cost
   })
-  console.log("HANDLED dinner")
+ // console.log("HANDLED dinner")
 }
 handleAddSnack(cost) {
   this.setState({
     snack: cost
   })
-  console.log("HANDLED snack")
+//  console.log("HANDLED snack")
 }
 handleAddOther(cost) {
   this.setState({
     other: cost
   })
-  console.log("HANDLED other")
+//  console.log("HANDLED other")
 }
 handleMiniTravel(cost) {
   this.setState({
     minitravel: cost
   })
-  console.log("Done in mini travel")
+ //console.log("Done in mini travel")
 }
 
 handleChange = input => e => {
@@ -235,7 +235,7 @@ handleChange = input => e => {
 
 deleteOldEvent(time, event, daynum) {
   
-console.log("DELETING FROM ITINERARY")
+//console.log("DELETING FROM ITINERARY")
 
   var midstr = time.substring(0,2)
   var starthour = parseInt(midstr)
@@ -282,7 +282,7 @@ console.log("DELETING FROM ITINERARY")
   //do i need hooks here
   
 
-console.log(this.state.dailydata)
+//console.log(this.state.dailydata)
 }
 
 saveNewEvent = (info) => {
@@ -297,15 +297,11 @@ saveNewEvent = (info) => {
       currentlyEditing:false,
       currentlyEditingOriginal: false
     }) 
-    console.log("IN SAVE NEW EVENT")
-    console.log(info)
-    console.log(this.state)
 
     var stufftosave
     if(this.state.currentEvent === 0) {
       stufftosave={ 
         name: info.name
-
       }
 
     } else 
@@ -338,14 +334,10 @@ saveNewEvent = (info) => {
 
  
 handleEventAdd = (info) => {
-
- 
   this.state.currentEvent = info;
   this.state.currentlyEditing = true;
-   
-
-  
 } 
+
 handleOriginalAdd() {
    this.state.currentEvent = 0
   this.state.currentlyEditingOriginal = true;
@@ -354,42 +346,32 @@ handleOriginalAdd() {
   })
 }
 
-
-
 handleSaveEvent = (info) => {
   // this.setState({currentlyEditing: false});
   // get info  
 }
 
-
 calculateDaysAgain() {
   let currentState = this
-   const end=new Date(this.state.enddate);
+  const end=new Date(this.state.enddate);
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
   start.setDate(start.getDate() + 1);
   currentState.setState({
     days: []
   }, function() {
-
-
     let len = 1
     for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
     {
- 
       currentState.state.days.push(new Date(d));
       if(len++ > 31) {
         break
       }
     }
-
-
   })
    this.setState({
     alreadysaved:true
   })
-
-
 }
 
 componentWillMount() {
@@ -397,12 +379,12 @@ componentWillMount() {
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
   start.setDate(start.getDate() + 1);
-//this.setState({dailydata: []})
 
+//Only need to do this if dailydata = null ? 
 
-
-
- var intdailydata = []
+if(JSON.stringify(this.props.values.dailydata) === '{}' || this.props.values.dailydata == null) {
+  console.log("NO DAILY DATA DETECTED");
+  var intdailydata = []
   let len = 0
   for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
   {
@@ -461,13 +443,31 @@ var thisdaystimes = [];
     if(len++ > 30) {
       break
     }
+    this.setState({numdays: len})
+    this.setState({dailydata: intdailydata})
+
   }
-  this.setState({numdays: len})
+
   console.log("IN COMPONENT WILL MOUNT")
   this.getDestinations();
 
 console.log(this.state.dailydata)
-this.setState({dailydata: intdailydata})
+
+
+}
+else {
+  console.log("DAILY DATA FOUND")
+  console.log(this.props.values.dailydata);
+  console.log(this.state.dailydata)
+  this.setState({dailydata:this.props.values.dailydata});
+  for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
+  {
+    
+    this.state.days.push(new Date(d));
+  }
+  console.log(this.state.days);
+  }
+
 this.state.timesoftheday[1000] = "BOFA"
 }
 
@@ -541,7 +541,9 @@ handleSavedEdits() {
         size3:this.state.size3,
         countf:this.state.countf,
         partysize:this.state.partysize,
-        maxdist:this.state.maxdist
+        maxdist:this.state.maxdist,
+        dailydata:this.state.dailydata,
+        numdays:this.state.numdays
         
       }
 
@@ -584,10 +586,8 @@ handleSavedEdits() {
       ).on("value", snapshot=> {
         if(snapshot.val()) {
         let currentstate = this;
-        console.log("dest snapshot is ")
-        //alert("inside getdest")
-        console.log(snapshot.val())
-    
+         //alert("inside getdest")
+     
         const values = snapshot.val();
         console.log(values);
     
@@ -651,8 +651,7 @@ handleSavedEdits() {
             destinations: [...currentstate.state.destinations,  thing]
           })
           */ 
-          console.log(this.state.destinations)
-        })
+         })
   
         }
       })
@@ -1235,10 +1234,8 @@ return(<Button variant="light" onClick={this.changeEnd}>
 }
 
 newbudget(dailybudget) {
-  console.log("IN NEW BUDGET")
-  var newb = dailybudget * this.state.numdays;
-  console.log("NEW BUDGET IS" + newb)
-  this.setState({
+   var newb = dailybudget * this.state.numdays;
+   this.setState({
     budget: newb
   })
 }

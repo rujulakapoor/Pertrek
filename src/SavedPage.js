@@ -23,6 +23,8 @@ class SavedPage extends Component {
       costc: '',
       partysize: '',
       itkey: '',
+      dailydata: [],
+      numdays: 0,
       step: 1,
     }
     this.getItineraries = this.getItineraries.bind(this);
@@ -125,6 +127,8 @@ editPlan(itinerary) {
     size1: itinerary[1].size1,
     size2: itinerary[1].size2,
     size3: itinerary[1].size3,
+    dailydata: itinerary[1].dailydata,
+    numdays: itinerary[1].numdays,
     itkey: itinerary[0],
     step: 2
 
@@ -171,8 +175,8 @@ render(){
   //   return null;
   // }
 
-  const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, orange,yellow,green,black,purple,maroon,blue,times,arial,quicksand,comic,size1,size2,size3,itkey} = this.state;
-  const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, orange,yellow,green,black,purple,maroon,blue,times,arial,quicksand,comic,size1,size2,size3,itkey}
+  const {startdate, enddate, numdays, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, orange,yellow,green,black,purple,maroon,blue,times,arial,quicksand,comic,size1,size2,size3,dailydata, itkey} = this.state;
+  const values = {startdate, enddate, numdays, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,partysize, orange,yellow,green,black,purple,maroon,blue,times,arial,quicksand,comic,size1,size2,size3,dailydata,itkey}
 let statenow = this
   fire.auth().onAuthStateChanged( function(user) {
       if (user) {

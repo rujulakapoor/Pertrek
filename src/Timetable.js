@@ -3,6 +3,7 @@ import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badg
 
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {TiDeleteOutline} from 'react-icons/ti'
+import './Timetable.css'
 
 export class Timetable extends Component {
 
@@ -186,7 +187,9 @@ renderTime(time) {
   if(size != 0){
     
     return(
-      <p> {activity.name} {this.renderEdit(time, event)} </p>
+      //Change this to be the modal
+
+      <div className="eventBlock"> <p>{activity.name} {this.renderEdit(time, event)} </p> </div>
     )
 
   }  
@@ -209,10 +212,14 @@ return (
   </thead>
 
     <tbody>
+
+
     <tr>
       <td> 8:00am </td>
       <td> {this.renderTime("08:00")} </td>
     </tr>
+
+
     <tr>
       <td> 8:15am </td>
       <td> {this.renderTime("08:15")} </td>
