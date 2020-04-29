@@ -188,7 +188,7 @@ console.log("HERE")
       return(
         <div>
         <Jumbotron style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}>
-          <h1> My Itineraries Bitch</h1>
+          <h1> My Itineraries</h1>
         </Jumbotron>
 
           {Object.entries(this.state.itineraries).map(([key,value]) =>
