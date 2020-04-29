@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table} from 'react-bootstrap'
+import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table, OverlayTrigger, Tooltip, Overlay} from 'react-bootstrap'
 
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {TiDeleteOutline} from 'react-icons/ti'
@@ -200,8 +200,16 @@ renderTime(time) {
     
     return(
       //Change this to be the modal
-
+<OverlayTrigger
+  key={time}
+  placement='top'
+  overlay={
+    <Tooltip id={`tooltip-${time}`}>
+      {event.notes}
+    </Tooltip>
+  }>
       <Card className="card-tabletop"> <p>{activity.name} {this.renderEdit(time, event)} </p> </Card>
+      </OverlayTrigger>
     )
 
   }  

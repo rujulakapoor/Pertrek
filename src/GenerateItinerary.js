@@ -323,6 +323,8 @@ saveNewEvent = (info) => {
       }
        
       this.state.dailydata[info.day].scheduleactivities[block.toString()].eventdetails = stufftosave;
+      
+      this.state.dailydata[info.day].scheduleactivities[block.toString()].notes = info.notes;
          })
 
     this.state.dailydata[info.day].cost += info.cost;
@@ -1480,11 +1482,9 @@ let statenow = this
         <Col>
           <h4>Maximum Distance (mi): {this.maxdistRender()} {this.maxdistButtonRender()}</h4>
         </Col>
-      </Row>
-      <Row>
         <Col>
         <Accordion defaultActiveKey="1">
-         <Card  >
+         <Card className="card-notes" >
     
            <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
            My Notes
@@ -1500,6 +1500,9 @@ let statenow = this
         </Accordion>
     
         </Col>
+      </Row>
+      <Row>
+       
     </Row>
           </Container>
           

@@ -62,3 +62,10 @@ h6 {
     border: #FF5E58 solid 20px;
     border-radius: 16px;
   }
+  .card-notes {
+      background: #FF5E58;
+  }
+
+  .progress-bar-food{
+      background-color:black;
+  }

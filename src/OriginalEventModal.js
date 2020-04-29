@@ -1,6 +1,6 @@
 import React, {Component } from 'react'
 import {Form, Button} from 'react-bootstrap'
- 
+ import './GenerateItinerary.css'
 export class OriginalEventModal extends Component{
     constructor(props) {
         super(props)
@@ -14,7 +14,8 @@ export class OriginalEventModal extends Component{
             blockids:[],
             name:'',
             address: '',
-            description: ''
+            description: '',
+            notes: null
 
         }
         this.saveNewEvent = this.saveNewEvent.bind(this)
@@ -27,7 +28,8 @@ export class OriginalEventModal extends Component{
         var addr = document.getElementById("addr").value
         var desc = document.getElementById("desc").value
         var name = document.getElementById("name").value
-
+        var notes = document.getElementById("notes").value
+        console.log("NOTES ARE " + notes)
         var blocksnum = durationtime / .25;
         this.state.time = starttime
         this.state.duration = durationtime
@@ -36,6 +38,7 @@ export class OriginalEventModal extends Component{
         this.state.address = addr;
         this.state.description = desc;
         this.state.name = name;
+        this.state.notes = notes;
 
 
        
@@ -88,7 +91,7 @@ export class OriginalEventModal extends Component{
         return(
 
             <div id="popup2" class="overlay">
-    	      <div class="popup" >
+    	      <div className="activity-modal" >
               
 
     		    <h5>Add Actvity</h5>
@@ -139,6 +142,13 @@ export class OriginalEventModal extends Component{
     	 </Form.Group>
                 
             
+         <Form.Group>
+    <Form.Label> Notes (Optional)</Form.Label>
+    <input type="text"   id="notes" name="notes"/>
+
+    	 </Form.Group>
+                
+
 
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>
     </Form>		

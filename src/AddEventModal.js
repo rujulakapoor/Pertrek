@@ -23,12 +23,14 @@ export class AddEventModal extends Component{
        var starttime = document.getElementById("appt").value
        var durationtime = document.getElementById("quantity").value
        var cost = document.getElementById("cost").value
+       var notes = document.getElementById("notes").value
     
 
         var blocksnum = durationtime / .25;
         this.state.time = starttime
         this.state.duration = durationtime
         this.state.blocks = blocksnum
+        this.state.notes = notes
         this.state.cost = parseInt(cost);
 
        
@@ -118,6 +120,12 @@ export class AddEventModal extends Component{
     <input type="number"   id="cost" name="cost" min="0"/>
 
     	 </Form.Group>
+         <Form.Group> 
+
+            <Form.Label> Notes (Optional)</Form.Label>
+            <input type="text"   id="notes" name="notes"/>
+
+         </Form.Group>
             
 
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>
