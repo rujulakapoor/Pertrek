@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table, OverlayTrigger, Tooltip, Overlay} from 'react-bootstrap'
+import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table, OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {TiDeleteOutline} from 'react-icons/ti'
@@ -173,9 +173,9 @@ renderCostBar() {
     <div>
       <h2> Current Cost : ${costtotal} </h2>
       { badge }
-      <ProgressBar>
+      <ProgressBar className="progress-bar-costs">
       <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
-      <ProgressBar variant="info" now={foodCost} key={3} label={`${foodCost}%`} />
+      <ProgressBar className="progress-bar-food" now={foodCost} key={3} label={`${foodCost}%`} />
 
       <ProgressBar variant="warning" now={travelCost} key={2} label={`${travelCost}%`} />
       </ProgressBar>

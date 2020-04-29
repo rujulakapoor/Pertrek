@@ -1,6 +1,6 @@
 import React, { Component,useState } from 'react';
 import {Button, Modal, Jumbotron, Table,Tab,Tabs,TabPane, ProgressBar, Accordion,Card, Badge, Container, Row, Col,
-Nav, NavItem, NavLink } from 'react-bootstrap'
+Nav, NavItem, NavLink, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {FaCheck} from 'react-icons/fa'
@@ -971,10 +971,10 @@ renderCostBar() {
   }
   var totalwithtravel = parseInt(this.state.totalexpenses) + (parseInt(this.state.minitravel) + ((parseInt(this.state.breakfast)) * (parseInt(this.state.numdays))) + ((parseInt(this.state.lunch)) * (parseInt(this.state.numdays))) + ((parseInt(this.state.dinner)) * (parseInt(this.state.numdays))) +  ((parseInt(this.state.snack)) * (parseInt(this.state.numdays)))  +   ((parseInt(this.state.other)) * (parseInt(this.state.numdays))));
   return(
-    <div>
+    <div className="costs">
       <h2> Current Cost : ${totalwithtravel} </h2>
       { badge }
-      <ProgressBar>
+      <ProgressBar className="progress-bar-costs">
       <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
       <ProgressBar variant="info" now={percentFood} key={3} label={`${percentFood}%`} />
 
@@ -1009,7 +1009,21 @@ titleRender() {
     return(<input type="text" placeholder={this.state.title} onChange={this.handleChange('title')}/>)
   }
   else {
-    return(<button className="btn-plain" onClick={this.changeTitle}> {this.state.title} </button>);
+    return(
+
+      <OverlayTrigger
+  key="title"
+  placement='top'
+  overlay={
+    <Tooltip id="title">
+      Click to Edit
+    </Tooltip>
+  }>
+      
+    <button className="btn-plain" onClick={this.changeTitle}> {this.state.title} </button>
+</OverlayTrigger>
+          
+    );
    }
 
 }
@@ -1486,6 +1500,9 @@ let statenow = this
           <button className="btn-plain" onClick={this.changeMaxdist}><b>Maximum Distance (mi): </b></button> {this.maxdistRender()}  
         </Col>
         <Col>
+        </Col>
+        </Row ><Row>
+        <Col>
         <Accordion defaultActiveKey="1">
          <Card className="card-notes" >
     
@@ -1587,7 +1604,7 @@ let statenow = this
     </Container>
 
 
-<Container>
+<Container className="text-dark" >
 
 
 <Accordion defaultActiveKey="0">  
@@ -1650,8 +1667,13 @@ let statenow = this
             </Card>
   </Accordion>
 
-   
+  <Row>
+    <Col>
+    <h1> Trip Itinerary </h1>
+    </Col>
+    </Row> 
 <Row>
+
 <Col sm={10} className="schedule">
     <Tabs  id="uncontrolled-tab-example" >
    
@@ -1659,10 +1681,12 @@ let statenow = this
     {
       return(
           
-      <Tab  eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+      <Tab className="tabs-internal" eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
      
       <div id="cus" className="Custom">  
    
+      <h1>   {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}<br/> </h1>
+
                 <h4>Pick a Background Color</h4>  
                 <input id="select1" name="check1" type="checkbox"  checked={this.state.black}  onClick={this.handleChangeBlack}/>
                 <label for="select1">Black</label>
@@ -1678,7 +1702,7 @@ let statenow = this
                 <label for="select6">Orange</label>
                 <input id="select7" name="check1" type="checkbox"  checked={this.state.yellow}  onClick={this.handleChangeYellow}/>
                 <label for="select7">Yellow</label>
-
+                <div className="fontnames" >
                 <h4>Pick a Font</h4>  
                 <input id="sel3" name="check1" type="checkbox" checked={this.state.arial}  onClick={this.handleChangeArial}/>
                 <label for="sel3">Arial</label>
@@ -1686,7 +1710,7 @@ let statenow = this
                 <label for="sel4">Comic Sans</label>
                 <input id="sel5" name="check1" type="checkbox" checked={this.state.times}  onClick={this.handleChangeTimes}/>
                 <label for="sel5">Times </label>
-                
+                </div>
                 <h4>Pick a Font Size</h4>  
                 <input id="se1" name="check1" type="checkbox" checked={this.state.size1}  onClick={this.handleChangeSize1} />
                 <label for="se1">12</label>
@@ -1697,19 +1721,18 @@ let statenow = this
  
  
     
-      <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
                 
                 <div id="cuse" class="wrapper2 wrap wr w">
                 <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
                 </div>
                 </div>
-        <div className="MealsStuff" id="moreMealStuff">
+      <div className="MealsStuff" id="moreMealStuff">
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
-                <Dinner lailafunc={this.handleAddDinner} / > 
-                <Lunch lailafunc={this.handleAddLunch} / >
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
-                </div>       
+                <Dinner lailafunc={this.handleAddDinner} /> 
+                <Lunch lailafunc={this.handleAddLunch} />
+                <Breakfast lailafunc={this.handleAddBreakfast} />
+      </div>       
 
       </Tab>
 
@@ -1726,7 +1749,8 @@ let statenow = this
 
 
       <Row>
-     
+     <h1> Discover </h1>
+     <Button className="btn-event" onClick={this.handleOriginalAdd}> Add Your Own Event </Button>
      <PreviewAttractions handleAdd={this.handleEventAdd} budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title} partysize={this.state.partysize}/ >
      </Row>
      

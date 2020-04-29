@@ -16,8 +16,10 @@
 
   .text-dark {
       color: #5E6472; 
-      background-color:#D8D8D8;
-  }
+   }
+   .text-dark h1 {
+      
+   }
 
  
   .activity-modal {
@@ -33,7 +35,9 @@
     border-radius: 16px;
   }
   .card-notes {
-      background: #FF5E58;
+      background: #00cecb;
+      border-radius: 15px;
+      margin: 10px;
   }
 
   .progress-bar-food{
@@ -44,10 +48,11 @@
     .schedule a{
         background-color: #FF5E5B;
         color:#FFFFEA;
+        margin: 10px;
     }
     .schedule a:hover{
         background-color: rgba(255, 94, 91, 0.288);
-        color:#FFFFEA;
+        color:#5E6472;
     }
 
     .btn-event {
@@ -87,4 +92,42 @@ button:active {
     border: none;
     }
     
-    
+    .tabs-internal{ 
+        border:2px solid #FF5E5B;
+        border-radius: 15px;
+        padding:20px 0px 10px 10px;
+        margin-right: 10px;
+        
+
+    }
+    .tabs-outline{
+        border:2px solid #FF5E5B;
+        border-radius: 15px;
+        padding:10px;
+        margin: 10px;
+    }
+
+    .costas{
+        margin: 20px;
+    }
+
+    .progress-bar-costs {
+        height:40px;
+        padding: 10px;
+        background-color: #d8d8d8;
+        color: #5E6472;
+        margin-bottom: 20px
+    }
+    .progress-bar-food {
+        color:#FFFFEA;
+        background-color: #00CECB;
+    }
+    .fontnames label {
+        color: black;
+        font-weight: bold;
+        margin-left: 6pt;
+        font-family: 'Quicksand', sans-serif;
+        width: 200;
+        margin-top: 2%;
+        text-align: left;
+      }
