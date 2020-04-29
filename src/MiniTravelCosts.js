@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {FiSave, FiEdit2} from 'react-icons/fi'
 import {Button} from 'react-bootstrap'
+import './GenerateItinerary.css'
 
 export class MiniTravelCosts extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ handleChange = input => e => {
             
               }
               else {
-                return(<h5> {this.state.costs}</h5>);
+                return( <>{this.state.costs}</>);
               }
     
     }
@@ -68,9 +69,10 @@ travelButtonRender() {
 
         return(
             <div>
-            <h5> Expected daily Travel Costs: </h5>
+                <button className="btn-plain" onClick={this.changeEdit}>
+            <b>Expected Daily Travel Costs:</b> </button>
             {this.renderTravelCosts()}
-            {this.travelButtonRender()}
+            
             </div>
         )
     }

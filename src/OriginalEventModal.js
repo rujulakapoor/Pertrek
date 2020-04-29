@@ -1,6 +1,6 @@
 import React, {Component } from 'react'
 import {Form, Button} from 'react-bootstrap'
- 
+ import './GenerateItinerary.css'
 export class OriginalEventModal extends Component{
     constructor(props) {
         super(props)
@@ -14,7 +14,8 @@ export class OriginalEventModal extends Component{
             blockids:[],
             name:'',
             address: '',
-            description: ''
+            description: '',
+            notes: null
 
         }
         this.saveNewEvent = this.saveNewEvent.bind(this)
@@ -27,7 +28,8 @@ export class OriginalEventModal extends Component{
         var addr = document.getElementById("addr").value
         var desc = document.getElementById("desc").value
         var name = document.getElementById("name").value
-
+        var notes = document.getElementById("notes").value
+        console.log("NOTES ARE " + notes)
         var blocksnum = durationtime / .25;
         this.state.time = starttime
         this.state.duration = durationtime
@@ -36,6 +38,7 @@ export class OriginalEventModal extends Component{
         this.state.address = addr;
         this.state.description = desc;
         this.state.name = name;
+        this.state.notes = notes;
 
 
        
@@ -88,16 +91,19 @@ export class OriginalEventModal extends Component{
         return(
 
             <div id="popup2" class="overlay">
-    	      <div class="popup" >
+    	      <div className="activity-modal" >
               
 
     		    <h5>Add Actvity</h5>
 <Form>
 
+<Form.Group>
         <Form.Label> Activity Name</Form.Label>
         <input type="text" id="name" name="name" />
-
+</Form.Group>
+<Form.Group>
     <Form.Label> Select Date</Form.Label>
+
     <Form.Control as="select"   onChange={this.handleChange('day')}>
     {Object.entries(this.props.days).map((thing)=> {
              var str="" + thing
@@ -107,24 +113,42 @@ export class OriginalEventModal extends Component{
                 })
                 }
     </Form.Control>
+
+    </Form.Group>
+<Form.Group>
     
     <Form.Label> Description </Form.Label>
     <input type="text" id="desc" name="desc" />
+
+    </Form.Group>
+<Form.Group>
     <Form.Label> Address </Form.Label>
     <input type="text" id="addr" name="addr" />
-
+</Form.Group>
+<Form.Group>
 
     <label for="appt">Select a time:</label>
         <input type="time" id="appt" name="appt" step="900" />
-
+        </Form.Group>
+<Form.Group>
     <Form.Label> Select Duration (Hours) </Form.Label>
      
     <input type="number" id="quantity" name="quantity" min=".25" max="15" step=".25"/>
+    </Form.Group>
+<Form.Group>
     <Form.Label> How much money do you plan to spend? </Form.Label>
     <input type="number"   id="cost" name="cost" min="0"/>
 
-    	 
+    	 </Form.Group>
+                
             
+         <Form.Group>
+    <Form.Label> Notes (Optional)</Form.Label>
+    <input type="text"   id="notes" name="notes"/>
+
+    	 </Form.Group>
+                
+
 
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>
     </Form>		

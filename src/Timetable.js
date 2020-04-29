@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table} from 'react-bootstrap'
+import {Button, Form, FormControl, FormLabel, FormGroup, Card, ProgressBar, Badge, Table, OverlayTrigger, Tooltip} from 'react-bootstrap'
 
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {TiDeleteOutline} from 'react-icons/ti'
+import './Timetable.css'
 
 export class Timetable extends Component {
 
@@ -30,10 +31,22 @@ renderEdit(time, event) {
 
   if(event.isfirst) {
     
+ 
+  var activity = event.eventdetails;
+
     
     return(
+      <>
+      {this.renderCost(event)}
       <Button variant="info" onClick={() => this.deleteEvent(time,event)}> <TiDeleteOutline /> </Button>
+      </>
     )
+  }
+}
+renderCost(activity) {
+  console.log(activity)
+  if(activity.cost != null) {
+    return(<p> Cost: ${activity.cost} </p>)
   }
 }
 
@@ -160,9 +173,9 @@ renderCostBar() {
     <div>
       <h2> Current Cost : ${costtotal} </h2>
       { badge }
-      <ProgressBar>
+      <ProgressBar className="progress-bar-costs">
       <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
-      <ProgressBar variant="info" now={foodCost} key={3} label={`${foodCost}%`} />
+      <ProgressBar className="progress-bar-food" now={foodCost} key={3} label={`${foodCost}%`} />
 
       <ProgressBar variant="warning" now={travelCost} key={2} label={`${travelCost}%`} />
       </ProgressBar>
@@ -186,7 +199,17 @@ renderTime(time) {
   if(size != 0){
     
     return(
-      <p> {activity.name} {this.renderEdit(time, event)} </p>
+      //Change this to be the modal
+<OverlayTrigger
+  key={time}
+  placement='top'
+  overlay={
+    <Tooltip id={`tooltip-${time}`}>
+      {event.notes}
+    </Tooltip>
+  }>
+      <Card className="card-tabletop"> <p>{activity.name} {this.renderEdit(time, event)} </p> </Card>
+      </OverlayTrigger>
     )
 
   }  
@@ -199,7 +222,7 @@ return (
     {this.renderDailyBudget()}
     {this.renderBudgetEdit()}
     {this.renderCostBar()}
-  <Table responsive striped bordered variant="dark" width="400" size="sm">
+  <Table  striped borderless variant="itinerary" width="250" size="sm">
 
   <thead>
     <tr>
@@ -209,10 +232,14 @@ return (
   </thead>
 
     <tbody>
+
+
     <tr>
       <td> 8:00am </td>
       <td> {this.renderTime("08:00")} </td>
     </tr>
+
+
     <tr>
       <td> 8:15am </td>
       <td> {this.renderTime("08:15")} </td>

@@ -20,6 +20,7 @@ h3 {
 h2 {
   font-family: 'Montserrat', sans-serif;
 }
+
 h7 {
   font-family: 'Montserrat', sans-serif;
   color: white;
@@ -549,12 +550,21 @@ Link {
 .Custom time{
   height: 200px;
 }
-.Custom label {
+.fontnames label {
   color: black;
   font-weight: bold;
   margin-left: 6pt;
   font-family: 'Quicksand', sans-serif;
   width: 100px;
+  margin-top: 2%;
+  text-align: left;
+}
+.Custom label {
+  color: black;
+  font-weight: bold;
+  margin-left: 6pt;
+  font-family: 'Quicksand', sans-serif;
+  width: 75px;
   margin-top: 2%;
   text-align: left;
   }
@@ -575,7 +585,7 @@ Link {
   background-color: gray;
 }
 .Custom h1{
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', 'Palanquin Dark', sans-serif;
   color: black;
   font-size: 30px;
   font-weight: bold;
@@ -605,7 +615,7 @@ Link {
 }
 #meals2{
   margin-top: 2%;
-  margin-bottom: 1%;
+  margin-bottom: 3.5%;
   color: white;
 }
 #meals4{
@@ -647,7 +657,7 @@ Link {
 }
 
 #moreMealStuff{
-  margin-left: 5%;
+  margin-left: 1.5%;
   
 }
 #outlinemeal{
@@ -658,6 +668,7 @@ Link {
   width: 160pt;
   text-align: center;
   margin-bottom: 100pt;
+  padding: 10px;
   color: white;
   
   

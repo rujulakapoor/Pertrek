@@ -1,6 +1,6 @@
 import React, { Component,useState } from 'react';
 import {Button, Modal, Jumbotron, Table,Tab,Tabs,TabPane, ProgressBar, Accordion,Card, Badge, Container, Row, Col,
-Nav, NavItem, NavLink } from 'react-bootstrap'
+Nav, NavItem, NavLink, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import {FiEdit2, FiSave} from 'react-icons/fi'
 import {FaCheck} from 'react-icons/fa'
@@ -169,12 +169,12 @@ constructor(props){
     itkey: this.props.values.itkey,
     retreived:false,
     destinations: [],
-    dailydata: {},
+    dailydata: this.props.values.dailydata,
+    numdays:this.props.values.numdays,
     timesoftheday: [],
     currentEvent: {},
     currentlyEditing: false,
-    dailydata: [],
-    totalexpenses: 0,
+    totalexpenses: 0, // need to save all of these things again!
     minitravel: 0,
     breakfast: 0,
     lunch: 0,
@@ -193,37 +193,37 @@ handleAddBreakfast(cost) {
   this.setState({
     breakfast: cost
   })
-  console.log("HANDLED BREAKFAST")
+ // console.log("HANDLED BREAKFAST")
 }
 handleAddLunch(cost) {
   this.setState({
     lunch: cost
   })
-  console.log("HANDLED Lunch")
+ // console.log("HANDLED Lunch")
 }
 handleAddDinner(cost) {
   this.setState({
     dinner: cost
   })
-  console.log("HANDLED dinner")
+ // console.log("HANDLED dinner")
 }
 handleAddSnack(cost) {
   this.setState({
     snack: cost
   })
-  console.log("HANDLED snack")
+//  console.log("HANDLED snack")
 }
 handleAddOther(cost) {
   this.setState({
     other: cost
   })
-  console.log("HANDLED other")
+//  console.log("HANDLED other")
 }
 handleMiniTravel(cost) {
   this.setState({
     minitravel: cost
   })
-  console.log("Done in mini travel")
+ //console.log("Done in mini travel")
 }
 
 handleChange = input => e => {
@@ -235,7 +235,7 @@ handleChange = input => e => {
 
 deleteOldEvent(time, event, daynum) {
   
-console.log("DELETING FROM ITINERARY")
+//console.log("DELETING FROM ITINERARY")
 
   var midstr = time.substring(0,2)
   var starthour = parseInt(midstr)
@@ -280,10 +280,10 @@ console.log("DELETING FROM ITINERARY")
   })
 
   //do i need hooks here
-  
+  this.state.alreadysaved = false;
+  this.handleSavedEdits();
 
-console.log(this.state.dailydata)
-}
+ }
 
 saveNewEvent = (info) => {
     //Add it to the itinerary table for the desired day. Use the 
@@ -297,15 +297,11 @@ saveNewEvent = (info) => {
       currentlyEditing:false,
       currentlyEditingOriginal: false
     }) 
-    console.log("IN SAVE NEW EVENT")
-    console.log(info)
-    console.log(this.state)
 
     var stufftosave
     if(this.state.currentEvent === 0) {
       stufftosave={ 
         name: info.name
-
       }
 
     } else 
@@ -327,10 +323,14 @@ saveNewEvent = (info) => {
       }
        
       this.state.dailydata[info.day].scheduleactivities[block.toString()].eventdetails = stufftosave;
+      
+      this.state.dailydata[info.day].scheduleactivities[block.toString()].notes = info.notes;
          })
 
     this.state.dailydata[info.day].cost += info.cost;
     this.state.totalexpenses += info.cost;
+    this.state.alreadysaved = false;
+    this.handleSavedEdits();
     
     
  
@@ -338,14 +338,10 @@ saveNewEvent = (info) => {
 
  
 handleEventAdd = (info) => {
-
- 
   this.state.currentEvent = info;
   this.state.currentlyEditing = true;
-   
-
-  
 } 
+
 handleOriginalAdd() {
    this.state.currentEvent = 0
   this.state.currentlyEditingOriginal = true;
@@ -354,42 +350,32 @@ handleOriginalAdd() {
   })
 }
 
-
-
 handleSaveEvent = (info) => {
   // this.setState({currentlyEditing: false});
   // get info  
 }
 
-
 calculateDaysAgain() {
   let currentState = this
-   const end=new Date(this.state.enddate);
+  const end=new Date(this.state.enddate);
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
   start.setDate(start.getDate() + 1);
   currentState.setState({
     days: []
   }, function() {
-
-
     let len = 1
     for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
     {
- 
       currentState.state.days.push(new Date(d));
       if(len++ > 31) {
         break
       }
     }
-
-
   })
    this.setState({
     alreadysaved:true
   })
-
-
 }
 
 componentWillMount() {
@@ -397,12 +383,12 @@ componentWillMount() {
   end.setDate(end.getDate() + 1);
   const start = new Date(this.state.startdate);
   start.setDate(start.getDate() + 1);
-//this.setState({dailydata: []})
 
+//Only need to do this if dailydata = null ? 
 
-
-
- var intdailydata = []
+if(JSON.stringify(this.props.values.dailydata) === '{}' || this.props.values.dailydata == null) {
+  console.log("NO DAILY DATA DETECTED");
+  var intdailydata = []
   let len = 0
   for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
   {
@@ -461,13 +447,31 @@ var thisdaystimes = [];
     if(len++ > 30) {
       break
     }
+    this.setState({numdays: len})
+    this.setState({dailydata: intdailydata})
+
   }
-  this.setState({numdays: len})
+
   console.log("IN COMPONENT WILL MOUNT")
   this.getDestinations();
 
 console.log(this.state.dailydata)
-this.setState({dailydata: intdailydata})
+
+
+}
+else {
+  console.log("DAILY DATA FOUND")
+  console.log(this.props.values.dailydata);
+  console.log(this.state.dailydata)
+  this.setState({dailydata:this.props.values.dailydata});
+  for( var d = start; d <= end ; d.setDate(d.getDate() + 1))
+  {
+    
+    this.state.days.push(new Date(d));
+  }
+  console.log(this.state.days);
+  }
+
 this.state.timesoftheday[1000] = "BOFA"
 }
 
@@ -541,7 +545,9 @@ handleSavedEdits() {
         size3:this.state.size3,
         countf:this.state.countf,
         partysize:this.state.partysize,
-        maxdist:this.state.maxdist
+        maxdist:this.state.maxdist,
+        dailydata:this.state.dailydata,
+        numdays:this.state.numdays
         
       }
 
@@ -584,10 +590,8 @@ handleSavedEdits() {
       ).on("value", snapshot=> {
         if(snapshot.val()) {
         let currentstate = this;
-        console.log("dest snapshot is ")
-        //alert("inside getdest")
-        console.log(snapshot.val())
-    
+         //alert("inside getdest")
+     
         const values = snapshot.val();
         console.log(values);
     
@@ -651,8 +655,7 @@ handleSavedEdits() {
             destinations: [...currentstate.state.destinations,  thing]
           })
           */ 
-          console.log(this.state.destinations)
-        })
+         })
   
         }
       })
@@ -966,10 +969,10 @@ renderCostBar() {
   }
   var totalwithtravel = parseInt(this.state.totalexpenses) + (parseInt(this.state.minitravel) + ((parseInt(this.state.breakfast)) * (parseInt(this.state.numdays))) + ((parseInt(this.state.lunch)) * (parseInt(this.state.numdays))) + ((parseInt(this.state.dinner)) * (parseInt(this.state.numdays))) +  ((parseInt(this.state.snack)) * (parseInt(this.state.numdays)))  +   ((parseInt(this.state.other)) * (parseInt(this.state.numdays))));
   return(
-    <div>
+    <div className="costs">
       <h2> Current Cost : ${totalwithtravel} </h2>
       { badge }
-      <ProgressBar>
+      <ProgressBar className="progress-bar-costs">
       <ProgressBar variant="success" now={percentCost} key={1} label={`${percentCost}%`} />
       <ProgressBar variant="info" now={percentFood} key={3} label={`${percentFood}%`} />
 
@@ -983,7 +986,7 @@ renderCostBar() {
 originalEventModal() {
   if(this.state.currentlyEditingOriginal && !this.state.currentlyEditing) {
     return(
-      <OriginalEventModal  days={this.state.days}  saveNewEvent={this.saveNewEvent} />
+      <OriginalEventModal  className="activity-modal" days={this.state.days}  saveNewEvent={this.saveNewEvent} />
     )
 
   }
@@ -992,7 +995,7 @@ originalEventModal() {
 modalRender() {
   if(this.state.currentlyEditing) {
      return( 
-      <AddEventModal days={this.state.days} saveNewEvent={this.saveNewEvent}
+      <AddEventModal className="activity-modal" days={this.state.days} saveNewEvent={this.saveNewEvent}
  
 />
       )
@@ -1004,7 +1007,21 @@ titleRender() {
     return(<input type="text" placeholder={this.state.title} onChange={this.handleChange('title')}/>)
   }
   else {
-    return(<h1> {this.state.title} </h1>);
+    return(
+
+      <OverlayTrigger
+  key="title"
+  placement='top'
+  overlay={
+    <Tooltip id="title">
+      Click to Edit
+    </Tooltip>
+  }>
+      
+    <button className="btn-plain" onClick={this.changeTitle}> {this.state.title} </button>
+</OverlayTrigger>
+          
+    );
    }
 
 }
@@ -1028,7 +1045,7 @@ startRender() {
   }
   else {
     let day= new Date(this.state.startdate);
-    return(<h5> {this.state.startdate}</h5>);
+    return(<> {this.state.startdate}</>);
   }
 
 }
@@ -1043,7 +1060,7 @@ endRender() {
   else {
 
     let day= new Date(this.state.enddate);
-    return(<h5> {this.state.enddate} </h5>);
+    return(<> {this.state.enddate} </>);
   }
 
 }
@@ -1057,7 +1074,7 @@ locationRender() {
 
   }
   else {
-    return(<h5> {this.state.location}</h5>);
+    return(<>{this.state.location}</>);
   }
 
 }
@@ -1067,15 +1084,15 @@ budgetRender(e) {
   if (this.state.editbudget) {
     return(<input type="number" placeholder={this.state.budget} onChange={this.handleChange('budget')}/>);
   } else {
-    return(<h5>${this.state.budget}</h5>);
+    return(<>${this.state.budget}</>);
   }
 
 }
 partySizeRender(e) {
   if (this.state.editpartysize) {
-    return(<input type="number" placeholder={this.state.partysize} onChange={this.handleChange('partySize')}/>);
+    return(<input type="number" placeholder={this.state.partysize} onChange={this.handleChange('partysize')}/>);
   } else {
-    return(<h5>{this.state.partysize}</h5>);
+    return(<>{this.state.partysize}</>);
   }
 }
 
@@ -1084,7 +1101,7 @@ maxdistRender(e) {
   if (this.state.editmaxdist) {
     return(<input type="number" placeholder={this.state.maxdist} onChange={this.handleChange('maxdist')}/>);
   } else {
-    return(<h5>{this.state.maxdist}</h5>);
+    return(<>{this.state.maxdist}</>);
   }
 }
 
@@ -1106,14 +1123,14 @@ locationButtonRender() {
 
 budgetButtonRender() {
 if(this.state.editbudget) {
-  return(      <Button variant="light" onClick={this.changeBudget}>
+  return(      <Button variant="edit"  className="edit" onClick={this.changeBudget}>
        <FiSave />
        </Button>
   )
   } else {
-    return(      <Button variant="light" onClick={this.changeBudget}>
-         <FiEdit2 />
-         </Button>
+    return( <></>    // <Button variant="light" onClick={this.changeBudget}>
+         //<FiEdit2 />
+         //</Button>
   )
   }
 
@@ -1193,10 +1210,10 @@ return(<Button variant="light" onClick={this.changeTitle}>
      </Button>
 )
 } else {
-  return(      <Button variant="light" onClick={this.changeTitle}>
-       <FiEdit2 />
-       </Button>
-)
+//   return(      <Button variant="light" onClick={this.changeTitle}>
+//        <FiEdit2 />
+//        </Button>
+// )
 }
 
 }
@@ -1233,10 +1250,8 @@ return(<Button variant="light" onClick={this.changeEnd}>
 }
 
 newbudget(dailybudget) {
-  console.log("IN NEW BUDGET")
-  var newb = dailybudget * this.state.numdays;
-  console.log("NEW BUDGET IS" + newb)
-  this.setState({
+   var newb = dailybudget * this.state.numdays;
+   this.setState({
     budget: newb
   })
 }
@@ -1437,76 +1452,92 @@ let statenow = this
     {this.originalEventModal()}
    {this.modalRender()}
 
-    <Jumbotron>
+    <Jumbotron style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}>
     <h1>
         {this.titleRender()}
         {this.titleButtonRender()} </h1>
-    </Jumbotron>
-
-
-    <Accordion defaultActiveKey="1">
-     <Card className="notes">
-
-       <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-       Notes
-       </Accordion.Toggle>
-       <Accordion.Collapse eventKey="0">
-         <Card.Body>
-         {this.notesRender()}
-         {this.notesButtonRender()}
-         </Card.Body>
-       </Accordion.Collapse>
-
-     </Card>
-    </Accordion>
-
-
-    <Container>
-      
-
-
-<Row>
-<h3> Trip Details </h3>
-</Row>
-<Row className="goback">
-<Col>
-<Row>
-  <h4>  Destination:  </h4>{this.locationRender()}
-    {this.locationButtonRender()}
-</Row>
-</Col>
-
-<Col>
-
-<h4>    Budget:</h4>
-     {this.budgetRender()}
-     {this.budgetButtonRender()}
-</Col>
-<Col>
-<h4>Begin Trip: {this.startRender()} {this.startButtonRender()} </h4>
-</Col>
-</Row>
-
-    <Row>
-    <Col><MiniTravelCosts handlemini={this.handleMiniTravel}/></Col>
-    <Col></Col>
-    <Col>
-<h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
-    </Col>
-    </Row>
     
-    </Container>
-    <Container>
+  
+    <Container className="trip-info">
       <Row>
+      <h3> Trip Details </h3>
+      </Row>
+      <Row>
+      <p> (Click to Edit and Save) </p>
+      </Row>
+
+      <Row className="goback" auto>
+      
+      <Col >
+          <button className="btn-plain" onClick={this.changeLocation}> <b> Destination: </b> </button> {this.locationRender()}
+           
+      </Col> 
+
+      <Col>
+        <button className="btn-plain" onClick={this.changeBudget}> <b> Budget:</b> </button>
+           {this.budgetRender()}
+          
+      </Col>
+      
+      <Col >
+        <button className="btn-plain" onClick={this.changeStart} ><b>Begin Trip:</b> </button> {this.startRender()}   
+      </Col>
+      <Col>
+      <button className="btn-plain" onClick={this.changeEnd} >   <b>End Trip:</b> </button>{this.endRender()}  
+      </Col>
+
+      </Row>
+      
+      <Row >
+          <Col ><MiniTravelCosts handlemini={this.handleMiniTravel}/></Col>
+
+          <Col>
+          <button className="btn-plain" onClick={this.changePartySize} > <b> Party Size:</b> </button> {this.partySizeRender()}   
+          </Col>
         <Col>
-          <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+          <button className="btn-plain" onClick={this.changeMaxdist}><b>Maximum Distance (mi): </b></button> {this.maxdistRender()}  
         </Col>
         <Col>
-          <h4>Maximum Distance (mi): {this.maxdistRender()} {this.maxdistButtonRender()}</h4>
+        </Col>
+        </Row ><Row>
+        <Col>
+        <Accordion defaultActiveKey="1">
+         <Card className="card-notes" >
+    
+           <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+           My Notes
+           </Accordion.Toggle>
+           <Accordion.Collapse eventKey="0">
+             <Card.Body>
+             {this.notesRender()}
+             {this.notesButtonRender()}
+             </Card.Body>
+           </Accordion.Collapse>
+    
+         </Card>
+        </Accordion>
+    
         </Col>
       </Row>
       <Row>
+       
+    </Row>
+          </Container>
+          
+    
+
+    </Jumbotron>
+
+
+
+
+    <Container className="text-dark">
+    
+     
+      <Row>
+        <Col>
         {this.renderCostBar()}
+        </Col>
         </Row>
     <Row>
       <div class="sidenav">
@@ -1571,7 +1602,7 @@ let statenow = this
     </Container>
 
 
-<Container>
+<Container className="text-dark" >
 
 
 <Accordion defaultActiveKey="0">  
@@ -1624,9 +1655,9 @@ let statenow = this
                 
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
-                <Dinner lailafunc={this.handleAddDinner} / > 
-                <Lunch lailafunc={this.handleAddLunch} / >
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
+                <Dinner lailafunc={this.handleAddDinner} /> 
+                <Lunch lailafunc={this.handleAddLunch} />
+                <Breakfast lailafunc={this.handleAddBreakfast} />
                 {this.renderTotalMealCost()}
                 </div> 
                 </Card.Body>
@@ -1634,120 +1665,27 @@ let statenow = this
             </Card>
   </Accordion>
 
-
-  <Accordion defaultActiveKey="0">  
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Customize Itinerary</span> </Link>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                <div id="cus" className="Custom">  
-                <h1>Pick a Background Color</h1>  
-                <input id="select1" name="check1" type="checkbox" />
-                <label for="select1">Black</label>
-                <input id="select2" name="check1" type="checkbox" />
-                <label for="select2">Blue</label>
-                <input id="select3" name="check1" type="checkbox" />
-                <label for="select3">Green</label>
-                <input id="select4" name="check1" type="checkbox" />
-                <label for="select4">Purple</label>
-                <input id="select5" name="check1" type="checkbox" />
-                <label for="select5">Maroon</label>
-                <input id="select6" name="check1" type="checkbox" />
-                <label for="select6">Orange</label>
-                <input id="select7" name="check1" type="checkbox" />
-                <label for="select7">Yellow</label>
-                <input id="select8" name="check1" type="checkbox" />
-                <label for="select8">Pink</label>
-
-                <h1>Pick a Font</h1>  
-                <input id="sel1" name="check1" type="checkbox" />
-                <label for="sel1">Quicksand</label>
-                <input id="sel2" name="check1" type="checkbox" />
-                <label for="sel2">Calibri</label>
-                <input id="sel3" name="check1" type="checkbox" />
-                <label for="sel3">Arial</label>
-                <input id="sel4" name="check1" type="checkbox" />
-                <label for="sel4">Comic Sans</label>
-                <input id="sel5" name="check1" type="checkbox" />
-                <label for="sel5">Times </label>
-                <input id="sel6" name="check1" type="checkbox" />
-                <label for="sel6">Gothic </label>
-
-
-                <h1>Pick a Font Size</h1>  
-                <input id="se1" name="check1" type="checkbox" />
-                <label for="se1">12</label>
-                <input id="se5" name="check1" type="checkbox" />
-                <label for="se5">16</label>
-                <input id="se2" name="check1" type="checkbox" />
-                <label for="se2">18</label>
-                <input id="se3" name="check1" type="checkbox" />
-                <label for="se3">24</label>
-                <input id="se4" name="check1" type="checkbox" />
-                <label for="se4">30</label>
-                <input id="se6" name="check1" type="checkbox" />
-                <label for="se6">42</label>
-
-                <h1>Pick a Font Color</h1>  
-                <input id="s1" name="check1" type="checkbox" />
-                <label for="s1">Black</label>
-                <input id="s2" name="check1" type="checkbox" />
-                <label for="s2">White</label>
-
-                <h1>Pick a Tab</h1>  
-                <input onChange={this.handleChangeTab1} id="tab1" name="check1" type="checkbox" />
-                <label for="tab1">Tab Style 1</label>
-                <input onChange={this.handleChangeTab2} id="tab2" name="check1" type="checkbox" />
-                <label for="tab22">Tab Style 2</label>
-
-                <div id="cuse" class="wrapper2 wrap wr w">
-                  {this.tabRender()} 
-                  <div id="wakeup">
-                  Wake Up Time
-                  </div>
-                  <div>
-                  <TimeInput / >
-                  </div>
-                  <div id="bedtime">
-                  Bed Time
-                  </div>
-                  <div>
-                  <TimeInput2 / >
-                  </div> 
-                 </div>
-                 </div>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-
-            
-    </Accordion>
-  
-        <Row>
-          <Button onClick={this.handleOriginalAdd}> Add Your Own Event </Button>
-          
-          
-          </Row>    
+  <Row>
+    <Col>
+    <h1> Trip Itinerary </h1>
+    </Col>
+    </Row> 
 <Row>
-<Col sm={10}>
 
-    <Tabs  id="uncontrolled-tab-example">
-    {this.state.days.map((day, key) =>
-    
-{
-
-   // var day = this.state.days[data[0]]
-  // console.log(day)
-
-  return(
-      
-      <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+<Col sm={10} className="schedule">
+    <Tabs  id="uncontrolled-tab-example" >
+   
+    {this.state.days.map((day, key) => 
+    {
+      return(
+          
+      <Tab className="tabs-internal" eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+     
       <div id="cus" className="Custom">  
-                <h1>Pick a Background Color</h1>  
+   
+      <h1>   {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}<br/> </h1>
+
+                <h4>Pick a Background Color</h4>  
                 <input id="select1" name="check1" type="checkbox"  checked={this.state.black}  onClick={this.handleChangeBlack}/>
                 <label for="select1">Black</label>
                 <input id="select2" name="check1" type="checkbox"  checked={this.state.blue}  onClick={this.handleChangeBlue}/>
@@ -1762,42 +1700,37 @@ let statenow = this
                 <label for="select6">Orange</label>
                 <input id="select7" name="check1" type="checkbox"  checked={this.state.yellow}  onClick={this.handleChangeYellow}/>
                 <label for="select7">Yellow</label>
-
-
-                <h1>Pick a Font</h1>  
+                <div className="fontnames" >
+                <h4>Pick a Font</h4>  
                 <input id="sel3" name="check1" type="checkbox" checked={this.state.arial}  onClick={this.handleChangeArial}/>
                 <label for="sel3">Arial</label>
                 <input id="sel4" name="check1" type="checkbox" checked={this.state.comic}  onClick={this.handleChangeComic}/>
                 <label for="sel4">Comic Sans</label>
                 <input id="sel5" name="check1" type="checkbox" checked={this.state.times}  onClick={this.handleChangeTimes}/>
                 <label for="sel5">Times </label>
-                
-
-
-                <h1>Pick a Font Size</h1>  
+                </div>
+                <h4>Pick a Font Size</h4>  
                 <input id="se1" name="check1" type="checkbox" checked={this.state.size1}  onClick={this.handleChangeSize1} />
                 <label for="se1">12</label>
                 <input id="se3" name="check1" type="checkbox" checked={this.state.size2}  onClick={this.handleChangeSize2}/>
                 <label for="se3">24</label>
                 <input id="se4" name="check1" type="checkbox" checked={this.state.size3}  onClick={this.handleChangeSize3}/>
                 <label for="se4">30</label>
+ 
 
-                
-
-
-      <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
+    
                 
                 <div id="cuse" class="wrapper2 wrap wr w">
                 <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 
                 </div>
                 </div>
-        <div className="MealsStuff" id="moreMealStuff">
+      <div className="MealsStuff" id="moreMealStuff">
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
-                <Dinner lailafunc={this.handleAddDinner} / > 
-                <Lunch lailafunc={this.handleAddLunch} / >
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
-                </div>       
+                <Dinner lailafunc={this.handleAddDinner} /> 
+                <Lunch lailafunc={this.handleAddLunch} />
+                <Breakfast lailafunc={this.handleAddBreakfast} />
+      </div>       
 
       </Tab>
 
@@ -1814,7 +1747,8 @@ let statenow = this
 
 
       <Row>
-     
+     <h1> Discover </h1>
+     <Button className="btn-event" onClick={this.handleOriginalAdd}> Add Your Own Event </Button>
      <PreviewAttractions handleAdd={this.handleEventAdd} budget={this.state.budget} location={this.state.location} itkey={this.state.itkey} title={this.state.title} partysize={this.state.partysize}/ >
      </Row>
      
