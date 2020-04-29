@@ -1286,9 +1286,7 @@ export class GenerateItinerary extends Component {
     }
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
+  
   onCustomCategory() {
       const curr = this;
       bootbox.prompt({
@@ -1303,11 +1301,8 @@ export class GenerateItinerary extends Component {
       event.preventDefault();
       console.log("hi");
   }
-  search() {
-      console.log("what");
-  }
   getTime(val){
-      console.log("DATA RECEIVED = " + val.name + " , time = " + val.time);
+      console.log("DATA RECEIVED = " + val.name + " , duration = " + val.time + ", date = " + val.date);
 
   }
   showUserInfo(name, id) {

@@ -33,7 +33,7 @@ class Attractions extends Component {
     super(props);
 
     this.state = {
-      location: "Chicago, IL",
+      location: this.props.location,
       category: this.props.category,
       attractions: [],
       userVals: [],
@@ -252,14 +252,21 @@ class Attractions extends Component {
     bootbox.prompt({
       title: "How long are you planning on spending at " + name + "?",
       inputType: "number",
-      callback: function (result) {
-        var added = {
-          name: name,
-          id: id,
-          time: result,
-        };
-
-        curr.props.addedAttraction(added);
+      callback: function (duration) {
+        bootbox.prompt({
+          title: "What day will you attend " + name + "?",
+          inputType: "date",
+          callback: function (date) {
+            var added = {
+              name: name,
+              id: id,
+              time: duration,
+              date: date
+            };
+    
+            curr.props.addedAttraction(added);
+          },
+        });
       },
     });
   }
