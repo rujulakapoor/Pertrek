@@ -104,6 +104,19 @@ constructor(props){
   this.handleOriginalAdd = this.handleOriginalAdd.bind(this)
   this.deleteOldEvent = this.deleteOldEvent.bind(this)
   this.handleChangeOrange= this.handleChangeOrange.bind(this)
+  this.handleChangeBlack= this.handleChangeBlack.bind(this)
+  this.handleChangeBlue= this.handleChangeBlue.bind(this)
+  this.handleChangeGreen= this.handleChangeGreen.bind(this)
+  this.handleChangeYellow= this.handleChangeYellow.bind(this)
+  this.handleChangeMaroon= this.handleChangeMaroon.bind(this)
+  this.handleChangePurple= this.handleChangePurple.bind(this)
+  this.handleChangeArial=this.handleChangeArial.bind(this)
+  this.handleChangeTimes=this.handleChangeTimes.bind(this)
+  this.handleChangeQuicksand=this.handleChangeQuicksand.bind(this)
+  this.handleChangeComic=this.handleChangeComic.bind(this)
+  this.handleChangeSize1=this.handleChangeSize1.bind(this)
+  this.handleChangeSize2=this.handleChangeSize2.bind(this)
+  this.handleChangeSize3=this.handleChangeSize3.bind(this)
   this.state = {
     
     enddate: this.props.values.enddate,
@@ -128,7 +141,19 @@ constructor(props){
     countf:this.props.values.countf,
     partysize:this.props.values.partysize,
     orange:this.props.values.orange,
-
+    black:this.props.values.black,
+    blue:this.props.values.blue,
+    green:this.props.values.green,
+    purple:this.props.values.purple,
+    maroon:this.props.values.maroon,
+    yellow:this.props.values.yellow,
+    arial:this.props.values.arial,
+    times:this.props.values.times,
+    quicksand:this.props.values.quicksand,
+    comic:this.props.values.comic,
+    size1:this.props.values.size1,
+    size2:this.props.values.size2,
+    size3:this.props.values.size3,
     maxdist:this.props.values.maxdist,
     days: [],
     alreadysaved: false,
@@ -501,6 +526,19 @@ handleSavedEdits() {
         plane3d:this.state.plane3d,
         plane3t:this.state.plane3t,
         orange:this.state.orange,
+        yellow:this.state.yellow,
+        green:this.state.green,
+        black:this.state.black,
+        purple:this.state.purple,
+        maroon:this.state.maroon,
+        blue:this.state.blue,
+        times:this.state.times,
+        arial:this.state.arial,
+        quicksand:this.state.quicksand,
+        comic:this.state.comic,
+        size1:this.state.size1,
+        size2:this.state.size2,
+        size3:this.state.size3,
         countf:this.state.countf,
         partysize:this.state.partysize,
         maxdist:this.state.maxdist
@@ -641,8 +679,178 @@ handleSavedEdits() {
     }
       //alert("ORANFE&&&&&&&" + this.state.orange);
   }
-    
+  handleChangeYellow(){
+    if(this.state.yellow!=1){
+    this.setState({
+      yellow:true,
+     })
+    }
+    else{
+      this.setState({
+        yellow:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }  
 
+  handleChangeGreen(){
+    if(this.state.green!=1){
+    this.setState({
+      green:true,
+     })
+    }
+    else{
+      this.setState({
+        green:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }  
+
+  handleChangeBlue(){
+    if(this.state.blue!=1){
+    this.setState({
+      blue:true,
+     })
+    }
+    else{
+      this.setState({
+        blue:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }  
+  handleChangePurple(){
+    if(this.state.purple!=1){
+    this.setState({
+      purple:true,
+     })
+    }
+    else{
+      this.setState({
+        purple:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  } 
+  handleChangeMaroon(){
+    if(this.state.maroon!=1){
+    this.setState({
+      maroon:true,
+     })
+    }
+    else{
+      this.setState({
+        maroon:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  } 
+  
+  handleChangeBlack(){
+    if(this.state.black!=1){
+    this.setState({
+      black:true,
+     })
+    }
+    else{
+      this.setState({
+        black:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeSize1(){
+    if(this.state.size1!=1){
+    this.setState({
+      size1:true,
+     })
+    }
+    else{
+      this.setState({
+        size1:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeSize2(){
+    if(this.state.size2!=1){
+    this.setState({
+      size2:true,
+     })
+    }
+    else{
+      this.setState({
+        size2:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeSize3(){
+    if(this.state.size3!=1){
+    this.setState({
+      size3:true,
+     })
+    }
+    else{
+      this.setState({
+        size3:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeArial(){
+    if(this.state.arial!=1){
+    this.setState({
+      arial:true,
+     })
+    }
+    else{
+      this.setState({
+        arial:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeTimes(){
+    if(this.state.times!=1){
+    this.setState({
+      times:true,
+     })
+    }
+    else{
+      this.setState({
+        times:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeComic(){
+    if(this.state.comic!=1){
+    this.setState({
+      comic:true,
+     })
+    }
+    else{
+      this.setState({
+        comic:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
+  handleChangeQuicksand(){
+    if(this.state.quicksand!=1){
+    this.setState({
+      quicksand:true,
+     })
+    }
+    else{
+      this.setState({
+        quicksand:false,
+       })
+    }
+      //alert("ORANFE&&&&&&&" + this.state.orange);
+  }
 renderTotalMealCost() {
 
   var totalMeal =  (parseInt(this.state.breakfast)) + (parseInt(this.state.lunch)) + (parseInt(this.state.dinner))  +  (parseInt(this.state.snack)  +  (parseInt(this.state.other)));
@@ -1213,8 +1421,8 @@ renderCheck(){
 }
 
 render() {
-const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,itkey} = this.state;
-const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,itkey}
+const {startdate, enddate, location, title, budget, notes,Plate,CostH,HName,costcc,plane1n,plane1d,plane1t ,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,yellow,green,black,purple,maroon,blue,times,arial,quicksand,comic,size1,size2,size3,itkey} = this.state;
+const values = {startdate, enddate, title, budget, location, notes, Plate,CostH,HName,costcc,plane1n,plane1d,plane1t,plane2n,plane2d,plane2t,plane3n,plane3d,plane3t,countf,orange,yellow,green,black,purple,maroon,blue,times,arial,quicksand,comic,size1,size2,size3,itkey}
  
 //alert("orange is" + this.state.orange)
 let statenow = this
@@ -1540,63 +1748,42 @@ let statenow = this
       <Tab eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
       <div id="cus" className="Custom">  
                 <h1>Pick a Background Color</h1>  
-                <input id="select1" name="check1" type="checkbox" />
+                <input id="select1" name="check1" type="checkbox"  checked={this.state.black}  onClick={this.handleChangeBlack}/>
                 <label for="select1">Black</label>
-                <input id="select2" name="check1" type="checkbox" />
+                <input id="select2" name="check1" type="checkbox"  checked={this.state.blue}  onClick={this.handleChangeBlue}/>
                 <label for="select2">Blue</label>
-                <input id="select3" name="check1" type="checkbox" />
+                <input id="select3" name="check1" type="checkbox"  checked={this.state.green}  onClick={this.handleChangeGreen}/>
                 <label for="select3">Green</label>
-                <input id="select4" name="check1" type="checkbox" />
+                <input id="select4" name="check1" type="checkbox"  checked={this.state.purple}  onClick={this.handleChangePurple}/>
                 <label for="select4">Purple</label>
-                <input id="select5" name="check1" type="checkbox" />
+                <input id="select5" name="check1" type="checkbox"  checked={this.state.maroon}  onClick={this.handleChangeMaroon}/>
                 <label for="select5">Maroon</label>
                 <input id="select6" name="check1" type="checkbox" checked={this.state.orange}  onClick={this.handleChangeOrange} />
                 <label for="select6">Orange</label>
-                <input id="select7" name="check1" type="checkbox" />
+                <input id="select7" name="check1" type="checkbox"  checked={this.state.yellow}  onClick={this.handleChangeYellow}/>
                 <label for="select7">Yellow</label>
-                <input id="select8" name="check1" type="checkbox" />
-                <label for="select8">Pink</label>
+
 
                 <h1>Pick a Font</h1>  
-                <input id="sel1" name="check1" type="checkbox" />
-                <label for="sel1">Quicksand</label>
-                <input id="sel2" name="check1" type="checkbox" />
-                <label for="sel2">Calibri</label>
-                <input id="sel3" name="check1" type="checkbox" />
+                <input id="sel3" name="check1" type="checkbox" checked={this.state.arial}  onClick={this.handleChangeArial}/>
                 <label for="sel3">Arial</label>
-                <input id="sel4" name="check1" type="checkbox" />
+                <input id="sel4" name="check1" type="checkbox" checked={this.state.comic}  onClick={this.handleChangeComic}/>
                 <label for="sel4">Comic Sans</label>
-                <input id="sel5" name="check1" type="checkbox" />
+                <input id="sel5" name="check1" type="checkbox" checked={this.state.times}  onClick={this.handleChangeTimes}/>
                 <label for="sel5">Times </label>
-                <input id="sel6" name="check1" type="checkbox" />
-                <label for="sel6">Gothic </label>
+                
 
 
                 <h1>Pick a Font Size</h1>  
-                <input id="se1" name="check1" type="checkbox" />
+                <input id="se1" name="check1" type="checkbox" checked={this.state.size1}  onClick={this.handleChangeSize1} />
                 <label for="se1">12</label>
-                <input id="se5" name="check1" type="checkbox" />
-                <label for="se5">16</label>
-                <input id="se2" name="check1" type="checkbox" />
-                <label for="se2">18</label>
-                <input id="se3" name="check1" type="checkbox" />
+                <input id="se3" name="check1" type="checkbox" checked={this.state.size2}  onClick={this.handleChangeSize2}/>
                 <label for="se3">24</label>
-                <input id="se4" name="check1" type="checkbox" />
+                <input id="se4" name="check1" type="checkbox" checked={this.state.size3}  onClick={this.handleChangeSize3}/>
                 <label for="se4">30</label>
-                <input id="se6" name="check1" type="checkbox" />
-                <label for="se6">42</label>
 
-                <h1>Pick a Font Color</h1>  
-                <input id="s1" name="check1" type="checkbox"/>
-                <label for="s1">Black</label>
-                <input id="s2" name="check1" type="checkbox" />
-                <label for="s2">White</label>
 
-                <h1>Pick a Tab</h1>  
-                <input onChange={this.handleChangeTab1} id="tab1" name="check1" type="checkbox" />
-                <label for="tab1">Tab Style 1</label>
-                <input onChange={this.handleChangeTab2} id="tab2" name="check1" type="checkbox" />
-                <label for="tab22">Tab Style 2</label>
+
 
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
                 
