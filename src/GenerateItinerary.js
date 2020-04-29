@@ -1009,7 +1009,7 @@ titleRender() {
     return(<input type="text" placeholder={this.state.title} onChange={this.handleChange('title')}/>)
   }
   else {
-    return(<h1> {this.state.title} </h1>);
+    return(<button className="btn-plain" onClick={this.changeTitle}> {this.state.title} </button>);
    }
 
 }
@@ -1033,7 +1033,7 @@ startRender() {
   }
   else {
     let day= new Date(this.state.startdate);
-    return(<h5> {this.state.startdate}</h5>);
+    return(<> {this.state.startdate}</>);
   }
 
 }
@@ -1048,7 +1048,7 @@ endRender() {
   else {
 
     let day= new Date(this.state.enddate);
-    return(<h5> {this.state.enddate} </h5>);
+    return(<> {this.state.enddate} </>);
   }
 
 }
@@ -1062,7 +1062,7 @@ locationRender() {
 
   }
   else {
-    return(<h5> {this.state.location}</h5>);
+    return(<>{this.state.location}</>);
   }
 
 }
@@ -1072,7 +1072,7 @@ budgetRender(e) {
   if (this.state.editbudget) {
     return(<input type="number" placeholder={this.state.budget} onChange={this.handleChange('budget')}/>);
   } else {
-    return(<h5>${this.state.budget}</h5>);
+    return(<>${this.state.budget}</>);
   }
 
 }
@@ -1080,7 +1080,7 @@ partySizeRender(e) {
   if (this.state.editpartysize) {
     return(<input type="number" placeholder={this.state.partysize} onChange={this.handleChange('partysize')}/>);
   } else {
-    return(<h5>{this.state.partysize}</h5>);
+    return(<>{this.state.partysize}</>);
   }
 }
 
@@ -1089,7 +1089,7 @@ maxdistRender(e) {
   if (this.state.editmaxdist) {
     return(<input type="number" placeholder={this.state.maxdist} onChange={this.handleChange('maxdist')}/>);
   } else {
-    return(<h5>{this.state.maxdist}</h5>);
+    return(<>{this.state.maxdist}</>);
   }
 }
 
@@ -1111,14 +1111,14 @@ locationButtonRender() {
 
 budgetButtonRender() {
 if(this.state.editbudget) {
-  return(      <Button variant="light" onClick={this.changeBudget}>
+  return(      <Button variant="edit"  className="edit" onClick={this.changeBudget}>
        <FiSave />
        </Button>
   )
   } else {
-    return(      <Button variant="light" onClick={this.changeBudget}>
-         <FiEdit2 />
-         </Button>
+    return( <></>    // <Button variant="light" onClick={this.changeBudget}>
+         //<FiEdit2 />
+         //</Button>
   )
   }
 
@@ -1198,10 +1198,10 @@ return(<Button variant="light" onClick={this.changeTitle}>
      </Button>
 )
 } else {
-  return(      <Button variant="light" onClick={this.changeTitle}>
-       <FiEdit2 />
-       </Button>
-)
+//   return(      <Button variant="light" onClick={this.changeTitle}>
+//        <FiEdit2 />
+//        </Button>
+// )
 }
 
 }
@@ -1446,29 +1446,32 @@ let statenow = this
         {this.titleButtonRender()} </h1>
     
   
-    <Container>
+    <Container className="trip-info">
       <Row>
       <h3> Trip Details </h3>
+      </Row>
+      <Row>
+      <p> (Click to Edit and Save) </p>
       </Row>
 
       <Row className="goback" auto>
       
       <Col >
-          <h4>  Destination:  </h4>{this.locationRender()}
-          {this.locationButtonRender()}
+          <button className="btn-plain" onClick={this.changeLocation}> <b> Destination: </b> </button> {this.locationRender()}
+           
       </Col> 
 
       <Col>
-        <h4>Budget:</h4>
+        <button className="btn-plain" onClick={this.changeBudget}> <b> Budget:</b> </button>
            {this.budgetRender()}
-           {this.budgetButtonRender()}
+          
       </Col>
       
       <Col >
-        <h4>Begin Trip: {this.startRender()} {this.startButtonRender()} </h4>
+        <button className="btn-plain" onClick={this.changeStart} ><b>Begin Trip:</b> </button> {this.startRender()}   
       </Col>
       <Col>
-        <h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
+      <button className="btn-plain" onClick={this.changeEnd} >   <b>End Trip:</b> </button>{this.endRender()}  
       </Col>
 
       </Row>
@@ -1477,10 +1480,10 @@ let statenow = this
           <Col ><MiniTravelCosts handlemini={this.handleMiniTravel}/></Col>
 
           <Col>
-            <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+          <button className="btn-plain" onClick={this.changePartySize} > <b> Party Size:</b> </button> {this.partySizeRender()}   
           </Col>
         <Col>
-          <h4>Maximum Distance (mi): {this.maxdistRender()} {this.maxdistButtonRender()}</h4>
+          <button className="btn-plain" onClick={this.changeMaxdist}><b>Maximum Distance (mi): </b></button> {this.maxdistRender()}  
         </Col>
         <Col>
         <Accordion defaultActiveKey="1">
@@ -1517,7 +1520,9 @@ let statenow = this
     
      
       <Row>
+        <Col>
         {this.renderCostBar()}
+        </Col>
         </Row>
     <Row>
       <div class="sidenav">
@@ -1635,9 +1640,9 @@ let statenow = this
                 
                 <Snack lailafunc={this.handleAddSnack}/>
                 <Other lailafunc={this.handleAddOther} />
-                <Dinner lailafunc={this.handleAddDinner} / > 
-                <Lunch lailafunc={this.handleAddLunch} / >
-                <Breakfast lailafunc={this.handleAddBreakfast} / >
+                <Dinner lailafunc={this.handleAddDinner} /> 
+                <Lunch lailafunc={this.handleAddLunch} />
+                <Breakfast lailafunc={this.handleAddBreakfast} />
                 {this.renderTotalMealCost()}
                 </div> 
                 </Card.Body>
@@ -1645,102 +1650,7 @@ let statenow = this
             </Card>
   </Accordion>
 
-
-  <Accordion defaultActiveKey="0">  
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Customize Itinerary</span> </Link>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                <div id="cus" className="Custom">  
-                <h1>Pick a Background Color</h1>  
-                <input id="select1" name="check1" type="checkbox" />
-                <label for="select1">Black</label>
-                <input id="select2" name="check1" type="checkbox" />
-                <label for="select2">Blue</label>
-                <input id="select3" name="check1" type="checkbox" />
-                <label for="select3">Green</label>
-                <input id="select4" name="check1" type="checkbox" />
-                <label for="select4">Purple</label>
-                <input id="select5" name="check1" type="checkbox" />
-                <label for="select5">Maroon</label>
-                <input id="select6" name="check1" type="checkbox" />
-                <label for="select6">Orange</label>
-                <input id="select7" name="check1" type="checkbox" />
-                <label for="select7">Yellow</label>
-                <input id="select8" name="check1" type="checkbox" />
-                <label for="select8">Pink</label>
-
-                <h1>Pick a Font</h1>  
-                <input id="sel1" name="check1" type="checkbox" />
-                <label for="sel1">Quicksand</label>
-                <input id="sel2" name="check1" type="checkbox" />
-                <label for="sel2">Calibri</label>
-                <input id="sel3" name="check1" type="checkbox" />
-                <label for="sel3">Arial</label>
-                <input id="sel4" name="check1" type="checkbox" />
-                <label for="sel4">Comic Sans</label>
-                <input id="sel5" name="check1" type="checkbox" />
-                <label for="sel5">Times </label>
-                <input id="sel6" name="check1" type="checkbox" />
-                <label for="sel6">Gothic </label>
-
-
-                <h1>Pick a Font Size</h1>  
-                <input id="se1" name="check1" type="checkbox" />
-                <label for="se1">12</label>
-                <input id="se5" name="check1" type="checkbox" />
-                <label for="se5">16</label>
-                <input id="se2" name="check1" type="checkbox" />
-                <label for="se2">18</label>
-                <input id="se3" name="check1" type="checkbox" />
-                <label for="se3">24</label>
-                <input id="se4" name="check1" type="checkbox" />
-                <label for="se4">30</label>
-                <input id="se6" name="check1" type="checkbox" />
-                <label for="se6">42</label>
-
-                <h1>Pick a Font Color</h1>  
-                <input id="s1" name="check1" type="checkbox" />
-                <label for="s1">Black</label>
-                <input id="s2" name="check1" type="checkbox" />
-                <label for="s2">White</label>
-
-                <h1>Pick a Tab</h1>  
-                <input onChange={this.handleChangeTab1} id="tab1" name="check1" type="checkbox" />
-                <label for="tab1">Tab Style 1</label>
-                <input onChange={this.handleChangeTab2} id="tab2" name="check1" type="checkbox" />
-                <label for="tab22">Tab Style 2</label>
-
-                <div id="cuse" class="wrapper2 wrap wr w">
-                  {this.tabRender()} 
-                  <div id="wakeup">
-                  Wake Up Time
-                  </div>
-                  <div>
-                  <TimeInput / >
-                  </div>
-                  <div id="bedtime">
-                  Bed Time
-                  </div>
-                  <div>
-                  <TimeInput2 / >
-                  </div> 
-                 </div>
-                 </div>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-
-            
-    </Accordion>
-  
-        <Row>
-          <Button onClick={this.handleOriginalAdd}> Add Your Own Event </Button>
-          </Row>    
+   
 <Row>
 <Col sm={10} className="schedule">
     <Tabs  id="uncontrolled-tab-example" >
@@ -1750,8 +1660,10 @@ let statenow = this
       return(
           
       <Tab  eventKey={day.getDate() + day.getMonth()} title={<h5> {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()}</h5>}  >
+     
       <div id="cus" className="Custom">  
-                <h1>Pick a Background Color</h1>  
+   
+                <h4>Pick a Background Color</h4>  
                 <input id="select1" name="check1" type="checkbox"  checked={this.state.black}  onClick={this.handleChangeBlack}/>
                 <label for="select1">Black</label>
                 <input id="select2" name="check1" type="checkbox"  checked={this.state.blue}  onClick={this.handleChangeBlue}/>
@@ -1767,8 +1679,7 @@ let statenow = this
                 <input id="select7" name="check1" type="checkbox"  checked={this.state.yellow}  onClick={this.handleChangeYellow}/>
                 <label for="select7">Yellow</label>
 
-
-                <h1>Pick a Font</h1>  
+                <h4>Pick a Font</h4>  
                 <input id="sel3" name="check1" type="checkbox" checked={this.state.arial}  onClick={this.handleChangeArial}/>
                 <label for="sel3">Arial</label>
                 <input id="sel4" name="check1" type="checkbox" checked={this.state.comic}  onClick={this.handleChangeComic}/>
@@ -1776,19 +1687,16 @@ let statenow = this
                 <input id="sel5" name="check1" type="checkbox" checked={this.state.times}  onClick={this.handleChangeTimes}/>
                 <label for="sel5">Times </label>
                 
-
-
-                <h1>Pick a Font Size</h1>  
+                <h4>Pick a Font Size</h4>  
                 <input id="se1" name="check1" type="checkbox" checked={this.state.size1}  onClick={this.handleChangeSize1} />
                 <label for="se1">12</label>
                 <input id="se3" name="check1" type="checkbox" checked={this.state.size2}  onClick={this.handleChangeSize2}/>
                 <label for="se3">24</label>
                 <input id="se4" name="check1" type="checkbox" checked={this.state.size3}  onClick={this.handleChangeSize3}/>
                 <label for="se4">30</label>
-
-
-
-
+ 
+ 
+    
       <h1> Schedule for  {day.getMonth() + 1}/{day.getDate()}/{day.getFullYear()} </h1>
                 
                 <div id="cuse" class="wrapper2 wrap wr w">

@@ -16,6 +16,7 @@
 
   .text-dark {
       color: #5E6472; 
+      background-color:#D8D8D8;
   }
 
  
@@ -49,5 +50,41 @@
         color:#FFFFEA;
     }
 
+    .btn-event {
+        background-color:#00CECB;
+        border: none;
+
+    }
+    .btn-event:hover {
+        background-color:#FFED66;
+        color: #5E6472;
+        border: none;
+    }
+    .btn-edit {
+        height: 10px;
+        width: 10px;
+        background-color: blue;
+    }
+
+    .trip-info p {
+        font-size: medium;
+    }
+
+    .btn-plain{
+        border: none;
+        color:inherit;
+        background-color: inherit;
+        text-align: left;
+        outline:none;
+        border:none;
+        margin: none;
+        padding: none;
+        
+    }
+    
+button:active {
+    outline: none;
+    border: none;
+    }
     
     
