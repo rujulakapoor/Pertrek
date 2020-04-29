@@ -11,6 +11,8 @@ import React, { Component, useState } from 'react';
 import fire from './config/fire'
 import './Account.css';
 import SavedPage from "./SavedPage";
+import Favorites from "./Favorites";
+import SavedPage2 from "./SavedPage2"
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 
 class Account extends Component {
@@ -279,6 +281,18 @@ class Account extends Component {
         <Link to='/favorites' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Favorites</span> </Link>
         </div>
 
+        <div id="topbottom"> 
+        
+        <div id="badcoding">
+        
+        </div>  
+        <h6>hel</h6>
+        <i class="fas fa-edit fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}} ></i>
+        <h6>hel</h6>
+        <Link to='/savedpage' style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Edit your itineraries </span> </Link>
+        </div>
+        
+
         <div id="topbottom">  
         <h5>hello</h5>
         <i class="fas fa-key fa-2x" style={{ textDecoration: 'none', color:'#FF5E5B'}}></i>
@@ -295,7 +309,7 @@ class Account extends Component {
               
               
             <div>
-        <SavedPage / >
+        <SavedPage2 / >
         </div> 
 
 

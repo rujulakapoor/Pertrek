@@ -862,10 +862,17 @@ renderTotalMealCost() {
   var var3 = parseInt(this.state.dinner);
   var var4 = parseInt(this.state.other);
   var var5 = parseInt(this.state.snack);
-
+  var recCost = this.state.partysize * 60;
+  var amountLeft=recCost-totalMeal;
+  if(amountLeft<0){
+    alert("You have gone over budget")
+  }
+  var percentLeft=((amountLeft/recCost))*100;
+  percentLeft = 100-Math.round(percentLeft);
+  
   if(totalMeal!=0){
   var bPercent= ((var1/totalMeal))*100;
-  bPercent = Math.round(bPercent);
+  
 
   var lPercent= ((var2/totalMeal))*100;
   lPercent = Math.round(lPercent);
@@ -881,6 +888,8 @@ renderTotalMealCost() {
 
   var sPercent= ((var5/totalMeal))*100;
   sPercent = Math.round(sPercent);
+
+  
   }
   else{
     var bPercent=0;
@@ -897,7 +906,7 @@ renderTotalMealCost() {
       <h2> Current Meal Cost : ${totalMeal} </h2>
       </Col>
       <Col >
-      <h2> Recommended Meal Budget : $60 </h2>
+      <h2> Recommended Meal Budget : ${recCost} </h2>
       </Col>
       </Row>
       <div id="piechart">
@@ -906,21 +915,10 @@ renderTotalMealCost() {
       <div>
 
       <ProgressBar>
-      <ProgressBar variant="success" now={bPercent} key={1} label="Breakfast"/>
-      <ProgressBar variant="warning" now={lPercent} key={2} label="Lunch"/>
-      <ProgressBar variant="info" now={dPercent} key={3} label="Dinner" />
-      <ProgressBar variant="success" now={sPercent } label="Dessert" key={4} />
-      <ProgressBar variant="info" now={oPercent} label="Other" key={5} />
+      <ProgressBar variant="danger" now={percentLeft} key={1} label="Meal Budget Left"/>
       </ProgressBar>
 
-
-      <ProgressBar>
-      <ProgressBar variant="success" now={5} key={1} label="Breakfast"/>
-      <ProgressBar variant="warning" now={15} key={2} label="Lunch"/>
-      <ProgressBar variant="info" now={25} key={3} label="Dinner" />
-      <ProgressBar variant="success" now={5} label="Dessert" key={4} />
-      <ProgressBar variant="info" now={5} label="Other" key={5} />
-      </ProgressBar>
+     
     </div>
 </Col>
 </Row>
@@ -1719,7 +1717,7 @@ let statenow = this
                 <input id="se4" name="check1" type="checkbox" checked={this.state.size3}  onClick={this.handleChangeSize3}/>
                 <label for="se4">30</label>
  
- 
+
     
                 
                 <div id="cuse" class="wrapper2 wrap wr w">
