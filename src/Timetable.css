@@ -3,4 +3,16 @@
     height: inherit;
     color: #FFFFEA;
     background-color: #00CECB;
+    margin: 0 auto;
+}
+
+.table-itinerary {
+    background-color: #D8D8D8;
+    color: #5E6472;
+    
+}
+
+.card-tabletop {
+    background-color:#00CECB;
+    color:#FFFFEA;
 }

@@ -31,10 +31,22 @@ renderEdit(time, event) {
 
   if(event.isfirst) {
     
+ 
+  var activity = event.eventdetails;
+
     
     return(
+      <>
+      {this.renderCost(event)}
       <Button variant="info" onClick={() => this.deleteEvent(time,event)}> <TiDeleteOutline /> </Button>
+      </>
     )
+  }
+}
+renderCost(activity) {
+  console.log(activity)
+  if(activity.cost != null) {
+    return(<p> Cost: ${activity.cost} </p>)
   }
 }
 
@@ -189,7 +201,7 @@ renderTime(time) {
     return(
       //Change this to be the modal
 
-      <div className="eventBlock"> <p>{activity.name} {this.renderEdit(time, event)} </p> </div>
+      <Card className="card-tabletop"> <p>{activity.name} {this.renderEdit(time, event)} </p> </Card>
     )
 
   }  
@@ -202,7 +214,7 @@ return (
     {this.renderDailyBudget()}
     {this.renderBudgetEdit()}
     {this.renderCostBar()}
-  <Table responsive striped bordered variant="dark" width="400" size="sm">
+  <Table  striped borderless variant="itinerary" width="250" size="sm">
 
   <thead>
     <tr>

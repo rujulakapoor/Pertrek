@@ -1,6 +1,6 @@
 import React, {Component } from 'react'
 import {Form, Button} from 'react-bootstrap'
- 
+ import './GenerateItinerary.css'
 export class AddEventModal extends Component{
     constructor(props) {
         super(props)
@@ -9,6 +9,8 @@ export class AddEventModal extends Component{
             time: '',
             duration: '',
             cost: 0,
+            notes: '',
+            travel: 0,
             blocks: '',
             timeblocks: [],
             blockids:[]
@@ -78,12 +80,15 @@ export class AddEventModal extends Component{
  render() {
         return(
 
-            <div id="popup2" class="overlay">
-    	      <div class="popup" >
+           // <div id="popup2" class="overlay">
+    	   //   <div class="popup" >
+           <div id="popup2" class="overlay">
+    	     <div  className="activity-modal" >
               
 
     		    <h5>Add Actvity</h5>
 <Form>
+    <Form.Group>
     <Form.Label> Select Date</Form.Label>
     <Form.Control as="select"   onChange={this.handleChange('day')}>
     {Object.entries(this.props.days).map((thing)=> {
@@ -94,17 +99,25 @@ export class AddEventModal extends Component{
                 })
                 }
     </Form.Control>
+    </Form.Group>
+    <Form.Group>
     
     <label for="appt">Select a time:</label>
         <input type="time" id="appt" name="appt" step="900" />
+        </Form.Group>
 
+    <Form.Group>
     <Form.Label> Select Duration (Hours) </Form.Label>
      
     <input type="number" id="quantity" name="quantity" min=".25" max="15" step=".25"/>
+    </Form.Group>
+
+    <Form.Group>
+
     <Form.Label> How much money do you plan to spend? </Form.Label>
     <input type="number"   id="cost" name="cost" min="0"/>
 
-    	 
+    	 </Form.Group>
             
 
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>

@@ -12,4 +12,53 @@
 
   .share-button {
       display: block;
+  } 
+
+  .text-dark {
+      color: #5E6472; 
+  }
+
+  
+h6 {
+    font-family: 'Palanquin Dark', sans-serif;
+  }
+  
+  h5 {
+    font-family: 'Quicksand', sans-serif;
+  }
+  
+  h4 {
+    font-family: 'Quicksand', sans-serif;
+  }
+  
+  h3 {
+    font-family: 'Palanquin Dark', sans-serif;
+  }
+  
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+  }
+  h7 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: x-large;
+    margin-top: 5%;
+  
+  }
+  
+  p {
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .activity-modal {
+    
+    position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+    background-color: #FF5E58;
+    color:#FFFFEA;
+    border: #FF5E58 solid 20px;
+    border-radius: 16px;
   }

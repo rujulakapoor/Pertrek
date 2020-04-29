@@ -94,10 +94,13 @@ export class OriginalEventModal extends Component{
     		    <h5>Add Actvity</h5>
 <Form>
 
+<Form.Group>
         <Form.Label> Activity Name</Form.Label>
         <input type="text" id="name" name="name" />
-
+</Form.Group>
+<Form.Group>
     <Form.Label> Select Date</Form.Label>
+
     <Form.Control as="select"   onChange={this.handleChange('day')}>
     {Object.entries(this.props.days).map((thing)=> {
              var str="" + thing
@@ -107,23 +110,34 @@ export class OriginalEventModal extends Component{
                 })
                 }
     </Form.Control>
+
+    </Form.Group>
+<Form.Group>
     
     <Form.Label> Description </Form.Label>
     <input type="text" id="desc" name="desc" />
+
+    </Form.Group>
+<Form.Group>
     <Form.Label> Address </Form.Label>
     <input type="text" id="addr" name="addr" />
-
+</Form.Group>
+<Form.Group>
 
     <label for="appt">Select a time:</label>
         <input type="time" id="appt" name="appt" step="900" />
-
+        </Form.Group>
+<Form.Group>
     <Form.Label> Select Duration (Hours) </Form.Label>
      
     <input type="number" id="quantity" name="quantity" min=".25" max="15" step=".25"/>
+    </Form.Group>
+<Form.Group>
     <Form.Label> How much money do you plan to spend? </Form.Label>
     <input type="number"   id="cost" name="cost" min="0"/>
 
-    	 
+    	 </Form.Group>
+                
             
 
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>

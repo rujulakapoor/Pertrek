@@ -174,7 +174,7 @@ constructor(props){
     timesoftheday: [],
     currentEvent: {},
     currentlyEditing: false,
-    totalexpenses: 0,
+    totalexpenses: 0, // need to save all of these things again!
     minitravel: 0,
     breakfast: 0,
     lunch: 0,
@@ -280,10 +280,10 @@ deleteOldEvent(time, event, daynum) {
   })
 
   //do i need hooks here
-  
+  this.state.alreadysaved = false;
+  this.handleSavedEdits();
 
-//console.log(this.state.dailydata)
-}
+ }
 
 saveNewEvent = (info) => {
     //Add it to the itinerary table for the desired day. Use the 
@@ -327,6 +327,8 @@ saveNewEvent = (info) => {
 
     this.state.dailydata[info.day].cost += info.cost;
     this.state.totalexpenses += info.cost;
+    this.state.alreadysaved = false;
+    this.handleSavedEdits();
     
     
  
@@ -984,7 +986,7 @@ renderCostBar() {
 originalEventModal() {
   if(this.state.currentlyEditingOriginal && !this.state.currentlyEditing) {
     return(
-      <OriginalEventModal  days={this.state.days}  saveNewEvent={this.saveNewEvent} />
+      <OriginalEventModal  className="activity-modal" days={this.state.days}  saveNewEvent={this.saveNewEvent} />
     )
 
   }
@@ -993,7 +995,7 @@ originalEventModal() {
 modalRender() {
   if(this.state.currentlyEditing) {
      return( 
-      <AddEventModal days={this.state.days} saveNewEvent={this.saveNewEvent}
+      <AddEventModal className="activity-modal" days={this.state.days} saveNewEvent={this.saveNewEvent}
  
 />
       )
@@ -1074,7 +1076,7 @@ budgetRender(e) {
 }
 partySizeRender(e) {
   if (this.state.editpartysize) {
-    return(<input type="number" placeholder={this.state.partysize} onChange={this.handleChange('partySize')}/>);
+    return(<input type="number" placeholder={this.state.partysize} onChange={this.handleChange('partysize')}/>);
   } else {
     return(<h5>{this.state.partysize}</h5>);
   }
@@ -1436,74 +1438,81 @@ let statenow = this
     {this.originalEventModal()}
    {this.modalRender()}
 
-    <Jumbotron>
+    <Jumbotron style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}>
     <h1>
         {this.titleRender()}
         {this.titleButtonRender()} </h1>
-    </Jumbotron>
-
-
-    <Accordion defaultActiveKey="1">
-     <Card className="notes">
-
-       <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-       Notes
-       </Accordion.Toggle>
-       <Accordion.Collapse eventKey="0">
-         <Card.Body>
-         {this.notesRender()}
-         {this.notesButtonRender()}
-         </Card.Body>
-       </Accordion.Collapse>
-
-     </Card>
-    </Accordion>
-
-
-    <Container>
-      
-
-
-<Row>
-<h3> Trip Details </h3>
-</Row>
-<Row className="goback">
-<Col>
-<Row>
-  <h4>  Destination:  </h4>{this.locationRender()}
-    {this.locationButtonRender()}
-</Row>
-</Col>
-
-<Col>
-
-<h4>    Budget:</h4>
-     {this.budgetRender()}
-     {this.budgetButtonRender()}
-</Col>
-<Col>
-<h4>Begin Trip: {this.startRender()} {this.startButtonRender()} </h4>
-</Col>
-</Row>
-
-    <Row>
-    <Col><MiniTravelCosts handlemini={this.handleMiniTravel}/></Col>
-    <Col></Col>
-    <Col>
-<h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
-    </Col>
-    </Row>
     
-    </Container>
+  
     <Container>
       <Row>
-        <Col>
-          <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
-        </Col>
+      <h3> Trip Details </h3>
+      </Row>
+
+      <Row className="goback" auto>
+      
+      <Col >
+          <h4>  Destination:  </h4>{this.locationRender()}
+          {this.locationButtonRender()}
+      </Col> 
+
+      <Col>
+        <h4>Budget:</h4>
+           {this.budgetRender()}
+           {this.budgetButtonRender()}
+      </Col>
+      
+      <Col >
+        <h4>Begin Trip: {this.startRender()} {this.startButtonRender()} </h4>
+      </Col>
+      <Col>
+        <h4> End Trip: {this.endRender()} {this.endButtonRender()} </h4>
+      </Col>
+
+      </Row>
+      
+      <Row >
+          <Col ><MiniTravelCosts handlemini={this.handleMiniTravel}/></Col>
+
+          <Col>
+            <h4>Party Size: {this.partySizeRender()} {this.partySizeButtonRender()}</h4>
+          </Col>
         <Col>
           <h4>Maximum Distance (mi): {this.maxdistRender()} {this.maxdistButtonRender()}</h4>
         </Col>
       </Row>
+      <Row>
+        <Col>
+        <Accordion defaultActiveKey="1">
+         <Card  >
+    
+           <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+           My Notes
+           </Accordion.Toggle>
+           <Accordion.Collapse eventKey="0">
+             <Card.Body>
+             {this.notesRender()}
+             {this.notesButtonRender()}
+             </Card.Body>
+           </Accordion.Collapse>
+    
+         </Card>
+        </Accordion>
+    
+        </Col>
+    </Row>
+          </Container>
+          
+    
+
+    </Jumbotron>
+
+
+
+
+    <Container className="text-dark">
+    
+     
       <Row>
         {this.renderCostBar()}
         </Row>
