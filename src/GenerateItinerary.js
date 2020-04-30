@@ -864,11 +864,10 @@ renderTotalMealCost() {
   var var3 = parseInt(this.state.dinner);
   var var4 = parseInt(this.state.other);
   var var5 = parseInt(this.state.snack);
+  var yikes=0;
   var recCost = this.state.partysize * 60;
   var amountLeft=recCost-totalMeal;
-  if(amountLeft<0){
-    alert("You have gone over budget")
-  }
+  
   var percentLeft=((amountLeft/recCost))*100;
   percentLeft = 100-Math.round(percentLeft);
   
@@ -900,8 +899,9 @@ renderTotalMealCost() {
     var oPercent=0;
     var sPercent=0;
   }
+  if(percentLeft<100){
    return(
-
+    
     <div id="mealbudgetstuff">
       <Row>
       <Col>
@@ -917,7 +917,7 @@ renderTotalMealCost() {
       <div>
 
       <ProgressBar>
-      <ProgressBar variant="danger" now={percentLeft} key={1} label="Meal Budget Left"/>
+      <ProgressBar variant="danger" now={percentLeft} key={1} label="Meal Budget Spent"/>
       </ProgressBar>
 
      
@@ -927,6 +927,35 @@ renderTotalMealCost() {
       </div>
     </div>
   )
+   }
+   else{
+    return(
+    <div id="mealbudgetstuff">
+    <Row>
+    <Col>
+    <h2> Current Meal Cost : ${totalMeal} </h2>
+    </Col>
+    <Col >
+    <h2> Recommended Meal Budget : ${recCost} </h2>
+    </Col>
+    </Row>
+    <div id="piechart">
+    <Row>
+    <Col >    
+    <div>
+    <h1>You have gone over budget!</h1>
+    <ProgressBar>
+    <ProgressBar variant="danger" now={percentLeft} key={1} label="Meal Budget Spent"/>
+    </ProgressBar>
+
+   
+  </div>
+</Col>
+</Row>
+    </div>
+  </div>
+    )
+   }
 }   
 
     
@@ -1644,9 +1673,9 @@ let statenow = this
 
 <Accordion defaultActiveKey="0">  
             <Card>
-              <Card.Header>
+              <Card.Header style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}>
                 <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Plane Information</span> </Link>
+                <Link  style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}><span class="ml-12">Accommodation and Travel</span> </Link>
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
@@ -1661,46 +1690,11 @@ let statenow = this
   </Accordion>
 
 
-<Accordion defaultActiveKey="0">  
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Rental Car</span> </Link>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                <RentalCar values={values} / >
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-  </Accordion>
   
 
   
 
-<Accordion defaultActiveKey="0">  
-            <Card>
-              <Card.Header>
-                <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                <Link  style={{ textDecoration: 'none', color:'black'}}><span class="ml-12">Meal Inofrmation</span> </Link>
-                </Accordion.Toggle>
-              </Card.Header>
-              <Accordion.Collapse eventKey="1">
-                <Card.Body>
-                <div className="MealsStuff" id="moreMealStuff">
-                
-                <Snack lailafunc={this.handleAddSnack}/>
-                <Other lailafunc={this.handleAddOther} />
-                <Dinner lailafunc={this.handleAddDinner} /> 
-                <Lunch lailafunc={this.handleAddLunch} />
-                <Breakfast lailafunc={this.handleAddBreakfast} />
-                {this.renderTotalMealCost()}
-                </div> 
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-  </Accordion>
+
 
   <Row>
     <Col>
@@ -1771,6 +1765,7 @@ let statenow = this
                 <Dinner lailafunc={this.handleAddDinner} /> 
                 <Lunch lailafunc={this.handleAddLunch} />
                 <Breakfast lailafunc={this.handleAddBreakfast} />
+                {this.renderTotalMealCost()}
       </div>       
 
       </Tab>

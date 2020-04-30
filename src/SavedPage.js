@@ -198,7 +198,7 @@ console.log("HERE")
           {Object.entries(this.state.itineraries).map(([key,value]) =>
 
             <Card key={value[0]} className="float-left" style={{width: '18rem', marginRight: '1rem'}}>
-            <Card.Header as="h4"> <b>{value[1].title}</b> </Card.Header>
+            <Card.Header as="h4" style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}}> <b>{value[1].title}</b> </Card.Header>
             <Card.Body>
               <Card.Text as="h5">
                 Location: {value[1].location}
@@ -207,9 +207,9 @@ console.log("HERE")
                 Notes: {value[1].notes}
                 </Card.Text>
                 <Card.Text> </Card.Text>
-                <Button variant="primary" onClick={this.editPlan.bind(this, this.state.itineraries[key])}>Edit </Button>
+                <Button style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}} variant="primary" onClick={this.editPlan.bind(this, this.state.itineraries[key])}>Edit </Button>
                 <Card.Text> </Card.Text>
-                <Button variant="primary" onClick={this.deletePlan.bind(this, this.state.itineraries[key])}>Delete</Button>
+                <Button style={{ textDecoration: 'none',background:'#FF5E5B', color:'white'}} variant="primary" onClick={this.deletePlan.bind(this, this.state.itineraries[key])}>Delete</Button>
               </Card.Body>
               </Card>
               )
