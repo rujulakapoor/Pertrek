@@ -22,6 +22,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import fire from "./config/fire";
 import bootbox from "bootbox";
+import {Empty} from './img/logo_airplane_square.png';
+
 
 const popInfo = (
   <Popover id="popover-basic">
@@ -312,6 +314,10 @@ class Attractions extends Component {
       return (
         <div className="attractions">
           <h1>Enter a category</h1>
+          <img src={Empty}
+              height="100px"
+              width="300px"
+          />
         </div>
       );
     } else {

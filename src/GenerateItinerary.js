@@ -2049,7 +2049,7 @@ export class GenerateItinerary extends Component {
                   <Card
                     style={{
                       height: "100%",
-                      width: "100%",
+                      width: "343px",
                     }}
                   >
                     <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -2098,6 +2098,8 @@ export class GenerateItinerary extends Component {
                             partysize={this.state.partysize}
                             addedAttraction={this.addEvent}
                           />
+
+
                         </div>
                       </Card.Body>
                     </Accordion.Collapse>
@@ -2108,7 +2110,7 @@ export class GenerateItinerary extends Component {
                   <Card
                     style={{
                       height: "100%",
-                      width: "100%",
+                      width: "343px",
                     }}
                   >
                     <Accordion.Toggle as={Card.Header} eventKey="1">
