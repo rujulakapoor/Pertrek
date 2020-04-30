@@ -1441,3 +1441,24 @@ Link {
 #s2:checked~div.w {
   color: white;
 }
+
+.itinerary-fillout{
+  padding:10px;
+  margin:100px;
+}
+.itinerary-fillout h1 {
+  color: #00CECB;
+  text-align: center;
+}
+.itinerary-fillout label{
+  color:#333;
+
+}
+.itinerary-fillout button {
+  background-color: #00CECB;
+  color:white;
+  border: none;
+}
+.itinerary-fillout h4{
+  text-align: center;
+}

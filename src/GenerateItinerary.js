@@ -2009,7 +2009,7 @@ export class GenerateItinerary extends Component {
                         <label for="se4">30</label>
 
                         <div class="saveColors">
-                          <h2>Save</h2>
+                          <Button className="btn-event"> <h2>Save</h2> </Button>
                           <h3>
                             {this.titleRender()}
                             {this.titleButtonRender()}{" "}
