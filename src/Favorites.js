@@ -96,6 +96,7 @@ class Favorites extends Component {
           <div className="banner">
             <h1>My Favorites</h1>
           </div>
+          
           <div className="planner">
             {Object.entries(this.state.alreadyFaved).map(([key, value]) => (
               <Card
