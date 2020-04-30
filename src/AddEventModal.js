@@ -129,6 +129,8 @@ export class AddEventModal extends Component{
             
 
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>
+        <Button className="itinerary-fillout" onClick={this.props.handleCancel}> Cancel</Button>
+
     </Form>		
  
         
