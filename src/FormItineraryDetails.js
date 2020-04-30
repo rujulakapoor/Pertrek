@@ -11,7 +11,9 @@ render() {
   const {values, handleChange} = this.props;
 
   return(
-<div id="form">
+<div id="form" className="itinerary-fillout">
+    <h1> Tell us about your trip! </h1>
+    <h4> Fill in as much as you know right now, you can always change this later </h4>
     <Form>
       <FormGroup>
         <FormLabel> Vacation Title </FormLabel>
