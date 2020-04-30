@@ -23,7 +23,8 @@ import {
   InputGroup,
   Dropdown,
 } from "react-bootstrap";
-import Attractions from './Attractions.js';
+import Attractions from "./Attractions.js";
+import Custom from "./customAttractions.js";
 import { Link } from "react-router-dom";
 import { FiEdit2, FiSave } from "react-icons/fi";
 import { FaCheck } from "react-icons/fa";
@@ -151,6 +152,7 @@ export class GenerateItinerary extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onCustomCategory = this.onCustomCategory.bind(this);
     this.addEvent = this.addEvent.bind(this);
+    this.addCustomEvent = this.addCustomEvent.bind(this);
     this.state = {
       enddate: this.props.values.enddate,
       startdate: this.props.values.startdate,
@@ -217,8 +219,8 @@ export class GenerateItinerary extends Component {
       other: 0,
 
       currentlyEditingOriginal: false,
-      value: '',
-      category: ''
+      value: "",
+      category: "",
     };
   }
 
@@ -1563,22 +1565,37 @@ export class GenerateItinerary extends Component {
   onCustomCategory() {
     const curr = this;
     bootbox.prompt({
-        title: "Enter a category", 
-        centerVertical: true,
-        callback: function(result){ 
-        curr.setState({category: result});
-        }
+      title: "Enter a category",
+      centerVertical: true,
+      callback: function (result) {
+        curr.setState({ category: result });
+      },
     });
-} 
-handleSubmit(event) {
+  }
+  handleSubmit(event) {
     event.preventDefault();
     console.log("hi");
-}
-addEvent(val){
-    console.log("DATA RECEIVED = " + val.name + " , duration = " + val.time + ", date = " + val.date);
-
-}
-
+  }
+  addEvent(val) {
+    console.log(
+      "DATA RECEIVED = " +
+        val.name +
+        " , duration = " +
+        val.time +
+        ", date = " +
+        val.date
+    );
+  }
+  addCustomEvent(val) {
+    console.log(
+      "CUSTOM DATA RECEIVED = " +
+        val.name +
+        " , duration = " +
+        val.time +
+        ", date = " +
+        val.date
+    );
+  }
 
   render() {
     const {
@@ -2028,6 +2045,93 @@ addEvent(val){
             <Col sm={2}>
               <Row>
                 <h1> Discover </h1>
+                <Accordion defaultActiveKey="0">
+                  <Card
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                    }}
+                  >
+                    <Accordion.Toggle as={Card.Header} eventKey="0">
+                      Suggested Attractions
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="0">
+                      <Card.Body>
+                        <div className="itAttr">
+                          <Container>
+                            <Row>
+                              <Col>
+                                <p>Category:</p>
+                              </Col>
+
+                              <Col>
+                                <DropdownButton
+                                  as={InputGroup.Append}
+                                  variant="outline-secondary"
+                                  title={curr.state.category}
+                                  id="input-group-dropdown-2"
+                                  onSelect={function (evt) {
+                                    curr.setState({ category: evt });
+                                  }}
+                                >
+                                  <Dropdown.Item eventKey="Restaurants">
+                                    Restaurants
+                                  </Dropdown.Item>
+                                  <Dropdown.Item eventKey="Attractions">
+                                    Attractions
+                                  </Dropdown.Item>
+                                  <Dropdown.Divider />
+                                  <Dropdown.Item
+                                    onClick={this.onCustomCategory}
+                                  >
+                                    Custom
+                                  </Dropdown.Item>
+                                </DropdownButton>
+                              </Col>
+                            </Row>
+                          </Container>
+
+                          <Attractions
+                            category={curr.state.category}
+                            location={curr.state.location}
+                            budget={this.state.budget}
+                            partysize={this.state.partysize}
+                            addedAttraction={this.addEvent}
+                          />
+                        </div>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                </Accordion>
+
+                <Accordion defaultActiveKey="0">
+                  <Card
+                    style={{
+                      height: "100%",
+                      width: "100%",
+                    }}
+                  >
+                    <Accordion.Toggle as={Card.Header} eventKey="1">
+                      User-Submitted Attractions
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey="1">
+                      <Card.Body>
+
+                        <Custom addedAttraction={this.addCustomEvent}/>
+
+                        <Button
+                          className="btn-event"
+                          onClick={this.handleOriginalAdd}
+                          style={{ margin: "10px" }}
+                        >
+                          {" "}
+                          Add Your Own Event{" "}
+                        </Button>
+
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </Card>
+                </Accordion>
 
                 {/* <PreviewAttractions
                   handleAdd={this.handleEventAdd}
@@ -2037,47 +2141,6 @@ addEvent(val){
                   title={this.state.title}
                   partysize={this.state.partysize}
                 />  */}
-
-                <div className="itAttr">
-                  <Container>
-                    <Row>
-                      <Col>
-                        <p>Category:</p>
-                      </Col>
-
-                      <Col>
-                      <DropdownButton
-                        as={InputGroup.Append}
-                        variant="outline-secondary"
-                        title={curr.state.category}
-                        id="input-group-dropdown-2"
-                        onSelect={
-                          function(evt){
-                            curr.setState({category: evt});
-                          }
-                        }
-                      >
-                        <Dropdown.Item eventKey="Restaurants">Restaurants</Dropdown.Item>
-                        <Dropdown.Item eventKey="Attractions">Attractions</Dropdown.Item>
-                        <Dropdown.Divider />
-                        <Dropdown.Item onClick={this.onCustomCategory}>
-                          Custom
-                        </Dropdown.Item>
-                      </DropdownButton>
-                      </Col>
-                    </Row>
-                  </Container>
-                
-
-
-                <Attractions category={curr.state.category} location={curr.state.location} addedAttraction={this.addEvent}/>
-              </div>
-
-              <Button className="btn-event" onClick={this.handleOriginalAdd} style={{margin:"10px"}}>
-                  {" "}
-                  Add Your Own Event{" "}
-                </Button>
-
               </Row>
             </Col>
             <MapAll
