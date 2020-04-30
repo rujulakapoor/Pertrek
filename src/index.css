@@ -163,7 +163,7 @@ Link {
   align-items: center;
   align-content: center;
   text-align: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .home .carousel-container{
@@ -181,6 +181,12 @@ Link {
   overflow:hidden;
   z-index: 100;
   box-shadow: rgba(41, 41, 41, 0.9);
+}
+
+.banner .ban-img {
+  max-width: 100%;
+  max-height: 100vh;
+  margin: auto;
 }
 
 /* FAVORITES */
@@ -224,13 +230,13 @@ Link {
   top: 15%;
   width: 60%;
   padding: 2%;
-  margin-left: 30%;
+  margin-left: 25%;
   z-index: 100;
 }
 
 .scheduler .banner h1 {
   color: #FFFFEA;
-  font-size: 60px;
+  font-size: 50px;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
 

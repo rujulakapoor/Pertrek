@@ -22,7 +22,7 @@
     "jquery": "^3.4.1",
     "json-loader": "^0.5.7",
     "materialize-css": "^1.0.0-rc.2",
-    "mdbreact": "^4.25.6",
+    "mdbreact": "^4.26.0",
     "mobiscroll-react": "^4.0.0",
     "react-awesome-slider": "^4.1.0",
     "react-bootstrap": "^1.0.0-beta.16",

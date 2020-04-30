@@ -698,7 +698,7 @@ class scheduler extends Component {
 							this.state.restaurants //COLLECTION NAME
 							.map(attraction =>
 								<Accordion defaultActiveKey="0">
-									<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+									<Card key={attraction.id} className="float-left" style={{width: '16rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
 										<Card.Header as="h5">{ attraction.name }</Card.Header>
 										<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 

@@ -9,7 +9,7 @@ import bootbox from 'bootbox';
 import slide1 from './img/cape-town-cropped.jpg';
 import slide2 from './img/mexico.jpg';
 import slide3 from './img/flowers.jpg';
-import banner from './img/banner.png';
+import banner from './img/banner-shifted.png';
 import dragon from './img/Dragon-Boat.png'
 import planning from './img/planning-light-square.jpg';
 import suitcase from './img/suitcase-square.jpg';
@@ -164,7 +164,7 @@ class Home extends Component {
           <div className="options">
 
             <div className="banner">
-              <img src={banner} />
+              <img src={banner} className="ban-img"/>
             </div>
 
             <CardGroup style={{padding:"30px", marginBottom:"40px"}}>
