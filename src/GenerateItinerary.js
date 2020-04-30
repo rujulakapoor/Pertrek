@@ -80,6 +80,7 @@ constructor(props){
   super(props);
   this.save= this.save.bind(this);
   this.changeTitle = this.changeTitle.bind(this)
+  this.changeColor = this.changeColor.bind(this)
   this.calculateDaysAgain = this.calculateDaysAgain.bind(this)
   this.changeNotes= this.changeNotes.bind(this)
   this.changeStart = this.changeStart.bind(this)
@@ -165,6 +166,7 @@ constructor(props){
     editend:false,
     editpartysize:false,
     editmaxdist:false,
+    editColor:false,
     typetab:false,
     itkey: this.props.values.itkey,
     retreived:false,
@@ -1036,7 +1038,15 @@ notesRender() {
   }
 
 }
+colorRender() {
+  if(this.state.editColor) {
+    return(<input type="text" placeholder={this.state.color} onChange={this.handleChange('color')}/>)
+  }
+  else {
+    return(<h4> {this.state.color} </h4>);
+  }
 
+}
 
 
 startRender() {
@@ -1217,6 +1227,21 @@ return(<Button variant="light" onClick={this.changeTitle}>
 }
 
 }
+colorButtonRender() {
+  
+  if(this.state.editColor) {
+  return(<Button variant="light" onClick={this.changeTitle}>
+       <FiSave />
+       </Button>
+  )
+  } else {
+  //   return(      <Button variant="light" onClick={this.changeTitle}>
+  //        <FiEdit2 />
+  //        </Button>
+  // )
+  }
+  
+  }
 startButtonRender() {
 if(this.state.editstart) {
 return(<Button variant="light" onClick={this.changeStart}>
@@ -1385,6 +1410,18 @@ changeTitle() {
    } else {
     this.setState({
       edittitle:false,
+      alreadysaved:false
+    })
+  }
+}
+changeColor() {
+  if(this.state.editColor === false) {
+    this.setState({
+      editColor: true
+    })
+   } else {
+    this.setState({
+      editColor:false,
       alreadysaved:false
     })
   }
@@ -1716,9 +1753,13 @@ let statenow = this
                 <label for="se3">24</label>
                 <input id="se4" name="check1" type="checkbox" checked={this.state.size3}  onClick={this.handleChangeSize3}/>
                 <label for="se4">30</label>
- 
-
-    
+                
+                <div class="saveColors">
+                <h2>Save</h2>  
+                <h3>
+                {this.titleRender()}
+                {this.titleButtonRender()} </h3>
+                </div>
                 
                 <div id="cuse" class="wrapper2 wrap wr w">
                 <Timetable daynum={key} delete={this.deleteOldEvent} travel={this.state.minitravel} food={this.state.breakfast} newbudget={this.newbudget}times={this.state.dailydata[key]} budget={this.state.budget} days={this.state.numdays}/> 

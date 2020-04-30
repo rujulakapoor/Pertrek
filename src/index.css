@@ -869,6 +869,18 @@ Link {
   transition:0.5s;
 
 }
+.saveColors h3{
+  color: white;
+  
+}
+.saveColors input{
+  color: white;
+  background-color: white;
+  border-color: white;
+  height: 1pt;
+  width: 1pt;
+}
+
 .inactive {
   color: black;
   text-decoration: none;
