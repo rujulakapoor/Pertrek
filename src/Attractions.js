@@ -267,9 +267,14 @@ class Attractions extends Component {
       //console.log("GOT rating !!!");
     }
   }
-  addAttraction(name, id) {
-    let curr = this;
+  addAttraction(attraction) {
 
+    //Dont need to do this, we have the modal on main. call props instead to call function to show modal and add,
+    //returning to it the attraction information
+    let curr = this;
+    this.props.handleAdd(attraction);
+
+/*
     bootbox.prompt({
       title: "How long are you planning on spending at " + name + "?",
       inputType: "number",
@@ -289,7 +294,8 @@ class Attractions extends Component {
           },
         });
       },
-    });
+    });*/
+
   }
 
   render() {
@@ -380,7 +386,7 @@ class Attractions extends Component {
                         <Button
                           variant="outline-secondary"
                           onClick={() =>
-                            this.addAttraction(attraction.name, attraction.id)
+                            this.addAttraction(attraction)
                           }
                         >
                           <FontAwesomeIcon icon={faPlus} />

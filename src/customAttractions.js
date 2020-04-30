@@ -27,9 +27,13 @@ componentDidMount() {
   this.getUserData();
 
 }
-addAttraction(name) {
+addAttraction(attraction) {
     let curr = this;
-
+    console.log(this.props.handleAdd)
+    console.log("IS ADD")
+    this.props.handleAdd(attraction);
+    
+/*
     bootbox.prompt({
       title: "How long are you planning on spending at " + name + "?",
       inputType: "number",
@@ -49,6 +53,7 @@ addAttraction(name) {
         });
       },
     });
+    */
   }
 
 
@@ -82,7 +87,7 @@ render() {
                   <Button
                           variant="outline-secondary"
                           onClick={() =>
-                            this.addAttraction(attraction.name)
+                            this.addAttraction(attraction )
                           }
                         >
                           <FontAwesomeIcon icon={faPlus} />
