@@ -184,11 +184,28 @@ Link {
 }
 
 /* FAVORITES */
-.favorites {
+/* .favorites {
   background-color: rgb(255, 255, 255);
   padding: 3%;
+} */
+
+.favorites .banner
+{
+  position: absolute;
+  top: 15%;
+  width: 60%;
+  padding: 2%;
+  margin-left: 38%;
+  z-index: 100;
 }
 
+.favorites .banner h1 {
+  color: #FFFFEA;
+  font-size: 60px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+
+}
 
 .planner .sandcastle {
   margin-left: 25%;
@@ -201,6 +218,24 @@ Link {
 }
 
 /* ITINERARY PLANNER */
+.scheduler .banner
+{
+  position: absolute;
+  top: 15%;
+  width: 60%;
+  padding: 2%;
+  margin-left: 30%;
+  z-index: 100;
+}
+
+.scheduler .banner h1 {
+  color: #FFFFEA;
+  font-size: 60px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+
+}
+
 .planner {
   background-color: rgb(255, 255, 255);
   padding: 3%;

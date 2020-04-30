@@ -7,6 +7,8 @@ import { faHeart, faClock, faPen, faInfo, faStar, faMap } from '@fortawesome/fre
 import fire from "./config/fire";
 import bootbox from 'bootbox';
 import bootstrap from 'bootstrap';
+import banner from "./img/banner-empty.png";
+
 
 const popTime = (
 	<Popover id="popover-basic">
@@ -122,7 +124,7 @@ class scheduler extends Component {
 			params: {
 					term: this.state.categorySelect,
 					location: this.state.citySelect,
-					limit:5
+					limit:20
 			}
 			})
 			.then(function (response) {
@@ -680,207 +682,215 @@ class scheduler extends Component {
 		}})
 
 		return (
-			<div className="planner">
+			<div className="scheduler">
+				<img src={banner} width="100%" height="50%" alt="Favorites"/>
 
-				<h1>{statenow.state.categorySelect} in {statenow.state.citySelect}</h1>
-
-				<div className='row'>
-					<div className='col-xl-12'>
-						{
-						this.state.restaurants //COLLECTION NAME
-						.map(attraction =>
-							<Accordion defaultActiveKey="0">
-								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
-									<Card.Header as="h5">{ attraction.name }</Card.Header>
-									<Card.Img variant="top" src={ attraction.image } className="card-img"/>
-
-									<Card.Body>
-										<Card.Text as="h4">
-											Cost: { attraction.price }
-										</Card.Text>
-										<Card.Text as="h4">
-											Rating: { attraction.popularity }/5
-										</Card.Text>
-
-										<Card.Text as="h4">
-											<StarRatings
-												rating={ attraction.popularity }
-												starDimension="15px"
-												starSpacing="2px"
-												starRatedColor="rgb(245, 214, 44)"
-											/>
-										</Card.Text>
-
-										<Card.Text as="p">
-											{ attraction.description }
-										</Card.Text>
-
-										<OverlayTrigger
-											key="info"
-											placement="top"
-											overlay={popInfo}
-										>
-												<Button variant="outline-secondary" 
-													onClick={ () => this.showUserInfo( 
-																attraction.name,
-																attraction.id
-															)}>
-														<FontAwesomeIcon icon={faInfo} />
-												</Button>
-										</OverlayTrigger>
-										
-										<OverlayTrigger
-											key="fav"
-											placement="top"
-											overlay={popFav}
-										>
-											<Button onClick={ () => this.favoriteItem(
-																attraction.name, 
-																attraction.price, 
-																attraction.popularity, 
-																attraction.image, 
-																attraction.address, 
-																attraction.description
-															) 
-														}										
-														variant="outline-danger">
-															<FontAwesomeIcon icon={faHeart} />
-											</Button>
-										</OverlayTrigger>
-
-										
-									</Card.Body>
-
-									<Card.Header>
-										<Accordion.Toggle as="h2" variant="link" eventKey="1">
-											Feedback?
-										</Accordion.Toggle>
-									</Card.Header>
-									<Accordion.Collapse eventKey="1">
-										<Card.Body>
-											<OverlayTrigger
-												key="time"
-												placement="top"
-												overlay={popTime}
-											>
-												<Button variant="outline-primary" 
-													onClick={ () => this.userTime( 
-																attraction.name,
-																attraction.id
-															)}>
-														<FontAwesomeIcon icon={faClock} />
-												</Button>
-											</OverlayTrigger>
-
-											<OverlayTrigger
-												key="rating"
-												placement="top"
-												overlay={popRating}
-											>
-												<Button variant="outline-primary" 
-												onClick={ () => this.userRating( 
-															attraction.name,
-															attraction.id
-														)}>
-													<FontAwesomeIcon icon={faStar} />
-												</Button>
-											</OverlayTrigger>
-
-										</Card.Body>
-									</Accordion.Collapse>
-
-									<OverlayTrigger
-										key="map"
-										placement="left"
-										overlay={popMap}
-									>
-										<Card.Footer 
-										as="h2"
-										onClick={ () => this.showMap( 
-														attraction.name,
-														attraction.map
-													)}>
-												{ attraction.address }
-										</Card.Footer>
-									</OverlayTrigger>
-									
-
-								</Card>
-							</Accordion>
-
-							)
-						}
-					</div>
+				<div className="banner">
+					<h1>{statenow.state.categorySelect} in {statenow.state.citySelect}</h1>
 				</div>
 
 
-				{/* <h1>Attractions</h1>
+				<div className="planner">
 
-				<div className='row'>
-					<div className='col-xl-12'>
-						{
-						this.state.attractions //COLLECTION NAME
-						.map(attraction =>
-							<Accordion defaultActiveKey="0">
-								<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
-									<Card.Header as="h5">{ attraction.name }</Card.Header>
-									<Card.Img variant="top" src={ attraction.image } className="card-img"/>
+					<div className='row'>
+						<div className='col-xl-12'>
+							{
+							this.state.restaurants //COLLECTION NAME
+							.map(attraction =>
+								<Accordion defaultActiveKey="0">
+									<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+										<Card.Header as="h5">{ attraction.name }</Card.Header>
+										<Card.Img variant="top" src={ attraction.image } className="card-img"/>
 
-									<Card.Body>
-										<Card.Text as="h4">
-											Cost: { attraction.price }
-										</Card.Text>
-										<Card.Text as="h4">
-											Rating: { attraction.popularity }/5
-										</Card.Text>
-
-										<Card.Text as="h4">
-											<StarRatings
-												rating={ attraction.popularity }
-												starDimension="15px"
-												starSpacing="2px"
-												starRatedColor="rgb(245, 214, 44)"
-											/>
-										</Card.Text>
-
-										<Card.Text as="p">
-											{ attraction.description }
-										</Card.Text>
-										<Button variant="outline-success"><FontAwesomeIcon icon={faPlus} /></Button>
-										<Button onClick={ () => this.favoriteItem(
-																attraction.name, 
-																attraction.price, 
-																attraction.popularity, 
-																attraction.image, 
-																attraction.address, 
-																attraction.description
-															) 
-														}										
-														variant="outline-danger">
-															<FontAwesomeIcon icon={faHeart} />
-										</Button>
-									</Card.Body>
-
-									<Card.Header>
-										<Accordion.Toggle as="h2" variant="link" eventKey="1">
-											{ attraction.address }
-										</Accordion.Toggle>
-									</Card.Header>
-									<Accordion.Collapse eventKey="1">
 										<Card.Body>
-											<iframe width="100%" frameBorder="0" src={attraction.map}></iframe>
+											<Card.Text as="h4">
+												Cost: { attraction.price }
+											</Card.Text>
+											<Card.Text as="h4">
+												Rating: { attraction.popularity }/5
+											</Card.Text>
+
+											<Card.Text as="h4">
+												<StarRatings
+													rating={ attraction.popularity }
+													starDimension="15px"
+													starSpacing="2px"
+													starRatedColor="rgb(245, 214, 44)"
+												/>
+											</Card.Text>
+
+											<Card.Text as="p">
+												{ attraction.description }
+											</Card.Text>
+
+											<OverlayTrigger
+												key="info"
+												placement="top"
+												overlay={popInfo}
+											>
+													<Button variant="outline-secondary" 
+														onClick={ () => this.showUserInfo( 
+																	attraction.name,
+																	attraction.id
+																)}>
+															<FontAwesomeIcon icon={faInfo} />
+													</Button>
+											</OverlayTrigger>
+											
+											<OverlayTrigger
+												key="fav"
+												placement="top"
+												overlay={popFav}
+											>
+												<Button onClick={ () => this.favoriteItem(
+																	attraction.name, 
+																	attraction.price, 
+																	attraction.popularity, 
+																	attraction.image, 
+																	attraction.address, 
+																	attraction.description
+																) 
+															}										
+															variant="outline-danger">
+																<FontAwesomeIcon icon={faHeart} />
+												</Button>
+											</OverlayTrigger>
+
+											
 										</Card.Body>
-									</Accordion.Collapse>
 
-								</Card>
-							</Accordion>
+										<Card.Header>
+											<Accordion.Toggle as="h2" variant="link" eventKey="1">
+												Feedback?
+											</Accordion.Toggle>
+										</Card.Header>
+										<Accordion.Collapse eventKey="1">
+											<Card.Body>
+												<OverlayTrigger
+													key="time"
+													placement="top"
+													overlay={popTime}
+												>
+													<Button variant="outline-primary" 
+														onClick={ () => this.userTime( 
+																	attraction.name,
+																	attraction.id
+																)}>
+															<FontAwesomeIcon icon={faClock} />
+													</Button>
+												</OverlayTrigger>
 
-							)
-						}
+												<OverlayTrigger
+													key="rating"
+													placement="top"
+													overlay={popRating}
+												>
+													<Button variant="outline-primary" 
+													onClick={ () => this.userRating( 
+																attraction.name,
+																attraction.id
+															)}>
+														<FontAwesomeIcon icon={faStar} />
+													</Button>
+												</OverlayTrigger>
+
+											</Card.Body>
+										</Accordion.Collapse>
+
+										<OverlayTrigger
+											key="map"
+											placement="left"
+											overlay={popMap}
+										>
+											<Card.Footer 
+											as="h2"
+											onClick={ () => this.showMap( 
+															attraction.name,
+															attraction.map
+														)}>
+													{ attraction.address }
+											</Card.Footer>
+										</OverlayTrigger>
+										
+
+									</Card>
+								</Accordion>
+
+								)
+							}
+						</div>
 					</div>
-				</div> */}
 
+
+					{/* <h1>Attractions</h1>
+
+					<div className='row'>
+						<div className='col-xl-12'>
+							{
+							this.state.attractions //COLLECTION NAME
+							.map(attraction =>
+								<Accordion defaultActiveKey="0">
+									<Card key={attraction.id} className="float-left" style={{width: '18rem', marginRight: '1rem', height: '40rem', margin:'15px'}}>
+										<Card.Header as="h5">{ attraction.name }</Card.Header>
+										<Card.Img variant="top" src={ attraction.image } className="card-img"/>
+
+										<Card.Body>
+											<Card.Text as="h4">
+												Cost: { attraction.price }
+											</Card.Text>
+											<Card.Text as="h4">
+												Rating: { attraction.popularity }/5
+											</Card.Text>
+
+											<Card.Text as="h4">
+												<StarRatings
+													rating={ attraction.popularity }
+													starDimension="15px"
+													starSpacing="2px"
+													starRatedColor="rgb(245, 214, 44)"
+												/>
+											</Card.Text>
+
+											<Card.Text as="p">
+												{ attraction.description }
+											</Card.Text>
+											<Button variant="outline-success"><FontAwesomeIcon icon={faPlus} /></Button>
+											<Button onClick={ () => this.favoriteItem(
+																	attraction.name, 
+																	attraction.price, 
+																	attraction.popularity, 
+																	attraction.image, 
+																	attraction.address, 
+																	attraction.description
+																) 
+															}										
+															variant="outline-danger">
+																<FontAwesomeIcon icon={faHeart} />
+											</Button>
+										</Card.Body>
+
+										<Card.Header>
+											<Accordion.Toggle as="h2" variant="link" eventKey="1">
+												{ attraction.address }
+											</Accordion.Toggle>
+										</Card.Header>
+										<Accordion.Collapse eventKey="1">
+											<Card.Body>
+												<iframe width="100%" frameBorder="0" src={attraction.map}></iframe>
+											</Card.Body>
+										</Accordion.Collapse>
+
+									</Card>
+								</Accordion>
+
+								)
+							}
+						</div>
+					</div> */}
+
+				</div>
 			</div>
+			
 		);
 	}
 }

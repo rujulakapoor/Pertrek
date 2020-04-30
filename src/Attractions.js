@@ -6,6 +6,7 @@ import {
   Tooltip,
   OverlayTrigger,
   Popover,
+  Carousel
 } from "react-bootstrap";
 import axios from "axios";
 import StarRatings from "react-star-ratings";
@@ -21,6 +22,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import fire from "./config/fire";
 import bootbox from "bootbox";
+import {Empty} from './img/logo_airplane_square.png';
+
 
 const popInfo = (
   <Popover id="popover-basic">
@@ -37,9 +40,9 @@ class Attractions extends Component {
       category: this.props.category,
       attractions: [],
       userVals: [],
-			userRetreived: false,
-			userValsRating: [],
-			userRetreivedRating: false
+      userRetreived: false,
+      userValsRating: [],
+      userRetreivedRating: false,
     };
 
     this.showUserInfo = this.showUserInfo.bind(this);
@@ -55,7 +58,7 @@ class Attractions extends Component {
       //5clear attraction list
       this.setState({ attractions: [] });
 
-      console.log("starting");
+      //console.log("starting");
 
       var token =
         "Bearer zyPWG_QxvokChwb3lHLU8wvzWLEWq8SlvpPwr1I_yE9izq4aonvbf6XTlM7JkhqA7uPbKqorBa-0H67-9djEePPUE5JWAgBUloI5s9blpLpDD_70Qo2M1Bz61Iw3XnYx";
@@ -104,11 +107,26 @@ class Attractions extends Component {
                 "%2C" +
                 obj.coordinates.longitude +
                 "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
+              var priceNum = 0;
+
 
               if (obj.price === undefined) {
                 priceVal = "free!";
               } else {
                 priceVal = obj.price;
+              }
+
+              console.log("budget = " + this.props.budget)
+
+              // Edit for filter
+              if (priceVal == "$") {
+                priceNum = 10;
+              } else if (priceVal == "$$") {
+                priceNum = 20;
+              } else if ((priceVal == "$$$")) {
+                priceNum = 50;
+              } else if ((priceVal == "$$$$")) {
+                priceNum = 100;
               }
 
               var atr = {
@@ -120,6 +138,7 @@ class Attractions extends Component {
                 description: description,
                 map: mapSrc,
                 id: obj.id,
+                cost: priceNum
               };
 
               this.setState({ attractions: [...this.state.attractions, atr] });
@@ -132,120 +151,122 @@ class Attractions extends Component {
     }
   }
   showUserInfo(name, id) {
-		var hasTime = false;
-		var hasRating = false;
-		var timeAvg = "?";
-		var ratingAvg = "?";
+    var hasTime = false;
+    var hasRating = false;
+    var timeAvg = "?";
+    var ratingAvg = "?";
 
-		for(var i in this.state.userVals) {
-			var r = this.state.userVals[i];
-			if(r.id === id) {
-				timeAvg = r.avgTime/r.numTime;
-				hasTime = true;
-			}
-		}
+    for (var i in this.state.userVals) {
+      var r = this.state.userVals[i];
+      if (r.id === id) {
+        timeAvg = r.avgTime / r.numTime;
+        hasTime = true;
+      }
+    }
 
-		for(var i in this.state.userValsRating) {
-			var r = this.state.userValsRating[i];
-			if(r.id === id) {
-				ratingAvg = r.ratingSum/r.ratingNum;
-				hasRating = true;
-			}
-		}
+    for (var i in this.state.userValsRating) {
+      var r = this.state.userValsRating[i];
+      if (r.id === id) {
+        ratingAvg = r.ratingSum / r.ratingNum;
+        hasRating = true;
+      }
+    }
 
-		var message;
-		if(!hasTime && !hasRating) {
-			message = name + " does not have any user submitted information";
-		}
-		else {
-			message = "Average time user spent at " + name + ": " + timeAvg + " hours" + 
-						"<br/>" + 
-						"Average user rating: " + ratingAvg + "/10";
-		}
+    var message;
+    if (!hasTime && !hasRating) {
+      message = name + " does not have any user submitted information";
+    } else {
+      message =
+        "Average time user spent at " +
+        name +
+        ": " +
+        timeAvg +
+        " hours" +
+        "<br/>" +
+        "Average user rating: " +
+        ratingAvg +
+        "/10";
+    }
 
-		bootbox.alert({
-			message: message,
-			backdrop: true
-		});
+    bootbox.alert({
+      message: message,
+      backdrop: true,
+    });
   }
   getUserSubmissions() {
-		//console.log("getting user submissions");
-		if(!this.state.userRetreived) {
+    //console.log("getting user submissions");
+    if (!this.state.userRetreived) {
+      fire
+        .database()
+        .ref("userSubmissions")
+        .on("value", (snapshot) => {
+          if (snapshot.val()) {
+            let currentstate = this;
 
-			fire.database()
-				.ref('userSubmissions')
-				.on("value", snapshot=> {
-					if(snapshot.val()) {
-						let currentstate = this;
-					
-						const values = snapshot.val();
-						var keyList = Object.keys(values);
+            const values = snapshot.val();
+            var keyList = Object.keys(values);
 
-						for(var k in keyList) {
-							var key = keyList[k];
-							var item = values[keyList[k]];
+            for (var k in keyList) {
+              var key = keyList[k];
+              var item = values[keyList[k]];
 
-							//create object
-							var val = {
-								key: key,
-								id: item.id,
-								avgTime: item.avgTime,
-								numTime: item.numTime
-							}
+              //create object
+              var val = {
+                key: key,
+                id: item.id,
+                avgTime: item.avgTime,
+                numTime: item.numTime,
+              };
 
-							currentstate.setState( {
-								userVals: [...currentstate.state.userVals,  val]
-							})
-						}
+              currentstate.setState({
+                userVals: [...currentstate.state.userVals, val],
+              });
+            }
+          }
+        });
 
-					}
-				})
-		
-			this.state.userRetreived = true;
-			console.log("GOT TIME !!!")
-		}
-		
+      this.state.userRetreived = true;
+      //console.log("GOT TIME !!!");
+    }
   }
   getUserRatings() {
-		//console.log("getting user ratings");
-		if(!this.state.userRetreivedRating) {
+    //console.log("getting user ratings");
+    if (!this.state.userRetreivedRating) {
+      fire
+        .database()
+        .ref("userRatings")
+        .on("value", (snapshot) => {
+          if (snapshot.val()) {
+            let currentstate = this;
 
-			fire.database()
-				.ref('userRatings')
-				.on("value", snapshot=> {
-					if(snapshot.val()) {
-						let currentstate = this;
-					
-						const values = snapshot.val();
-						var keyList = Object.keys(values);
+            const values = snapshot.val();
+            var keyList = Object.keys(values);
 
-						for(var k in keyList) {
-							console.log("key in keylist = " + keyList[k]);
+            for (var k in keyList) {
+              //console.log("key in keylist = " + keyList[k]);
 
-							var key = keyList[k];
-							var item = values[keyList[k]];
+              var key = keyList[k];
+              var item = values[keyList[k]];
 
-							//create object
-							var val = {
-								key: key,
-								id: item.id,
-								ratingSum: item.ratingSum,
-								ratingNum: item.ratingNum
-							}
+              //create object
+              var val = {
+                key: key,
+                id: item.id,
+                ratingSum: item.ratingSum,
+                ratingNum: item.ratingNum,
+              };
 
-							currentstate.setState( {
-								userValsRating: [...currentstate.state.userValsRating,  val]
-							})
-						}
+              currentstate.setState({
+                userValsRating: [...currentstate.state.userValsRating, val],
+              });
+            }
+          }
+        });
 
-					}
-				})
-		
-			this.state.userRetreivedRating = true;
-			console.log("GOT rating !!!")
-		}
-		
-	}
+      this.state.userRetreivedRating = true;
+      //console.log("GOT rating !!!");
+    }
+  }
   addAttraction(name, id) {
     let curr = this;
 
@@ -261,9 +282,9 @@ class Attractions extends Component {
               name: name,
               id: id,
               time: duration,
-              date: date
+              date: date,
             };
-    
+
             curr.props.addedAttraction(added);
           },
         });
@@ -275,16 +296,28 @@ class Attractions extends Component {
     let statenow = this;
     const curr = this;
 
-    fire.auth().onAuthStateChanged( function(user) {
-			if (user) {
-			statenow.getUserSubmissions();
-			statenow.getUserRatings();
-		}})
+    const budget = this.props.budget;
+    var partysizemultiple = 1;
+
+    if (this.props.partysize > 1) {
+      partysizemultiple = this.props.partysize;
+    }
+
+    fire.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        statenow.getUserSubmissions();
+        statenow.getUserRatings();
+      }
+    });
 
     if (this.state.category == "") {
       return (
         <div className="attractions">
           <h1>Enter a category</h1>
+          <img src={Empty}
+              height="100px"
+              width="300px"
+          />
         </div>
       );
     } else {
@@ -296,7 +329,18 @@ class Attractions extends Component {
 
           <div className="row">
             <div className="col-xl-12">
-              {this.state.attractions //COLLECTION NAME
+              {this.state.attractions
+                .filter(function (attractionito) {
+                  return (
+                    Number.parseInt(
+                      attractionito.cost * partysizemultiple,
+                      10
+                    ) < budget ||
+                    attractionito.cost == "free" ||
+                    attractionito.cost == "FREE" ||
+                    attractionito.cost == "free!"
+                  );
+                })
                 .map((attraction) => (
                   <Accordion defaultActiveKey="0">
                     <Card
