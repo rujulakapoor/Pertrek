@@ -150,7 +150,7 @@ export class GenerateItinerary extends Component {
     this.handleChangeSize3 = this.handleChangeSize3.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onCustomCategory = this.onCustomCategory.bind(this);
-    this.getTime = this.getTime.bind(this);
+    this.addEvent = this.addEvent.bind(this);
     this.state = {
       enddate: this.props.values.enddate,
       startdate: this.props.values.startdate,
@@ -1574,7 +1574,7 @@ handleSubmit(event) {
     event.preventDefault();
     console.log("hi");
 }
-getTime(val){
+addEvent(val){
     console.log("DATA RECEIVED = " + val.name + " , duration = " + val.time + ", date = " + val.date);
 
 }
@@ -2028,10 +2028,6 @@ getTime(val){
             <Col sm={2}>
               <Row>
                 <h1> Discover </h1>
-                <Button className="btn-event" onClick={this.handleOriginalAdd}>
-                  {" "}
-                  Add Your Own Event{" "}
-                </Button>
 
                 {/* <PreviewAttractions
                   handleAdd={this.handleEventAdd}
@@ -2074,9 +2070,13 @@ getTime(val){
                 
 
 
-                <Attractions category={curr.state.category} location={curr.state.location} addedAttraction={this.getTime}/>
+                <Attractions category={curr.state.category} location={curr.state.location} addedAttraction={this.addEvent}/>
               </div>
 
+              <Button className="btn-event" onClick={this.handleOriginalAdd} style={{margin:"10px"}}>
+                  {" "}
+                  Add Your Own Event{" "}
+                </Button>
 
               </Row>
             </Col>
