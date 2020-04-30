@@ -498,12 +498,15 @@ export class RentalCar extends Component {
             </div>  
             </div>   
             </div>
-            <div className="Carlable">
-            <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
-            <h5> Your Remaining Budget Is: {this.state.newbudget}</h5>
-            </div>
+           
             </div>
         )
     }
 }
+/*
+ <div className="Carlable">
+            <button type="submit" id="planebut" onClick={this.calc} class="btn btn-primary">Calculate Cost</button>
+            <h5> Your Remaining Budget Is: {this.state.newbudget}</h5>
+            </div>
+*/
 export default RentalCar;
