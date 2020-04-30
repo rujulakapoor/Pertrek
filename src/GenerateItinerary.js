@@ -376,11 +376,16 @@ export class GenerateItinerary extends Component {
   };
 
   handleEventAdd = (info) => {
+    console.log("HANDLING ADDING AN EVENT")
     this.state.currentEvent = info;
     this.state.currentlyEditing = true;
+    this.setState({currentlyEditing:true})
+    console.log(this.state.currentlyEditing)
   };
 
   handleOriginalAdd() {
+    
+    console.log("HANDLING ADDING AN original EVENT")
     this.state.currentEvent = 0;
     this.state.currentlyEditingOriginal = true;
     this.setState({
@@ -2009,7 +2014,7 @@ export class GenerateItinerary extends Component {
                         <label for="se4">30</label>
 
                         <div class="saveColors">
-                          <Button className="btn-event"> <h2>Save</h2> </Button>
+                            <h2>Save</h2> 
                           <h3>
                             {this.titleRender()}
                             {this.titleButtonRender()}{" "}
@@ -2097,6 +2102,7 @@ export class GenerateItinerary extends Component {
                             budget={this.state.budget}
                             partysize={this.state.partysize}
                             addedAttraction={this.addEvent}
+                            handleAdd={this.handleEventAdd}
                           />
 
 
@@ -2119,7 +2125,7 @@ export class GenerateItinerary extends Component {
                     <Accordion.Collapse eventKey="1">
                       <Card.Body>
 
-                        <Custom addedAttraction={this.addCustomEvent}/>
+                        <Custom addedAttraction={this.addCustomEvent} handleAdd={this.handleEventAdd}/>
 
                         <Button
                           className="btn-event"
