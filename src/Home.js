@@ -7,8 +7,8 @@ import fire from './config/fire'
 import { DropdownButton, InputGroup, Dropdown, Form, FormControl, Button, Container, Row, Col, Card, CardGroup } from 'react-bootstrap';
 import bootbox from 'bootbox';
 import slide1 from './img/cape-town-cropped.jpg';
-import slide2 from './img/rough-sea-waves.jpg';
-import slide3 from './img/new-zealand.jpg';
+import slide2 from './img/mexico.jpg';
+import slide3 from './img/flowers.jpg';
 import banner from './img/banner.png';
 import dragon from './img/Dragon-Boat.png'
 import planning from './img/planning-light-square.jpg';
@@ -18,6 +18,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import 'react-awesome-slider/dist/styles.css';
 import AwesomeSlider from 'react-awesome-slider';
+import Footer from './Footer.js';
 
 class Home extends Component {
     constructor(props) {
@@ -209,6 +210,7 @@ class Home extends Component {
 
           </div>
 
+          <Footer/>
           
         </div>
 

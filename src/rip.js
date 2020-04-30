@@ -1,27 +1,100 @@
-import React, { Component } from 'react';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-import ImageGallery from 'react-image-gallery';
-import AwesomeSlider from 'react-awesome-slider';
-import slide1 from './img/new-zealand.jpg';
-import slide2 from './img/rough-sea-waves.jpg';
-import slide3 from './img/cape-town.jpg';
-import 'react-awesome-slider/dist/styles.css';
+import React, { Component } from "react";
+import {
+  Form,
+  Button,
+  Dropdown,
+  InputGroup,
+  DropdownButton,
+  Container,
+  Row,
+  Col
+} from "react-bootstrap";
+import bootbox from "bootbox";
+import Attractions from "./Attractions.js";
 
+class Rip extends Component {
+  constructor(props) {
+    super(props);
 
-const Rip = () => {
+    this.state = {
+      value: "",
+      category: "",
+    };
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onCustomCategory = this.onCustomCategory.bind(this);
+    this.getTime = this.getTime.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+  onCustomCategory() {
+    const curr = this;
+    bootbox.prompt({
+      title: "Enter a category",
+      centerVertical: true,
+      callback: function (result) {
+        curr.setState({ category: result });
+      },
+    });
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log("hi");
+  }
+  search() {
+    console.log("what");
+  }
+  getTime(val) {
+    console.log("DATA RECEIVED = " + val.name + " , time = " + val.time);
+  }
+
+  render() {
+    const curr = this;
     return (
-        <div>
-            <AwesomeSlider
-                bullets={false}
-            >
-                <div data-src={slide1} />
-                <div data-src={slide2} />
-                <div data-src={slide3} />
-            </AwesomeSlider>
+      <div className="rip">
+        <Container>
+          <Row>
+            <Col>Category:</Col>
+            <Col>
+              <DropdownButton
+                as={InputGroup.Append}
+                variant="outline-secondary"
+                title={curr.state.category}
+                id="input-group-dropdown-2"
+                style={{ float: "right" }}
+                onSelect={function (evt) {
+                  curr.setState({ category: evt });
+                }}
+              >
+                <Dropdown.Item eventKey="Restaurants">
+                  Restaurants
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="Attractions">
+                  Attractions
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={this.onCustomCategory}>
+                  Custom
+                </Dropdown.Item>
+              </DropdownButton>
+            </Col>
+          </Row>
+        </Container>
+
+        {/* <Form.Control type="text" placeholder="Enter city, address, or zip code" value={this.state.value} onChange={this.handleChange} style={{margin:"auto"}}/>
+
+                <Button variant="secondary" value="Submit" type="submit">Search</Button> */}
+
+        <Attractions
+          category={curr.state.category}
+          location={curr.state.location}
+          addedAttraction={this.getTime}
+        />
       </div>
     );
   }
-  
-  export default Rip;
+}
+
+export default Rip;

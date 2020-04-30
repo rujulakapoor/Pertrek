@@ -9,6 +9,7 @@ import Scheduler from './Scheduler'
 import Saved from './SavedPage'
 import Favorites from './Favorites.js'
 import Settings from './Settings.js'
+import Rip from './rip.js'
 
 const Main = () => (
     <main>
@@ -22,6 +23,7 @@ const Main = () => (
             <Route path='/savedpage' component={Saved}/>
             <Route path='/favorites' component={Favorites}/>
             <Route path='/settings' component={Settings}/>
+            <Route path='/rip' component={Rip}/>
         </Switch>
     </main>
 )

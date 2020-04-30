@@ -5,6 +5,7 @@ import fire from "./config/fire";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
 import sandcastle from './img/sandcastle.png';
+import {banner} from './img/banner-empty.png'
 
 class Favorites extends Component {
     constructor(props) {
@@ -94,8 +95,10 @@ class Favorites extends Component {
             return (
 
                 <div className="planner">
-    
-                    <h1> My Favorites </h1>
+                    <Jumbotron style={{backgroundImage: `url(${banner})`, backgroundSize:'cover'}}>
+                        <h1> My Favorites </h1>
+                    </Jumbotron>
+                    
     
                     {Object.entries(this.state.alreadyFaved).map(([key,value]) =>
     
