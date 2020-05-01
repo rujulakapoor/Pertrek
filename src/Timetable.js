@@ -15,7 +15,9 @@ this.state = {
   budget: 0,
   dailybudget:0,
   editBudget: false,
-  daynum: 0
+  daynum: 0,
+  wakeup : 480,
+  sleep: 1380
 }
 this.renderTable =this.renderTable.bind(this)
 this.renderEdit = this.renderEdit.bind(this)
@@ -25,6 +27,7 @@ this.renderBudgetEdit = this.renderBudgetEdit.bind(this)
 this.renderDailyBudget = this.renderDailyBudget.bind(this)
 this.handleChange = this.handleChange.bind(this)
 this.deleteEvent = this.deleteEvent.bind(this)
+this.setTimes = this.setTimes.bind(this)
 }
 
 renderEdit(time, event) {
@@ -32,14 +35,19 @@ renderEdit(time, event) {
   if(event.isfirst) {
     
  
-  var activity = event.eventdetails;
-
-    
+  var activity = event.eventdetails;    
     return(
-      <>
-      {this.renderCost(event)}
-      <Button variant="info" onClick={() => this.deleteEvent(time,event)}> <TiDeleteOutline /> </Button>
-      </>
+      <h4>
+      {activity.name} {this.renderCost(event)}
+      <Button className="cancel-event" onClick={() => this.deleteEvent(time,event)}> <TiDeleteOutline /> </Button>
+      </h4>
+    )
+  }
+  else{
+    var activity = event.eventdetails;
+    return(
+
+      <h4>{activity.name}</h4>
     )
   }
 }
@@ -187,9 +195,13 @@ renderCostBar() {
 renderTime(time) {
 
   var event = this.state.times.scheduleactivities[time.toString()]
-
   var activity = event.eventdetails;
-
+  var minutes = parseInt(time.substring(0,2)) * 60 + parseInt(time.substring(3))
+  console.log("minutes is" + minutes )
+  if(minutes > this.state.sleep || minutes < this.state.wakeup) {
+    console.log("PRE WAKEUP DETECTEd" + this.state.wakeup)
+    return;
+  }
 
   var size = 0, key;
   for (key in activity) {
@@ -198,20 +210,34 @@ renderTime(time) {
 
   if(size != 0){
     
-    return(
-      //Change this to be the modal
-<OverlayTrigger
-  key={time}
-  placement='top'
-  overlay={
-    <Tooltip id={`tooltip-${time}`}>
-      {event.notes}
-    </Tooltip>
-  }>
-      <Card className="card-tabletop"> <p>{activity.name} {this.renderEdit(time, event)} </p> </Card>
-      </OverlayTrigger>
-    )
+      return(
+        //Change this to be the modal
+        <tr>
+          <td>{time} </td>
+          <td>
+  <OverlayTrigger
+    key={time}
+    placement='top'
+    overlay={
+      <Tooltip id={`tooltip-${time}`}>
+        {event.notes}
+      </Tooltip>
+    }>
+        <Card className="card-tabletop"> {this.renderEdit(time, event)}  </Card>
+        </OverlayTrigger>
+        </td>
+        </tr>
 
+      )
+
+  } else {
+    return(
+      <tr>
+      <td> {time} </td>
+      <td>  </td>
+      </tr>
+
+    )
   }  
 }
 renderTable() {
@@ -234,202 +260,71 @@ return (
     <tbody>
 
 
-    <tr>
-      <td> 8:00am </td>
-      <td> {this.renderTime("08:00")} </td>
-    </tr>
+    
+      {this.renderTime("08:00")}
+      {this.renderTime("08:15")}
+      {this.renderTime("08:30")}    
+      {this.renderTime("08:45")}
+      {this.renderTime("09:00")} 
+      {this.renderTime("09:15")} 
+      {this.renderTime("09:30")} 
+      {this.renderTime("09:45")} 
+      {this.renderTime("10:00")} 
+      {this.renderTime("10:15")} 
+      {this.renderTime("10:30")}
+      {this.renderTime("10:45")} 
+      {this.renderTime("11:00")} 
+      {this.renderTime("11:15")} 
+      {this.renderTime("11:30")} 
+      {this.renderTime("11:45")} 
+      {this.renderTime("12:00")}
+      {this.renderTime("12:15")} 
+      {this.renderTime("12:30")} 
+      {this.renderTime("12:45")}
+      {this.renderTime("13:00")}
+       {this.renderTime("13:15")}
+       {this.renderTime("13:30")} 
+        {this.renderTime("13:45")}
+         {this.renderTime("14:00")}
+         {this.renderTime("14:15")}
+          {this.renderTime("14:30")} 
+          {this.renderTime("14:45")}
+          {this.renderTime("15:00")}
+          {this.renderTime("15:15")}
+          {this.renderTime("15:30")} 
+          
+          {this.renderTime("15:45")} 
+           {this.renderTime("16:00")} 
+           {this.renderTime("16:15")} 
+            {this.renderTime("16:30")} 
+             {this.renderTime("16:45")} 
+             {this.renderTime("17:00")} 
+              {this.renderTime("17:15")} 
+               {this.renderTime("17:30")} 
+               {this.renderTime("17:45")} 
+               {this.renderTime("18:00")}
+               {this.renderTime("18:15")} 
+               {this.renderTime("18:30")} 
+       {this.renderTime("18:45")} 
+       {this.renderTime("19:00")} 
+       {this.renderTime("19:15")}
+        {this.renderTime("19:30")}
+        {this.renderTime("19:45")}
+        {this.renderTime("20:00")}
+        {this.renderTime("20:15")}
+        {this.renderTime("20:30")}
+        {this.renderTime("20:45")}
+         {this.renderTime("21:00")}
+          {this.renderTime("21:15")}
+          {this.renderTime("21:30")}
+          {this.renderTime("21:45")}
+          {this.renderTime("22:00")}
+          {this.renderTime("22:15")}
+          {this.renderTime("22:30")} 
+           {this.renderTime("22:45")} 
+           {this.renderTime("23:00")}
 
 
-    <tr>
-      <td> 8:15am </td>
-      <td> {this.renderTime("08:15")} </td>
-    </tr>
-    <tr>
-      <td> 8:30am </td>
-        <td> {this.renderTime("08:30")} </td>   
-    </tr>
-    <tr>
-      <td> 8:45am </td>
-        <td> {this.renderTime("08:45")} </td>
-    </tr>
-
-        <tr>
-      <td> 9:00am </td>  <td> {this.renderTime("09:00")} </td>
-</tr>
-<tr>
-      <td> 9:15am </td>  <td> {this.renderTime("09:15")} </td>
-</tr>
-<tr>
-      <td> 9:30am </td>  <td> {this.renderTime("09:30")} </td>
-</tr>
-<tr>
-      <td> 9:45am </td>  <td> {this.renderTime("09:45")} </td>
-</tr>
-  <tr>
-    <td> 10:00am </td>  <td> {this.renderTime("10:00")} </td>
-</tr>
-<tr>
-    <td> 10:15am </td>  <td> {this.renderTime("10:15")} </td>
-</tr>
-<tr>
-    <td> 10:30am </td>  <td> {this.renderTime("10:30")} </td>
-</tr>
-<tr>
-    <td> 10:45am </td>  <td> {this.renderTime("10:45")} </td>
-</tr>
-  <tr>
-    <td> 11:00am </td>  <td> {this.renderTime("11:00")} </td>
-</tr>
-<tr>
-    <td> 11:15am </td>  <td> {this.renderTime("11:15")} </td>
-</tr>
-<tr>
-    <td> 11:30am </td>  <td> {this.renderTime("11:30")} </td>
-</tr>
-<tr>
-    <td> 11:45am </td>  <td> {this.renderTime("11:45")} </td>
-</tr>
-  <tr>
-    <td> 12:00pm </td>  <td> {this.renderTime("12:00")} </td>
-</tr>
-<tr>
-    <td> 12:15pm </td>  <td> {this.renderTime("12:15")} </td>
-</tr>
-<tr>
-    <td> 12:30pm </td>  <td> {this.renderTime("12:30")} </td>
-</tr>
-<tr>
-    <td> 12:45pm </td>  <td> {this.renderTime("12:45")} </td>
-</tr>
-  <tr>
-    <td> 1:00pm </td>  <td> {this.renderTime("13:00")} </td>
-  </tr>
-  <tr>
-    <td> 1:15pm </td>  <td> {this.renderTime("13:15")} </td>
-  </tr>
-  <tr>
-    <td> 1:30pm </td>  <td> {this.renderTime("13:30")} </td>
-  </tr>
-  <tr>
-    <td> 1:45pm </td>  <td> {this.renderTime("13:45")} </td>
-  </tr>
-      <tr>
-   <td> 2:00pm </td>  <td> {this.renderTime("14:00")} </td>
-</tr>
-<tr>
-   <td> 2:15pm </td>  <td> {this.renderTime("14:15")} </td>
-</tr>
-<tr>
-   <td> 2:30pm </td>  <td> {this.renderTime("14:30")} </td>
-</tr>
-<tr>
-   <td> 2:45pm </td>  <td> {this.renderTime("14:45")} </td>
-</tr>
-  <tr>
-    <td> 3:00pm </td>  <td> {this.renderTime("15:00")} </td>
-</tr>
-<tr>
-    <td> 3:15pm </td>  <td> {this.renderTime("15:15")} </td>
-</tr>
-<tr>
-    <td> 3:30pm </td>  <td> {this.renderTime("15:30")} </td>
-</tr>
-<tr>
-    <td> 3:45pm </td>  <td> {this.renderTime("15:45")} </td>
-</tr>
-  <tr>
-    <td> 4:00pm </td>  <td> {this.renderTime("16:00")} </td>
-</tr>
-<tr>
-    <td> 4:15pm </td>  <td> {this.renderTime("16:15")} </td>
-</tr>
-<tr>
-    <td> 4:30pm </td>  <td> {this.renderTime("16:30")} </td>
-</tr>
-<tr>
-    <td> 4:45pm </td>  <td> {this.renderTime("16:45")} </td>
-</tr>
-  <tr>
-    <td> 5:00pm </td>  <td> {this.renderTime("17:00")} </td>
-</tr>
-<tr>
-    <td> 5:15pm </td>  <td> {this.renderTime("17:15")} </td>
-</tr>
-<tr>
-    <td> 5:30pm </td>  <td> {this.renderTime("17:30")} </td>
-</tr>
-<tr>
-    <td> 5:45pm </td>  <td> {this.renderTime("17:45")} </td>
-</tr>
-
-  <tr>
-    <td> 6:00pm </td>  <td> {this.renderTime("18:00")} </td>
-</tr>
-<tr>
-    <td> 6:15pm </td>  <td> {this.renderTime("18:15")} </td>
-</tr>
-<tr>
-    <td> 6:30pm </td>  <td> {this.renderTime("18:30")} </td>
-</tr>
-<tr>
-    <td> 6:45pm </td>  <td> {this.renderTime("18:45")} </td>
-</tr>
-  <tr>
-      <td> 7:00pm </td>  <td> {this.renderTime("19:00")} </td>
-</tr>
-<tr>
-      <td> 7:15pm </td>  <td> {this.renderTime("19:15")} </td>
-</tr>
-<tr>
-      <td> 7:30pm </td>  <td> {this.renderTime("19:30")} </td>
-</tr>
-<tr>
-      <td> 7:45pm </td>  <td> {this.renderTime("19:45")} </td>
-</tr>
-  <tr>
-    <td> 8:00pm </td>  <td> {this.renderTime("20:00")} </td>
-</tr>
-<tr>
-    <td> 8:15pm </td>  <td> {this.renderTime("20:15")} </td>
-</tr>
-<tr>
-    <td> 8:30pm </td>  <td> {this.renderTime("20:30")} </td>
-</tr>
-<tr>
-    <td> 8:45pm </td>  <td> {this.renderTime("20:45")} </td>
-</tr>
-  <tr>
-    <td> 9:00pm </td>  <td> {this.renderTime("21:00")} </td>
-</tr>
-<tr>
-    <td> 9:15pm </td>  <td> {this.renderTime("21:15")} </td>
-</tr>
-<tr>
-    <td> 9:30pm </td>  <td> {this.renderTime("21:30")} </td>
-</tr>
-<tr>
-    <td> 9:45pm </td>  <td> {this.renderTime("21:45")} </td>
-</tr>
-  <tr>
-    <td> 10:00pm </td>  <td> {this.renderTime("22:00")} </td>
-</tr>
-
-  <tr>
-    <td> 10:15pm </td>  <td> {this.renderTime("22:15")} </td>
-</tr>
-
-  <tr>
-    <td> 10:30pm </td>  <td> {this.renderTime("22:30")} </td>
-</tr>
-
-  <tr>
-    <td> 10:45pm </td>  <td> {this.renderTime("22:45")} </td>
-</tr>
-  <tr>
-    <td> 11:00pm </td>  <td> {this.renderTime("23:00")} </td>
-  </tr>
-      <tr>
-     </tr>
      </tbody>
 </Table>
 </div>
@@ -506,16 +401,24 @@ return (
   }
 }
 
+setTimes() {
+  
+  var wakeupnum = parseInt(this.state.times.wakeup.toString().substring(0,2))* 60 + parseInt(this.state.times.wakeup.toString().substring(3));
+  var sleepnum = parseInt(this.props.times.sleep.toString().substring(0,2))* 60 + parseInt(this.props.times.sleep.toString().substring(3));
+  this.state.wakeup = wakeupnum;
+  this.state.sleep =sleepnum;
+}
 render() {
 
-
+  
   if (this.props.times) {
     this.state.times = this.props.times
- 
-  } 
+    this.setTimes();
+   } 
   if(this.props.budget) { 
     this.state.budget = this.props.budget;
     if(this.props.days){
+
       this.state.dailybudget = this.state.budget / this.props.days
       this.state.dailybudget = Math.round(this.state.dailybudget)
       console.log("num days is" + this.props.days)

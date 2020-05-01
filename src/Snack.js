@@ -191,8 +191,7 @@ export class Snack extends Component {
         </div>;
       //  this.state.budget = this.props.currentSnack.budget;
         //this.state.location = this.props.currentSnack.location;
-        console.log("Snack is")
-        console.log(this.props.currentSnack)
+        
         if(this.props.currentSnack.mealcost != 0 || this.props.currentSnack.location !='') {
           this.state.checked = false;
         }

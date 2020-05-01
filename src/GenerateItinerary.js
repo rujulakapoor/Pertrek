@@ -154,6 +154,8 @@ export class GenerateItinerary extends Component {
     this.addEvent = this.addEvent.bind(this);
     this.addCustomEvent = this.addCustomEvent.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleWakeupSave = this.handleWakeupSave.bind(this);
+    this.handleSleepSave = this.handleSleepSave.bind(this);
     this.handleAddMealstuffs = this.handleAddMealstuffs.bind(this);
     this.state = {
       enddate: this.props.values.enddate,
@@ -224,6 +226,19 @@ export class GenerateItinerary extends Component {
       value: "",
       category: "",
     };
+  }
+  //Function to handle changing the wakeup time
+  handleWakeupSave(info) {
+    this.state.dailydata[info.daynum].wakeup = info.wakeup;
+    this.state.alreadysaved = false;
+    console.log("WAKEUP HANDLED")
+    this.handleSavedEdits();
+  }
+  handleSleepSave(info) {
+    this.state.dailydata[info.daynum].sleep = info.sleep;
+    this.state.alreadysaved = false;
+    console.log("SLEEP HANDLED")
+    this.handleSavedEdits();
   }
 
   handleAddMealstuffs(info) {
@@ -509,6 +524,8 @@ export class GenerateItinerary extends Component {
         intdailydata[str.valueOf()] = {
           scheduleactivities: thisdaystimes,
           cost: 0,
+          wakeup: 480,
+          sleep: 1380,
           mealstuff: {"snack":{mealcost: 0 , location: ''}, "breakfast": {mealcost: 0 , location: ''}, "lunch": {mealcost: 0 , location: ''}, "dinner":{mealcost: 0 , location: ''}, "other": {mealcost: 0 , location: ''}}
         };
 
@@ -520,7 +537,8 @@ export class GenerateItinerary extends Component {
       }
 
       console.log("IN COMPONENT WILL MOUNT");
-      this.getDestinations();
+      console.log(fire.auth().currentUser)
+     
 
       console.log(this.state.dailydata);
     } else {
@@ -1710,6 +1728,7 @@ export class GenerateItinerary extends Component {
       itkey,
     };
 
+    this.getDestinations();
     //alert("orange is" + this.state.orange)
     let statenow = this;
     const curr = this;
@@ -2071,7 +2090,12 @@ export class GenerateItinerary extends Component {
                         <Other lailafunc={this.handleAddOther} />
                         <Dinner lailafunc={this.handleAddDinner} />
                         <Lunch lailafunc={this.handleAddLunch} />
-                        <Breakfast lailafunc={this.handleAddBreakfast} />
+                        <Breakfast lailafunc={this.handleAddBreakfast} 
+                          handleWakeup={this.handleWakeupSave} 
+                          handleSleep={this.handleSleepSave}
+                          sleep={this.state.dailydata[key].sleep} 
+                          wakeup={this.state.dailydata[key].wakeup} 
+                          daynum={key}/>
                         {this.renderTotalMealCost()}
                       </div>
                     </Tab>

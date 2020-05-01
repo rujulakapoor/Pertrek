@@ -102,7 +102,7 @@ export class OriginalEventModal extends Component{
         <input type="text" id="name" name="name" />
 </Form.Group>
 <Form.Group>
-    <Form.Label> Select Date</Form.Label>
+    <Form.Label>* Select Date </Form.Label>
 
     <Form.Control as="select"   onChange={this.handleChange('day')}>
     {Object.entries(this.props.days).map((thing)=> {
@@ -127,16 +127,16 @@ export class OriginalEventModal extends Component{
 </Form.Group>
 <Form.Group>
 
-    <label for="appt">Select a time:</label>
+    <label for="appt">* Select a time:</label>
         <input type="time" id="appt" name="appt" step="900" />
         </Form.Group>
 <Form.Group>
-    <Form.Label> Select Duration (Hours) </Form.Label>
+    <Form.Label>* Select Duration (Hours) </Form.Label>
      
     <input type="number" id="quantity" name="quantity" min=".25" max="15" step=".25"/>
     </Form.Group>
 <Form.Group>
-    <Form.Label> How much money do you plan to spend? </Form.Label>
+    <Form.Label>* How much money do you plan to spend? </Form.Label>
     <input type="number"   id="cost" name="cost" min="0"/>
 
     	 </Form.Group>
@@ -149,10 +149,10 @@ export class OriginalEventModal extends Component{
     	 </Form.Group>
                 
 
-
+<Form.Group>
         <Button variant="info" onClick={this.saveNewEvent}> Add Event To Schedule</Button>
-        <Button className="itinerary-fillout" onClick={this.props.handleCancel}> Cancel</Button>
-
+        <Button variant="info"   className="small-padding" onClick={this.props.handleCancel}> Cancel</Button>
+</Form.Group>
     </Form>		
  
         

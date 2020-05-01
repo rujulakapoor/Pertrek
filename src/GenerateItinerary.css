@@ -31,7 +31,8 @@
   transform: translate(-50%, -50%);
     background-color: #FF5E58;
     color:#FFFFEA;
-    border: #FF5E58 solid 20px;
+    padding: 25px;
+    border: black solid 1px;
     border-radius: 16px;
   }
   .card-notes {
@@ -130,4 +131,7 @@ button:active {
         width: 200;
         margin-top: 2%;
         text-align: left;
+      }
+      .small-padding {
+          margin:10px
       }
