@@ -296,6 +296,8 @@ return (
 
 
    */}
+   <tr>
+     <td> </td><td className="td-center"> <h5> Wake Up </h5> </td> </tr> 
     
       {this.renderTime("08:00")}
       {this.renderTime("08:15")}
@@ -363,6 +365,9 @@ return (
         {this.renderTime("24:15")}
         {this.renderTime("24:30")}
         {this.renderTime("24:45")} */}
+        
+   <tr>
+<td></td>     <td className="td-center"> <h5> Sleep!</h5> </td> </tr> 
 
 
      </tbody>
