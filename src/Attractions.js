@@ -23,7 +23,7 @@ import {
 import fire from "./config/fire";
 import bootbox from "bootbox";
 import {Empty} from './img/logo_airplane_square.png';
-
+import Firebase from 'firebase';
 
 const popInfo = (
   <Popover id="popover-basic">
@@ -108,6 +108,7 @@ class Attractions extends Component {
                 obj.coordinates.longitude +
                 "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
               var priceNum = 0;
+              var estTime = "";
 
 
               if (obj.price === undefined) {
@@ -121,12 +122,19 @@ class Attractions extends Component {
               // Edit for filter
               if (priceVal == "$") {
                 priceNum = 10;
-              } else if (priceVal == "$$") {
+                estTime = "30 min - 2 hours"
+              }
+              else if (priceVal == "$$") {
                 priceNum = 20;
-              } else if ((priceVal == "$$$")) {
+                estTime = "45 min - 2 hours"
+              }
+              else if (priceVal = "$$$") {
                 priceNum = 50;
-              } else if ((priceVal == "$$$$")) {
+                estTime = "1-2 hours"
+              }
+              else if (priceVal = "$$$$") {
                 priceNum = 100;
+                estTime = "2-3 hours"
               }
 
               var atr = {
@@ -138,7 +146,8 @@ class Attractions extends Component {
                 description: description,
                 map: mapSrc,
                 id: obj.id,
-                cost: priceNum
+                cost: priceNum,
+                estTime: estTime
               };
 
               this.setState({ attractions: [...this.state.attractions, atr] });
@@ -271,6 +280,18 @@ class Attractions extends Component {
 
     //Dont need to do this, we have the modal on main. call props instead to call function to show modal and add,
     //returning to it the attraction information
+    const user = Firebase.auth().currentUser.uid;
+    //Firebase.database().ref('destinations/' + user + '/' + this.props.itkey).remove();
+    //const db = Firebase.database().ref('destinations/' + user + '/' + this.props.itkey);
+    //Firebase.database().ref('destinations/' + user + '/' + this.props.title).remove();
+    const db = Firebase.database().ref('destinations/' + user + '/' + this.props.title);
+    db.push(attraction
+    ).then(ref => {
+        console.log('Added document with ID: ', ref.id);
+        console.log(ref)
+        
+    });
+    
     let curr = this;
     this.props.handleAdd(attraction);
 
@@ -382,7 +403,9 @@ class Attractions extends Component {
                         </Card.Text>
 
                         <Card.Text as="p">{attraction.description}</Card.Text>
-
+                        <Card.Text as="p">
+											    People typically spend { attraction.estTime } here
+										    </Card.Text>
                         <Button
                           variant="outline-secondary"
                           onClick={() =>
@@ -391,7 +414,6 @@ class Attractions extends Component {
                         >
                           <FontAwesomeIcon icon={faPlus} />
                         </Button>
-
                         <OverlayTrigger
                           key="info"
                           placement="top"
@@ -406,6 +428,7 @@ class Attractions extends Component {
                             <FontAwesomeIcon icon={faInfo} />
                           </Button>
                         </OverlayTrigger>
+                        
                       </Card.Body>
 
                       <Card.Footer as="h3">{attraction.address}</Card.Footer>

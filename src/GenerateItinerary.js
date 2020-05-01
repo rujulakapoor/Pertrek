@@ -342,7 +342,7 @@ export class GenerateItinerary extends Component {
     } else {
       stufftosave = this.state.currentEvent;
     }
-
+    /*
     Object(info.blockids).map((block, key) => {
       if (key == 0) {
         this.state.dailydata[info.day].scheduleactivities[
@@ -368,7 +368,7 @@ export class GenerateItinerary extends Component {
         block.toString()
       ].notes = info.notes;
     });
-
+    */
     this.state.dailydata[info.day].cost += info.cost;
     this.state.totalexpenses += info.cost;
     this.state.alreadysaved = false;
@@ -489,8 +489,7 @@ export class GenerateItinerary extends Component {
         this.setState({ dailydata: intdailydata });
       }
 
-      console.log("IN COMPONENT WILL MOUNT");
-      this.getDestinations();
+      
 
       console.log(this.state.dailydata);
     } else {
@@ -503,7 +502,8 @@ export class GenerateItinerary extends Component {
       }
       console.log(this.state.days);
     }
-
+    console.log("IN COMPONENT WILL MOUNT");
+    this.getDestinations();
     this.state.timesoftheday[1000] = "BOFA";
   }
 
@@ -2103,6 +2103,7 @@ export class GenerateItinerary extends Component {
                             partysize={this.state.partysize}
                             addedAttraction={this.addEvent}
                             handleAdd={this.handleEventAdd}
+                            title={this.state.title}
                           />
 
 
