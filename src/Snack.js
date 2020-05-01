@@ -15,6 +15,10 @@ export class Snack extends Component {
             checked: true,
             editlocation:false,
             editbudget:false, 
+            type: "snack",
+            location: '',
+            budget: '',
+            daynum: this.props.daynum
         
         };
         this.handleChangeCheck = this.handleChangeCheck.bind(this);
@@ -24,12 +28,19 @@ export class Snack extends Component {
         this.setState({
           checked: !this.state.checked
         })
+        if( this.state.checked == false) {
+          this.state.budget = 0;
+          this.state.location = '';
+          this.props.lailafunc(this.state)
+        }
+
     }
     handleChange = input => e => {
+        //Set state
         this.setState({[input]: e.target.value})
-        if(input === 'budget'){
-          this.props.lailafunc(e.target.value);
-        } 
+        //if(input === 'budget'){
+        //  this.props.lailafunc(e.target.value);
+        //} 
       
     }
     closeAll = () => {
@@ -46,7 +57,7 @@ export class Snack extends Component {
         if(this.state.editlocation) {
           return(
           <div className="MealsStuff" id="moreMealStuff">      
-          <input type="text" placeholder={this.state.location}  onChange={this.handleChange('location')}/>
+          <input type="text" placeholder={this.props.currentSnack.location}  onChange={this.handleChange('location')}/>
           </div>
           )
           
@@ -54,7 +65,7 @@ export class Snack extends Component {
         else {
           return(
           <div className="MealsStuff" id="moreMealStuff">
-          <h4> {this.state.location}</h4>
+          <h4> {this.props.currentSnack.location}</h4>
           </div>  
             );
         }
@@ -71,6 +82,7 @@ export class Snack extends Component {
 
         )
         } else {
+
           return( 
             <div className="MealsStuff" id="moreMealStuff">      
                 <Button id="edit" variant="light" onClick={this.changeLocation}>
@@ -86,14 +98,14 @@ export class Snack extends Component {
             
           return(
           <div className="MealsStuff" id="moreMealStuff">  
-          <input type="number" placeholder={this.state.budget} onChange={this.handleChange('budget')}/>
+          <input type="number" placeholder={this.props.currentSnack.mealcost} onChange={this.handleChange('budget')}/>
           </div>
           );
         } 
         else {
-          return(
+           return(
           <div className="MealsStuff" id="moreMealStuff">      
-          <h4>${this.state.budget}</h4>
+          <h4>${this.props.currentSnack.mealcost}</h4>
           </div>
           
           );
@@ -122,30 +134,40 @@ export class Snack extends Component {
         }
 
       changeLocation() {
-          alert("herrrrrrrrrrrrrrrr");
-        if(this.state.editlocation === false) {
+        //handle saving here 
+
+         if(this.state.editlocation === false) {
           this.setState({
             editlocation:true
           })
         } else {
           this.setState({
             editlocation:false,
-            alreadysaved:false
+            alreadysaved:false,
           })
-      
+          this.state.budget = this.props.currentSnack.mealcost
+          this.props.lailafunc(this.state);
+
+          
         }
       } 
 
       changeBudget() {
+        //Handle Saving here
         if(this.state.editbudget === false) {
           this.setState({
             editbudget:true
           });
         } else {
+          //Save
           this.setState({
             editbudget:false,
-            alreadysaved:false
+            alreadysaved:false,
+            location: this.props.currentSnack.location
           })
+          this.state.location = this.props.currentSnack.location;
+          this.props.lailafunc(this.state);
+
         }
       
       } 
@@ -167,6 +189,12 @@ export class Snack extends Component {
             </Col> 
             </Row>      
         </div>;
+      //  this.state.budget = this.props.currentSnack.budget;
+        //this.state.location = this.props.currentSnack.location;
+        
+        if(this.props.currentSnack.mealcost != 0 || this.props.currentSnack.location !='') {
+          this.state.checked = false;
+        }
 
 /*
         <Accordion defaultActiveKey="1">

@@ -24,9 +24,10 @@ export class Breakfast extends Component {
             editmealcount:false,
             editwakeup:false,
             editsleep:false,
-            wakeup:null,
-            sleep:null,
-            mealcount:null,
+            wakeup:'',
+            sleep:'',
+            mealcount:'',
+            daynum: this.props.daynum
         
         };
         this.handleChangeCheck = this.handleChangeCheck.bind(this);
@@ -39,11 +40,7 @@ export class Breakfast extends Component {
     }
     handleChange = input => e => {
         this.setState({[input]: e.target.value})
-        if(input === 'budget'){
-          this.props.lailafunc(e.target.value);
-
-        }
-      
+        console.log("input" + input + " target " + e.target.value)
     }
     closeAll = () => {
         this.refs.run1.instance.hide();
@@ -162,7 +159,7 @@ export class Breakfast extends Component {
         
         return(
         <div className="MealsStuff2" id="moreMealStuff">      
-        <input type="time" value={this.state.wakeup} placeholder={this.state.wakeup}  onChange={this.handleChange('wakeup')}/>
+        <input type="time" placeholder={this.props.wakeup}  onChange={this.handleChange('wakeup')}/>
         </div>
         )
         
@@ -181,7 +178,7 @@ export class Breakfast extends Component {
     if(this.state.editsleep) {
       return(
       <div className="MealsStuff2" id="moreMealStuff">      
-      <input type="time" value={this.state.sleep} placeholder={this.state.sleep}  onChange={this.handleChange('sleep')}/>
+      <input type="time"  placeholder={this.props.sleep}  onChange={this.handleChange('sleep')}/>
       </div>
       )
       
@@ -227,6 +224,7 @@ export class Breakfast extends Component {
              </div>
         )
         } else {
+          //
           return(     
               <div className="MealsStuff" id="moreMealStuff">   
                <Button variant="light" onClick={this.changeWakeup}>
@@ -259,8 +257,7 @@ export class Breakfast extends Component {
     }
 
       changeLocation() {
-          alert("herrrrrrrrrrrrrrrr");
-        if(this.state.editlocation === false) {
+         if(this.state.editlocation === false) {
           this.setState({
             editlocation:true
           })
@@ -305,6 +302,10 @@ export class Breakfast extends Component {
             editwakeup:true
           });
         } else {
+          this.state.sleep = this.props.sleep;
+
+          this.props.handleWakeup(this.state)
+
           this.setState({
             editwakeup:false,
             alreadysaved:false
@@ -318,6 +319,9 @@ export class Breakfast extends Component {
             editsleep:true
           });
         } else {
+          this.state.wakeup = this.props.wakeup;
+          this.props.handleSleep(this.state)
+
           this.setState({
             editsleep:false,
             alreadysaved:false
@@ -332,6 +336,7 @@ export class Breakfast extends Component {
     }
     
     render() {
+
         const content = this.state.checked 
       ? null
       : <div className="MealsStuff" id="moreMealStuff"> 
@@ -348,41 +353,9 @@ export class Breakfast extends Component {
             </Col> 
             </Row>      
         </div>;
-
-/*
-<Accordion defaultActiveKey="1">
-     <Card className="notes2">
-
-       <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
-       <FontAwesomeIcon icon={faBacon} size = '2x' color='#c7d0d8' className="mr-3"/>  
-       <h2>Breakfast</h2>
-       </Accordion.Toggle>
-       <Accordion.Collapse eventKey="0">
-       <Card.Body>
-          <div className="mbsc-btn-group-block">
-                <div>
-                <div>
-                    <h3>I'm Not Eating</h3>
-                    <input 
-                    type="checkbox" 
-                    checked={ this.state.checked } 
-                    onChange={ this.handleChangeCheck } />
-                </div>
-                { content }
-                </div>
-                </div>
-        </Card.Body>
-       </Accordion.Collapse>
-
-     </Card>
-    </Accordion>
-
-
-*/
+ 
     return (
       <div id="meals2" className="breakfast">
-      
-
      
       <div id="movedown">
     <Row>

@@ -153,6 +153,10 @@ export class GenerateItinerary extends Component {
     this.onCustomCategory = this.onCustomCategory.bind(this);
     this.addEvent = this.addEvent.bind(this);
     this.addCustomEvent = this.addCustomEvent.bind(this);
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleWakeupSave = this.handleWakeupSave.bind(this);
+    this.handleSleepSave = this.handleSleepSave.bind(this);
+    this.handleAddMealstuffs = this.handleAddMealstuffs.bind(this);
     this.state = {
       enddate: this.props.values.enddate,
       startdate: this.props.values.startdate,
@@ -223,6 +227,36 @@ export class GenerateItinerary extends Component {
       category: "",
     };
   }
+  //Function to handle changing the wakeup time
+  handleWakeupSave(info) {
+    this.state.dailydata[info.daynum].wakeup = info.wakeup;
+    this.state.alreadysaved = false;
+    console.log("WAKEUP HANDLED")
+    this.handleSavedEdits();
+  }
+  handleSleepSave(info) {
+    this.state.dailydata[info.daynum].sleep = info.sleep;
+    this.state.alreadysaved = false;
+    console.log("SLEEP HANDLED")
+    this.handleSavedEdits();
+  }
+
+  handleAddMealstuffs(info) {
+    //Vars: type, location, budget
+    console.log("IN ADD MEALSTUFFS");
+    console.log(this.state.dailydata)
+    console.log(info)
+
+    this.state.dailydata[info.daynum].mealstuff[info.type.toString()].mealcost = info.budget;
+    
+    this.state.dailydata[info.daynum].mealstuff[info.type.toString()].location = info.location;
+    console.log("THIS IS DONE")
+    console.log(this.state.dailydata[info.daynum])
+    //this.state.dailydata[info.day].   .
+// Need to calculate this here    this.state.totalexpenseswithfood = this.state.totalexpenses + info.cost;
+    this.state.alreadysaved = false;
+    this.handleSavedEdits();
+  }
 
   handleAddBreakfast(cost) {
     this.setState({
@@ -243,6 +277,8 @@ export class GenerateItinerary extends Component {
     // console.log("HANDLED dinner")
   }
   handleAddSnack(cost) {
+    //Here, we need to save to DB
+
     this.setState({
       snack: cost,
     });
@@ -319,6 +355,14 @@ export class GenerateItinerary extends Component {
     //do i need hooks here
     this.state.alreadysaved = false;
     this.handleSavedEdits();
+  }
+
+  handleCancel() {
+    this.setState({
+      currentlyEditing:false,
+      currentEvent: null,
+      currentlyEditingOriginal: false
+    })
   }
 
   saveNewEvent = (info) => {
@@ -480,6 +524,9 @@ export class GenerateItinerary extends Component {
         intdailydata[str.valueOf()] = {
           scheduleactivities: thisdaystimes,
           cost: 0,
+          wakeup: 480,
+          sleep: 1380,
+          mealstuff: {"snack":{mealcost: 0 , location: ''}, "breakfast": {mealcost: 0 , location: ''}, "lunch": {mealcost: 0 , location: ''}, "dinner":{mealcost: 0 , location: ''}, "other": {mealcost: 0 , location: ''}}
         };
 
         if (len++ > 30) {
@@ -490,7 +537,8 @@ export class GenerateItinerary extends Component {
       }
 
       console.log("IN COMPONENT WILL MOUNT");
-      this.getDestinations();
+      console.log(fire.auth().currentUser)
+     
 
       console.log(this.state.dailydata);
     } else {
@@ -1052,6 +1100,7 @@ export class GenerateItinerary extends Component {
           className="activity-modal"
           days={this.state.days}
           saveNewEvent={this.saveNewEvent}
+          handleCancel={this.handleCancel}
         />
       );
     }
@@ -1064,6 +1113,7 @@ export class GenerateItinerary extends Component {
           className="activity-modal"
           days={this.state.days}
           saveNewEvent={this.saveNewEvent}
+          handleCancel={this.handleCancel}
         />
       );
     }
@@ -1678,6 +1728,7 @@ export class GenerateItinerary extends Component {
       itkey,
     };
 
+    this.getDestinations();
     //alert("orange is" + this.state.orange)
     let statenow = this;
     const curr = this;
@@ -2035,11 +2086,16 @@ export class GenerateItinerary extends Component {
                         </div>
                       </div>
                       <div className="MealsStuff" id="moreMealStuff">
-                        <Snack lailafunc={this.handleAddSnack} />
+                        <Snack lailafunc={this.handleAddMealstuffs} daynum={key} currentSnack={this.state.dailydata[key].mealstuff["snack"]}/>
                         <Other lailafunc={this.handleAddOther} />
                         <Dinner lailafunc={this.handleAddDinner} />
                         <Lunch lailafunc={this.handleAddLunch} />
-                        <Breakfast lailafunc={this.handleAddBreakfast} />
+                        <Breakfast lailafunc={this.handleAddBreakfast} 
+                          handleWakeup={this.handleWakeupSave} 
+                          handleSleep={this.handleSleepSave}
+                          sleep={this.state.dailydata[key].sleep} 
+                          wakeup={this.state.dailydata[key].wakeup} 
+                          daynum={key}/>
                         {this.renderTotalMealCost()}
                       </div>
                     </Tab>
