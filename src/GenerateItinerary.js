@@ -524,8 +524,8 @@ export class GenerateItinerary extends Component {
         intdailydata[str.valueOf()] = {
           scheduleactivities: thisdaystimes,
           cost: 0,
-          wakeup: 480,
-          sleep: 1380,
+          wakeup: "08:00",
+          sleep: "23:00",
           mealstuff: {"snack":{mealcost: 0 , location: ''}, "breakfast": {mealcost: 0 , location: ''}, "lunch": {mealcost: 0 , location: ''}, "dinner":{mealcost: 0 , location: ''}, "other": {mealcost: 0 , location: ''}}
         };
 
@@ -537,9 +537,8 @@ export class GenerateItinerary extends Component {
       }
 
       console.log("IN COMPONENT WILL MOUNT");
-      console.log(fire.auth().currentUser)
-     
-
+   
+      
       console.log(this.state.dailydata);
     } else {
       console.log("DAILY DATA FOUND");
@@ -551,7 +550,7 @@ export class GenerateItinerary extends Component {
       }
       console.log(this.state.days);
     }
-
+    console.log(this.state.dailydata  )
     this.state.timesoftheday[1000] = "BOFA";
   }
 

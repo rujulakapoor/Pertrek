@@ -15,11 +15,17 @@
 .card-tabletop {
     background-color:#00CECB;
     color:#FFFFEA;
+    margin-left: 10px;
+}
+.card-tabletop h4 {
+    margin-left: 10px;
+    margin-bottom: 0px;
 }
 .container{
     widht:100%
 }
 .cancel-event{
-    padding:10px;
+    background-color: #FF5E5B;
     margin:10px;
+    padding: 2px ;
 }

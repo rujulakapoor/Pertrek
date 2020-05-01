@@ -54,7 +54,7 @@ renderEdit(time, event) {
 renderCost(activity) {
   console.log(activity)
   if(activity.cost != null) {
-    return(<p> Cost: ${activity.cost} </p>)
+    return(<> Cost: ${activity.cost} </>)
   }
 }
 
@@ -198,8 +198,10 @@ renderTime(time) {
   var activity = event.eventdetails;
   var minutes = parseInt(time.substring(0,2)) * 60 + parseInt(time.substring(3))
   console.log("minutes is" + minutes )
+  console.log("State is "+this.state.sleep + "  " + this.state.wakeup)
   if(minutes > this.state.sleep || minutes < this.state.wakeup) {
-    console.log("PRE WAKEUP DETECTEd" + this.state.wakeup)
+    console.log(" PRE WAKEUP DETECTEd " + this.props.times.wakeup + " for time " + time)
+
     return;
   }
 
@@ -220,7 +222,8 @@ renderTime(time) {
     placement='top'
     overlay={
       <Tooltip id={`tooltip-${time}`}>
-        {event.notes}
+        Notes: {event.notes} <br/>
+        Cost: {event.cost}
       </Tooltip>
     }>
         <Card className="card-tabletop"> {this.renderEdit(time, event)}  </Card>
@@ -258,8 +261,41 @@ return (
   </thead>
 
     <tbody>
+    {/* {this.renderTime("00:00")}
+    {this.renderTime("00:15")}
+    {this.renderTime("00:30")}
+    {this.renderTime("00:45")}
+    {this.renderTime("01:00")}
+    {this.renderTime("01:15")}
+    {this.renderTime("01:30")}
+    {this.renderTime("01:45")}
+    {this.renderTime("02:00")}
+    {this.renderTime("02:15")}
+    {this.renderTime("02:30")}
+    {this.renderTime("02:45")}
+    {this.renderTime("03:00")}
+    {this.renderTime("03:15")}
+    {this.renderTime("03:30")}
+    {this.renderTime("03:45")}
+    {this.renderTime("04:00")}
+    {this.renderTime("04:15")}
+    {this.renderTime("04:30")}
+    {this.renderTime("04:45")}
+    {this.renderTime("05:00")}
+    {this.renderTime("05:15")}
+    {this.renderTime("05:30")}
+    {this.renderTime("05:45")}
+    {this.renderTime("06:00")}
+    {this.renderTime("06:15")}
+    {this.renderTime("06:30")}
+    {this.renderTime("06:45")}
+    {this.renderTime("07:00")}
+    {this.renderTime("07:15")}
+    {this.renderTime("07:30")}
+    {this.renderTime("07:45")}
 
 
+   */}
     
       {this.renderTime("08:00")}
       {this.renderTime("08:15")}
@@ -322,7 +358,11 @@ return (
           {this.renderTime("22:15")}
           {this.renderTime("22:30")} 
            {this.renderTime("22:45")} 
-           {this.renderTime("23:00")}
+       {this.renderTime("23:00")}
+       {/* {this.renderTime("24:00")}
+        {this.renderTime("24:15")}
+        {this.renderTime("24:30")}
+        {this.renderTime("24:45")} */}
 
 
      </tbody>
@@ -410,8 +450,12 @@ setTimes() {
 }
 render() {
 
-  
+  if(!this.props.times) {
+    return;
+  }
   if (this.props.times) {
+    console.log(this.props.times)
+    console.log("IS TIMES IN TB")
     this.state.times = this.props.times
     this.setTimes();
    } 
