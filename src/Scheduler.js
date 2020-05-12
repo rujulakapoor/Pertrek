@@ -95,7 +95,10 @@ class scheduler extends Component {
 			citySelect: city,
 			categorySelect: category,
 			alreadysaved: false,
-			itkey: null,
+			it
+			
+			
+			: null,
 			alreadyFaved: [],
 			favNames: [],
 			favKeys: [],
@@ -141,7 +144,7 @@ class scheduler extends Component {
 					var address = obj.location.address1 + "," + obj.location.city + "," + obj.location.zip_code;
 					var description = obj.name + " offers " + obj.categories[0].title + ". Call for more information at: " + obj.phone; //TODO: list all categories
 					var priceVal = '';
-					var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=AIzaSyCCmcTKSewv97TqQWpL-XX6lIE_5qo7jpc";
+					var mapSrc = "https://www.google.com/maps/embed/v1/view?zoom=17&center=" + obj.coordinates.latitude + "%2C" + obj.coordinates.longitude + "&key=GOOGLEMAPSAPIKEY";
 					
 					if(obj.price === undefined) {
 						priceVal = "free!";
